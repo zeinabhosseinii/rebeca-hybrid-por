@@ -1,0 +1,37 @@
+reactiveclass Customer(3) {
+	knownrebecs {
+		TicketService ts;
+	}
+	statevars {
+		boolean sent;
+	}
+	Customer() {
+		sent = false;
+		self.try();
+	}
+	msgsrv try() {
+		ts.requestTicket() deadline(24);
+		sent = true;
+	}
+	msgsrv ticketIssued() {
+		sent = false;
+		self.try() after(30);
+	}
+}
+reactiveclass TicketService(10) {
+	statevars {
+		int issueDelay;
+	}
+	TicketService(int myIssueDelay) {
+		issueDelay = myIssueDelay;
+	}
+	msgsrv requestTicket() {
+		delay(issueDelay);
+		((Customer)sender).ticketIssued();
+	}
+}
+main {
+	TicketService ts():(2);
+	Customer c1(ts):();
+	Customer c2(ts):();
+}

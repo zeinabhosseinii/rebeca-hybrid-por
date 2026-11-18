@@ -1,0 +1,17 @@
+# macOS and editors
+.DS_Store
+__MACOSX/
+.vscode/
+.idea/
+*.iml
+# Maven build products
+**/target/
+# Generated model-checker and analysis output
+**/rmc-output/
+**/output/
+**/compare_out/
+**/tmp/
+**/out_*/
+**/execute
+**/statespace.xml
+compare_results.txt

@@ -1,0 +1,99 @@
+// Two-Phase Commit (2PC) with a coordinator and two participants.
+// Correctness property: all participants agree on the same outcome
+// (either all commit or all abort).
+
+reactiveclass Coordinator(50) {
+	knownrebecs {
+		Participant p1;
+		Participant p2;
+		
+	}
+	statevars {
+		int votesYes;
+		int votesReceived;
+		boolean decided;
+		boolean committed;
+	}
+
+	Coordinator() {
+		votesYes = 0;
+		votesReceived = 0;
+		decided = false;
+		committed = false;
+		self.beginTransaction();
+	}
+	@priority(1)
+	msgsrv beginTransaction() {
+		p1.prepare();
+		p2.prepare();
+		}
+	@priority(1)
+	msgsrv voteReply(boolean vote) {
+		votesReceived = votesReceived + 1;
+		if (vote == true) {
+			votesYes = votesYes + 1;
+		}
+		if (votesReceived < 10) {
+			decided = true;
+			if (votesYes < 10) {
+				committed = true;
+				p1.commit();
+				p2.commit();
+			}
+			else {
+				committed = false;
+				p1.abort();
+				p2.abort();
+			}
+		}
+	}
+	@priority(1)
+	msgsrv ack() {
+		p1.prepare();
+		p2.prepare();
+	}
+}
+
+reactiveclass Participant(50) {
+	knownrebecs {
+		Coordinator coord;
+	}
+	statevars {
+		boolean ready;
+		boolean finalCommit;
+		boolean done;
+	}
+
+	Participant() {
+		ready = false;
+		finalCommit = false;
+		done = false;
+	}
+	@priority(1)
+	msgsrv prepare() {
+		// nondeterministic vote could go here; we use a fixed yes vote
+		ready = ?(false, true);
+		coord.voteReply(true);
+	}
+	@priority(1)
+	msgsrv commit() {
+		finalCommit = ?(false, true);
+		done = ?(false, true);
+		coord.ack();
+	}
+	@priority(1)
+	msgsrv abort() {
+		finalCommit = ?(false, true);
+		done = ?(false, true);
+		coord.ack();
+	}
+}
+
+main {
+	@priority(1)
+	Coordinator coord(p1, p2):();
+	@priority(1)
+    Participant p1(coord):();
+    @priority(1)
+    Participant p2(coord):();
+}

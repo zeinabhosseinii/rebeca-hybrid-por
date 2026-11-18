@@ -1,0 +1,108 @@
+reactiveclass HospitalManager(3) {
+    knownrebecs {
+        Doctor d1;
+        Doctor d2;
+    }
+    statevars {
+        int availableBeds;
+        int totalAdmissions;
+        boolean d1Active;
+        boolean d2Active;
+    }
+    HospitalManager() {
+        availableBeds = 5;
+        totalAdmissions = 0;
+        d1Active = false;
+        d2Active = false;
+        self.checkCapacity();
+    }
+    msgsrv checkCapacity() {
+        if (availableBeds > 0 && d1Active == false) {
+            d1Active = true;
+            d1.admitPatient();
+        }
+        if (availableBeds > 1 && d2Active == false) {
+            d2Active = true;
+            d2.admitPatient();
+        }
+    }
+    msgsrv bedReleased(byte doctorId) {
+        if (availableBeds < 5) {
+            availableBeds = availableBeds + 1;
+        }
+        if (doctorId == 1) {
+            d1Active = false;
+        } else {
+            d2Active = false;
+        }
+        if (totalAdmissions < 5) {
+            self.checkCapacity();
+        }
+    }
+    msgsrv bedOccupied() {
+        if (availableBeds > 0) {
+            availableBeds = availableBeds - 1;
+            totalAdmissions = totalAdmissions + 1;
+        }
+    }
+}
+
+reactiveclass Doctor(3) {
+    knownrebecs {
+        HospitalManager hm;
+        Pharmacy pharmacy;
+    }
+    statevars {
+        int patientCount;
+        byte id;
+    }
+    Doctor(byte myId) {
+        id = myId;
+        patientCount = 0;
+    }
+    msgsrv admitPatient() {
+        hm.bedOccupied();
+        patientCount = patientCount + 1;
+        pharmacy.requestMedicine(id);
+    }
+    msgsrv medicineReady(byte doctorId) {
+        hm.bedReleased(id);
+        if (patientCount > 0) {
+            patientCount = patientCount - 1;
+        }
+    }
+}
+
+reactiveclass Pharmacy(3) {
+    knownrebecs {
+        Doctor d1;
+        Doctor d2;
+    }
+    statevars {
+        int medicineStock;
+        int dispensed;
+    }
+    Pharmacy() {
+        medicineStock = 10;
+        dispensed = 0;
+    }
+    msgsrv requestMedicine(byte doctorId) {
+        if (medicineStock == 0) {
+            medicineStock = 10;
+        }
+        medicineStock = medicineStock - 1;
+        dispensed = dispensed + 1;
+        if (doctorId == 1) {
+            d1.medicineReady(doctorId);
+        } else {
+            d2.medicineReady(doctorId);
+        }
+    }
+}
+
+main {
+    Pharmacy pharmacy(d1, d2):();
+    Doctor d1(hm, pharmacy):((byte)1);
+    Doctor d2(hm, pharmacy):((byte)2);
+    HospitalManager hm(d1, d2):();
+}

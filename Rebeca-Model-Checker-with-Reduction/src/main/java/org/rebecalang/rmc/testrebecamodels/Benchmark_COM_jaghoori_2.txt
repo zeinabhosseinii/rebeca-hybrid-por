@@ -1,0 +1,159 @@
+reactiveclass Customer(10) {
+    knownrebecs { 
+        Agent agent;
+        LoggerService logger;
+    }
+    statevars { 
+        boolean sent; 
+        boolean waitingForResponse;
+        int requestCount;   // range: 0..5
+        int priority;       // 0: Low, 1: Medium, 2: High
+    }
+
+    Customer() {
+        sent = false;
+        waitingForResponse = false;
+        requestCount = 0;
+        priority = 1;
+        self.start();
+    }
+    msgsrv start() {
+        if (requestCount < 5) {
+            sent = true;
+            waitingForResponse = true;
+            requestCount = requestCount + 1;
+            agent.requestTicket(priority);
+            
+        }
+    }
+    msgsrv ticketIssued(boolean success) {
+        sent = false;
+        waitingForResponse = false;
+        
+        if (success) {
+        self.confirmation();
+        logger.logAgentActivity();
+        
+        }
+    }
+    msgsrv confirmation() {
+        logger.logAgentActivity();
+    
+    }
+        
+}
+
+
+reactiveclass Agent(15) {
+    knownrebecs { 
+        TicketService ts;
+        LoggerService logger;
+    }
+    statevars { 
+        boolean busy;
+        int pendingRequests;  // range: 0..10
+        int agentStatus;      // 0: Available, 1: Busy, 2: OnBreak, 3: Offline
+    }
+
+    Agent() { 
+        busy = false;
+        pendingRequests = 0;
+        agentStatus = 0;
+    }
+    msgsrv requestTicket(int priorityLevel) {
+        if (agentStatus == 0 || agentStatus == 1) {
+            pendingRequests = pendingRequests + 1;
+            
+            if (pendingRequests < 10) {
+                busy = true;
+                ts.handleRequest((Customer)sender, priorityLevel);
+           } } 
+    }
+    msgsrv notifyFromTS(boolean processed) {
+        if (pendingRequests > 0) {
+            pendingRequests = pendingRequests - 1;
+        }
+        
+        if (pendingRequests == 0) {
+            busy = false;
+        }
+                
+        if (?(0, 1) == 1) {
+            agentStatus = ?(0, 1, 2);            
+        }
+    }
+}
+
+reactiveclass TicketService(15) {
+    knownrebecs { Agent agent; }
+    statevars {
+        int queueLength;     // range: 0..20
+        int ticketsIssued;   // range: 0..100
+        boolean systemOverload;
+    }
+
+    TicketService() { 
+        queueLength = 0;
+        ticketsIssued = 0;
+        systemOverload = false;
+    }
+    msgsrv handleRequest(Customer c, int priorityLevel) {
+        queueLength = queueLength + 1;
+        
+        if (queueLength > 15) {
+            systemOverload = true;
+        }
+        
+        boolean success;
+        if (systemOverload) {
+            success = ?(0, 1) == 1; // 50% success rate when overloaded
+        } else {
+            success = true;
+        }
+        
+        if (success && ticketsIssued < 100) {
+            ticketsIssued = ticketsIssued + 1;
+            c.ticketIssued(true);
+            agent.notifyFromTS(true);
+        } else {
+            c.ticketIssued(false);
+            agent.notifyFromTS(false);
+        }
+        
+        if (queueLength > 0) {
+            queueLength = queueLength - 1;
+        }
+        
+        if (queueLength <= 10) {
+            systemOverload = false;
+        }
+    }
+}
+
+reactiveclass LoggerService(15) {
+    statevars {
+        int eventCount;         
+        int agentActivityCount; 
+        boolean bufferFull;
+    }
+
+    LoggerService() { 
+        eventCount = 0;
+        agentActivityCount = 0;
+        bufferFull = false;
+    }
+    
+    msgsrv logAgentActivity() {
+        if (agentActivityCount < 30) {
+            agentActivityCount = agentActivityCount + 1;
+        }
+    }
+    
+}
+
+main {
+    LoggerService logger():();
+    Agent agent(ts, logger):();
+    TicketService ts(agent):();
+    Customer customer(agent, logger):();
+}
