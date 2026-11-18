@@ -116,3 +116,37 @@ Standard Core Rebeca plus: `abstract reactiveclass`/`extends`, `abstract msgsrv`
 ## License
 
 MIT
+
+## Action dependency export
+
+Run `ARIA_EXPORT=1 ./run.sh file benchmarks/SlotGuard.rebeca` to write
+`output/SlotGuard/SlotGuard_conditional.json`. With `ARIA_PRUNE=1`, the
+output directory is `SlotGuard_pruned`. Exported access lists always omit
+accesses classified NEVER by GuardAnalysis.
+
+Schema version 2 adds `actions` and `actionDependencies`. Action IDs are local
+to the export and map to an instance and message server. Reachable runtime
+message servers are included, constructors are excluded. Every unordered pair,
+including the diagonal, has one row. Swap left and right when looking up a pair
+in the other direction. Unknown action IDs must retain dependency.
+
+Pair classes are ALWAYS, COND and INDEPENDENT. Same-instance pairs are ALWAYS.
+Cross-instance pairs contain shared-destination SVI witnesses after NEVER
+pruning. At least one ALWAYS witness makes the pair ALWAYS, otherwise any
+witness makes it COND. No witnesses means INDEPENDENT under this SDI relation.
+Causal exclusions are deliberately retained conservatively in this export.
+This table describes SDI, and the generator must still enforce queue, timing,
+property visibility and POR proviso requirements.
+
+Each SVI witness identifies its target instance and conflicting variable, plus
+leftSend, rightSend, leftAccess and rightAccess references. An access reference
+uses instance, messageServer and a zero-based accessIndex into the exported
+(filtered) accesses array. The referenced records contain the condition, class,
+arguments and evaluable flag. Witnesses form a disjunction, the four access
+conditions within each witness form a conjunction in their respective execution
+contexts. Target-handler parameters come from the corresponding SEND arguments.
+The target accesses describe later handler execution, so evaluating all four
+conditions against the current state is insufficient. Until runtime resolution
+accounts for intermediate writes and guard flippers, retain COND dependencies.
+Unknown conditions also retain dependency. This export does not itself implement
+runtime conditional resolution.
