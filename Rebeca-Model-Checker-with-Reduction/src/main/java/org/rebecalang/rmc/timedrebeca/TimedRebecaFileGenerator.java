@@ -211,7 +211,8 @@ public class TimedRebecaFileGenerator extends CoreRebecaFileGenerator {
 
 		org.rebecalang.rmc.PORSafetyAnalyzer.Result porResult =
 				fileGeneratorProperties.isAriaReduction()
-						? org.rebecalang.rmc.ERDGSafetyAnalyzer.analyze(rebecaModel)
+						? org.rebecalang.rmc.ERDGSafetyAnalyzer.analyze(rebecaModel, fileGeneratorProperties.getAriaJsonPath(),
+                                fileGeneratorProperties.getAriaModelSha256())
 						: org.rebecalang.rmc.PORSafetyAnalyzer.analyze(rebecaModel);
 		context.put("safeActionsTable", porResult.safeActionsTable);
 		context.put("maxMsgIdPlusOne", porResult.maxMsgId + 1);

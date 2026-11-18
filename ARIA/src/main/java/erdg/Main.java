@@ -228,7 +228,7 @@ public class Main {
             fa.print();
             try {
                 JsonExporter.write("output/" + modelName + (PRUNE_NEVER ? "_pruned" : "")
-                        + "/" + modelName + "_conditional.json", modelName, ga, fa);
+                        + "/" + modelName + "_conditional.json", modelName, ga, fa, code);
             } catch (java.io.IOException ex) {
                 throw new RuntimeException(ex);
             }

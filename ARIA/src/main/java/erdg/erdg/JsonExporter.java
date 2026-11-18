@@ -39,8 +39,22 @@ import erdg.ast.Expr;
 public class JsonExporter {
 
     public static void write(String path, String model, GuardAnalysis ga, FlipperAnalysis fa) throws IOException {
+        write(path, model, ga, fa, null);
+    }
+
+    public static void write(String path, String model, GuardAnalysis ga, FlipperAnalysis fa,
+                             String source) throws IOException {
         StringBuilder sb = new StringBuilder();
-        sb.append("{\n  \"version\": 2,\n  \"model\": ").append(str(model)).append(",\n");
+        if (source != null) {
+            try {
+                String hash = java.util.HexFormat.of().formatHex(java.security.MessageDigest
+                        .getInstance("SHA-256").digest(source.getBytes(StandardCharsets.UTF_8)));
+                sb.append("{\n  \"sourceSha256\": ").append(str(hash)).append(",\n");
+            } catch (java.security.NoSuchAlgorithmException ex) {
+                throw new IllegalStateException(ex);
+            }
+        } else sb.append("{\n");
+        sb.append("  \"version\": 2,\n  \"model\": ").append(str(model)).append(",\n");
         sb.append("  \"instances\": [\n");
 
         List<String> names = ga.instanceNames();

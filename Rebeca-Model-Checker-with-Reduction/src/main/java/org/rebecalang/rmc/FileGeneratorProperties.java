@@ -10,6 +10,12 @@ public class FileGeneratorProperties {
 	protected boolean safeMode;
 	protected boolean reduction;
 	protected boolean ariaReduction;
+    private String ariaJsonPath;
+    private String ariaModelSha256;
+    public String getAriaJsonPath() { return ariaJsonPath; }
+    public void setAriaJsonPath(String path) { ariaJsonPath = path; }
+    public String getAriaModelSha256() { return ariaModelSha256; }
+    public void setAriaModelSha256(String hash) { ariaModelSha256 = hash; }
 	protected boolean symmetry;
 
 	// Per-class set of msgsrv names whose bodies never read 'sender'.

@@ -150,3 +150,7 @@ conditions against the current state is insufficient. Until runtime resolution
 accounts for intermediate writes and guard flippers, retain COND dependencies.
 Unknown conditions also retain dependency. This export does not itself implement
 runtime conditional resolution.
+
+Exports generated through the CLI also contain `sourceSha256`, the SHA-256 of
+the input model's UTF-8 source. The RMC `--aria-json` importer requires this hash
+to match its source model. Regenerate JSON after any model edit.

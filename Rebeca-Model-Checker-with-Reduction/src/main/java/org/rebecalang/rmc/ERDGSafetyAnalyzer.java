@@ -880,6 +880,12 @@ public class ERDGSafetyAnalyzer {
     // ── public entry point ────────────────────────────────────────────────────
 
     public static PORSafetyAnalyzer.Result analyze(RebecaModel rebecaModel) {
+        return analyze(rebecaModel, null, null);
+    }
+
+    public static PORSafetyAnalyzer.Result analyze(RebecaModel rebecaModel,
+                                                    String jsonPath, String modelHash) {
+
         ModelIndex idx    = new ModelIndex(rebecaModel);
         SendGraph  g      = buildSendGraph(idx);
         Map<Integer, Set<Integer>> causal = computeCausalTriggering(g);
@@ -933,6 +939,20 @@ public class ERDGSafetyAnalyzer {
         });
         List<Integer> ampSetOrder = Arrays.asList(orderArr);
 
+        if (jsonPath != null) {
+            Map<String, int[]> actionIds = new LinkedHashMap<>();
+            for (String inst : idx.instanceNames) {
+                ReactiveClassDeclaration rc = idx.typeToRcd.get(idx.instanceTypeName.get(inst));
+                for (ReactiveClassDeclaration ancestor : inheritanceChain(rc, idx.typeToRcd)) {
+                    for (MsgsrvDeclaration ms : ancestor.getMsgsrvs()) {
+                        String label = inst + "." + ms.getName();
+                        actionIds.putIfAbsent(label, new int[] {idx.instanceIndex.get(inst),
+                                resolveMessageId(ms.getName(), idx.instanceTypeName.get(inst), idx)});
+                    }
+                }
+            }
+            AriaDependencyInput.apply(jsonPath, modelHash, idx.instanceTypeName, actionIds, sdiTable);
+        }
         return new PORSafetyAnalyzer.Result(table, idx.maxMsgId, sdiTable, ampSetOrder);
     }
 

@@ -98,6 +98,7 @@ public class RMC {
 			options.addOption(new Option(null, "tracegenerator", false, "Instead of model checking, some traces of the model is generated."));
 			options.addOption(new Option(null, "compactdtg", false, "Using this feature, compact DTG is generated on-the-fly from TTS."));
 			options.addOption(new Option(null, "por", false, "Enable partial order reduction."));
+			options.addOption(new Option(null, "aria-json", true, "Read ARIA v2 action dependencies (requires --aria, timed FTTS)."));
 			options.addOption(new Option(null, "aria", false, "Enable ERDG-based partial order reduction (Aria's method)."));
 			options.addOption(new Option(null, "symm", false, "Enable symmetry reduction."));
 
@@ -194,6 +195,17 @@ public class RMC {
 			fileGenerationProperties.setReduction(commandLine.hasOption("por"));
 			fileGenerationProperties.setAriaReduction(commandLine.hasOption("aria"));
 			fileGenerationProperties.setSymmetry(commandLine.hasOption("symm"));
+            if (commandLine.hasOption("aria-json")) {
+                if (!commandLine.hasOption("aria") ||
+                        !(fileGenerationProperties instanceof TimedRebecaFileGeneratorProperties) ||
+                        ((TimedRebecaFileGeneratorProperties) fileGenerationProperties).isTTS() ||
+                        fileGenerationProperties.isTraceGenerator())
+                    throw new IllegalArgumentException("--aria-json requires --aria and timed FTTS model checking");
+                fileGenerationProperties.setAriaJsonPath(commandLine.getOptionValue("aria-json"));
+                byte[] source = java.nio.file.Files.readAllBytes(rebecaFile.toPath());
+                fileGenerationProperties.setAriaModelSha256(java.util.HexFormat.of().formatHex(
+                        java.security.MessageDigest.getInstance("SHA-256").digest(source)));
+            }
 			
 			rmc.modelCheckersFilesGenerator.generateFiles(rebecaFile, propertyFile, destination, compilerFeatures, fileGenerationProperties);
 			
