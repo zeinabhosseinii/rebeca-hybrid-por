@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -16,9 +17,9 @@ import erdg.ast.Expr;
 /**
  * Writes the information the state-space generator needs (no external JSON library).
  *
- * Schema (version 1):
+ * Schema (version 2):
  * {
- *   "version": 1, "model": "...",
+ *   "version": 2, "model": "...",
  *   "instances": [ {
  *       "name", "class", "stateVars": [...],
  *       "possibleValues": { var: [values] | "ANY" },
@@ -39,7 +40,7 @@ public class JsonExporter {
 
     public static void write(String path, String model, GuardAnalysis ga, FlipperAnalysis fa) throws IOException {
         StringBuilder sb = new StringBuilder();
-        sb.append("{\n  \"version\": 1,\n  \"model\": ").append(str(model)).append(",\n");
+        sb.append("{\n  \"version\": 2,\n  \"model\": ").append(str(model)).append(",\n");
         sb.append("  \"instances\": [\n");
 
         List<String> names = ga.instanceNames();
@@ -62,7 +63,9 @@ public class JsonExporter {
             }
             sb.append("]}").append(i + 1 < gv.size() ? ",\n" : "\n");
         }
-        sb.append("  ]\n}\n");
+        sb.append("  ],\n");
+        actionDependencies(sb, ga);
+        sb.append("\n}\n");
 
         Path p = Path.of(path);
         if (p.getParent() != null) Files.createDirectories(p.getParent());
@@ -138,6 +141,102 @@ public class JsonExporter {
             sb.append("]}");
         }
         sb.append(first ? "]}" : "\n        ]}");
+    }
+
+
+    private record Action(String instance, String method) {}
+
+    private static List<Access> effectiveAccesses(Action action, GuardAnalysis ga) {
+        return ga.messageServer(action.instance(), action.method()).accesses().stream()
+                .filter(a -> ga.classifyAccess(a, action.instance(), action.method()) != Cls.NEVER)
+                .toList();
+    }
+
+    /** Complete unordered pair table, including the diagonal. No causal edges are removed. */
+    private static void actionDependencies(StringBuilder sb, GuardAnalysis ga) {
+        List<Action> actions = new ArrayList<>();
+        for (String inst : ga.instanceNames()) {
+            ReactiveClass rc = ga.classOfInstance(inst);
+            if (rc == null) continue;
+            for (String method : rc.messageServers().keySet()) {
+                if (!method.equals(rc.name()) && ga.isReachable(inst, method))
+                    actions.add(new Action(inst, method));
+            }
+        }
+        sb.append("  \"actions\": [");
+        for (int i = 0; i < actions.size(); i++) {
+            if (i > 0) sb.append(", ");
+            sb.append("{\"id\": ").append(i).append(", \"instance\": ")
+              .append(str(actions.get(i).instance())).append(", \"messageServer\": ")
+              .append(str(actions.get(i).method())).append("}");
+        }
+        sb.append("],\n  \"actionDependencies\": [");
+        boolean first = true;
+        for (int i = 0; i < actions.size(); i++) {
+            for (int j = i; j < actions.size(); j++) {
+                Action left = actions.get(i), right = actions.get(j);
+                List<String> reasons = new ArrayList<>();
+                if (left.instance().equals(right.instance())) {
+                    reasons.add("{\"kind\": \"SAME_INSTANCE\", \"class\": \"ALWAYS\"}");
+                } else {
+                    sharedDestinationReasons(reasons, left, right, ga);
+                }
+                String cls = reasons.isEmpty() ? "INDEPENDENT" : "COND";
+                if (reasons.stream().anyMatch(r -> r.contains("\"class\": \"ALWAYS\""))) cls = "ALWAYS";
+                if (!first) sb.append(",");
+                first = false;
+                sb.append("\n    {\"left\": ").append(i).append(", \"right\": ").append(j)
+                  .append(", \"class\": ").append(str(cls)).append(", \"reasons\": [")
+                  .append(String.join(", ", reasons)).append("]}");
+            }
+        }
+        sb.append("\n  ]");
+    }
+
+    private static void sharedDestinationReasons(List<String> reasons, Action left,
+                                                 Action right, GuardAnalysis ga) {
+        List<Access> la = effectiveAccesses(left, ga), ra = effectiveAccesses(right, ga);
+        for (int i = 0; i < la.size(); i++) {
+            Access ls = la.get(i);
+            if (ls.kind() != Access.Kind.SEND) continue;
+            for (int j = 0; j < ra.size(); j++) {
+                Access rs = ra.get(j);
+                if (rs.kind() != Access.Kind.SEND) continue;
+                for (String target : ga.sendTargets(left.instance(), ls)) {
+                    if (!ga.sendTargets(right.instance(), rs).contains(target)) continue;
+                    Action lm = new Action(target, ls.msgsrv()), rm = new Action(target, rs.msgsrv());
+                    if (!ga.knows(target, ls.msgsrv()) || !ga.knows(target, rs.msgsrv())) {
+                        reasons.add("{\"kind\": \"UNKNOWN_TARGET\", \"class\": \"ALWAYS\"}");
+                        continue;
+                    }
+                    List<Access> lx = effectiveAccesses(lm, ga), rx = effectiveAccesses(rm, ga);
+                    for (int x = 0; x < lx.size(); x++) {
+                        for (int y = 0; y < rx.size(); y++) {
+                            Access a = lx.get(x), b = rx.get(y);
+                            if (a.kind() == Access.Kind.SEND || b.kind() == Access.Kind.SEND) continue;
+                            if (!a.target().equals(b.target())) continue;
+                            if (a.kind() != Access.Kind.WRITE && b.kind() != Access.Kind.WRITE) continue;
+                            boolean always = ga.classifyAccess(ls, left.instance(), left.method()) == Cls.ALWAYS
+                                    && ga.classifyAccess(rs, right.instance(), right.method()) == Cls.ALWAYS
+                                    && ga.classifyAccess(a, target, lm.method()) == Cls.ALWAYS
+                                    && ga.classifyAccess(b, target, rm.method()) == Cls.ALWAYS;
+                            reasons.add("{\"kind\": \"SHARED_DESTINATION_SVI\", \"class\": "
+                                    + str(always ? "ALWAYS" : "COND") + ", \"target\": " + str(target)
+                                    + ", \"variable\": " + str(a.target())
+                                    + ", \"leftSend\": " + accessRef(left, i)
+                                    + ", \"rightSend\": " + accessRef(right, j)
+                                    + ", \"leftAccess\": " + accessRef(lm, x)
+                                    + ", \"rightAccess\": " + accessRef(rm, y) + "}");
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private static String accessRef(Action action, int index) {
+        return "{\"instance\": " + str(action.instance()) + ", \"messageServer\": "
+                + str(action.method()) + ", \"accessIndex\": " + index + "}";
     }
 
     // ---- Expr -> JSON ----
