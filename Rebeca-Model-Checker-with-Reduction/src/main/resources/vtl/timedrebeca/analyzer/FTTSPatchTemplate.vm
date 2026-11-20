@@ -65,11 +65,7 @@ void TimedModelChecker::printModelCheckingOptions() {
 }
 
 void TimedModelChecker::exportModelCheckingReportExtraDetails() {
-#ifdef EXPLORE_ALL_TERMINALS
-    out << "<exploration complete=\"" << (explorationComplete ? "true" : "false")
-        << "\" terminal-transitions=\""
-        << terminalTransitions << "\"/>" << endl;
-#endif
+
 }
 
 
@@ -273,18 +269,8 @@ long TimedModelChecker::executeRebec(int rebecId) {
 	}
 
     if (nextRebecTime == MAX_TIME) {
-#ifdef EXPLORE_ALL_TERMINALS
-        // Store/export the terminal successor, but do not enqueue an empty state.
-        terminalTransitions++;
-#ifdef EXPORT_STATE_SPACE
-        if (result & NEW_STATE) exportState(newState, statespace);
-        exportTransition(current, newState, sender, rebecs[rebecId]->getName(), actionName, executionTime, shift, statespace);
-#endif
-        return nonDetTrans;
-#else
         current = newState;
         throw DeadlockException("Deadlock");
-#endif
     }
 
     if (result & NEW_STATE) {

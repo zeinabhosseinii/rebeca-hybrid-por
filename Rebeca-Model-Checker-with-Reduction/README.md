@@ -130,24 +130,13 @@ transition counts may include repeat attempts. This is not a proof of timed POR:
 the exported relation still needs validation for queue ordering, enabling,
 timing and property visibility before dynamic guard pruning is trusted.
 
-For finite FTTS models, compile BOTH baseline and ARIA output with:
+Deadlocks always stop exploration immediately and produce a counterexample.
+The former EXPLORE_ALL_TERMINALS mode has been removed. Use a model whose
+normal search returns satisfied to compare complete state counts.
 
-```bash
-g++ -std=c++11 -pthread -O2 -DEXPLORE_ALL_TERMINALS *.cpp -o execute
-./execute > full-report.xml
-```
-
-This validation mode continues after empty-message terminal successors. It still
-reports `deadlock` if terminal transitions were seen; there is no single error
-trace in this mode. `<exploration complete="true" .../>` means the work queue
-was exhausted. Assertions, overflow and missed deadlines still abort and report
-`complete="false"`. Terminal-transition counts include repeated exploration
-attempts and are NOT unique terminal-state counts. This mode does not make an
-infinite model finite. The usual build without this macro still stops at the
-first deadlock and prints its trace. Compare property outcomes after complete
-runs; state counts need not match between baseline and POR.
-
-Run `bash tests/compare_slotguard.sh` to build and regenerate both SlotGuard
-variants and compare completed reports. A fresh ARIA JSON must already exist.
-Reports are saved under `tmp/SlotGuard_full_{baseline,aria}/full-report.xml`.
-Run `python3 tests/validate_ftts.py` for the standalone C++ snippet regressions.
+Run `bash tests/compare_loadbalancer.sh` to build ARIA and RMC and compare:
+original baseline, ARIA priority-annotated model, dynamic ARIA analysis, and
+imported ARIA JSON. The comparison reports normal property outcomes, never
+continues past deadlocks, and does not equate equal outcomes with a POR proof.
+The English comment describing channel balance is not an executable property.
+Run `python3 tests/validate_ftts.py` for standalone snippet regressions.

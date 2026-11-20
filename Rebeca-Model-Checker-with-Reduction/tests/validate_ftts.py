@@ -37,7 +37,7 @@ struct DeadlockException { DeadlockException(string) {} };
 struct State {};
 State oldState, nextState;
 State* current=&oldState;
-unsigned long terminalTransitions=0;
+
 long finish(int nextRebecTime) {
     State* newState=&nextState; (void)newState;
     long nonDetTrans=2; (void)nonDetTrans;
@@ -64,13 +64,9 @@ int main() {
     sdiPairs[0][1][1][2]=true;
     assert(!safe(0)); // Future dependent action, even with an empty queue.
     assert(finish(0)==3);
-#ifdef EXPLORE_ALL_TERMINALS
-    assert(finish(MAX_TIME)==2 && terminalTransitions==1 && current==&oldState);
-#else
     bool thrown=false;
     try { finish(MAX_TIME); } catch (DeadlockException&) { thrown=true; }
     assert(thrown && current==&nextState);
-#endif
 }
 '''.replace('SAFETY', safety).replace('TERMINAL_BLOCK', terminal)
 for marker, idx in [('ACCESS0','0'),('ACCESS1','1'),('ACCESSSIDE','i++'),('ACCESSNESTED',access('2')),('ACCESSINVALID','invalid')]:
@@ -78,7 +74,7 @@ for marker, idx in [('ACCESS0','0'),('ACCESS1','1'),('ACCESSSIDE','i++'),('ACCES
 with tempfile.TemporaryDirectory() as tmp:
     cpp=Path(tmp)/'test.cpp'; cpp.write_text(source)
     for opt in ['-O0','-O2']:
-        for flags in [[],['-DEXPLORE_ALL_TERMINALS']]:
+        for flags in [[]]:
             subprocess.run(['g++','-std=c++11',opt,'-Wall','-Wextra','-Werror',*flags,str(cpp),'-o',str(Path(tmp)/'test')],check=True)
             subprocess.run([str(Path(tmp)/'test')],check=True)
-print('PASS: array assignment, nested/side-effect indices, bounds, future dependencies, terminal modes (O0/O2)')
+print('PASS: array assignment, nested/side-effect indices, bounds, future dependencies, deadlock stops execution (O0/O2)')

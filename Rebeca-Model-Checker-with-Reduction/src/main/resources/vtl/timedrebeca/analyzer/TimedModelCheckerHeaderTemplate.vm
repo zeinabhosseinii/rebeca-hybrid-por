@@ -25,10 +25,7 @@ protected:
 	virtual void exportModelCheckingReportExtraDetails();
 	
 public:
-#ifdef EXPLORE_ALL_TERMINALS
-    unsigned long terminalTransitions = 0;
-    bool explorationComplete = false;
-#endif
+
 
 	TimedModelChecker(std::ostream &out 
 		#ifdef EXPORT_STATE_SPACE
