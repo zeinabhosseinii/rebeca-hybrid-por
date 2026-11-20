@@ -24,7 +24,9 @@ for run_mode in baseline static aria_ast aria_json; do
   java "$@"
   (
     cd "$run_dir"
-    g++ -std=c++11 -pthread -O2 *.cpp -o execute 2> compile.log
+    set -- -std=c++11 -pthread -O2
+    if [[ "${POR_DIAGNOSTICS:-0}" == 1 ]]; then set -- "$@" -DPOR_DIAGNOSTICS; fi
+    g++ "$@" *.cpp -o execute 2> compile.log
     ./execute > report.xml 2> errors.log
   )
 done

@@ -29,7 +29,14 @@ bool TimedModelChecker::areActiveActionsSafe(byte* state, int r, int propertySel
     for (int j = 0; j < REBEC_COUNT; j++) {
         if (j == r) continue;
         for (int jMsgId = 1; jMsgId < $maxMsgIdPlusOne; jMsgId++)
-            if (sdiPairs[r][rMsgId][j][jMsgId]) return false;
+            if (sdiPairs[r][rMsgId][j][jMsgId]) {
+#ifdef POR_DIAGNOSTICS
+                cerr << "POR_BLOCK state=" << current.state->stateID
+                     << " actor=" << rebecs[r]->getName() << " msg=" << rMsgId
+                     << " blocker=" << rebecs[j]->getName() << " blockerMsg=" << jMsgId << endl;
+#endif
+                return false;
+            }
     }
     return true;
 #else
@@ -142,6 +149,11 @@ void TimedModelChecker::doTimedModelChecking(string userSelectedPropertyName, st
             if (rebecs[r]->getPriority() != highestPriority) continue;
             TIME_TYPE execTime = (max(rebecs[r]->getNow(), rebecs[r]->executionTime[0]));
             if (execTime > currentTime) continue;
+#ifdef POR_DIAGNOSTICS
+            cerr << "POR_CANDIDATE state=" << current.state->stateID
+                 << " actor=" << rebecs[r]->getName() << " action=" << rebecs[r]->activeAction()
+                 << " alternatives=" << getNumberOfAlternatives(r, execTime) << endl;
+#endif
             // Different same-time queue heads need separate dependency checks.
             if (getNumberOfAlternatives(r, execTime) == 1 && areActiveActionsSafe(NULL, r, 0)) {
                 long nonDetTrans;
@@ -164,14 +176,27 @@ void TimedModelChecker::doTimedModelChecking(string userSelectedPropertyName, st
                         currentTime = current.currentTime;
                         // Conservative BFS proviso: EVERY generated successor must be
                         // new or still open. A closed successor triggers full expansion.
-                        if (!(_porResult & NEW_STATE) && _porResultState->openCount == 0)
+                        if (!(_porResult & NEW_STATE) && _porResultState->openCount == 0) {
                             provisoSatisfied = false;
+#ifdef POR_DIAGNOSTICS
+                            cerr << "POR_PROVISO_REJECT state=" << current.state->stateID
+                                 << " actor=" << rebecs[r]->getName()
+                                 << " closedSuccessor=" << _porResultState->stateID << endl;
+#endif
+                        }
                     } while (nonDetTrans > 0);
                 }
                 reductionApplied = provisoSatisfied;
+#ifdef POR_DIAGNOSTICS
+                cerr << "POR_TRIAL state=" << current.state->stateID
+                     << " actor=" << rebecs[r]->getName() << " accepted=" << reductionApplied << endl;
+#endif
             }
         }
         if (!reductionApplied) {
+#ifdef POR_DIAGNOSTICS
+            cerr << "POR_FULL state=" << current.state->stateID << endl;
+#endif
         #endif
 
         for (int r = 0; r < REBEC_COUNT; r++) {

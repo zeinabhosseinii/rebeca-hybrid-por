@@ -25,21 +25,23 @@ source = r'''
 #include <cassert>
 #include <stdexcept>
 #include <string>
+#include <iostream>
 using namespace std;
 void assertion(bool ok, string) { if (!ok) throw out_of_range("index"); }
 const string reactiveClassName="Test", methodName="array";
 const int REBEC_COUNT=2, MAX_TIME=999;
-struct Actor { unsigned char messageQueue[1]; } actors[2];
+struct Actor { unsigned char messageQueue[1]; const char* getName() { return "Test"; } } actors[2];
 Actor* rebecs[2]={&actors[0], &actors[1]};
 bool sdiPairs[2][3][2][3]={};
-bool safe(int r) { SAFETY }
 struct DeadlockException { DeadlockException(string) {} };
-struct State {};
+struct State { int stateID=1; };
 State oldState, nextState;
-State* current=&oldState;
+struct Node { State* state; };
+Node current={&oldState};
+bool safe(int r) { SAFETY }
 
 long finish(int nextRebecTime) {
-    State* newState=&nextState; (void)newState;
+    Node newState={&nextState}; (void)newState;
     long nonDetTrans=2; (void)nonDetTrans;
     TERMINAL_BLOCK
     return 3;
@@ -66,7 +68,7 @@ int main() {
     assert(finish(0)==3);
     bool thrown=false;
     try { finish(MAX_TIME); } catch (DeadlockException&) { thrown=true; }
-    assert(thrown && current==&nextState);
+    assert(thrown && current.state==&nextState);
 }
 '''.replace('SAFETY', safety).replace('TERMINAL_BLOCK', terminal)
 for marker, idx in [('ACCESS0','0'),('ACCESS1','1'),('ACCESSSIDE','i++'),('ACCESSNESTED',access('2')),('ACCESSINVALID','invalid')]:
@@ -74,7 +76,7 @@ for marker, idx in [('ACCESS0','0'),('ACCESS1','1'),('ACCESSSIDE','i++'),('ACCES
 with tempfile.TemporaryDirectory() as tmp:
     cpp=Path(tmp)/'test.cpp'; cpp.write_text(source)
     for opt in ['-O0','-O2']:
-        for flags in [[]]:
+        for flags in [[],['-DPOR_DIAGNOSTICS']]:
             subprocess.run(['g++','-std=c++11',opt,'-Wall','-Wextra','-Werror',*flags,str(cpp),'-o',str(Path(tmp)/'test')],check=True)
             subprocess.run([str(Path(tmp)/'test')],check=True)
 print('PASS: array assignment, nested/side-effect indices, bounds, future dependencies, deadlock stops execution (O0/O2)')
