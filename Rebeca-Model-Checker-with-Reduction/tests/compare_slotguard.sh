@@ -11,12 +11,12 @@ model_path="$rmc_root/../ARIA/benchmarks/SlotGuard.rebeca"
 json_path="$rmc_root/../ARIA/output/SlotGuard_pruned/SlotGuard_conditional.json"
 for run_mode in baseline aria; do
   run_dir="$rmc_root/tmp/SlotGuard_full_$run_mode"
-  extra_args=()
+  # Positional parameters also support zero extra arguments in macOS Bash 3.2.
+  set -- -jar target/rmc-2.14.jar -s "$model_path" -e TIMED_REBECA -v 2.3 -o "$run_dir"
   if [[ "$run_mode" == aria ]]; then
-    extra_args=(--aria --aria-json "$json_path")
+    set -- "$@" --aria --aria-json "$json_path"
   fi
-  java -jar target/rmc-2.14.jar -s "$model_path" -e TIMED_REBECA -v 2.3 \
-    "${extra_args[@]}" -o "$run_dir"
+  java "$@"
   (
     cd "$run_dir"
     g++ -std=c++11 -pthread -O2 -DEXPLORE_ALL_TERMINALS *.cpp -o execute
