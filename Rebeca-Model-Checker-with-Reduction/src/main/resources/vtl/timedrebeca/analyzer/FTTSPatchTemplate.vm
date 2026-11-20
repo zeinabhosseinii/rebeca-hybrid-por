@@ -18,7 +18,7 @@
 #if ($fileGeneratorProperties.isReduction())
 bool TimedModelChecker::areActiveActionsSafe(byte* state, int r, int propertySelector) {
 #if ($fileGeneratorProperties.isAriaReduction())
-    // Dynamic SDI check: r is safe iff no currently-enabled j has SDI with r.
+    // Conservative C1 fallback: include future message servers, not just queue heads.
     static bool sdiPairs[REBEC_COUNT][$maxMsgIdPlusOne][REBEC_COUNT][$maxMsgIdPlusOne] = {
 #foreach($rowI in $sdiMatrix)
         { #foreach($rowIM in $rowI){ #foreach($rowJ in $rowIM){ #foreach($val in $rowJ)$val#if(!$foreach.last), #end#end }#if(!$foreach.last), #end#end }#if(!$foreach.last), #end#end }#if(!$foreach.last),#end
@@ -28,9 +28,8 @@ bool TimedModelChecker::areActiveActionsSafe(byte* state, int r, int propertySel
     int rMsgId = (unsigned char)rebecs[r]->messageQueue[0];
     for (int j = 0; j < REBEC_COUNT; j++) {
         if (j == r) continue;
-        int jMsgId = (unsigned char)rebecs[j]->messageQueue[0];
-        if (jMsgId == 0) continue;
-        if (sdiPairs[r][rMsgId][j][jMsgId]) return false;
+        for (int jMsgId = 1; jMsgId < $maxMsgIdPlusOne; jMsgId++)
+            if (sdiPairs[r][rMsgId][j][jMsgId]) return false;
     }
     return true;
 #else
@@ -66,6 +65,11 @@ void TimedModelChecker::printModelCheckingOptions() {
 }
 
 void TimedModelChecker::exportModelCheckingReportExtraDetails() {
+#ifdef EXPLORE_ALL_TERMINALS
+    out << "<exploration complete=\"" << (explorationComplete ? "true" : "false")
+        << "\" terminal-transitions=\""
+        << terminalTransitions << "\"/>" << endl;
+#endif
 }
 
 
@@ -142,7 +146,8 @@ void TimedModelChecker::doTimedModelChecking(string userSelectedPropertyName, st
             if (rebecs[r]->getPriority() != highestPriority) continue;
             TIME_TYPE execTime = (max(rebecs[r]->getNow(), rebecs[r]->executionTime[0]));
             if (execTime > currentTime) continue;
-            if (areActiveActionsSafe(NULL, r, 0)) {
+            // Different same-time queue heads need separate dependency checks.
+            if (getNumberOfAlternatives(r, execTime) == 1 && areActiveActionsSafe(NULL, r, 0)) {
                 long nonDetTrans;
                 bool provisoSatisfied = true;
                 int numberOfAlternatives = getNumberOfAlternatives(r, execTime);
@@ -161,12 +166,8 @@ void TimedModelChecker::doTimedModelChecking(string userSelectedPropertyName, st
                             out << "</state>" << endl;
                         #endif
                         currentTime = current.currentTime;
-                        // Open-set proviso (Bosnacki, Leue & Lluch Lafuente, STTT 2009;
-                        // generalizes the SPIN BFS cycle proviso): the ample set is valid
-                        // only if at least one of its resulting successors is new or still
-                        // in the Open set (visited, not yet expanded). If every successor
-                        // is already Closed (openCount == 0), the ample set fails and the
-                        // state must be fully expanded instead.
+                        // Conservative BFS proviso: EVERY generated successor must be
+                        // new or still open. A closed successor triggers full expansion.
                         if (!(_porResult & NEW_STATE) && _porResultState->openCount == 0)
                             provisoSatisfied = false;
                     } while (nonDetTrans > 0);
@@ -272,8 +273,18 @@ long TimedModelChecker::executeRebec(int rebecId) {
 	}
 
     if (nextRebecTime == MAX_TIME) {
-    	current = newState;
+#ifdef EXPLORE_ALL_TERMINALS
+        // Store/export the terminal successor, but do not enqueue an empty state.
+        terminalTransitions++;
+#ifdef EXPORT_STATE_SPACE
+        if (result & NEW_STATE) exportState(newState, statespace);
+        exportTransition(current, newState, sender, rebecs[rebecId]->getName(), actionName, executionTime, shift, statespace);
+#endif
+        return nonDetTrans;
+#else
+        current = newState;
         throw DeadlockException("Deadlock");
+#endif
     }
 
     if (result & NEW_STATE) {

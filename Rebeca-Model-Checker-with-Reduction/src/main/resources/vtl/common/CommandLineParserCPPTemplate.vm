@@ -135,4 +135,5 @@ int maintest(int argc, char* argv[]) {
 	if (parser.hasOption('v')) {
 		cout << parser.getOptionValue('v') << endl;
 	}
+	return 0;
 }

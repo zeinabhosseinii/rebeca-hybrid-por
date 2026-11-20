@@ -50,13 +50,13 @@ public class CoreRebecaTermPrimaryExpressionTranslator extends AbstractStatement
 		int indexCounter = 0;
 		for (Expression expression : termPrimary.getIndices()) {
 			if (statementTranslatorContainer.isSafeMode() && termPrimary.getType() instanceof ArrayType) {
-				retValue += "[(arrayIndexChecker=" + statementTranslatorContainer.translate(expression, "") +
-						", assertion(arrayIndexChecker >= 0 && arrayIndexChecker <" +
+				// Each access owns its index; evaluate nested indices before entering the lambda.
+				retValue += "[([&](long checkedIndex) { assertion(checkedIndex >= 0 && checkedIndex <" +
 						((ArrayType)termPrimary.getType()).getDimensions().get(indexCounter) +
-						", string(\"Array index out of bound: \") + to_string((long long)arrayIndexChecker)" +
+						", string(\"Array index out of bound: \") + to_string(checkedIndex)" +
 						" + \", method \\\"\" + reactiveClassName + \".\" + methodName + \"\\\" line " +
-						expression.getLineNumber() +  "\") " +
-						", arrayIndexChecker)]";
+						expression.getLineNumber() + "\"); return checkedIndex; })(" +
+						statementTranslatorContainer.translate(expression, "") + ")]";
 			} else
 				retValue += "[" + statementTranslatorContainer.translate(expression, "") + "]";
 			indexCounter++;

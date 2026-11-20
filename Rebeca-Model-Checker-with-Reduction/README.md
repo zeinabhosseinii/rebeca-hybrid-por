@@ -110,3 +110,44 @@ INDEPENDENT pairs map to false. ALWAYS and COND map to true symmetrically.
 Actions absent from the export remain dependent. Existing ample-set ordering
 and the FTTS proviso still apply. Runtime conditional-guard resolution remains
 a separate implementation step.
+
+
+## FTTS validation and complete terminal exploration
+
+Build with JDK 17 (`JAVA_HOME=$(/usr/libexec/java_home -v 17)` on macOS).
+Safe array accesses now use an immediately invoked C++11 lambda with a private
+index value. This avoids shared scratch-index writes in array assignments and
+also evaluates nested indices exactly once.
+
+ARIA singleton selection conservatively checks the candidate against every
+message-server ID of other actors, including future actions. Unknown/omitted
+IDs retain dependency. Same-time alternatives for the candidate force full
+expansion. This can reduce less than the old queue-head-only check. The BFS
+proviso requires every generated successor to be new or open; any closed
+successor forces fallback. Earlier comments incorrectly described an existential
+check. Successors already generated during failed attempts remain stored, so
+transition counts may include repeat attempts. This is not a proof of timed POR:
+the exported relation still needs validation for queue ordering, enabling,
+timing and property visibility before dynamic guard pruning is trusted.
+
+For finite FTTS models, compile BOTH baseline and ARIA output with:
+
+```bash
+g++ -std=c++11 -pthread -O2 -DEXPLORE_ALL_TERMINALS *.cpp -o execute
+./execute > full-report.xml
+```
+
+This validation mode continues after empty-message terminal successors. It still
+reports `deadlock` if terminal transitions were seen; there is no single error
+trace in this mode. `<exploration complete="true" .../>` means the work queue
+was exhausted. Assertions, overflow and missed deadlines still abort and report
+`complete="false"`. Terminal-transition counts include repeated exploration
+attempts and are NOT unique terminal-state counts. This mode does not make an
+infinite model finite. The usual build without this macro still stops at the
+first deadlock and prints its trace. Compare property outcomes after complete
+runs; state counts need not match between baseline and POR.
+
+Run `bash tests/compare_slotguard.sh` to build and regenerate both SlotGuard
+variants and compare completed reports. A fresh ARIA JSON must already exist.
+Reports are saved under `tmp/SlotGuard_full_{baseline,aria}/full-report.xml`.
+Run `python3 tests/validate_ftts.py` for the standalone C++ snippet regressions.

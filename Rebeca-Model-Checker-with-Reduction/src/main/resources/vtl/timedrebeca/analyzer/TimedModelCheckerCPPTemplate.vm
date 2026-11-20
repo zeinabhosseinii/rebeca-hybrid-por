@@ -112,7 +112,11 @@ void TimedModelChecker::exportModelCheckingResult(string userSelectedPropertyNam
 	exportModelCheckingDetails(userSelectedPropertyName, userSelectedPropertyType, result, message);
 	exportModelCheckingReportExtraDetails();
     out  <<  "<counter-example-trace>"  <<  std::endl;
-	if (result != HEAP_OVERFLOW && result != SATISFIED)
+	if (result != HEAP_OVERFLOW && result != SATISFIED
+#ifdef EXPLORE_ALL_TERMINALS
+        && result != DEADLOCK
+#endif
+    )
 		printCounterExample(result, causedBy);
     out  <<  "</counter-example-trace>"  <<  std::endl;
     out  <<  "</model-checking-report>"  <<  std::endl;
@@ -131,8 +135,15 @@ void TimedModelChecker::doModelChecking(string userSelectedPropertyName, string 
 		instantiationPart();	    
 
 		doTimedModelChecking(userSelectedPropertyName, userSelectedPropertyType);
+#ifdef EXPLORE_ALL_TERMINALS
+        explorationComplete = true;
+#endif
 	    exportModelCheckingResult(userSelectedPropertyName, userSelectedPropertyType,
-	    	SATISFIED, "", null);
+#ifdef EXPLORE_ALL_TERMINALS
+            terminalTransitions ? DEADLOCK : SATISFIED, "", null);
+#else
+            SATISFIED, "", null);
+#endif
 	    	
     } catch (AssertionFailedException &e) {
     	exportModelCheckingResult(userSelectedPropertyName, userSelectedPropertyType,
