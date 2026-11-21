@@ -54,9 +54,19 @@ public final class AriaDependencyInput {
             }
             long count = actions.size();
             require(pairs.size() == count * (count + 1) / 2, "Incomplete dependency table");
-            // Actions omitted as unreachable, and unused message IDs, default to dependent.
+            // Only real model actions participate in the conservative default.
+            // Message IDs are local to each actor class: a rectangular matrix also
+            // contains slots that cannot name any message server on that instance.
+            // The global-ID safety scan must not treat those holes as dependencies.
             for (var row : matrix) for (var actionRow : row) for (var targetRow : actionRow)
-                Collections.fill(targetRow, true);
+                Collections.fill(targetRow, false);
+            // A real action omitted from the JSON still remains dependent, even
+            // when the exporter marked it unreachable. Only nonexistent slots clear.
+            for (int[] left : modelActions.values()) {
+                for (int[] right : modelActions.values()) {
+                    matrix.get(left[0]).get(left[1]).get(right[0]).set(right[1], true);
+                }
+            }
             for (var entry : pairs.entrySet()) {
                 String[] ids = entry.getKey().split(":");
                 int[] left = actions.get(Integer.parseInt(ids[0]));

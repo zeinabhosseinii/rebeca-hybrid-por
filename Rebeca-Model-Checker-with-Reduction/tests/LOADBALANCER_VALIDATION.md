@@ -36,9 +36,10 @@ Two cross-instance dependencies in the exported JSON are:
 - Hub.ReceiveSecondary <-> Bootstrapper.Initialize: ALWAYS
 - Hub.ReceivePrimary <-> Bootstrapper.Initialize: ALWAYS
 
-The internal AST SDI predicate excludes causally related actions; the exporter
-retains these two shared-destination conflicts. Thus the two relations do not
-have identical definitions. Do not remove these pairs just to match counts.
+The earlier source-level hypothesis was that causal filtering might explain
+these pairs. The actual generated C++ audit disproves that explanation here:
+BOTH generated matrices contain them. All real cross-instance action pairs
+agree. Do not remove these pairs just to match counts.
 
 The importer also initializes unused per-class message-ID slots as dependent.
 The current global-ID safety scan considers such slots. With max ID 2 and five
@@ -62,3 +63,45 @@ POR_DIAGNOSTICS, and packages matrices/C++/reports/traces in a ZIP. Diagnostic
 traces identify candidate alternatives, the first dependency blocker, closed
 successors rejecting the proviso, accepted singleton trials, and full fallback.
 The added logging does not change dependency decisions or deadlock behavior.
+
+
+## Confirmed diagnosis from the uploaded generated C++
+
+All four supplied generated C++ variants were rebuilt with g++ C++11/O2 on the
+validation host. These local runs reproduced the supplied counts exactly:
+
+| Run | States | Transitions | Outcome |
+| --- | ---: | ---: | --- |
+| Original baseline | 101 | 202 | satisfied |
+| Static priorities | 22 | 26 | satisfied |
+| ARIA AST | 38 | 52 | satisfied |
+| Original imported JSON | 64 | 128 | satisfied |
+| JSON with only nonexistent matrix slots cleared | 38 | 52 | satisfied |
+| Original JSON with PO disabled, sender normalization retained | 64 | 128 | satisfied |
+
+The original JSON trace has 106 candidates, 85 dependency blocks, 64 full
+expansions and ZERO singleton trials. Of the 85 blocks, 84 name a nonexistent
+message 2 on a relay; the other names a real hub action. Remaining candidates
+have multiple alternatives. Thus 101 -> 64 is sender normalization, not an
+ample-set reduction. The control build disabling PO confirms the same 64/128.
+
+AST has 63 candidates, 25 dependency blocks, 28 singleton trials (26 accepted,
+2 rejected by the closed-successor proviso), and 12 full expansions. Correcting
+only invalid-ID cells in the supplied JSON C++ produces the exact same decision
+trace, including state IDs and proviso rejections, as AST, and the same 38/52.
+No real dependency or proviso condition was relaxed in this experiment.
+
+The importer fix now initializes nonexistent slots to false, then marks every
+pair of real model actions dependent before applying validated JSON rows.
+Real model actions omitted from JSON retain conservative dependencies. COND,
+same-instance dependency, source-hash validation and deadlock stopping remain.
+The actual Java importer was compiled with JDK17/Gson and regression-tested for
+holes versus omitted real actions, symmetric updates, COND preservation, and
+no mutation on rejected source hashes. Full Java model generation on the clean
+host remains blocked by the absent original compiler artifact; the C++ replay
+and standalone importer tests are distinct validation steps.
+
+The 22-state static run uses a different priority selection policy, rather than
+the conservative global-action safety scan plus BFS proviso. Smaller count and
+satisfied reachability alone do not prove that policy equivalent for arbitrary
+properties. No change to priorities or dynamic guard evaluation was made.
