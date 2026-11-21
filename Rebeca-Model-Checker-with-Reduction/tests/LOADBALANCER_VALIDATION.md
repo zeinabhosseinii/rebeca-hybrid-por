@@ -105,3 +105,7 @@ The 22-state static run uses a different priority selection policy, rather than
 the conservative global-action safety scan plus BFS proviso. Smaller count and
 satisfied reachability alone do not prove that policy equivalent for arbitrary
 properties. No change to priorities or dynamic guard evaluation was made.
+
+The subsequent 38-versus-22 schedule-policy investigation is documented in
+[LOADBALANCER_SCHEDULING.md](LOADBALANCER_SCHEDULING.md), with an executable
+controlled replay script. No production scheduling policy is changed by it.
