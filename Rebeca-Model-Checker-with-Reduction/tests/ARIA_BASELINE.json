@@ -1,0 +1,14 @@
+{
+  "implementation_commit": "0a4687b4a18abf0f3e78879b6e7fe502a2b2c942",
+  "branch": "aria-action-dependency-export",
+  "recorded_date": "2026-11-23",
+  "timezone": "Asia/Tehran",
+  "runtime_cond_pruning": false,
+  "general_generator_correctness_proven": false,
+  "source_sha256": {
+    "src/main/java/org/rebecalang/rmc/ERDGSafetyAnalyzer.java": "fc3eb2e50d804b028138eea98e5ebe4a6b4826bad95e6307744c5fb07a455372",
+    "src/main/java/org/rebecalang/rmc/timedrebeca/TimedRebecaFileGenerator.java": "be1ef0b86e422d51f806accb749b5a39e1579868b2f71b497e34e40f73fbdd7d",
+    "src/main/resources/vtl/timedrebeca/analyzer/FTTSPatchTemplate.vm": "45381283ba11dd6672eaf7218b275c0e0346d64c6f805e92c3ab9c0fd3376e78",
+    "src/main/resources/vtl/timedrebeca/analyzer/TimedRebecaBFSHashmapHeaderTemplate.vm": "688b93e97a4d3184fe335237545fe619364628c4220ec82eee5ef9e931254441"
+  }
+}

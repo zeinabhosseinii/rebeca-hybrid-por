@@ -2,6 +2,14 @@
 
 Rebeca Model Checker (RMC) with Partial Order Reduction (POR), Aria's ERDG-based POR, and Symmetry Reduction for Timed Rebeca models.
 
+## Fixed ARIA implementation baseline
+
+The current scope, proviso contract, first-error behavior, verified measurements
+and remaining limitations are recorded in [tests/ARIA_BASELINE.md](tests/ARIA_BASELINE.md),
+anchored to implementation commit `0a4687b`. This is finite-model validation,
+not a general correctness proof. The dynamic/static LoadBalancer gap remains
+27 versus 22 states. Older test documents include historical measurements.
+
 ## Build
 
 Requires JDK 17 (JDK 25+ breaks Lombok).
