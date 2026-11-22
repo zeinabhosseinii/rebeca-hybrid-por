@@ -1,0 +1,11 @@
+family,workers,comparison,baseline,target,state_reduction_percent,native_median_speed_ratio
+independent,6,representation_control,full,dynamic_no_por,42.459396751740144,1.107935972610177
+independent,6,online_por_control,dynamic_no_por,dynamic,0.0,1.010137764762466
+independent,6,static_vs_full_native,full,static,72.2866718226347,1.211632158155678
+independent,6,dynamic_vs_full_native,full,dynamic,42.459396751740144,1.119167966872373
+independent,6,dynamic_vs_static_native,static,dynamic,-107.6279069767442,0.9236862519198468
+shared,6,representation_control,full,dynamic_no_por,37.63391839525872,1.3519423562005464
+shared,6,online_por_control,dynamic_no_por,dynamic,80.85220318237454,2.3739414014711193
+shared,6,static_vs_full_native,full,static,0.0,1.0840490261605293
+shared,6,dynamic_vs_full_native,full,dynamic,88.05826941120965,3.2094319317868925
+shared,6,dynamic_vs_static_native,static,dynamic,88.05826941120965,2.9605966652209603

@@ -12,7 +12,7 @@ rule is changed. Use mains power and avoid other heavy workloads on the machine.
 The default performance sizes are independent 4/6/8 workers and shared 2/4/6
 workers. Default repetitions: ONE unmeasured warmup per mode followed by TEN
 measured runs per mode, with a seeded rotating mode order (balanced over groups
-of three rounds). All native measurements run sequentially. Sizes can consume
+of four rounds). All native measurements run sequentially. Sizes can consume
 substantial memory; this is not a hard memory-capped runner.
 
 The default per-native-run timeout is 30 seconds. A timeout kills/reaps that
@@ -97,13 +97,25 @@ projection that changes this relation is rejected. It then checks reduced states
 initial state, C0, all outcomes of every retained action, persistence and relational
 diamonds over the full action-avoiding closure for partial expansions, and that
 every reduced-graph cycle crosses a full expansion. A full expansion does not
-need individual action independence. This is a sufficient finite check, not a
+need individual action independence. The new PO-disabled control must retain EXACTLY the projected full action relation
+at every state and cover every reachable projected reference state; a partial
+persistent set is not accepted for that control. The wrapper additionally checks
+exact native-copy bytes, rejection of duplicate PO definitions and rejection of
+an intentionally removed control branch. This is a sufficient finite check, not a
 runtime certificate and not a proof of all instances/sizes of a family.
 
 ## Measurements and interpretation
 
-The three modes are unannotated FTTS without POR, fresh ARIA static annotations
-without online POR, and unannotated FTTS with `--aria` AST. No experimental native
+The four modes are `full` (unannotated FTTS without POR), `static` (fresh ARIA
+priority annotations without online POR), `dynamic` (unannotated FTTS with
+`--aria` AST), and `dynamic_no_por` (an exact copy of dynamic-generated C++ with
+one PO macro removed from Config.h). The control preserves every other native
+file byte-for-byte; copy metadata records configuration fingerprints. It is
+compiled with the same flags, warmed up and measured in the same rotated rounds.
+This is a control of the online POR implementation in its generated representation,
+not a claim that every internal compiler optimization has been independently
+isolated. Copy time and compilation are separate preparation costs; no second
+Java generation is attributed to this copied mode. No experimental native
 patches or changed hash sizes are used. Compilation is C++11/pthreads/O2 in all
 modes. Performance runs disable diagnostics/export. Preparation (ARIA annotation,
 Java generation and native compilation) is recorded separately from native time.
@@ -118,12 +130,12 @@ general ranking. RSS includes hash-table/process overhead, not just stored state
 A smaller state count need not imply a smaller process footprint.
 
 Outputs: `tmp/ScalingAudit_<stamp>/summary.json` and
-`tmp/ScalingBenchmark_<stamp>/{summary.json,summary.csv}`, plus per-case models,
+`tmp/ScalingBenchmark_<stamp>/{summary.json,summary.csv,comparisons.csv}`, plus per-case models,
 sources, compilation/generation logs and individual XML/error reports. Only
 small instances are graph-audited; larger completed instances have outcome checks
 and the family argument, not a full semantic equivalence certificate.
 
-## Recorded Linux checks (2026-11-23)
+## Recorded Linux checks before the fourth-mode extension (2026-11-23)
 
 Both final two-worker families passed complete generation, one warmup plus two
 measured runs in every mode, and the finite semantic/strong-cycle audit.
@@ -142,3 +154,23 @@ macOS must be measured separately. Native timeout cleanup was exercised with a
 1 ms limit on the existing eight-worker executable and raised TimeoutExpired.
 No production solver exception handler was changed. Raw calibration and audit
 records are in `tests/results/scaling_calibration_linux_20261123.json`.
+
+
+## Four-mode comparisons
+
+`comparisons.csv` labels each baseline/target explicitly. `representation_control`
+compares original full to dynamic-generated PO-disabled; `online_por_control`
+compares the latter to dynamic. The remaining three comparisons retain the
+full/static/dynamic native end-user comparisons. A speed ratio above one means
+the named target has a smaller median time than its named baseline. State
+reduction can be negative. Ratios are emitted only for completed modes; partial
+timeout samples never generate a valid speedup entry. Graph-export audit ratios
+are diagnostics only and must not be used as performance results.
+
+The mode list is recorded in JSON schema version 2. Old three-mode reports remain
+historical data and are not rewritten or combined with freshly measured fourth
+mode times. The final wrapper runs all four modes together. With ten rounds,
+position counts differ by at most one; rotations balance positions exactly in
+groups of four rounds. This is not a fully randomized experimental design.
+
+See [FOUR_PATH_BENCHMARK.md](FOUR_PATH_BENCHMARK.md) for extension verification.

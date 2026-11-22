@@ -1,13 +1,31 @@
 #!/usr/bin/env python3
-"""Balanced repeated three-path scaling measurements, with explicit timeouts."""
-import argparse,csv,hashlib,json,os,platform,random,re,statistics,subprocess,time
+"""Balanced repeated four-path scaling measurements, with explicit timeouts."""
+import argparse,csv,hashlib,json,os,platform,random,re,statistics,subprocess,time,shutil
 import xml.etree.ElementTree as ET
 from pathlib import Path
 from scaling_models import make_model
 from run_quiescence_models import ROOT,command
 from compare_model_suite import body,digest,sample
 
-MODES=('full','static','dynamic')
+MODES=('full','static','dynamic','dynamic_no_por')
+
+def copy_without_por(source,destination):
+    """Preserve all native bytes except one PO macro; reject unexpected inputs."""
+    files=sorted(p for p in source.iterdir() if p.suffix in ('.cpp','.h'))
+    if not files or not (source/'TimedModelChecker.cpp').exists():raise ValueError('Missing dynamic native sources')
+    for f in files:shutil.copyfile(f,destination/f.name)
+    config=destination/'Config.h';original=config.read_bytes()
+    changed,count=re.subn(rb'^[\t ]*#[\t ]*define[\t ]+PO[\t ]*\r?$',
+                          b'// benchmark control: PO disabled',original,flags=re.M)
+    if count!=1:raise ValueError('Expected exactly one dynamic PO macro')
+    config.write_bytes(changed)
+    for f in files:
+        if f.name!='Config.h' and f.read_bytes()!=(destination/f.name).read_bytes():
+            raise ValueError('Unexpected native source difference')
+    return {'derived_from':'dynamic','native_change':'one PO macro removed in Config.h',
+            'unchanged_native_files':len(files)-1,'original_config_sha256':digest(source/'Config.h'),
+            'control_config_sha256':digest(config)}
+
 def prepare(case,family,n,a):
     name=f'Scale_{family}_{n}';model=case/(name+'.rebeca');model.write_text(make_model(family,n))
     export=ROOT.parent/'ARIA/output'/(name+'_pruned')
@@ -20,9 +38,15 @@ def prepare(case,family,n,a):
     (case/'annotated.rebeca').write_bytes(annotated.read_bytes())
     for mode in MODES:
         d=case/mode;d.mkdir()
-        args=['java','-jar',ROOT/'target/rmc-2.14.jar','-s',annotated if mode=='static' else model,'-e','TIMED_REBECA','-v','2.3','-o',d]
-        if mode=='dynamic':args+=['--aria']
-        start=time.perf_counter();command(args,ROOT,d/'generate.log');generation=time.perf_counter()-start
+        derivation=None
+        if mode=='dynamic_no_por':
+            start=time.perf_counter();derivation=copy_without_por(case/'dynamic',d)
+            generation=0.0;copy_seconds=time.perf_counter()-start
+        else:
+            args=['java','-jar',ROOT/'target/rmc-2.14.jar','-s',annotated if mode=='static' else model,'-e','TIMED_REBECA','-v','2.3','-o',d]
+            if mode=='dynamic':args+=['--aria']
+            start=time.perf_counter();command(args,ROOT,d/'generate.log');generation=time.perf_counter()-start
+            copy_seconds=0.0
         cpp=sorted(d.glob('*.cpp'))
         if not cpp:raise ValueError('No generated C++')
         config=(d/'Config.h').read_text()
@@ -31,7 +55,8 @@ def prepare(case,family,n,a):
         start=time.perf_counter()
         flags=['-std=c++11','-pthread','-O2']+(['-DEXPORT_STATE_SPACE'] if a.audit_small else [])
         command(['g++',*flags,*[f.name for f in cpp],'-o','execute'],d,d/'compile.log')
-        cost['modes'][mode]={'generation_seconds':generation,'compile_seconds':time.perf_counter()-start}
+        cost['modes'][mode]={'generation_seconds':generation,'copy_seconds':copy_seconds,'compile_seconds':time.perf_counter()-start}
+        if derivation:cost['modes'][mode]['derivation']=derivation
     return model,cost
 
 def finite_audit(case,model):
@@ -79,7 +104,7 @@ def finite_audit(case,model):
         actual={act:{q[t] for t in ts} for act,ts in fe.get(sid,{}).items()}
         if actual!=dict(g.edges[q[sid]]):raise ValueError('Sender equivalence has inconsistent successor relation')
     result={}
-    for mode in ('static','dynamic'):
+    for mode in ('static','dynamic','dynamic_no_por'):
         states,sigs,edges=exported(case/mode);mapping={s:inverse[sig] for s,sig in sigs.items()}
         if mapping[next(iter(states))]!=g.initial:raise ValueError('Initial mismatch')
         full_vertices=set();checked=0
@@ -89,11 +114,13 @@ def finite_audit(case,model):
             if bool(original)!=bool(projected):raise ValueError('C0 mismatch')
             for act,targets in projected.items():
                 if original.get(act)!=targets:raise ValueError('Altered/missing action outcomes')
+            if mode=='dynamic_no_por' and projected!=original:raise ValueError('PO-disabled control omitted full behavior')
             if projected==original:full_vertices.add(s);continue
             for act in projected:
                 ok,evidence=g.certify(mapping[s],act)
                 if not ok:raise ValueError(('Persistence/diamond audit failed',mode,s,act,evidence))
                 checked+=1
+        if mode=='dynamic_no_por' and set(mapping.values())!=set(g.edges):raise ValueError('PO-disabled control lost reachable projected states')
         if not every_cycle_has_full_state(states,edges,full_vertices):raise ValueError('Strong cycle condition failed')
         result[mode]={'states':len(states),'partial_action_certificates':checked,'full_vertices':len(full_vertices),'strong_cycle_passed':True}
     return {'finite_generated_instance_only':True,'unused_sender_projection':True,'equal_time_queue_multiset_projection':True,'full_projection_successor_consistency_checked':True,'model_sha256':digest(model),'modes':result}
@@ -117,7 +144,7 @@ def main():
     result={'java':subprocess.run(['java','-version'],capture_output=True,text=True,check=True).stderr.strip(),
             'native_flags':['-std=c++11','-pthread','-O2'],'diagnostics':False,'platform':platform.platform(),'compiler':subprocess.check_output(['g++','--version'],text=True).splitlines()[0],
             'rmc_jar_sha256':digest(ROOT/'target/rmc-2.14.jar'),'aria_jar_sha256':digest(ROOT.parent/'ARIA/target/erdg-tool-0.1.0.jar'),
-            'repeats':a.repeats,'warmups_per_mode':1,'seed':a.seed,'graph_export':a.audit_small,'cases':[]}
+            'modes':list(MODES),'schema_version':2,'repeats':a.repeats,'warmups_per_mode':1,'seed':a.seed,'graph_export':a.audit_small,'cases':[]}
     rng=random.Random(a.seed)
     def save():
         (out/'summary.json').write_text(json.dumps(result,indent=2)+'\n')
@@ -135,6 +162,25 @@ def main():
         if rows:
             with (out/'summary.csv').open('w',newline='') as f:
                 w=csv.DictWriter(f,fieldnames=list(rows[0]));w.writeheader();w.writerows(rows)
+        contrasts=[]
+        definitions=[('representation_control','full','dynamic_no_por'),
+                     ('online_por_control','dynamic_no_por','dynamic'),
+                     ('static_vs_full_native','full','static'),
+                     ('dynamic_vs_full_native','full','dynamic'),
+                     ('dynamic_vs_static_native','static','dynamic')]
+        for c in result['cases']:
+            for label,baseline,target in definitions:
+                left=c['modes'][baseline];right=c['modes'][target]
+                if left['status']!='completed' or right['status']!='completed':continue
+                l=left['samples'];r=right['samples']
+                contrasts.append({'family':c['family'],'workers':c['workers'],'comparison':label,
+                                  'baseline':baseline,'target':target,
+                                  'state_reduction_percent':100*(1-r[0]['states']/l[0]['states']),
+                                  'native_median_speed_ratio':statistics.median(x['native_wall_seconds'] for x in l)/statistics.median(x['native_wall_seconds'] for x in r)})
+        if contrasts:
+            with (out/'comparisons.csv').open('w',newline='') as f:
+                w=csv.DictWriter(f,fieldnames=list(contrasts[0]));w.writeheader();w.writerows(contrasts)
+
     try:
         for family in a.families:
             for n in sizes[family]:
@@ -143,10 +189,10 @@ def main():
                    'modes':{m:{'status':'pending','samples':[]} for m in MODES}}
                 result['cases'].append(c);save()
                 # One warmup and then measured rounds. Rotate one seeded base
-                # order to balance positions over groups of three rounds.
+                # order to balance positions over groups of four rounds.
                 order=list(MODES);rng.shuffle(order)
                 for round_index in range(-1,a.repeats):
-                    rotated=order[(round_index+1)%3:]+order[:(round_index+1)%3]
+                    rotated=order[(round_index+1)%len(MODES):]+order[:(round_index+1)%len(MODES)]
                     c['orders'].append({'round':round_index,'modes':rotated})
                     for mode in rotated:
                         data=c['modes'][mode]
@@ -163,7 +209,7 @@ def main():
                 for mode,data in c['modes'].items():
                     if data['status']!='timeout':
                         ids={(x['states'],x['transitions']) for x in data['samples']}
-                        if len(ids)!=1 or len(data['samples'])!=a.repeats:raise ValueError('Unstable/incomplete repetitions')
+                        if len(ids)!=1 or ids!={(data['warmup']['states'],data['warmup']['transitions'])} or len(data['samples'])!=a.repeats:raise ValueError('Unstable/incomplete repetitions')
                         data['status']='completed'
                     print(family,n,mode,data['status'],[(x.get('states'),x.get('transitions')) for x in data['samples'][:1]],flush=True)
                 if a.audit_small:

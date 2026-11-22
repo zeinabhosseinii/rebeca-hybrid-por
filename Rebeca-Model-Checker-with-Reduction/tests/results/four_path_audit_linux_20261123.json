@@ -1,0 +1,594 @@
+{
+  "java": "openjdk version \"17.0.21.1\" 2026-11-17\nOpenJDK Runtime Environment Temurin-17.0.21.1+2 (build 17.0.21.1+2)\nOpenJDK 64-Bit Server VM Temurin-17.0.21.1+2 (build 17.0.21.1+2, mixed mode, sharing)",
+  "native_flags": [
+    "-std=c++11",
+    "-pthread",
+    "-O2"
+  ],
+  "diagnostics": false,
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "compiler": "g++ (Debian 14.2.0-19) 14.2.0",
+  "rmc_jar_sha256": "7738d4c5be8a3391208b3ac2ddd799128ab640bc4a0ebb6507a0d884ad41ca20",
+  "aria_jar_sha256": "60506443bba540e979da6876a11e14d74533f184ad24800437594b2aa1d8c3c7",
+  "modes": [
+    "full",
+    "static",
+    "dynamic",
+    "dynamic_no_por"
+  ],
+  "schema_version": 2,
+  "repeats": 2,
+  "warmups_per_mode": 1,
+  "seed": 1729,
+  "graph_export": true,
+  "cases": [
+    {
+      "family": "independent",
+      "workers": 2,
+      "source_sha256": "79dd7518e44f6fc7e48bfb04abbed1a8837ad5b46c23ccd8131c06a6ddbe4353",
+      "preparation": {
+        "aria_export_seconds": 0.46506193400000484,
+        "modes": {
+          "full": {
+            "generation_seconds": 1.1210997650000536,
+            "copy_seconds": 0.0,
+            "compile_seconds": 3.3718249349999496
+          },
+          "static": {
+            "generation_seconds": 1.1223773299998356,
+            "copy_seconds": 0.0,
+            "compile_seconds": 3.2211671440004466
+          },
+          "dynamic": {
+            "generation_seconds": 0.9660970929999166,
+            "copy_seconds": 0.0,
+            "compile_seconds": 3.3720992849998765
+          },
+          "dynamic_no_por": {
+            "generation_seconds": 0.0,
+            "copy_seconds": 0.0015774700000292796,
+            "compile_seconds": 3.421855032000167,
+            "derivation": {
+              "derived_from": "dynamic",
+              "native_change": "one PO macro removed in Config.h",
+              "unchanged_native_files": 23,
+              "original_config_sha256": "381be2fc3d78b037af226c334f86da9027f0b28355bd2596f0293a3bb198397a",
+              "control_config_sha256": "3041626994d22b088cab76026d7741b09cd97e6da08a88c93f59c5bd31d486e1"
+            }
+          }
+        }
+      },
+      "orders": [
+        {
+          "round": -1,
+          "modes": [
+            "dynamic_no_por",
+            "dynamic",
+            "static",
+            "full"
+          ]
+        },
+        {
+          "round": 0,
+          "modes": [
+            "dynamic",
+            "static",
+            "full",
+            "dynamic_no_por"
+          ]
+        },
+        {
+          "round": 1,
+          "modes": [
+            "static",
+            "full",
+            "dynamic_no_por",
+            "dynamic"
+          ]
+        }
+      ],
+      "modes": {
+        "full": {
+          "status": "completed",
+          "samples": [
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 33,
+              "transitions": 57,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 396,
+              "native_wall_seconds": 0.16545342800009166,
+              "peak_rss_kib": 919324.0,
+              "status": "completed",
+              "round": 0
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 33,
+              "transitions": 57,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 396,
+              "native_wall_seconds": 0.15351157799977955,
+              "peak_rss_kib": 919440.0,
+              "status": "completed",
+              "round": 1
+            }
+          ],
+          "warmup": {
+            "result": "satisfied",
+            "property_type": "Reachability",
+            "property_name": "Deadlock-Freedom and No Deadline Missed",
+            "states": 33,
+            "transitions": 57,
+            "trace_states": 0,
+            "solver_reported_seconds": 1,
+            "solver_estimated_bytes": 396,
+            "native_wall_seconds": 0.14900095799976043,
+            "peak_rss_kib": 919440.0,
+            "status": "completed",
+            "round": -1
+          }
+        },
+        "static": {
+          "status": "completed",
+          "samples": [
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 25,
+              "transitions": 41,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 300,
+              "native_wall_seconds": 0.14945368299959227,
+              "peak_rss_kib": 919440.0,
+              "status": "completed",
+              "round": 0
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 25,
+              "transitions": 41,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 300,
+              "native_wall_seconds": 0.15047376199981954,
+              "peak_rss_kib": 919440.0,
+              "status": "completed",
+              "round": 1
+            }
+          ],
+          "warmup": {
+            "result": "satisfied",
+            "property_type": "Reachability",
+            "property_name": "Deadlock-Freedom and No Deadline Missed",
+            "states": 25,
+            "transitions": 41,
+            "trace_states": 0,
+            "solver_reported_seconds": 0,
+            "solver_estimated_bytes": 300,
+            "native_wall_seconds": 0.16650003700033267,
+            "peak_rss_kib": 919324.0,
+            "status": "completed",
+            "round": -1
+          }
+        },
+        "dynamic": {
+          "status": "completed",
+          "samples": [
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 24,
+              "transitions": 41,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 288,
+              "native_wall_seconds": 0.16233783500001664,
+              "peak_rss_kib": 919448.0,
+              "status": "completed",
+              "round": 0
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 24,
+              "transitions": 41,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 288,
+              "native_wall_seconds": 0.15847557200004303,
+              "peak_rss_kib": 919448.0,
+              "status": "completed",
+              "round": 1
+            }
+          ],
+          "warmup": {
+            "result": "satisfied",
+            "property_type": "Reachability",
+            "property_name": "Deadlock-Freedom and No Deadline Missed",
+            "states": 24,
+            "transitions": 41,
+            "trace_states": 0,
+            "solver_reported_seconds": 0,
+            "solver_estimated_bytes": 288,
+            "native_wall_seconds": 0.1568700309999258,
+            "peak_rss_kib": 919448.0,
+            "status": "completed",
+            "round": -1
+          }
+        },
+        "dynamic_no_por": {
+          "status": "completed",
+          "samples": [
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 24,
+              "transitions": 41,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 288,
+              "native_wall_seconds": 0.14924826700007543,
+              "peak_rss_kib": 919444.0,
+              "status": "completed",
+              "round": 0
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 24,
+              "transitions": 41,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 288,
+              "native_wall_seconds": 0.15613875200006078,
+              "peak_rss_kib": 919444.0,
+              "status": "completed",
+              "round": 1
+            }
+          ],
+          "warmup": {
+            "result": "satisfied",
+            "property_type": "Reachability",
+            "property_name": "Deadlock-Freedom and No Deadline Missed",
+            "states": 24,
+            "transitions": 41,
+            "trace_states": 0,
+            "solver_reported_seconds": 1,
+            "solver_estimated_bytes": 288,
+            "native_wall_seconds": 0.6874776119998387,
+            "peak_rss_kib": 919444.0,
+            "status": "completed",
+            "round": -1
+          }
+        }
+      },
+      "finite_audit": {
+        "finite_generated_instance_only": true,
+        "unused_sender_projection": true,
+        "equal_time_queue_multiset_projection": true,
+        "full_projection_successor_consistency_checked": true,
+        "model_sha256": "79dd7518e44f6fc7e48bfb04abbed1a8837ad5b46c23ccd8131c06a6ddbe4353",
+        "modes": {
+          "static": {
+            "states": 25,
+            "partial_action_certificates": 8,
+            "full_vertices": 17,
+            "strong_cycle_passed": true
+          },
+          "dynamic": {
+            "states": 24,
+            "partial_action_certificates": 0,
+            "full_vertices": 24,
+            "strong_cycle_passed": true
+          },
+          "dynamic_no_por": {
+            "states": 24,
+            "partial_action_certificates": 0,
+            "full_vertices": 24,
+            "strong_cycle_passed": true
+          }
+        }
+      }
+    },
+    {
+      "family": "shared",
+      "workers": 2,
+      "source_sha256": "22026be382f8a4f2542608bfb97ec885355272374d93b59c0a81fa607fb08dd1",
+      "preparation": {
+        "aria_export_seconds": 0.41483582499995464,
+        "modes": {
+          "full": {
+            "generation_seconds": 0.97117434699976,
+            "copy_seconds": 0.0,
+            "compile_seconds": 3.32799890699971
+          },
+          "static": {
+            "generation_seconds": 0.9172478790001151,
+            "copy_seconds": 0.0,
+            "compile_seconds": 3.32350433900001
+          },
+          "dynamic": {
+            "generation_seconds": 0.9670809790000021,
+            "copy_seconds": 0.0,
+            "compile_seconds": 3.573538269999972
+          },
+          "dynamic_no_por": {
+            "generation_seconds": 0.0,
+            "copy_seconds": 0.001608376000149292,
+            "compile_seconds": 3.472447045000081,
+            "derivation": {
+              "derived_from": "dynamic",
+              "native_change": "one PO macro removed in Config.h",
+              "unchanged_native_files": 23,
+              "original_config_sha256": "381be2fc3d78b037af226c334f86da9027f0b28355bd2596f0293a3bb198397a",
+              "control_config_sha256": "3041626994d22b088cab76026d7741b09cd97e6da08a88c93f59c5bd31d486e1"
+            }
+          }
+        }
+      },
+      "orders": [
+        {
+          "round": -1,
+          "modes": [
+            "dynamic_no_por",
+            "full",
+            "dynamic",
+            "static"
+          ]
+        },
+        {
+          "round": 0,
+          "modes": [
+            "full",
+            "dynamic",
+            "static",
+            "dynamic_no_por"
+          ]
+        },
+        {
+          "round": 1,
+          "modes": [
+            "dynamic",
+            "static",
+            "dynamic_no_por",
+            "full"
+          ]
+        }
+      ],
+      "modes": {
+        "full": {
+          "status": "completed",
+          "samples": [
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 157,
+              "transitions": 277,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 1884,
+              "native_wall_seconds": 0.1531747109997923,
+              "peak_rss_kib": 919440.0,
+              "status": "completed",
+              "round": 0
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 157,
+              "transitions": 277,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 1884,
+              "native_wall_seconds": 0.17005416500023784,
+              "peak_rss_kib": 919444.0,
+              "status": "completed",
+              "round": 1
+            }
+          ],
+          "warmup": {
+            "result": "satisfied",
+            "property_type": "Reachability",
+            "property_name": "Deadlock-Freedom and No Deadline Missed",
+            "states": 157,
+            "transitions": 277,
+            "trace_states": 0,
+            "solver_reported_seconds": 0,
+            "solver_estimated_bytes": 1884,
+            "native_wall_seconds": 0.15893026499998086,
+            "peak_rss_kib": 919444.0,
+            "status": "completed",
+            "round": -1
+          }
+        },
+        "static": {
+          "status": "completed",
+          "samples": [
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 157,
+              "transitions": 265,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 1884,
+              "native_wall_seconds": 0.15924951500028328,
+              "peak_rss_kib": 919444.0,
+              "status": "completed",
+              "round": 0
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 157,
+              "transitions": 265,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 1884,
+              "native_wall_seconds": 0.15519218600002205,
+              "peak_rss_kib": 919440.0,
+              "status": "completed",
+              "round": 1
+            }
+          ],
+          "warmup": {
+            "result": "satisfied",
+            "property_type": "Reachability",
+            "property_name": "Deadlock-Freedom and No Deadline Missed",
+            "states": 157,
+            "transitions": 265,
+            "trace_states": 0,
+            "solver_reported_seconds": 0,
+            "solver_estimated_bytes": 1884,
+            "native_wall_seconds": 0.16130552300001,
+            "peak_rss_kib": 919444.0,
+            "status": "completed",
+            "round": -1
+          }
+        },
+        "dynamic": {
+          "status": "completed",
+          "samples": [
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 117,
+              "transitions": 145,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 1404,
+              "native_wall_seconds": 0.15967149400012204,
+              "peak_rss_kib": 919448.0,
+              "status": "completed",
+              "round": 0
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 117,
+              "transitions": 145,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 1404,
+              "native_wall_seconds": 0.14882048399977066,
+              "peak_rss_kib": 919448.0,
+              "status": "completed",
+              "round": 1
+            }
+          ],
+          "warmup": {
+            "result": "satisfied",
+            "property_type": "Reachability",
+            "property_name": "Deadlock-Freedom and No Deadline Missed",
+            "states": 117,
+            "transitions": 145,
+            "trace_states": 0,
+            "solver_reported_seconds": 0,
+            "solver_estimated_bytes": 1404,
+            "native_wall_seconds": 0.15258485300000757,
+            "peak_rss_kib": 919452.0,
+            "status": "completed",
+            "round": -1
+          }
+        },
+        "dynamic_no_por": {
+          "status": "completed",
+          "samples": [
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 144,
+              "transitions": 253,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 1728,
+              "native_wall_seconds": 0.1558593199997631,
+              "peak_rss_kib": 919440.0,
+              "status": "completed",
+              "round": 0
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 144,
+              "transitions": 253,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 1728,
+              "native_wall_seconds": 0.18489319099990098,
+              "peak_rss_kib": 919448.0,
+              "status": "completed",
+              "round": 1
+            }
+          ],
+          "warmup": {
+            "result": "satisfied",
+            "property_type": "Reachability",
+            "property_name": "Deadlock-Freedom and No Deadline Missed",
+            "states": 144,
+            "transitions": 253,
+            "trace_states": 0,
+            "solver_reported_seconds": 1,
+            "solver_estimated_bytes": 1728,
+            "native_wall_seconds": 0.7485626869997759,
+            "peak_rss_kib": 919448.0,
+            "status": "completed",
+            "round": -1
+          }
+        }
+      },
+      "finite_audit": {
+        "finite_generated_instance_only": true,
+        "unused_sender_projection": true,
+        "equal_time_queue_multiset_projection": true,
+        "full_projection_successor_consistency_checked": true,
+        "model_sha256": "22026be382f8a4f2542608bfb97ec885355272374d93b59c0a81fa607fb08dd1",
+        "modes": {
+          "static": {
+            "states": 157,
+            "partial_action_certificates": 12,
+            "full_vertices": 145,
+            "strong_cycle_passed": true
+          },
+          "dynamic": {
+            "states": 117,
+            "partial_action_certificates": 54,
+            "full_vertices": 63,
+            "strong_cycle_passed": true
+          },
+          "dynamic_no_por": {
+            "states": 144,
+            "partial_action_certificates": 0,
+            "full_vertices": 144,
+            "strong_cycle_passed": true
+          }
+        }
+      }
+    }
+  ],
+  "execution_finished": true,
+  "all_runs_completed": true
+}

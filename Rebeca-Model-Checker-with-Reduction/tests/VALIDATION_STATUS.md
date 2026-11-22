@@ -1,5 +1,8 @@
 # Validation status and next measurement, 2026-11-23
 
+Historical checkpoint: the fourth measurement mode requested below has since
+been implemented; see [FOUR_PATH_BENCHMARK.md](FOUR_PATH_BENCHMARK.md).
+
 Implementation/results reference before this audit:
 `b4f9dc9b1b83f420852eeff276f35713b260018c` on
 `aria-action-dependency-export`. No production source changed in this step.

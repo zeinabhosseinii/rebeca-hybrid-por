@@ -11,4 +11,5 @@ cd "$rmc_root"
 mvn package -P executable -DskipTests
 run_stamp=$(date +%Y%m%d_%H%M%S)
 python3 tests/benchmark_scaling.py --output "tmp/ScalingAudit_$run_stamp" --sizes 2 --repeats 2 --audit-small
+python3 tests/validate_four_path_control.py --case "tmp/ScalingAudit_$run_stamp/shared_2"
 python3 tests/benchmark_scaling.py --output "tmp/ScalingBenchmark_$run_stamp" "$@"
