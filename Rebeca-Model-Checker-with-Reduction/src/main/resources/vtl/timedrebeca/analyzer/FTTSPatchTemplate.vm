@@ -29,11 +29,35 @@ bool TimedModelChecker::areActiveActionsSafe(byte* state, int r, int messageId) 
 
 #end
     };
+    // Certificate is valid only after constructors, with original actor identities.
+#ifndef POR_DISABLE_QUIESCENCE
+    static const bool neverSent[REBEC_COUNT][$maxMsgIdPlusOne] = {
+#foreach($row in $neverSentAgain)
+        { #foreach($val in $row)$val#if(!$foreach.last), #end#end }#if(!$foreach.last),#end
+
+#end
+    };
+#endif
     int rMsgId = messageId > 0 ? messageId : (unsigned char)rebecs[r]->messageQueue[0];
     for (int j = 0; j < REBEC_COUNT; j++) {
         if (j == r) continue;
         for (int jMsgId = 1; jMsgId < $maxMsgIdPlusOne; jMsgId++)
             if (sdiPairs[r][rMsgId][j][jMsgId]) {
+#ifndef POR_DISABLE_QUIESCENCE
+                if (${isolatedLocalAllowed} && neverSent[j][jMsgId]) {
+                    bool pending = false;
+                    for (int slot = 0; slot < rebecs[j]->maxQueueLength; slot++)
+                        if ((unsigned char)rebecs[j]->messageQueue[slot] == jMsgId) pending = true;
+                    if (!pending) {
+#ifdef POR_DIAGNOSTICS
+                        cerr << "POR_QUIESCENT_SKIP state=" << current.state->stateID
+                             << " actor=" << rebecs[r]->getName() << " msg=" << rMsgId
+                             << " blocker=" << rebecs[j]->getName() << " blockerMsg=" << jMsgId << endl;
+#endif
+                        continue;
+                    }
+                }
+#endif
 #ifdef POR_DIAGNOSTICS
                 cerr << "POR_BLOCK state=" << current.state->stateID
                      << " actor=" << rebecs[r]->getName() << " msg=" << rMsgId

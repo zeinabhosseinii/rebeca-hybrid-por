@@ -1158,6 +1158,86 @@ public class ERDGSafetyAnalyzer {
 
     // ── AST traversal helpers ─────────────────────────────────────────────────
 
+    /** A sufficient, deliberately name-conservative post-constructor certificate.
+     * A handler is never sent again only if no runtime handler anywhere sends its
+     * name. Unknown syntax/calls or inheritance invalidate the entire certificate.
+     * Runtime must ALSO check all pending slots (including future messages).
+     */
+    public static List<List<Boolean>> neverSentAgain(RebecaModel model) {
+        ModelIndex idx = new ModelIndex(model);
+        Set<String> sent = new HashSet<>();
+        boolean complete = true;
+        for (ReactiveClassDeclaration rcd : model.getRebecaCode().getReactiveClassDeclaration()) {
+            if (rcd.getClass() != ReactiveClassDeclaration.class || rcd.getExtends() != null ||
+                    !rcd.getImplements().isEmpty() || !rcd.getSynchMethods().isEmpty()) complete = false;
+            for (MsgsrvDeclaration method : rcd.getMsgsrvs())
+                if (method.getClass() != MsgsrvDeclaration.class || method.getBlock() == null ||
+                        !scanRuntimeSends(method.getBlock(), sent)) complete = false;
+        }
+        List<List<Boolean>> rows = new ArrayList<>();
+        for (String inst : idx.instanceNames) {
+            List<Boolean> row = new ArrayList<>(Collections.nCopies(idx.maxMsgId + 1, false));
+            ReactiveClassDeclaration rcd = idx.typeToRcd.get(idx.instanceTypeName.get(inst));
+            if (complete && rcd != null) {
+                int base = idx.startMsgId.get(rcd.getName());
+                for (int m = 0; m < rcd.getMsgsrvs().size(); m++)
+                    row.set(base + m, !sent.contains(rcd.getMsgsrvs().get(m).getName()));
+            }
+            rows.add(row);
+        }
+        return rows;
+    }
+
+    private static boolean scanRuntimeSends(Statement node, Set<String> sent) {
+        if (node == null) return true;
+        if (node.getClass() == BlockStatement.class) {
+            for (Statement child : ((BlockStatement) node).getStatements())
+                if (!scanRuntimeSends(child, sent)) return false;
+            return true;
+        }
+        if (node.getClass() == ConditionalStatement.class) {
+            ConditionalStatement c = (ConditionalStatement) node;
+            return scanRuntimeSends(c.getCondition(), sent) &&
+                    scanRuntimeSends(c.getStatement(), sent) && scanRuntimeSends(c.getElseStatement(), sent);
+        }
+        if (node.getClass() == WhileStatement.class) {
+            WhileStatement w = (WhileStatement) node;
+            return scanRuntimeSends(w.getCondition(), sent) && scanRuntimeSends(w.getStatement(), sent);
+        }
+        if (node.getClass() == BinaryExpression.class)
+            return scanRuntimeSends(((BinaryExpression) node).getLeft(), sent) &&
+                    scanRuntimeSends(((BinaryExpression) node).getRight(), sent);
+        if (node.getClass() == UnaryExpression.class)
+            return scanRuntimeSends(((UnaryExpression) node).getExpression(), sent);
+        if (node.getClass() == Literal.class) return true;
+        if (node.getClass() == DotPrimary.class) {
+            DotPrimary dot = (DotPrimary) node;
+            return scanRuntimeSends(dot.getLeft(), sent) && scanRuntimeSends(dot.getRight(), sent);
+        }
+        if (node.getClass() == TermPrimary.class) {
+            TermPrimary term = (TermPrimary) node;
+            for (Expression index : term.getIndices())
+                if (!scanRuntimeSends(index, sent)) return false;
+            ParentSuffixPrimary suffix = term.getParentSuffixPrimary();
+            if (suffix == null) return !CoreRebecaLabelUtility.MSGSRV.equals(term.getLabel());
+            // Any non-message call (including unknown builtins) disables this rule.
+            if (!CoreRebecaLabelUtility.MSGSRV.equals(term.getLabel())) return false;
+            sent.add(term.getName()); // includes self, sender and aliased receivers
+            if (suffix.getClass() != ParentSuffixPrimary.class &&
+                    suffix.getClass() != TimedRebecaParentSuffixPrimary.class) return false;
+            for (Expression arg : suffix.getArguments())
+                if (!scanRuntimeSends(arg, sent)) return false;
+            if (suffix instanceof TimedRebecaParentSuffixPrimary) {
+                TimedRebecaParentSuffixPrimary timed = (TimedRebecaParentSuffixPrimary) suffix;
+                if (!scanRuntimeSends(timed.getAfterExpression(), sent) ||
+                        !scanRuntimeSends(timed.getDeadlineExpression(), sent)) return false;
+            }
+            return true;
+        }
+        // For loops, declarations, external code and unknown extensions fail closed.
+        return false;
+    }
+
     private static void collectSends(Statement stmt, List<DotPrimary> out) {
         if (stmt == null) return;
         if (stmt instanceof BlockStatement)

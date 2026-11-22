@@ -1,5 +1,14 @@
 # LoadBalancerSmall validation
 
+## Current result
+
+Full Java generation is now available using the user's compiler 2.27 artifact.
+The post-constructor certificate gives AST=JSON **27 states / 32 transitions**,
+satisfied; its disabled control retains 38/46. Baseline remains 101/202 and static
+priorities 22/26. See [QUIESCENCE_CERTIFICATE.md](QUIESCENCE_CERTIFICATE.md).
+The remaining sections record earlier investigation stages and counts.
+
+
 The input preserves the user-provided model: source/relay counters wrap after 2,
 hub load counters wrap after 3. The original larger LoadBalancer is retained.
 
@@ -14,7 +23,7 @@ cannot exercise runtime conditional-dependency pruning because no pair is COND.
 The balance sentence in the source is a comment, not a checked assertion/LTL
 property. The default dynamic check covers deadlock/deadline reachability.
 
-RMC generation could not be run on the clean validation host: the dependency
+At the initial investigation stage, RMC generation could not be run on the clean validation host: the dependency
 `org.rebecalang:compiler:LATEST` is not in its Maven cache or bundled repository.
 Use the same compiler artifact as the user's successful desktop build to avoid
 silently changing compiler semantics. The user reports 101 baseline states;

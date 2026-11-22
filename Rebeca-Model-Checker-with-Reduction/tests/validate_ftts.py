@@ -22,6 +22,7 @@ terminal = ftts.split('    if (nextRebecTime == MAX_TIME) {', 1)[1].split('\n   
 terminal = '    if (nextRebecTime == MAX_TIME) {' + terminal
 access = lambda i: 'q' + index.replace('INDEX', i)
 source = r'''
+#define POR_DISABLE_QUIESCENCE
 #include <cassert>
 #include <stdexcept>
 #include <string>

@@ -47,7 +47,7 @@ def audit(base):
     outdir=base/'LoadBalancerSmall_audit';outdir.mkdir(exist_ok=True)
     for name,r in runs.items():
         print(f"{name}: {r['result']}, states={r['states']}, transitions={r['transitions']}, order={r['order']}")
-        print(f"  global-ID-check={'jMsgId <' in r['safety']}; queue-head-check={'rebecs[j]->messageQueue[0]' in r['safety']}")
+        print(f"  global-ID-check={'jMsgId <' in r['safety']}; queue-head-reference={'rebecs[j]->messageQueue[0]' in r['safety']}")
         (outdir/(name+'_safety.cpp.txt')).write_text(r['safety'])
         with (outdir/(name+'_matrix.csv')).open('w') as f:
             writer=csv.writer(f);writer.writerow(['left','right','dependent','left_valid','right_valid'])

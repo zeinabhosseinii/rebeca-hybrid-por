@@ -222,6 +222,7 @@ public class TimedRebecaFileGenerator extends CoreRebecaFileGenerator {
         context.put("isolatedLocalIndependent", local.independent);
         org.rebecalang.rmc.ERDGSafetyAnalyzer.PassiveSendMetadata passive =
                 org.rebecalang.rmc.ERDGSafetyAnalyzer.passiveSendActions(rebecaModel);
+        context.put("neverSentAgain", org.rebecalang.rmc.ERDGSafetyAnalyzer.neverSentAgain(rebecaModel));
         context.put("passiveSendSafe", passive.safe);
         context.put("passiveSendPassive", passive.passive);
         context.put("passiveSendIndependent", passive.independent);
