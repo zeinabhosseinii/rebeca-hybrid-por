@@ -114,3 +114,8 @@ The later conservative alternative-equivalence rule and its validation are in
 [QUEUE_ALTERNATIVES.md](QUEUE_ALTERNATIVES.md). Its generated-C++ replay retains
 38 states in AST/JSON and reduces their transition counters from 52 to 46.
 The historical tables above describe the solver before this change.
+
+An action-level persistent-set reference (different same-actor message servers)
+is documented in [ACTION_POR_REFERENCE.md](ACTION_POR_REFERENCE.md). It operates
+offline on a completed unreduced graph and gives 27 reference states from the
+64-state sender-normalized control. This is not an online RMC state-count result.
