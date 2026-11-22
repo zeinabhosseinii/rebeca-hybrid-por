@@ -37,7 +37,9 @@ bool TimedModelChecker::areActiveActionsSafe(byte* state, int r, int messageId) 
 #ifdef POR_DIAGNOSTICS
                 cerr << "POR_BLOCK state=" << current.state->stateID
                      << " actor=" << rebecs[r]->getName() << " msg=" << rMsgId
-                     << " blocker=" << rebecs[j]->getName() << " blockerMsg=" << jMsgId << endl;
+                     << " blocker=" << rebecs[j]->getName() << " blockerMsg=" << jMsgId
+                     << " blockerHead=" << (int)(unsigned char)rebecs[j]->messageQueue[0]
+                     << " scope=global_all_methods" << endl;
 #endif
                 return false;
             }
@@ -311,6 +313,18 @@ void TimedModelChecker::doTimedModelChecking(string userSelectedPropertyName, st
 		}
 
         #ifdef PO
+#ifdef POR_DIAGNOSTICS
+        cerr << "POR_STATE state=" << current.state->stateID << endl;
+        for (int d = 0; d < REBEC_COUNT; d++) {
+            int head = (unsigned char)rebecs[d]->messageQueue[0];
+            TIME_TYPE ready = head ? max(rebecs[d]->getNow(), rebecs[d]->executionTime[0]) : currentTime;
+            const char* status = !head ? "empty" : ready > currentTime ? "future"
+                : rebecs[d]->getPriority() != highestPriority ? "priority" : "eligible";
+            cerr << "POR_ACTOR state=" << current.state->stateID
+                 << " actor=" << rebecs[d]->getName() << " head=" << head
+                 << " status=" << status << endl;
+        }
+#endif
         // POR: try to execute only one safe enabled rebec (ample set = {r}).
         // Workers (few incoming senders) are tried before hubs to avoid hub-cycle starvation.
         bool reductionApplied = false;
