@@ -1,0 +1,4684 @@
+{
+  "java": "openjdk version \"17.0.20.1\" 2026-08-18\nOpenJDK Runtime Environment Homebrew (build 17.0.20.1+0)\nOpenJDK 64-Bit Server VM Homebrew (build 17.0.20.1+0, mixed mode, sharing)",
+  "native_flags": [
+    "-std=c++11",
+    "-pthread",
+    "-O2"
+  ],
+  "diagnostics": false,
+  "platform": "macOS-14.6.1-arm64-arm-64bit-Mach-O",
+  "compiler": "Apple clang version 16.0.0 (clang-1600.0.26.4)",
+  "rmc_jar_sha256": "9dc29484c1923fe567699bf232e46828655b001da7e15d6964c7fb038abc7952",
+  "aria_jar_sha256": "b3077653fc706d729c0c01f1a81370a4196e628751be63b64e6635525660065c",
+  "modes": [
+    "full",
+    "static",
+    "dynamic",
+    "dynamic_no_por"
+  ],
+  "schema_version": 2,
+  "repeats": 10,
+  "warmups_per_mode": 1,
+  "seed": 1729,
+  "graph_export": false,
+  "cases": [
+    {
+      "family": "independent",
+      "workers": 4,
+      "source_sha256": "1d81b5ab1952806036fcf791bc996965f2a72d4efc629564a80da2a3a0b496c4",
+      "preparation": {
+        "aria_export_seconds": 1.0132853329996578,
+        "modes": {
+          "full": {
+            "generation_seconds": 0.8944746669731103,
+            "copy_seconds": 0.0,
+            "compile_seconds": 5.962459458009107
+          },
+          "static": {
+            "generation_seconds": 0.8927654589933809,
+            "copy_seconds": 0.0,
+            "compile_seconds": 5.463813874986954
+          },
+          "dynamic": {
+            "generation_seconds": 0.790386667009443,
+            "copy_seconds": 0.0,
+            "compile_seconds": 5.629441999975825
+          },
+          "dynamic_no_por": {
+            "generation_seconds": 0.0,
+            "copy_seconds": 0.10238170900265686,
+            "compile_seconds": 5.674326667009154,
+            "derivation": {
+              "derived_from": "dynamic",
+              "native_change": "one PO macro removed in Config.h",
+              "unchanged_native_files": 27,
+              "original_config_sha256": "381be2fc3d78b037af226c334f86da9027f0b28355bd2596f0293a3bb198397a",
+              "control_config_sha256": "3041626994d22b088cab76026d7741b09cd97e6da08a88c93f59c5bd31d486e1"
+            }
+          }
+        }
+      },
+      "orders": [
+        {
+          "round": -1,
+          "modes": [
+            "dynamic_no_por",
+            "dynamic",
+            "static",
+            "full"
+          ]
+        },
+        {
+          "round": 0,
+          "modes": [
+            "dynamic",
+            "static",
+            "full",
+            "dynamic_no_por"
+          ]
+        },
+        {
+          "round": 1,
+          "modes": [
+            "static",
+            "full",
+            "dynamic_no_por",
+            "dynamic"
+          ]
+        },
+        {
+          "round": 2,
+          "modes": [
+            "full",
+            "dynamic_no_por",
+            "dynamic",
+            "static"
+          ]
+        },
+        {
+          "round": 3,
+          "modes": [
+            "dynamic_no_por",
+            "dynamic",
+            "static",
+            "full"
+          ]
+        },
+        {
+          "round": 4,
+          "modes": [
+            "dynamic",
+            "static",
+            "full",
+            "dynamic_no_por"
+          ]
+        },
+        {
+          "round": 5,
+          "modes": [
+            "static",
+            "full",
+            "dynamic_no_por",
+            "dynamic"
+          ]
+        },
+        {
+          "round": 6,
+          "modes": [
+            "full",
+            "dynamic_no_por",
+            "dynamic",
+            "static"
+          ]
+        },
+        {
+          "round": 7,
+          "modes": [
+            "dynamic_no_por",
+            "dynamic",
+            "static",
+            "full"
+          ]
+        },
+        {
+          "round": 8,
+          "modes": [
+            "dynamic",
+            "static",
+            "full",
+            "dynamic_no_por"
+          ]
+        },
+        {
+          "round": 9,
+          "modes": [
+            "static",
+            "full",
+            "dynamic_no_por",
+            "dynamic"
+          ]
+        }
+      ],
+      "modes": {
+        "full": {
+          "status": "completed",
+          "samples": [
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 993,
+              "transitions": 3233,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 19860,
+              "native_wall_seconds": 0.15449041599640623,
+              "peak_rss_kib": 769536.0,
+              "status": "completed",
+              "round": 0
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 993,
+              "transitions": 3233,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 19860,
+              "native_wall_seconds": 0.1539784159976989,
+              "peak_rss_kib": 758688.0,
+              "status": "completed",
+              "round": 1
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 993,
+              "transitions": 3233,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 19860,
+              "native_wall_seconds": 0.15178687500883825,
+              "peak_rss_kib": 762896.0,
+              "status": "completed",
+              "round": 2
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 993,
+              "transitions": 3233,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 19860,
+              "native_wall_seconds": 0.1533110000018496,
+              "peak_rss_kib": 738176.0,
+              "status": "completed",
+              "round": 3
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 993,
+              "transitions": 3233,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 19860,
+              "native_wall_seconds": 0.1682440000004135,
+              "peak_rss_kib": 738000.0,
+              "status": "completed",
+              "round": 4
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 993,
+              "transitions": 3233,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 19860,
+              "native_wall_seconds": 0.15649074999964796,
+              "peak_rss_kib": 744320.0,
+              "status": "completed",
+              "round": 5
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 993,
+              "transitions": 3233,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 19860,
+              "native_wall_seconds": 0.14929279100033455,
+              "peak_rss_kib": 776048.0,
+              "status": "completed",
+              "round": 6
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 993,
+              "transitions": 3233,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 19860,
+              "native_wall_seconds": 0.15548962500179186,
+              "peak_rss_kib": 808672.0,
+              "status": "completed",
+              "round": 7
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 993,
+              "transitions": 3233,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 19860,
+              "native_wall_seconds": 0.1489696670032572,
+              "peak_rss_kib": 802032.0,
+              "status": "completed",
+              "round": 8
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 993,
+              "transitions": 3233,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 19860,
+              "native_wall_seconds": 0.1499079590139445,
+              "peak_rss_kib": 821696.0,
+              "status": "completed",
+              "round": 9
+            }
+          ],
+          "warmup": {
+            "result": "satisfied",
+            "property_type": "Reachability",
+            "property_name": "Deadlock-Freedom and No Deadline Missed",
+            "states": 993,
+            "transitions": 3233,
+            "trace_states": 0,
+            "solver_reported_seconds": 1,
+            "solver_estimated_bytes": 19860,
+            "native_wall_seconds": 0.5191167919838335,
+            "peak_rss_kib": 742096.0,
+            "status": "completed",
+            "round": -1
+          }
+        },
+        "static": {
+          "status": "completed",
+          "samples": [
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 445,
+              "transitions": 1353,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 8900,
+              "native_wall_seconds": 0.16251495797769167,
+              "peak_rss_kib": 747392.0,
+              "status": "completed",
+              "round": 0
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 445,
+              "transitions": 1353,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 8900,
+              "native_wall_seconds": 0.15261591601301916,
+              "peak_rss_kib": 751712.0,
+              "status": "completed",
+              "round": 1
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 445,
+              "transitions": 1353,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 8900,
+              "native_wall_seconds": 0.1473174580023624,
+              "peak_rss_kib": 769120.0,
+              "status": "completed",
+              "round": 2
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 445,
+              "transitions": 1353,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 8900,
+              "native_wall_seconds": 0.15403654100373387,
+              "peak_rss_kib": 730912.0,
+              "status": "completed",
+              "round": 3
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 445,
+              "transitions": 1353,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 8900,
+              "native_wall_seconds": 0.1552564580051694,
+              "peak_rss_kib": 734928.0,
+              "status": "completed",
+              "round": 4
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 445,
+              "transitions": 1353,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 8900,
+              "native_wall_seconds": 0.15936412502196617,
+              "peak_rss_kib": 727776.0,
+              "status": "completed",
+              "round": 5
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 445,
+              "transitions": 1353,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 8900,
+              "native_wall_seconds": 0.15436754198162816,
+              "peak_rss_kib": 790912.0,
+              "status": "completed",
+              "round": 6
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 445,
+              "transitions": 1353,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 8900,
+              "native_wall_seconds": 0.14279562499723397,
+              "peak_rss_kib": 809552.0,
+              "status": "completed",
+              "round": 7
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 445,
+              "transitions": 1353,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 8900,
+              "native_wall_seconds": 0.14997108399984427,
+              "peak_rss_kib": 805152.0,
+              "status": "completed",
+              "round": 8
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 445,
+              "transitions": 1353,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 8900,
+              "native_wall_seconds": 0.14951462499448098,
+              "peak_rss_kib": 820784.0,
+              "status": "completed",
+              "round": 9
+            }
+          ],
+          "warmup": {
+            "result": "satisfied",
+            "property_type": "Reachability",
+            "property_name": "Deadlock-Freedom and No Deadline Missed",
+            "states": 445,
+            "transitions": 1353,
+            "trace_states": 0,
+            "solver_reported_seconds": 0,
+            "solver_estimated_bytes": 8900,
+            "native_wall_seconds": 0.5222350420081057,
+            "peak_rss_kib": 733408.0,
+            "status": "completed",
+            "round": -1
+          }
+        },
+        "dynamic": {
+          "status": "completed",
+          "samples": [
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 624,
+              "transitions": 2001,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 12480,
+              "native_wall_seconds": 0.15445654100039974,
+              "peak_rss_kib": 779184.0,
+              "status": "completed",
+              "round": 0
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 624,
+              "transitions": 2001,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 12480,
+              "native_wall_seconds": 0.15078379100305028,
+              "peak_rss_kib": 765152.0,
+              "status": "completed",
+              "round": 1
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 624,
+              "transitions": 2001,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 12480,
+              "native_wall_seconds": 0.14858229202218354,
+              "peak_rss_kib": 763712.0,
+              "status": "completed",
+              "round": 2
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 624,
+              "transitions": 2001,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 12480,
+              "native_wall_seconds": 0.15465941600268707,
+              "peak_rss_kib": 730464.0,
+              "status": "completed",
+              "round": 3
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 624,
+              "transitions": 2001,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 12480,
+              "native_wall_seconds": 0.1574333329917863,
+              "peak_rss_kib": 734272.0,
+              "status": "completed",
+              "round": 4
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 624,
+              "transitions": 2001,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 12480,
+              "native_wall_seconds": 0.15145583299454302,
+              "peak_rss_kib": 751776.0,
+              "status": "completed",
+              "round": 5
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 624,
+              "transitions": 2001,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 12480,
+              "native_wall_seconds": 0.15367041699937545,
+              "peak_rss_kib": 800768.0,
+              "status": "completed",
+              "round": 6
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 624,
+              "transitions": 2001,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 12480,
+              "native_wall_seconds": 0.1445443749835249,
+              "peak_rss_kib": 806448.0,
+              "status": "completed",
+              "round": 7
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 624,
+              "transitions": 2001,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 12480,
+              "native_wall_seconds": 0.1494407919817604,
+              "peak_rss_kib": 801872.0,
+              "status": "completed",
+              "round": 8
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 624,
+              "transitions": 2001,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 12480,
+              "native_wall_seconds": 0.15290079201804474,
+              "peak_rss_kib": 782816.0,
+              "status": "completed",
+              "round": 9
+            }
+          ],
+          "warmup": {
+            "result": "satisfied",
+            "property_type": "Reachability",
+            "property_name": "Deadlock-Freedom and No Deadline Missed",
+            "states": 624,
+            "transitions": 2001,
+            "trace_states": 0,
+            "solver_reported_seconds": 0,
+            "solver_estimated_bytes": 12480,
+            "native_wall_seconds": 0.5661649169924203,
+            "peak_rss_kib": 668928.0,
+            "status": "completed",
+            "round": -1
+          }
+        },
+        "dynamic_no_por": {
+          "status": "completed",
+          "samples": [
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 624,
+              "transitions": 2001,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 12480,
+              "native_wall_seconds": 0.14771691701025702,
+              "peak_rss_kib": 781168.0,
+              "status": "completed",
+              "round": 0
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 624,
+              "transitions": 2001,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 12480,
+              "native_wall_seconds": 0.1500328330148477,
+              "peak_rss_kib": 759792.0,
+              "status": "completed",
+              "round": 1
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 624,
+              "transitions": 2001,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 12480,
+              "native_wall_seconds": 0.15063291700789705,
+              "peak_rss_kib": 759408.0,
+              "status": "completed",
+              "round": 2
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 624,
+              "transitions": 2001,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 12480,
+              "native_wall_seconds": 0.1614290839934256,
+              "peak_rss_kib": 757520.0,
+              "status": "completed",
+              "round": 3
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 624,
+              "transitions": 2001,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 12480,
+              "native_wall_seconds": 0.15606045801541768,
+              "peak_rss_kib": 736384.0,
+              "status": "completed",
+              "round": 4
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 624,
+              "transitions": 2001,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 12480,
+              "native_wall_seconds": 0.15023879101499915,
+              "peak_rss_kib": 749280.0,
+              "status": "completed",
+              "round": 5
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 624,
+              "transitions": 2001,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 12480,
+              "native_wall_seconds": 0.1547652909939643,
+              "peak_rss_kib": 799280.0,
+              "status": "completed",
+              "round": 6
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 624,
+              "transitions": 2001,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 12480,
+              "native_wall_seconds": 0.15427308299695142,
+              "peak_rss_kib": 798016.0,
+              "status": "completed",
+              "round": 7
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 624,
+              "transitions": 2001,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 12480,
+              "native_wall_seconds": 0.15007654199143872,
+              "peak_rss_kib": 816832.0,
+              "status": "completed",
+              "round": 8
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 624,
+              "transitions": 2001,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 12480,
+              "native_wall_seconds": 0.16879291701479815,
+              "peak_rss_kib": 801136.0,
+              "status": "completed",
+              "round": 9
+            }
+          ],
+          "warmup": {
+            "result": "satisfied",
+            "property_type": "Reachability",
+            "property_name": "Deadlock-Freedom and No Deadline Missed",
+            "states": 624,
+            "transitions": 2001,
+            "trace_states": 0,
+            "solver_reported_seconds": 0,
+            "solver_estimated_bytes": 12480,
+            "native_wall_seconds": 0.5967804579995573,
+            "peak_rss_kib": 576352.0,
+            "status": "completed",
+            "round": -1
+          }
+        }
+      }
+    },
+    {
+      "family": "independent",
+      "workers": 6,
+      "source_sha256": "898730d5dfd4587f8a1c5809a3b27ae62b4845832873b93c54dc1d758ea08fcb",
+      "preparation": {
+        "aria_export_seconds": 2.1582608339958824,
+        "modes": {
+          "full": {
+            "generation_seconds": 1.1076050419942476,
+            "copy_seconds": 0.0,
+            "compile_seconds": 6.5684057920007035
+          },
+          "static": {
+            "generation_seconds": 0.9536853749887086,
+            "copy_seconds": 0.0,
+            "compile_seconds": 6.396447875013109
+          },
+          "dynamic": {
+            "generation_seconds": 0.9028239999897778,
+            "copy_seconds": 0.0,
+            "compile_seconds": 6.509829375019763
+          },
+          "dynamic_no_por": {
+            "generation_seconds": 0.0,
+            "copy_seconds": 0.11050554199027829,
+            "compile_seconds": 6.599039583990816,
+            "derivation": {
+              "derived_from": "dynamic",
+              "native_change": "one PO macro removed in Config.h",
+              "unchanged_native_files": 31,
+              "original_config_sha256": "381be2fc3d78b037af226c334f86da9027f0b28355bd2596f0293a3bb198397a",
+              "control_config_sha256": "3041626994d22b088cab76026d7741b09cd97e6da08a88c93f59c5bd31d486e1"
+            }
+          }
+        }
+      },
+      "orders": [
+        {
+          "round": -1,
+          "modes": [
+            "dynamic_no_por",
+            "full",
+            "dynamic",
+            "static"
+          ]
+        },
+        {
+          "round": 0,
+          "modes": [
+            "full",
+            "dynamic",
+            "static",
+            "dynamic_no_por"
+          ]
+        },
+        {
+          "round": 1,
+          "modes": [
+            "dynamic",
+            "static",
+            "dynamic_no_por",
+            "full"
+          ]
+        },
+        {
+          "round": 2,
+          "modes": [
+            "static",
+            "dynamic_no_por",
+            "full",
+            "dynamic"
+          ]
+        },
+        {
+          "round": 3,
+          "modes": [
+            "dynamic_no_por",
+            "full",
+            "dynamic",
+            "static"
+          ]
+        },
+        {
+          "round": 4,
+          "modes": [
+            "full",
+            "dynamic",
+            "static",
+            "dynamic_no_por"
+          ]
+        },
+        {
+          "round": 5,
+          "modes": [
+            "dynamic",
+            "static",
+            "dynamic_no_por",
+            "full"
+          ]
+        },
+        {
+          "round": 6,
+          "modes": [
+            "static",
+            "dynamic_no_por",
+            "full",
+            "dynamic"
+          ]
+        },
+        {
+          "round": 7,
+          "modes": [
+            "dynamic_no_por",
+            "full",
+            "dynamic",
+            "static"
+          ]
+        },
+        {
+          "round": 8,
+          "modes": [
+            "full",
+            "dynamic",
+            "static",
+            "dynamic_no_por"
+          ]
+        },
+        {
+          "round": 9,
+          "modes": [
+            "dynamic",
+            "static",
+            "dynamic_no_por",
+            "full"
+          ]
+        }
+      ],
+      "modes": {
+        "full": {
+          "status": "completed",
+          "samples": [
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 27153,
+              "transitions": 131569,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 760284,
+              "native_wall_seconds": 0.4172049170010723,
+              "peak_rss_kib": 800288.0,
+              "status": "completed",
+              "round": 0
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 27153,
+              "transitions": 131569,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 760284,
+              "native_wall_seconds": 0.4067974170029629,
+              "peak_rss_kib": 815040.0,
+              "status": "completed",
+              "round": 1
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 27153,
+              "transitions": 131569,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 760284,
+              "native_wall_seconds": 0.3855620830145199,
+              "peak_rss_kib": 999056.0,
+              "status": "completed",
+              "round": 2
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 27153,
+              "transitions": 131569,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 760284,
+              "native_wall_seconds": 0.3682765839912463,
+              "peak_rss_kib": 1053296.0,
+              "status": "completed",
+              "round": 3
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 27153,
+              "transitions": 131569,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 760284,
+              "native_wall_seconds": 0.37741600000299513,
+              "peak_rss_kib": 1045936.0,
+              "status": "completed",
+              "round": 4
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 27153,
+              "transitions": 131569,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 760284,
+              "native_wall_seconds": 0.3744228749710601,
+              "peak_rss_kib": 964928.0,
+              "status": "completed",
+              "round": 5
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 27153,
+              "transitions": 131569,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 760284,
+              "native_wall_seconds": 0.3526669589919038,
+              "peak_rss_kib": 986160.0,
+              "status": "completed",
+              "round": 6
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 27153,
+              "transitions": 131569,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 760284,
+              "native_wall_seconds": 0.34264487499604,
+              "peak_rss_kib": 1014272.0,
+              "status": "completed",
+              "round": 7
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 27153,
+              "transitions": 131569,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 760284,
+              "native_wall_seconds": 0.3433978749962989,
+              "peak_rss_kib": 989760.0,
+              "status": "completed",
+              "round": 8
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 27153,
+              "transitions": 131569,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 760284,
+              "native_wall_seconds": 0.36617829199531116,
+              "peak_rss_kib": 1041904.0,
+              "status": "completed",
+              "round": 9
+            }
+          ],
+          "warmup": {
+            "result": "satisfied",
+            "property_type": "Reachability",
+            "property_name": "Deadlock-Freedom and No Deadline Missed",
+            "states": 27153,
+            "transitions": 131569,
+            "trace_states": 0,
+            "solver_reported_seconds": 1,
+            "solver_estimated_bytes": 760284,
+            "native_wall_seconds": 0.7591895420046058,
+            "peak_rss_kib": 685888.0,
+            "status": "completed",
+            "round": -1
+          }
+        },
+        "static": {
+          "status": "completed",
+          "samples": [
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 7525,
+              "transitions": 34141,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 210700,
+              "native_wall_seconds": 0.2952009169966914,
+              "peak_rss_kib": 650480.0,
+              "status": "completed",
+              "round": 0
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 7525,
+              "transitions": 34141,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 210700,
+              "native_wall_seconds": 0.32174445799319074,
+              "peak_rss_kib": 604560.0,
+              "status": "completed",
+              "round": 1
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 7525,
+              "transitions": 34141,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 210700,
+              "native_wall_seconds": 0.30137662502238527,
+              "peak_rss_kib": 835616.0,
+              "status": "completed",
+              "round": 2
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 7525,
+              "transitions": 34141,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 210700,
+              "native_wall_seconds": 0.2465004170080647,
+              "peak_rss_kib": 1099232.0,
+              "status": "completed",
+              "round": 3
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 7525,
+              "transitions": 34141,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 210700,
+              "native_wall_seconds": 0.24758962501073256,
+              "peak_rss_kib": 1040336.0,
+              "status": "completed",
+              "round": 4
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 7525,
+              "transitions": 34141,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 210700,
+              "native_wall_seconds": 0.2661852919845842,
+              "peak_rss_kib": 1013168.0,
+              "status": "completed",
+              "round": 5
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 7525,
+              "transitions": 34141,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 210700,
+              "native_wall_seconds": 0.2452083750104066,
+              "peak_rss_kib": 963216.0,
+              "status": "completed",
+              "round": 6
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 7525,
+              "transitions": 34141,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 210700,
+              "native_wall_seconds": 0.24612487500417046,
+              "peak_rss_kib": 997648.0,
+              "status": "completed",
+              "round": 7
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 7525,
+              "transitions": 34141,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 210700,
+              "native_wall_seconds": 0.251300000003539,
+              "peak_rss_kib": 998128.0,
+              "status": "completed",
+              "round": 8
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 7525,
+              "transitions": 34141,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 210700,
+              "native_wall_seconds": 0.2492597500095144,
+              "peak_rss_kib": 1068432.0,
+              "status": "completed",
+              "round": 9
+            }
+          ],
+          "warmup": {
+            "result": "satisfied",
+            "property_type": "Reachability",
+            "property_name": "Deadlock-Freedom and No Deadline Missed",
+            "states": 7525,
+            "transitions": 34141,
+            "trace_states": 0,
+            "solver_reported_seconds": 0,
+            "solver_estimated_bytes": 210700,
+            "native_wall_seconds": 0.6704555410251487,
+            "peak_rss_kib": 743632.0,
+            "status": "completed",
+            "round": -1
+          }
+        },
+        "dynamic": {
+          "status": "completed",
+          "samples": [
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 15624,
+              "transitions": 75001,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 437472,
+              "native_wall_seconds": 0.37954916700255126,
+              "peak_rss_kib": 636128.0,
+              "status": "completed",
+              "round": 0
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 15624,
+              "transitions": 75001,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 437472,
+              "native_wall_seconds": 0.43768645799718797,
+              "peak_rss_kib": 625376.0,
+              "status": "completed",
+              "round": 1
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 15624,
+              "transitions": 75001,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 437472,
+              "native_wall_seconds": 0.31113808302325197,
+              "peak_rss_kib": 1057088.0,
+              "status": "completed",
+              "round": 2
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 15624,
+              "transitions": 75001,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 437472,
+              "native_wall_seconds": 0.3226976250007283,
+              "peak_rss_kib": 1059648.0,
+              "status": "completed",
+              "round": 3
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 15624,
+              "transitions": 75001,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 437472,
+              "native_wall_seconds": 0.30161404100363143,
+              "peak_rss_kib": 1044544.0,
+              "status": "completed",
+              "round": 4
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 15624,
+              "transitions": 75001,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 437472,
+              "native_wall_seconds": 0.31843795799068175,
+              "peak_rss_kib": 1032816.0,
+              "status": "completed",
+              "round": 5
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 15624,
+              "transitions": 75001,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 437472,
+              "native_wall_seconds": 0.31694562500342727,
+              "peak_rss_kib": 1000464.0,
+              "status": "completed",
+              "round": 6
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 15624,
+              "transitions": 75001,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 437472,
+              "native_wall_seconds": 0.318282916006865,
+              "peak_rss_kib": 1016416.0,
+              "status": "completed",
+              "round": 7
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 15624,
+              "transitions": 75001,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 437472,
+              "native_wall_seconds": 0.296452333976049,
+              "peak_rss_kib": 1030160.0,
+              "status": "completed",
+              "round": 8
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 15624,
+              "transitions": 75001,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 437472,
+              "native_wall_seconds": 0.28590320798684843,
+              "peak_rss_kib": 1028640.0,
+              "status": "completed",
+              "round": 9
+            }
+          ],
+          "warmup": {
+            "result": "satisfied",
+            "property_type": "Reachability",
+            "property_name": "Deadlock-Freedom and No Deadline Missed",
+            "states": 15624,
+            "transitions": 75001,
+            "trace_states": 0,
+            "solver_reported_seconds": 0,
+            "solver_estimated_bytes": 437472,
+            "native_wall_seconds": 0.6272292500070762,
+            "peak_rss_kib": 756560.0,
+            "status": "completed",
+            "round": -1
+          }
+        },
+        "dynamic_no_por": {
+          "status": "completed",
+          "samples": [
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 15624,
+              "transitions": 75001,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 437472,
+              "native_wall_seconds": 0.3482636669941712,
+              "peak_rss_kib": 664096.0,
+              "status": "completed",
+              "round": 0
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 15624,
+              "transitions": 75001,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 437472,
+              "native_wall_seconds": 0.4286411670036614,
+              "peak_rss_kib": 729360.0,
+              "status": "completed",
+              "round": 1
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 15624,
+              "transitions": 75001,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 437472,
+              "native_wall_seconds": 0.2993508339859545,
+              "peak_rss_kib": 980032.0,
+              "status": "completed",
+              "round": 2
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 15624,
+              "transitions": 75001,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 437472,
+              "native_wall_seconds": 0.29260345798684284,
+              "peak_rss_kib": 1052336.0,
+              "status": "completed",
+              "round": 3
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 15624,
+              "transitions": 75001,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 437472,
+              "native_wall_seconds": 0.30443158399430104,
+              "peak_rss_kib": 1053328.0,
+              "status": "completed",
+              "round": 4
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 15624,
+              "transitions": 75001,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 437472,
+              "native_wall_seconds": 0.28538908300106414,
+              "peak_rss_kib": 958544.0,
+              "status": "completed",
+              "round": 5
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 15624,
+              "transitions": 75001,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 437472,
+              "native_wall_seconds": 0.29868133401032537,
+              "peak_rss_kib": 962320.0,
+              "status": "completed",
+              "round": 6
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 15624,
+              "transitions": 75001,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 437472,
+              "native_wall_seconds": 0.30470154198701493,
+              "peak_rss_kib": 1005072.0,
+              "status": "completed",
+              "round": 7
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 15624,
+              "transitions": 75001,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 437472,
+              "native_wall_seconds": 0.29336750000948086,
+              "peak_rss_kib": 1065248.0,
+              "status": "completed",
+              "round": 8
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 15624,
+              "transitions": 75001,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 437472,
+              "native_wall_seconds": 0.28992358298273757,
+              "peak_rss_kib": 1037840.0,
+              "status": "completed",
+              "round": 9
+            }
+          ],
+          "warmup": {
+            "result": "satisfied",
+            "property_type": "Reachability",
+            "property_name": "Deadlock-Freedom and No Deadline Missed",
+            "states": 15624,
+            "transitions": 75001,
+            "trace_states": 0,
+            "solver_reported_seconds": 1,
+            "solver_estimated_bytes": 437472,
+            "native_wall_seconds": 0.7117134589934722,
+            "peak_rss_kib": 568080.0,
+            "status": "completed",
+            "round": -1
+          }
+        }
+      }
+    },
+    {
+      "family": "independent",
+      "workers": 8,
+      "source_sha256": "0c686f8309bb948ba87d97bfd43d2a1be809d0d3c3b146ceebe9d5269ae81407",
+      "preparation": {
+        "aria_export_seconds": 4.690966666996246,
+        "modes": {
+          "full": {
+            "generation_seconds": 1.1513687910046428,
+            "copy_seconds": 0.0,
+            "compile_seconds": 7.603805959020974
+          },
+          "static": {
+            "generation_seconds": 0.888878958998248,
+            "copy_seconds": 0.0,
+            "compile_seconds": 7.2863582909922116
+          },
+          "dynamic": {
+            "generation_seconds": 0.8986412499798462,
+            "copy_seconds": 0.0,
+            "compile_seconds": 7.334991707990412
+          },
+          "dynamic_no_por": {
+            "generation_seconds": 0.0,
+            "copy_seconds": 0.15602183301234618,
+            "compile_seconds": 7.343586167000467,
+            "derivation": {
+              "derived_from": "dynamic",
+              "native_change": "one PO macro removed in Config.h",
+              "unchanged_native_files": 35,
+              "original_config_sha256": "381be2fc3d78b037af226c334f86da9027f0b28355bd2596f0293a3bb198397a",
+              "control_config_sha256": "3041626994d22b088cab76026d7741b09cd97e6da08a88c93f59c5bd31d486e1"
+            }
+          }
+        }
+      },
+      "orders": [
+        {
+          "round": -1,
+          "modes": [
+            "full",
+            "dynamic",
+            "dynamic_no_por",
+            "static"
+          ]
+        },
+        {
+          "round": 0,
+          "modes": [
+            "dynamic",
+            "dynamic_no_por",
+            "static",
+            "full"
+          ]
+        },
+        {
+          "round": 1,
+          "modes": [
+            "dynamic_no_por",
+            "static",
+            "full",
+            "dynamic"
+          ]
+        },
+        {
+          "round": 2,
+          "modes": [
+            "static",
+            "full",
+            "dynamic",
+            "dynamic_no_por"
+          ]
+        },
+        {
+          "round": 3,
+          "modes": [
+            "full",
+            "dynamic",
+            "dynamic_no_por",
+            "static"
+          ]
+        },
+        {
+          "round": 4,
+          "modes": [
+            "dynamic",
+            "dynamic_no_por",
+            "static",
+            "full"
+          ]
+        },
+        {
+          "round": 5,
+          "modes": [
+            "dynamic_no_por",
+            "static",
+            "full",
+            "dynamic"
+          ]
+        },
+        {
+          "round": 6,
+          "modes": [
+            "static",
+            "full",
+            "dynamic",
+            "dynamic_no_por"
+          ]
+        },
+        {
+          "round": 7,
+          "modes": [
+            "full",
+            "dynamic",
+            "dynamic_no_por",
+            "static"
+          ]
+        },
+        {
+          "round": 8,
+          "modes": [
+            "dynamic",
+            "dynamic_no_por",
+            "static",
+            "full"
+          ]
+        },
+        {
+          "round": 9,
+          "modes": [
+            "dynamic_no_por",
+            "static",
+            "full",
+            "dynamic"
+          ]
+        }
+      ],
+      "modes": {
+        "full": {
+          "status": "completed",
+          "samples": [
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 715713,
+              "transitions": 4606785,
+              "trace_states": 0,
+              "solver_reported_seconds": 7,
+              "solver_estimated_bytes": 25765668,
+              "native_wall_seconds": 6.620336958003463,
+              "peak_rss_kib": 552048.0,
+              "status": "completed",
+              "round": 0
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 715713,
+              "transitions": 4606785,
+              "trace_states": 0,
+              "solver_reported_seconds": 6,
+              "solver_estimated_bytes": 25765668,
+              "native_wall_seconds": 6.54207941700588,
+              "peak_rss_kib": 779968.0,
+              "status": "completed",
+              "round": 1
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 715713,
+              "transitions": 4606785,
+              "trace_states": 0,
+              "solver_reported_seconds": 7,
+              "solver_estimated_bytes": 25765668,
+              "native_wall_seconds": 6.494918416981818,
+              "peak_rss_kib": 1002384.0,
+              "status": "completed",
+              "round": 2
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 715713,
+              "transitions": 4606785,
+              "trace_states": 0,
+              "solver_reported_seconds": 7,
+              "solver_estimated_bytes": 25765668,
+              "native_wall_seconds": 6.4590167090063915,
+              "peak_rss_kib": 1089184.0,
+              "status": "completed",
+              "round": 3
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 715713,
+              "transitions": 4606785,
+              "trace_states": 0,
+              "solver_reported_seconds": 6,
+              "solver_estimated_bytes": 25765668,
+              "native_wall_seconds": 6.447116374998586,
+              "peak_rss_kib": 1198208.0,
+              "status": "completed",
+              "round": 4
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 715713,
+              "transitions": 4606785,
+              "trace_states": 0,
+              "solver_reported_seconds": 7,
+              "solver_estimated_bytes": 25765668,
+              "native_wall_seconds": 6.465916916989954,
+              "peak_rss_kib": 1092192.0,
+              "status": "completed",
+              "round": 5
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 715713,
+              "transitions": 4606785,
+              "trace_states": 0,
+              "solver_reported_seconds": 6,
+              "solver_estimated_bytes": 25765668,
+              "native_wall_seconds": 6.508362332999241,
+              "peak_rss_kib": 1097328.0,
+              "status": "completed",
+              "round": 6
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 715713,
+              "transitions": 4606785,
+              "trace_states": 0,
+              "solver_reported_seconds": 6,
+              "solver_estimated_bytes": 25765668,
+              "native_wall_seconds": 6.460446499986574,
+              "peak_rss_kib": 1033200.0,
+              "status": "completed",
+              "round": 7
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 715713,
+              "transitions": 4606785,
+              "trace_states": 0,
+              "solver_reported_seconds": 7,
+              "solver_estimated_bytes": 25765668,
+              "native_wall_seconds": 6.48175424998044,
+              "peak_rss_kib": 1142464.0,
+              "status": "completed",
+              "round": 8
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 715713,
+              "transitions": 4606785,
+              "trace_states": 0,
+              "solver_reported_seconds": 6,
+              "solver_estimated_bytes": 25765668,
+              "native_wall_seconds": 6.391569416009588,
+              "peak_rss_kib": 1164736.0,
+              "status": "completed",
+              "round": 9
+            }
+          ],
+          "warmup": {
+            "result": "satisfied",
+            "property_type": "Reachability",
+            "property_name": "Deadlock-Freedom and No Deadline Missed",
+            "states": 715713,
+            "transitions": 4606785,
+            "trace_states": 0,
+            "solver_reported_seconds": 7,
+            "solver_estimated_bytes": 25765668,
+            "native_wall_seconds": 8.000729708001018,
+            "peak_rss_kib": 627152.0,
+            "status": "completed",
+            "round": -1
+          }
+        },
+        "static": {
+          "status": "completed",
+          "samples": [
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 124765,
+              "transitions": 752465,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 4491540,
+              "native_wall_seconds": 1.371832083008485,
+              "peak_rss_kib": 548960.0,
+              "status": "completed",
+              "round": 0
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 124765,
+              "transitions": 752465,
+              "trace_states": 0,
+              "solver_reported_seconds": 2,
+              "solver_estimated_bytes": 4491540,
+              "native_wall_seconds": 1.3613257920078468,
+              "peak_rss_kib": 691168.0,
+              "status": "completed",
+              "round": 1
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 124765,
+              "transitions": 752465,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 4491540,
+              "native_wall_seconds": 1.3064484159986023,
+              "peak_rss_kib": 852192.0,
+              "status": "completed",
+              "round": 2
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 124765,
+              "transitions": 752465,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 4491540,
+              "native_wall_seconds": 1.3032552910153754,
+              "peak_rss_kib": 1021952.0,
+              "status": "completed",
+              "round": 3
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 124765,
+              "transitions": 752465,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 4491540,
+              "native_wall_seconds": 1.2944109580130316,
+              "peak_rss_kib": 1153520.0,
+              "status": "completed",
+              "round": 4
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 124765,
+              "transitions": 752465,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 4491540,
+              "native_wall_seconds": 1.292667875008192,
+              "peak_rss_kib": 1050448.0,
+              "status": "completed",
+              "round": 5
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 124765,
+              "transitions": 752465,
+              "trace_states": 0,
+              "solver_reported_seconds": 2,
+              "solver_estimated_bytes": 4491540,
+              "native_wall_seconds": 1.3213709999981802,
+              "peak_rss_kib": 967344.0,
+              "status": "completed",
+              "round": 6
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 124765,
+              "transitions": 752465,
+              "trace_states": 0,
+              "solver_reported_seconds": 2,
+              "solver_estimated_bytes": 4491540,
+              "native_wall_seconds": 1.3458081670105457,
+              "peak_rss_kib": 828256.0,
+              "status": "completed",
+              "round": 7
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 124765,
+              "transitions": 752465,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 4491540,
+              "native_wall_seconds": 1.2995248749793973,
+              "peak_rss_kib": 1101536.0,
+              "status": "completed",
+              "round": 8
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 124765,
+              "transitions": 752465,
+              "trace_states": 0,
+              "solver_reported_seconds": 2,
+              "solver_estimated_bytes": 4491540,
+              "native_wall_seconds": 1.2934722500212956,
+              "peak_rss_kib": 1108832.0,
+              "status": "completed",
+              "round": 9
+            }
+          ],
+          "warmup": {
+            "result": "satisfied",
+            "property_type": "Reachability",
+            "property_name": "Deadlock-Freedom and No Deadline Missed",
+            "states": 124765,
+            "transitions": 752465,
+            "trace_states": 0,
+            "solver_reported_seconds": 1,
+            "solver_estimated_bytes": 4491540,
+            "native_wall_seconds": 1.7118120829982217,
+            "peak_rss_kib": 683312.0,
+            "status": "completed",
+            "round": -1
+          }
+        },
+        "dynamic": {
+          "status": "completed",
+          "samples": [
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 390624,
+              "transitions": 2500001,
+              "trace_states": 0,
+              "solver_reported_seconds": 4,
+              "solver_estimated_bytes": 14062464,
+              "native_wall_seconds": 3.669211875007022,
+              "peak_rss_kib": 872992.0,
+              "status": "completed",
+              "round": 0
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 390624,
+              "transitions": 2500001,
+              "trace_states": 0,
+              "solver_reported_seconds": 4,
+              "solver_estimated_bytes": 14062464,
+              "native_wall_seconds": 3.7042056250211317,
+              "peak_rss_kib": 711968.0,
+              "status": "completed",
+              "round": 1
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 390624,
+              "transitions": 2500001,
+              "trace_states": 0,
+              "solver_reported_seconds": 3,
+              "solver_estimated_bytes": 14062464,
+              "native_wall_seconds": 3.7464320000144653,
+              "peak_rss_kib": 840608.0,
+              "status": "completed",
+              "round": 2
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 390624,
+              "transitions": 2500001,
+              "trace_states": 0,
+              "solver_reported_seconds": 3,
+              "solver_estimated_bytes": 14062464,
+              "native_wall_seconds": 3.7174524999863934,
+              "peak_rss_kib": 1080464.0,
+              "status": "completed",
+              "round": 3
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 390624,
+              "transitions": 2500001,
+              "trace_states": 0,
+              "solver_reported_seconds": 4,
+              "solver_estimated_bytes": 14062464,
+              "native_wall_seconds": 3.6856640839832835,
+              "peak_rss_kib": 1058144.0,
+              "status": "completed",
+              "round": 4
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 390624,
+              "transitions": 2500001,
+              "trace_states": 0,
+              "solver_reported_seconds": 3,
+              "solver_estimated_bytes": 14062464,
+              "native_wall_seconds": 3.694386916991789,
+              "peak_rss_kib": 954064.0,
+              "status": "completed",
+              "round": 5
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 390624,
+              "transitions": 2500001,
+              "trace_states": 0,
+              "solver_reported_seconds": 4,
+              "solver_estimated_bytes": 14062464,
+              "native_wall_seconds": 3.679949375014985,
+              "peak_rss_kib": 1086624.0,
+              "status": "completed",
+              "round": 6
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 390624,
+              "transitions": 2500001,
+              "trace_states": 0,
+              "solver_reported_seconds": 4,
+              "solver_estimated_bytes": 14062464,
+              "native_wall_seconds": 3.6554535840114113,
+              "peak_rss_kib": 1044128.0,
+              "status": "completed",
+              "round": 7
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 390624,
+              "transitions": 2500001,
+              "trace_states": 0,
+              "solver_reported_seconds": 3,
+              "solver_estimated_bytes": 14062464,
+              "native_wall_seconds": 3.6794862500100862,
+              "peak_rss_kib": 951824.0,
+              "status": "completed",
+              "round": 8
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 390624,
+              "transitions": 2500001,
+              "trace_states": 0,
+              "solver_reported_seconds": 4,
+              "solver_estimated_bytes": 14062464,
+              "native_wall_seconds": 3.6901885840052273,
+              "peak_rss_kib": 1169040.0,
+              "status": "completed",
+              "round": 9
+            }
+          ],
+          "warmup": {
+            "result": "satisfied",
+            "property_type": "Reachability",
+            "property_name": "Deadlock-Freedom and No Deadline Missed",
+            "states": 390624,
+            "transitions": 2500001,
+            "trace_states": 0,
+            "solver_reported_seconds": 4,
+            "solver_estimated_bytes": 14062464,
+            "native_wall_seconds": 4.263611000002129,
+            "peak_rss_kib": 566736.0,
+            "status": "completed",
+            "round": -1
+          }
+        },
+        "dynamic_no_por": {
+          "status": "completed",
+          "samples": [
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 390624,
+              "transitions": 2500001,
+              "trace_states": 0,
+              "solver_reported_seconds": 4,
+              "solver_estimated_bytes": 14062464,
+              "native_wall_seconds": 3.6728792909998447,
+              "peak_rss_kib": 764080.0,
+              "status": "completed",
+              "round": 0
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 390624,
+              "transitions": 2500001,
+              "trace_states": 0,
+              "solver_reported_seconds": 3,
+              "solver_estimated_bytes": 14062464,
+              "native_wall_seconds": 3.6786272920144256,
+              "peak_rss_kib": 815408.0,
+              "status": "completed",
+              "round": 1
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 390624,
+              "transitions": 2500001,
+              "trace_states": 0,
+              "solver_reported_seconds": 4,
+              "solver_estimated_bytes": 14062464,
+              "native_wall_seconds": 3.639540667005349,
+              "peak_rss_kib": 1018752.0,
+              "status": "completed",
+              "round": 2
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 390624,
+              "transitions": 2500001,
+              "trace_states": 0,
+              "solver_reported_seconds": 4,
+              "solver_estimated_bytes": 14062464,
+              "native_wall_seconds": 3.6372450409980956,
+              "peak_rss_kib": 1111616.0,
+              "status": "completed",
+              "round": 3
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 390624,
+              "transitions": 2500001,
+              "trace_states": 0,
+              "solver_reported_seconds": 4,
+              "solver_estimated_bytes": 14062464,
+              "native_wall_seconds": 3.6196970420132857,
+              "peak_rss_kib": 1119024.0,
+              "status": "completed",
+              "round": 4
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 390624,
+              "transitions": 2500001,
+              "trace_states": 0,
+              "solver_reported_seconds": 4,
+              "solver_estimated_bytes": 14062464,
+              "native_wall_seconds": 3.6175290000101086,
+              "peak_rss_kib": 1133744.0,
+              "status": "completed",
+              "round": 5
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 390624,
+              "transitions": 2500001,
+              "trace_states": 0,
+              "solver_reported_seconds": 4,
+              "solver_estimated_bytes": 14062464,
+              "native_wall_seconds": 3.632506416994147,
+              "peak_rss_kib": 1028128.0,
+              "status": "completed",
+              "round": 6
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 390624,
+              "transitions": 2500001,
+              "trace_states": 0,
+              "solver_reported_seconds": 3,
+              "solver_estimated_bytes": 14062464,
+              "native_wall_seconds": 3.6759266669978388,
+              "peak_rss_kib": 1119296.0,
+              "status": "completed",
+              "round": 7
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 390624,
+              "transitions": 2500001,
+              "trace_states": 0,
+              "solver_reported_seconds": 4,
+              "solver_estimated_bytes": 14062464,
+              "native_wall_seconds": 3.6400054589903448,
+              "peak_rss_kib": 1087856.0,
+              "status": "completed",
+              "round": 8
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 390624,
+              "transitions": 2500001,
+              "trace_states": 0,
+              "solver_reported_seconds": 3,
+              "solver_estimated_bytes": 14062464,
+              "native_wall_seconds": 3.6156639170076232,
+              "peak_rss_kib": 1059072.0,
+              "status": "completed",
+              "round": 9
+            }
+          ],
+          "warmup": {
+            "result": "satisfied",
+            "property_type": "Reachability",
+            "property_name": "Deadlock-Freedom and No Deadline Missed",
+            "states": 390624,
+            "transitions": 2500001,
+            "trace_states": 0,
+            "solver_reported_seconds": 4,
+            "solver_estimated_bytes": 14062464,
+            "native_wall_seconds": 4.029872291983338,
+            "peak_rss_kib": 637008.0,
+            "status": "completed",
+            "round": -1
+          }
+        }
+      }
+    },
+    {
+      "family": "shared",
+      "workers": 2,
+      "source_sha256": "22026be382f8a4f2542608bfb97ec885355272374d93b59c0a81fa607fb08dd1",
+      "preparation": {
+        "aria_export_seconds": 0.8488036250055302,
+        "modes": {
+          "full": {
+            "generation_seconds": 1.0593754169822205,
+            "copy_seconds": 0.0,
+            "compile_seconds": 5.1963956670078915
+          },
+          "static": {
+            "generation_seconds": 0.7836698750033975,
+            "copy_seconds": 0.0,
+            "compile_seconds": 4.755236124998191
+          },
+          "dynamic": {
+            "generation_seconds": 0.7785508750239387,
+            "copy_seconds": 0.0,
+            "compile_seconds": 4.865114417014411
+          },
+          "dynamic_no_por": {
+            "generation_seconds": 0.0,
+            "copy_seconds": 0.09842691698577255,
+            "compile_seconds": 4.865581457997905,
+            "derivation": {
+              "derived_from": "dynamic",
+              "native_change": "one PO macro removed in Config.h",
+              "unchanged_native_files": 23,
+              "original_config_sha256": "381be2fc3d78b037af226c334f86da9027f0b28355bd2596f0293a3bb198397a",
+              "control_config_sha256": "3041626994d22b088cab76026d7741b09cd97e6da08a88c93f59c5bd31d486e1"
+            }
+          }
+        }
+      },
+      "orders": [
+        {
+          "round": -1,
+          "modes": [
+            "static",
+            "dynamic_no_por",
+            "full",
+            "dynamic"
+          ]
+        },
+        {
+          "round": 0,
+          "modes": [
+            "dynamic_no_por",
+            "full",
+            "dynamic",
+            "static"
+          ]
+        },
+        {
+          "round": 1,
+          "modes": [
+            "full",
+            "dynamic",
+            "static",
+            "dynamic_no_por"
+          ]
+        },
+        {
+          "round": 2,
+          "modes": [
+            "dynamic",
+            "static",
+            "dynamic_no_por",
+            "full"
+          ]
+        },
+        {
+          "round": 3,
+          "modes": [
+            "static",
+            "dynamic_no_por",
+            "full",
+            "dynamic"
+          ]
+        },
+        {
+          "round": 4,
+          "modes": [
+            "dynamic_no_por",
+            "full",
+            "dynamic",
+            "static"
+          ]
+        },
+        {
+          "round": 5,
+          "modes": [
+            "full",
+            "dynamic",
+            "static",
+            "dynamic_no_por"
+          ]
+        },
+        {
+          "round": 6,
+          "modes": [
+            "dynamic",
+            "static",
+            "dynamic_no_por",
+            "full"
+          ]
+        },
+        {
+          "round": 7,
+          "modes": [
+            "static",
+            "dynamic_no_por",
+            "full",
+            "dynamic"
+          ]
+        },
+        {
+          "round": 8,
+          "modes": [
+            "dynamic_no_por",
+            "full",
+            "dynamic",
+            "static"
+          ]
+        },
+        {
+          "round": 9,
+          "modes": [
+            "full",
+            "dynamic",
+            "static",
+            "dynamic_no_por"
+          ]
+        }
+      ],
+      "modes": {
+        "full": {
+          "status": "completed",
+          "samples": [
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 157,
+              "transitions": 277,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 1884,
+              "native_wall_seconds": 0.0730864999932237,
+              "peak_rss_kib": 918864.0,
+              "status": "completed",
+              "round": 0
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 157,
+              "transitions": 277,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 1884,
+              "native_wall_seconds": 0.06976725001004525,
+              "peak_rss_kib": 918864.0,
+              "status": "completed",
+              "round": 1
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 157,
+              "transitions": 277,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 1884,
+              "native_wall_seconds": 0.08178912501898594,
+              "peak_rss_kib": 918864.0,
+              "status": "completed",
+              "round": 2
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 157,
+              "transitions": 277,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 1884,
+              "native_wall_seconds": 0.07387870902311988,
+              "peak_rss_kib": 918864.0,
+              "status": "completed",
+              "round": 3
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 157,
+              "transitions": 277,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 1884,
+              "native_wall_seconds": 0.08412091701757163,
+              "peak_rss_kib": 918864.0,
+              "status": "completed",
+              "round": 4
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 157,
+              "transitions": 277,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 1884,
+              "native_wall_seconds": 0.07410016699577682,
+              "peak_rss_kib": 918864.0,
+              "status": "completed",
+              "round": 5
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 157,
+              "transitions": 277,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 1884,
+              "native_wall_seconds": 0.07097945801797323,
+              "peak_rss_kib": 918864.0,
+              "status": "completed",
+              "round": 6
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 157,
+              "transitions": 277,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 1884,
+              "native_wall_seconds": 0.07527341699460521,
+              "peak_rss_kib": 919024.0,
+              "status": "completed",
+              "round": 7
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 157,
+              "transitions": 277,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 1884,
+              "native_wall_seconds": 0.07342370902188122,
+              "peak_rss_kib": 919008.0,
+              "status": "completed",
+              "round": 8
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 157,
+              "transitions": 277,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 1884,
+              "native_wall_seconds": 0.07961104199057445,
+              "peak_rss_kib": 918864.0,
+              "status": "completed",
+              "round": 9
+            }
+          ],
+          "warmup": {
+            "result": "satisfied",
+            "property_type": "Reachability",
+            "property_name": "Deadlock-Freedom and No Deadline Missed",
+            "states": 157,
+            "transitions": 277,
+            "trace_states": 0,
+            "solver_reported_seconds": 0,
+            "solver_estimated_bytes": 1884,
+            "native_wall_seconds": 0.4422489590069745,
+            "peak_rss_kib": 885856.0,
+            "status": "completed",
+            "round": -1
+          }
+        },
+        "static": {
+          "status": "completed",
+          "samples": [
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 157,
+              "transitions": 265,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 1884,
+              "native_wall_seconds": 0.0715167080052197,
+              "peak_rss_kib": 918864.0,
+              "status": "completed",
+              "round": 0
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 157,
+              "transitions": 265,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 1884,
+              "native_wall_seconds": 0.0872414170007687,
+              "peak_rss_kib": 919040.0,
+              "status": "completed",
+              "round": 1
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 157,
+              "transitions": 265,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 1884,
+              "native_wall_seconds": 0.076732291985536,
+              "peak_rss_kib": 918864.0,
+              "status": "completed",
+              "round": 2
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 157,
+              "transitions": 265,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 1884,
+              "native_wall_seconds": 0.07378849998349324,
+              "peak_rss_kib": 918864.0,
+              "status": "completed",
+              "round": 3
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 157,
+              "transitions": 265,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 1884,
+              "native_wall_seconds": 0.07266283300123177,
+              "peak_rss_kib": 918864.0,
+              "status": "completed",
+              "round": 4
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 157,
+              "transitions": 265,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 1884,
+              "native_wall_seconds": 0.07102504197973758,
+              "peak_rss_kib": 918864.0,
+              "status": "completed",
+              "round": 5
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 157,
+              "transitions": 265,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 1884,
+              "native_wall_seconds": 0.08703774999594316,
+              "peak_rss_kib": 918864.0,
+              "status": "completed",
+              "round": 6
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 157,
+              "transitions": 265,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 1884,
+              "native_wall_seconds": 0.07446091700694524,
+              "peak_rss_kib": 918864.0,
+              "status": "completed",
+              "round": 7
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 157,
+              "transitions": 265,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 1884,
+              "native_wall_seconds": 0.0720522910123691,
+              "peak_rss_kib": 918864.0,
+              "status": "completed",
+              "round": 8
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 157,
+              "transitions": 265,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 1884,
+              "native_wall_seconds": 0.07072974997572601,
+              "peak_rss_kib": 918864.0,
+              "status": "completed",
+              "round": 9
+            }
+          ],
+          "warmup": {
+            "result": "satisfied",
+            "property_type": "Reachability",
+            "property_name": "Deadlock-Freedom and No Deadline Missed",
+            "states": 157,
+            "transitions": 265,
+            "trace_states": 0,
+            "solver_reported_seconds": 0,
+            "solver_estimated_bytes": 1884,
+            "native_wall_seconds": 0.7972068329981994,
+            "peak_rss_kib": 667984.0,
+            "status": "completed",
+            "round": -1
+          }
+        },
+        "dynamic": {
+          "status": "completed",
+          "samples": [
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 117,
+              "transitions": 145,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 1404,
+              "native_wall_seconds": 0.07815008299075998,
+              "peak_rss_kib": 918848.0,
+              "status": "completed",
+              "round": 0
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 117,
+              "transitions": 145,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 1404,
+              "native_wall_seconds": 0.08024304200080223,
+              "peak_rss_kib": 918848.0,
+              "status": "completed",
+              "round": 1
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 117,
+              "transitions": 145,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 1404,
+              "native_wall_seconds": 0.07733845800976269,
+              "peak_rss_kib": 918848.0,
+              "status": "completed",
+              "round": 2
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 117,
+              "transitions": 145,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 1404,
+              "native_wall_seconds": 0.07078229199396446,
+              "peak_rss_kib": 918848.0,
+              "status": "completed",
+              "round": 3
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 117,
+              "transitions": 145,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 1404,
+              "native_wall_seconds": 0.0961222090118099,
+              "peak_rss_kib": 918848.0,
+              "status": "completed",
+              "round": 4
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 117,
+              "transitions": 145,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 1404,
+              "native_wall_seconds": 0.0941539999912493,
+              "peak_rss_kib": 918848.0,
+              "status": "completed",
+              "round": 5
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 117,
+              "transitions": 145,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 1404,
+              "native_wall_seconds": 0.09726262500043958,
+              "peak_rss_kib": 918048.0,
+              "status": "completed",
+              "round": 6
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 117,
+              "transitions": 145,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 1404,
+              "native_wall_seconds": 0.07716062499093823,
+              "peak_rss_kib": 918976.0,
+              "status": "completed",
+              "round": 7
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 117,
+              "transitions": 145,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 1404,
+              "native_wall_seconds": 0.0727914999879431,
+              "peak_rss_kib": 918992.0,
+              "status": "completed",
+              "round": 8
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 117,
+              "transitions": 145,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 1404,
+              "native_wall_seconds": 0.0736704169830773,
+              "peak_rss_kib": 918848.0,
+              "status": "completed",
+              "round": 9
+            }
+          ],
+          "warmup": {
+            "result": "satisfied",
+            "property_type": "Reachability",
+            "property_name": "Deadlock-Freedom and No Deadline Missed",
+            "states": 117,
+            "transitions": 145,
+            "trace_states": 0,
+            "solver_reported_seconds": 0,
+            "solver_estimated_bytes": 1404,
+            "native_wall_seconds": 0.36205308299395256,
+            "peak_rss_kib": 919056.0,
+            "status": "completed",
+            "round": -1
+          }
+        },
+        "dynamic_no_por": {
+          "status": "completed",
+          "samples": [
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 144,
+              "transitions": 253,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 1728,
+              "native_wall_seconds": 0.07122974999947473,
+              "peak_rss_kib": 918848.0,
+              "status": "completed",
+              "round": 0
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 144,
+              "transitions": 253,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 1728,
+              "native_wall_seconds": 0.07400041600340046,
+              "peak_rss_kib": 918848.0,
+              "status": "completed",
+              "round": 1
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 144,
+              "transitions": 253,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 1728,
+              "native_wall_seconds": 0.07313458301359788,
+              "peak_rss_kib": 918848.0,
+              "status": "completed",
+              "round": 2
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 144,
+              "transitions": 253,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 1728,
+              "native_wall_seconds": 0.07104408400482498,
+              "peak_rss_kib": 918848.0,
+              "status": "completed",
+              "round": 3
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 144,
+              "transitions": 253,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 1728,
+              "native_wall_seconds": 0.07472591599798761,
+              "peak_rss_kib": 918848.0,
+              "status": "completed",
+              "round": 4
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 144,
+              "transitions": 253,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 1728,
+              "native_wall_seconds": 0.0764130000025034,
+              "peak_rss_kib": 919008.0,
+              "status": "completed",
+              "round": 5
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 144,
+              "transitions": 253,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 1728,
+              "native_wall_seconds": 0.08551166698453017,
+              "peak_rss_kib": 918848.0,
+              "status": "completed",
+              "round": 6
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 144,
+              "transitions": 253,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 1728,
+              "native_wall_seconds": 0.0708921659970656,
+              "peak_rss_kib": 918848.0,
+              "status": "completed",
+              "round": 7
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 144,
+              "transitions": 253,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 1728,
+              "native_wall_seconds": 0.10247745900414884,
+              "peak_rss_kib": 919040.0,
+              "status": "completed",
+              "round": 8
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 144,
+              "transitions": 253,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 1728,
+              "native_wall_seconds": 0.07184520800365135,
+              "peak_rss_kib": 918848.0,
+              "status": "completed",
+              "round": 9
+            }
+          ],
+          "warmup": {
+            "result": "satisfied",
+            "property_type": "Reachability",
+            "property_name": "Deadlock-Freedom and No Deadline Missed",
+            "states": 144,
+            "transitions": 253,
+            "trace_states": 0,
+            "solver_reported_seconds": 1,
+            "solver_estimated_bytes": 1728,
+            "native_wall_seconds": 0.6573960840178188,
+            "peak_rss_kib": 750944.0,
+            "status": "completed",
+            "round": -1
+          }
+        }
+      }
+    },
+    {
+      "family": "shared",
+      "workers": 4,
+      "source_sha256": "92111beae1f2b2fe1bd2d49896a0c57f2157c5b6da8ce70cfd7ebc84b0377c14",
+      "preparation": {
+        "aria_export_seconds": 1.3358900420134887,
+        "modes": {
+          "full": {
+            "generation_seconds": 1.1094792080111802,
+            "copy_seconds": 0.0,
+            "compile_seconds": 5.690405625005951
+          },
+          "static": {
+            "generation_seconds": 0.8337020830076654,
+            "copy_seconds": 0.0,
+            "compile_seconds": 5.686209166015033
+          },
+          "dynamic": {
+            "generation_seconds": 0.8352714169886895,
+            "copy_seconds": 0.0,
+            "compile_seconds": 5.7384624580154195
+          },
+          "dynamic_no_por": {
+            "generation_seconds": 0.0,
+            "copy_seconds": 0.10865595901850611,
+            "compile_seconds": 5.746349332999671,
+            "derivation": {
+              "derived_from": "dynamic",
+              "native_change": "one PO macro removed in Config.h",
+              "unchanged_native_files": 27,
+              "original_config_sha256": "381be2fc3d78b037af226c334f86da9027f0b28355bd2596f0293a3bb198397a",
+              "control_config_sha256": "3041626994d22b088cab76026d7741b09cd97e6da08a88c93f59c5bd31d486e1"
+            }
+          }
+        }
+      },
+      "orders": [
+        {
+          "round": -1,
+          "modes": [
+            "dynamic",
+            "static",
+            "full",
+            "dynamic_no_por"
+          ]
+        },
+        {
+          "round": 0,
+          "modes": [
+            "static",
+            "full",
+            "dynamic_no_por",
+            "dynamic"
+          ]
+        },
+        {
+          "round": 1,
+          "modes": [
+            "full",
+            "dynamic_no_por",
+            "dynamic",
+            "static"
+          ]
+        },
+        {
+          "round": 2,
+          "modes": [
+            "dynamic_no_por",
+            "dynamic",
+            "static",
+            "full"
+          ]
+        },
+        {
+          "round": 3,
+          "modes": [
+            "dynamic",
+            "static",
+            "full",
+            "dynamic_no_por"
+          ]
+        },
+        {
+          "round": 4,
+          "modes": [
+            "static",
+            "full",
+            "dynamic_no_por",
+            "dynamic"
+          ]
+        },
+        {
+          "round": 5,
+          "modes": [
+            "full",
+            "dynamic_no_por",
+            "dynamic",
+            "static"
+          ]
+        },
+        {
+          "round": 6,
+          "modes": [
+            "dynamic_no_por",
+            "dynamic",
+            "static",
+            "full"
+          ]
+        },
+        {
+          "round": 7,
+          "modes": [
+            "dynamic",
+            "static",
+            "full",
+            "dynamic_no_por"
+          ]
+        },
+        {
+          "round": 8,
+          "modes": [
+            "static",
+            "full",
+            "dynamic_no_por",
+            "dynamic"
+          ]
+        },
+        {
+          "round": 9,
+          "modes": [
+            "full",
+            "dynamic_no_por",
+            "dynamic",
+            "static"
+          ]
+        }
+      ],
+      "modes": {
+        "full": {
+          "status": "completed",
+          "samples": [
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 8305,
+              "transitions": 28609,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 166100,
+              "native_wall_seconds": 0.16979570800322108,
+              "peak_rss_kib": 1034080.0,
+              "status": "completed",
+              "round": 0
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 8305,
+              "transitions": 28609,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 166100,
+              "native_wall_seconds": 0.16481429201667197,
+              "peak_rss_kib": 1041248.0,
+              "status": "completed",
+              "round": 1
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 8305,
+              "transitions": 28609,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 166100,
+              "native_wall_seconds": 0.16510516600101255,
+              "peak_rss_kib": 1003632.0,
+              "status": "completed",
+              "round": 2
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 8305,
+              "transitions": 28609,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 166100,
+              "native_wall_seconds": 0.16471325000748038,
+              "peak_rss_kib": 1002608.0,
+              "status": "completed",
+              "round": 3
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 8305,
+              "transitions": 28609,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 166100,
+              "native_wall_seconds": 0.1677576669899281,
+              "peak_rss_kib": 1017728.0,
+              "status": "completed",
+              "round": 4
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 8305,
+              "transitions": 28609,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 166100,
+              "native_wall_seconds": 0.16425674999481998,
+              "peak_rss_kib": 1024896.0,
+              "status": "completed",
+              "round": 5
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 8305,
+              "transitions": 28609,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 166100,
+              "native_wall_seconds": 0.1644880830135662,
+              "peak_rss_kib": 999328.0,
+              "status": "completed",
+              "round": 6
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 8305,
+              "transitions": 28609,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 166100,
+              "native_wall_seconds": 0.16276366700185463,
+              "peak_rss_kib": 1009712.0,
+              "status": "completed",
+              "round": 7
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 8305,
+              "transitions": 28609,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 166100,
+              "native_wall_seconds": 0.16301741698407568,
+              "peak_rss_kib": 1015936.0,
+              "status": "completed",
+              "round": 8
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 8305,
+              "transitions": 28609,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 166100,
+              "native_wall_seconds": 0.15948591698543169,
+              "peak_rss_kib": 1065504.0,
+              "status": "completed",
+              "round": 9
+            }
+          ],
+          "warmup": {
+            "result": "satisfied",
+            "property_type": "Reachability",
+            "property_name": "Deadlock-Freedom and No Deadline Missed",
+            "states": 8305,
+            "transitions": 28609,
+            "trace_states": 0,
+            "solver_reported_seconds": 0,
+            "solver_estimated_bytes": 166100,
+            "native_wall_seconds": 0.5149218330043368,
+            "peak_rss_kib": 861696.0,
+            "status": "completed",
+            "round": -1
+          }
+        },
+        "static": {
+          "status": "completed",
+          "samples": [
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 8305,
+              "transitions": 25273,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 166100,
+              "native_wall_seconds": 0.16932679098681547,
+              "peak_rss_kib": 988320.0,
+              "status": "completed",
+              "round": 0
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 8305,
+              "transitions": 25273,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 166100,
+              "native_wall_seconds": 0.17831895902054384,
+              "peak_rss_kib": 1053904.0,
+              "status": "completed",
+              "round": 1
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 8305,
+              "transitions": 25273,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 166100,
+              "native_wall_seconds": 0.1619509579904843,
+              "peak_rss_kib": 994592.0,
+              "status": "completed",
+              "round": 2
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 8305,
+              "transitions": 25273,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 166100,
+              "native_wall_seconds": 0.16784208299941383,
+              "peak_rss_kib": 988352.0,
+              "status": "completed",
+              "round": 3
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 8305,
+              "transitions": 25273,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 166100,
+              "native_wall_seconds": 0.1627755000081379,
+              "peak_rss_kib": 1015920.0,
+              "status": "completed",
+              "round": 4
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 8305,
+              "transitions": 25273,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 166100,
+              "native_wall_seconds": 0.17142125000827946,
+              "peak_rss_kib": 1021952.0,
+              "status": "completed",
+              "round": 5
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 8305,
+              "transitions": 25273,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 166100,
+              "native_wall_seconds": 0.16217737502302043,
+              "peak_rss_kib": 1001008.0,
+              "status": "completed",
+              "round": 6
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 8305,
+              "transitions": 25273,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 166100,
+              "native_wall_seconds": 0.15755624999292195,
+              "peak_rss_kib": 1010480.0,
+              "status": "completed",
+              "round": 7
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 8305,
+              "transitions": 25273,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 166100,
+              "native_wall_seconds": 0.15964808300486766,
+              "peak_rss_kib": 1011696.0,
+              "status": "completed",
+              "round": 8
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 8305,
+              "transitions": 25273,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 166100,
+              "native_wall_seconds": 0.15796391598996706,
+              "peak_rss_kib": 1072256.0,
+              "status": "completed",
+              "round": 9
+            }
+          ],
+          "warmup": {
+            "result": "satisfied",
+            "property_type": "Reachability",
+            "property_name": "Deadlock-Freedom and No Deadline Missed",
+            "states": 8305,
+            "transitions": 25273,
+            "trace_states": 0,
+            "solver_reported_seconds": 0,
+            "solver_estimated_bytes": 166100,
+            "native_wall_seconds": 0.5834134169854224,
+            "peak_rss_kib": 786736.0,
+            "status": "completed",
+            "round": -1
+          }
+        },
+        "dynamic": {
+          "status": "completed",
+          "samples": [
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 3069,
+              "transitions": 4609,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 61380,
+              "native_wall_seconds": 0.13793316698865965,
+              "peak_rss_kib": 1042640.0,
+              "status": "completed",
+              "round": 0
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 3069,
+              "transitions": 4609,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 61380,
+              "native_wall_seconds": 0.14746666699647903,
+              "peak_rss_kib": 1046688.0,
+              "status": "completed",
+              "round": 1
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 3069,
+              "transitions": 4609,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 61380,
+              "native_wall_seconds": 0.14732274998095818,
+              "peak_rss_kib": 989632.0,
+              "status": "completed",
+              "round": 2
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 3069,
+              "transitions": 4609,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 61380,
+              "native_wall_seconds": 0.15800029199454002,
+              "peak_rss_kib": 994752.0,
+              "status": "completed",
+              "round": 3
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 3069,
+              "transitions": 4609,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 61380,
+              "native_wall_seconds": 0.14354900000034831,
+              "peak_rss_kib": 1029104.0,
+              "status": "completed",
+              "round": 4
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 3069,
+              "transitions": 4609,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 61380,
+              "native_wall_seconds": 0.1362527500023134,
+              "peak_rss_kib": 1026208.0,
+              "status": "completed",
+              "round": 5
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 3069,
+              "transitions": 4609,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 61380,
+              "native_wall_seconds": 0.14188987499801442,
+              "peak_rss_kib": 993472.0,
+              "status": "completed",
+              "round": 6
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 3069,
+              "transitions": 4609,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 61380,
+              "native_wall_seconds": 0.1399577909905929,
+              "peak_rss_kib": 1005008.0,
+              "status": "completed",
+              "round": 7
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 3069,
+              "transitions": 4609,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 61380,
+              "native_wall_seconds": 0.13926333401468582,
+              "peak_rss_kib": 1015760.0,
+              "status": "completed",
+              "round": 8
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 3069,
+              "transitions": 4609,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 61380,
+              "native_wall_seconds": 0.13660204198095016,
+              "peak_rss_kib": 1074544.0,
+              "status": "completed",
+              "round": 9
+            }
+          ],
+          "warmup": {
+            "result": "satisfied",
+            "property_type": "Reachability",
+            "property_name": "Deadlock-Freedom and No Deadline Missed",
+            "states": 3069,
+            "transitions": 4609,
+            "trace_states": 0,
+            "solver_reported_seconds": 0,
+            "solver_estimated_bytes": 61380,
+            "native_wall_seconds": 0.47423720799270086,
+            "peak_rss_kib": 655040.0,
+            "status": "completed",
+            "round": -1
+          }
+        },
+        "dynamic_no_por": {
+          "status": "completed",
+          "samples": [
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 7200,
+              "transitions": 24697,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 144000,
+              "native_wall_seconds": 0.16036270899348892,
+              "peak_rss_kib": 1039728.0,
+              "status": "completed",
+              "round": 0
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 7200,
+              "transitions": 24697,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 144000,
+              "native_wall_seconds": 0.15622587499092333,
+              "peak_rss_kib": 1040800.0,
+              "status": "completed",
+              "round": 1
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 7200,
+              "transitions": 24697,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 144000,
+              "native_wall_seconds": 0.1749615409935359,
+              "peak_rss_kib": 994096.0,
+              "status": "completed",
+              "round": 2
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 7200,
+              "transitions": 24697,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 144000,
+              "native_wall_seconds": 0.16366191700217314,
+              "peak_rss_kib": 1003696.0,
+              "status": "completed",
+              "round": 3
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 7200,
+              "transitions": 24697,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 144000,
+              "native_wall_seconds": 0.1633698329969775,
+              "peak_rss_kib": 1018880.0,
+              "status": "completed",
+              "round": 4
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 7200,
+              "transitions": 24697,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 144000,
+              "native_wall_seconds": 0.16116704200976528,
+              "peak_rss_kib": 1024064.0,
+              "status": "completed",
+              "round": 5
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 7200,
+              "transitions": 24697,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 144000,
+              "native_wall_seconds": 0.1720810410042759,
+              "peak_rss_kib": 974384.0,
+              "status": "completed",
+              "round": 6
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 7200,
+              "transitions": 24697,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 144000,
+              "native_wall_seconds": 0.15890383298392408,
+              "peak_rss_kib": 1014576.0,
+              "status": "completed",
+              "round": 7
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 7200,
+              "transitions": 24697,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 144000,
+              "native_wall_seconds": 0.15511508399504237,
+              "peak_rss_kib": 1014944.0,
+              "status": "completed",
+              "round": 8
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 7200,
+              "transitions": 24697,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 144000,
+              "native_wall_seconds": 0.15663212499930523,
+              "peak_rss_kib": 1072384.0,
+              "status": "completed",
+              "round": 9
+            }
+          ],
+          "warmup": {
+            "result": "satisfied",
+            "property_type": "Reachability",
+            "property_name": "Deadlock-Freedom and No Deadline Missed",
+            "states": 7200,
+            "transitions": 24697,
+            "trace_states": 0,
+            "solver_reported_seconds": 0,
+            "solver_estimated_bytes": 144000,
+            "native_wall_seconds": 0.4559716249932535,
+            "peak_rss_kib": 935360.0,
+            "status": "completed",
+            "round": -1
+          }
+        }
+      }
+    },
+    {
+      "family": "shared",
+      "workers": 6,
+      "source_sha256": "1bcd018710eb702652e6273ce991af7579d01ac09141b882784a63fc59205b62",
+      "preparation": {
+        "aria_export_seconds": 2.9303466249839403,
+        "modes": {
+          "full": {
+            "generation_seconds": 1.1711235000111628,
+            "copy_seconds": 0.0,
+            "compile_seconds": 6.733008583018091
+          },
+          "static": {
+            "generation_seconds": 0.9341525830095634,
+            "copy_seconds": 0.0,
+            "compile_seconds": 6.570973833993776
+          },
+          "dynamic": {
+            "generation_seconds": 0.8964286660193466,
+            "copy_seconds": 0.0,
+            "compile_seconds": 6.677386666997336
+          },
+          "dynamic_no_por": {
+            "generation_seconds": 0.0,
+            "copy_seconds": 0.11541399999987334,
+            "compile_seconds": 6.625964541017311,
+            "derivation": {
+              "derived_from": "dynamic",
+              "native_change": "one PO macro removed in Config.h",
+              "unchanged_native_files": 31,
+              "original_config_sha256": "381be2fc3d78b037af226c334f86da9027f0b28355bd2596f0293a3bb198397a",
+              "control_config_sha256": "3041626994d22b088cab76026d7741b09cd97e6da08a88c93f59c5bd31d486e1"
+            }
+          }
+        }
+      },
+      "orders": [
+        {
+          "round": -1,
+          "modes": [
+            "full",
+            "dynamic_no_por",
+            "static",
+            "dynamic"
+          ]
+        },
+        {
+          "round": 0,
+          "modes": [
+            "dynamic_no_por",
+            "static",
+            "dynamic",
+            "full"
+          ]
+        },
+        {
+          "round": 1,
+          "modes": [
+            "static",
+            "dynamic",
+            "full",
+            "dynamic_no_por"
+          ]
+        },
+        {
+          "round": 2,
+          "modes": [
+            "dynamic",
+            "full",
+            "dynamic_no_por",
+            "static"
+          ]
+        },
+        {
+          "round": 3,
+          "modes": [
+            "full",
+            "dynamic_no_por",
+            "static",
+            "dynamic"
+          ]
+        },
+        {
+          "round": 4,
+          "modes": [
+            "dynamic_no_por",
+            "static",
+            "dynamic",
+            "full"
+          ]
+        },
+        {
+          "round": 5,
+          "modes": [
+            "static",
+            "dynamic",
+            "full",
+            "dynamic_no_por"
+          ]
+        },
+        {
+          "round": 6,
+          "modes": [
+            "dynamic",
+            "full",
+            "dynamic_no_por",
+            "static"
+          ]
+        },
+        {
+          "round": 7,
+          "modes": [
+            "full",
+            "dynamic_no_por",
+            "static",
+            "dynamic"
+          ]
+        },
+        {
+          "round": 8,
+          "modes": [
+            "dynamic_no_por",
+            "static",
+            "dynamic",
+            "full"
+          ]
+        },
+        {
+          "round": 9,
+          "modes": [
+            "static",
+            "dynamic",
+            "full",
+            "dynamic_no_por"
+          ]
+        }
+      ],
+      "modes": {
+        "full": {
+          "status": "completed",
+          "samples": [
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 188641,
+              "transitions": 976825,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 5281948,
+              "native_wall_seconds": 1.322410916996887,
+              "peak_rss_kib": 998592.0,
+              "status": "completed",
+              "round": 0
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 188641,
+              "transitions": 976825,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 5281948,
+              "native_wall_seconds": 1.321826500003226,
+              "peak_rss_kib": 953584.0,
+              "status": "completed",
+              "round": 1
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 188641,
+              "transitions": 976825,
+              "trace_states": 0,
+              "solver_reported_seconds": 2,
+              "solver_estimated_bytes": 5281948,
+              "native_wall_seconds": 1.3288282079738565,
+              "peak_rss_kib": 998256.0,
+              "status": "completed",
+              "round": 2
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 188641,
+              "transitions": 976825,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 5281948,
+              "native_wall_seconds": 1.3241883750015404,
+              "peak_rss_kib": 991536.0,
+              "status": "completed",
+              "round": 3
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 188641,
+              "transitions": 976825,
+              "trace_states": 0,
+              "solver_reported_seconds": 2,
+              "solver_estimated_bytes": 5281948,
+              "native_wall_seconds": 1.3715178749989718,
+              "peak_rss_kib": 732464.0,
+              "status": "completed",
+              "round": 4
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 188641,
+              "transitions": 976825,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 5281948,
+              "native_wall_seconds": 1.313295708008809,
+              "peak_rss_kib": 972336.0,
+              "status": "completed",
+              "round": 5
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 188641,
+              "transitions": 976825,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 5281948,
+              "native_wall_seconds": 1.3174120420007966,
+              "peak_rss_kib": 1035136.0,
+              "status": "completed",
+              "round": 6
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 188641,
+              "transitions": 976825,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 5281948,
+              "native_wall_seconds": 1.344424707989674,
+              "peak_rss_kib": 1048112.0,
+              "status": "completed",
+              "round": 7
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 188641,
+              "transitions": 976825,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 5281948,
+              "native_wall_seconds": 1.3038135839742608,
+              "peak_rss_kib": 1032384.0,
+              "status": "completed",
+              "round": 8
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 188641,
+              "transitions": 976825,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 5281948,
+              "native_wall_seconds": 1.3013488329888787,
+              "peak_rss_kib": 1047648.0,
+              "status": "completed",
+              "round": 9
+            }
+          ],
+          "warmup": {
+            "result": "satisfied",
+            "property_type": "Reachability",
+            "property_name": "Deadlock-Freedom and No Deadline Missed",
+            "states": 188641,
+            "transitions": 976825,
+            "trace_states": 0,
+            "solver_reported_seconds": 1,
+            "solver_estimated_bytes": 5281948,
+            "native_wall_seconds": 4.540027000010014,
+            "peak_rss_kib": 702496.0,
+            "status": "completed",
+            "round": -1
+          }
+        },
+        "static": {
+          "status": "completed",
+          "samples": [
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 188641,
+              "transitions": 815893,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 5281948,
+              "native_wall_seconds": 1.186917374987388,
+              "peak_rss_kib": 933296.0,
+              "status": "completed",
+              "round": 0
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 188641,
+              "transitions": 815893,
+              "trace_states": 0,
+              "solver_reported_seconds": 2,
+              "solver_estimated_bytes": 5281948,
+              "native_wall_seconds": 1.178222457994707,
+              "peak_rss_kib": 972896.0,
+              "status": "completed",
+              "round": 1
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 188641,
+              "transitions": 815893,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 5281948,
+              "native_wall_seconds": 1.1798421670100652,
+              "peak_rss_kib": 961072.0,
+              "status": "completed",
+              "round": 2
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 188641,
+              "transitions": 815893,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 5281948,
+              "native_wall_seconds": 1.2533136249985546,
+              "peak_rss_kib": 1044384.0,
+              "status": "completed",
+              "round": 3
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 188641,
+              "transitions": 815893,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 5281948,
+              "native_wall_seconds": 1.3048810829932336,
+              "peak_rss_kib": 701984.0,
+              "status": "completed",
+              "round": 4
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 188641,
+              "transitions": 815893,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 5281948,
+              "native_wall_seconds": 1.2197962909995113,
+              "peak_rss_kib": 741120.0,
+              "status": "completed",
+              "round": 5
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 188641,
+              "transitions": 815893,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 5281948,
+              "native_wall_seconds": 1.1727114170207642,
+              "peak_rss_kib": 1050352.0,
+              "status": "completed",
+              "round": 6
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 188641,
+              "transitions": 815893,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 5281948,
+              "native_wall_seconds": 1.1768375840038061,
+              "peak_rss_kib": 1013616.0,
+              "status": "completed",
+              "round": 7
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 188641,
+              "transitions": 815893,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 5281948,
+              "native_wall_seconds": 1.1663604580098763,
+              "peak_rss_kib": 1040784.0,
+              "status": "completed",
+              "round": 8
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 188641,
+              "transitions": 815893,
+              "trace_states": 0,
+              "solver_reported_seconds": 2,
+              "solver_estimated_bytes": 5281948,
+              "native_wall_seconds": 1.171616792009445,
+              "peak_rss_kib": 1042080.0,
+              "status": "completed",
+              "round": 9
+            }
+          ],
+          "warmup": {
+            "result": "satisfied",
+            "property_type": "Reachability",
+            "property_name": "Deadlock-Freedom and No Deadline Missed",
+            "states": 188641,
+            "transitions": 815893,
+            "trace_states": 0,
+            "solver_reported_seconds": 1,
+            "solver_estimated_bytes": 5281948,
+            "native_wall_seconds": 1.4347500409930944,
+            "peak_rss_kib": 823904.0,
+            "status": "completed",
+            "round": -1
+          }
+        },
+        "dynamic": {
+          "status": "completed",
+          "samples": [
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 22527,
+              "transitions": 36865,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 630756,
+              "native_wall_seconds": 0.2919441249978263,
+              "peak_rss_kib": 939632.0,
+              "status": "completed",
+              "round": 0
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 22527,
+              "transitions": 36865,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 630756,
+              "native_wall_seconds": 0.2911412909743376,
+              "peak_rss_kib": 854736.0,
+              "status": "completed",
+              "round": 1
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 22527,
+              "transitions": 36865,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 630756,
+              "native_wall_seconds": 0.29490929198800586,
+              "peak_rss_kib": 969680.0,
+              "status": "completed",
+              "round": 2
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 22527,
+              "transitions": 36865,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 630756,
+              "native_wall_seconds": 0.3123483329836745,
+              "peak_rss_kib": 736848.0,
+              "status": "completed",
+              "round": 3
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 22527,
+              "transitions": 36865,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 630756,
+              "native_wall_seconds": 0.3209602090064436,
+              "peak_rss_kib": 636560.0,
+              "status": "completed",
+              "round": 4
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 22527,
+              "transitions": 36865,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 630756,
+              "native_wall_seconds": 0.28482912498293445,
+              "peak_rss_kib": 875216.0,
+              "status": "completed",
+              "round": 5
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 22527,
+              "transitions": 36865,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 630756,
+              "native_wall_seconds": 0.2766919170098845,
+              "peak_rss_kib": 1018000.0,
+              "status": "completed",
+              "round": 6
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 22527,
+              "transitions": 36865,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 630756,
+              "native_wall_seconds": 0.2754387499880977,
+              "peak_rss_kib": 1014208.0,
+              "status": "completed",
+              "round": 7
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 22527,
+              "transitions": 36865,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 630756,
+              "native_wall_seconds": 0.28333608401590027,
+              "peak_rss_kib": 1021568.0,
+              "status": "completed",
+              "round": 8
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 22527,
+              "transitions": 36865,
+              "trace_states": 0,
+              "solver_reported_seconds": 0,
+              "solver_estimated_bytes": 630756,
+              "native_wall_seconds": 0.2718855830025859,
+              "peak_rss_kib": 1042160.0,
+              "status": "completed",
+              "round": 9
+            }
+          ],
+          "warmup": {
+            "result": "satisfied",
+            "property_type": "Reachability",
+            "property_name": "Deadlock-Freedom and No Deadline Missed",
+            "states": 22527,
+            "transitions": 36865,
+            "trace_states": 0,
+            "solver_reported_seconds": 1,
+            "solver_estimated_bytes": 630756,
+            "native_wall_seconds": 0.5140973750094417,
+            "peak_rss_kib": 867888.0,
+            "status": "completed",
+            "round": -1
+          }
+        },
+        "dynamic_no_por": {
+          "status": "completed",
+          "samples": [
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 117648,
+              "transitions": 605053,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 3294144,
+              "native_wall_seconds": 0.9211245419865008,
+              "peak_rss_kib": 917120.0,
+              "status": "completed",
+              "round": 0
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 117648,
+              "transitions": 605053,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 3294144,
+              "native_wall_seconds": 0.916736832994502,
+              "peak_rss_kib": 951408.0,
+              "status": "completed",
+              "round": 1
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 117648,
+              "transitions": 605053,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 3294144,
+              "native_wall_seconds": 0.9482923339819536,
+              "peak_rss_kib": 963248.0,
+              "status": "completed",
+              "round": 2
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 117648,
+              "transitions": 605053,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 3294144,
+              "native_wall_seconds": 0.9034111670043785,
+              "peak_rss_kib": 1040272.0,
+              "status": "completed",
+              "round": 3
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 117648,
+              "transitions": 605053,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 3294144,
+              "native_wall_seconds": 0.9467050000093877,
+              "peak_rss_kib": 750208.0,
+              "status": "completed",
+              "round": 4
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 117648,
+              "transitions": 605053,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 3294144,
+              "native_wall_seconds": 0.914356958004646,
+              "peak_rss_kib": 1001408.0,
+              "status": "completed",
+              "round": 5
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 117648,
+              "transitions": 605053,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 3294144,
+              "native_wall_seconds": 0.9056154999998398,
+              "peak_rss_kib": 1040160.0,
+              "status": "completed",
+              "round": 6
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 117648,
+              "transitions": 605053,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 3294144,
+              "native_wall_seconds": 0.9200127079966478,
+              "peak_rss_kib": 1003536.0,
+              "status": "completed",
+              "round": 7
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 117648,
+              "transitions": 605053,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 3294144,
+              "native_wall_seconds": 0.8904015829903074,
+              "peak_rss_kib": 1035200.0,
+              "status": "completed",
+              "round": 8
+            },
+            {
+              "result": "satisfied",
+              "property_type": "Reachability",
+              "property_name": "Deadlock-Freedom and No Deadline Missed",
+              "states": 117648,
+              "transitions": 605053,
+              "trace_states": 0,
+              "solver_reported_seconds": 1,
+              "solver_estimated_bytes": 3294144,
+              "native_wall_seconds": 0.9110295829887036,
+              "peak_rss_kib": 1034576.0,
+              "status": "completed",
+              "round": 9
+            }
+          ],
+          "warmup": {
+            "result": "satisfied",
+            "property_type": "Reachability",
+            "property_name": "Deadlock-Freedom and No Deadline Missed",
+            "states": 117648,
+            "transitions": 605053,
+            "trace_states": 0,
+            "solver_reported_seconds": 1,
+            "solver_estimated_bytes": 3294144,
+            "native_wall_seconds": 1.198187500005588,
+            "peak_rss_kib": 662464.0,
+            "status": "completed",
+            "round": -1
+          }
+        }
+      }
+    }
+  ],
+  "execution_finished": true,
+  "all_runs_completed": true
+}

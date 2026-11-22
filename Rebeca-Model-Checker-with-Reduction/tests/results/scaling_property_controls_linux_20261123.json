@@ -1,0 +1,110 @@
+{
+  "diagnostic_only": true,
+  "timings_not_benchmarked": true,
+  "cases": {
+    "ScalePropertyHealthy": {
+      "expected": "satisfied",
+      "source_sha256": "e16a4345640ecb055ea1079f970f283277339315fd1a0a2f319c1d9876af0120",
+      "modes": {
+        "full": {
+          "result": "satisfied",
+          "states": 157,
+          "transitions": 277,
+          "trace_states": 0,
+          "complete_space": true,
+          "generated_closed_barrier_gate": null,
+          "full_barrier_events": 0
+        },
+        "static": {
+          "result": "satisfied",
+          "states": 157,
+          "transitions": 265,
+          "trace_states": 0,
+          "complete_space": true,
+          "generated_closed_barrier_gate": null,
+          "full_barrier_events": 0
+        },
+        "dynamic": {
+          "result": "satisfied",
+          "states": 128,
+          "transitions": 189,
+          "trace_states": 0,
+          "complete_space": true,
+          "generated_closed_barrier_gate": false,
+          "full_barrier_events": 0
+        },
+        "dynamic_no_por": {
+          "result": "satisfied",
+          "states": 144,
+          "transitions": 253,
+          "trace_states": 0,
+          "complete_space": true,
+          "generated_closed_barrier_gate": false,
+          "full_barrier_events": 0
+        }
+      }
+    },
+    "ScalePropertyFault": {
+      "expected": "assertion failed",
+      "source_sha256": "50b64277a1f6edd849d4e5d884514a159b034e134b2e6594d828e81a35cd118d",
+      "modes": {
+        "full": {
+          "result": "assertion failed",
+          "states": 12,
+          "transitions": 16,
+          "trace_states": 5,
+          "complete_space": false,
+          "generated_closed_barrier_gate": null,
+          "full_barrier_events": 0,
+          "injected_fault_edge_verified": {
+            "actor": "W1",
+            "action": "TICK"
+          }
+        },
+        "static": {
+          "result": "assertion failed",
+          "states": 12,
+          "transitions": 16,
+          "trace_states": 5,
+          "complete_space": false,
+          "generated_closed_barrier_gate": null,
+          "full_barrier_events": 0,
+          "injected_fault_edge_verified": {
+            "actor": "W1",
+            "action": "TICK"
+          }
+        },
+        "dynamic": {
+          "result": "assertion failed",
+          "states": 8,
+          "transitions": 8,
+          "trace_states": 4,
+          "complete_space": false,
+          "generated_closed_barrier_gate": false,
+          "full_barrier_events": 0,
+          "injected_fault_edge_verified": {
+            "actor": "W1",
+            "action": "TICK"
+          }
+        },
+        "dynamic_no_por": {
+          "result": "assertion failed",
+          "states": 12,
+          "transitions": 16,
+          "trace_states": 5,
+          "complete_space": false,
+          "generated_closed_barrier_gate": false,
+          "full_barrier_events": 0,
+          "injected_fault_edge_verified": {
+            "actor": "W1",
+            "action": "TICK"
+          }
+        }
+      }
+    }
+  },
+  "all_expected_outcomes": true,
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "rmc_jar_sha256": "7738d4c5be8a3391208b3ac2ddd799128ab640bc4a0ebb6507a0d884ad41ca20",
+  "aria_jar_sha256": "60506443bba540e979da6876a11e14d74533f184ad24800437594b2aa1d8c3c7"
+}

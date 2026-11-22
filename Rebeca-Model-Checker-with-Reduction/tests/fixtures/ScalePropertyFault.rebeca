@@ -1,0 +1,27 @@
+// Bounded per-worker work; next epoch starts only after every Finish.
+reactiveclass Worker0(2) {
+ knownrebecs { Hub H; }
+ statevars { int cycle; }
+ Worker0() { cycle=0; self.Tick(); }
+ msgsrv Tick() { cycle=cycle+1; if(cycle<3) { H.Step0(); } else { cycle=0; H.Finish0(); } assertion(cycle >= 0 && cycle < 3); }
+}
+reactiveclass Worker1(2) {
+ knownrebecs { Hub H; }
+ statevars { int cycle; }
+ Worker1() { cycle=0; self.Tick(); }
+ msgsrv Tick() { cycle=cycle+1; assertion(cycle != 2); if(cycle<3) { H.Step1(); } else { cycle=0; H.Finish1(); } assertion(cycle >= 0 && cycle < 3); }
+}
+reactiveclass Hub(3) {
+ knownrebecs { Worker0 W0; Worker1 W1; }
+ statevars { int done; int count; }
+ Hub() { done=0; count=0; }
+ msgsrv Step0() { count=count+1; if(count>=3) count=0; W0.Tick(); assertion(count >= 0 && count < 3); }
+ msgsrv Finish0() { done=done+1; if(done==2) { done=0; W0.Tick(); W1.Tick();  } assertion(done >= 0 && done < 2); }
+ msgsrv Step1() { count=count+1; if(count>=3) count=0; W1.Tick(); assertion(count >= 0 && count < 3); }
+ msgsrv Finish1() { done=done+1; if(done==2) { done=0; W0.Tick(); W1.Tick();  } assertion(done >= 0 && done < 2); }
+}
+main {
+ Hub H(W0, W1):();
+ Worker0 W0(H):();
+ Worker1 W1(H):();
+}
