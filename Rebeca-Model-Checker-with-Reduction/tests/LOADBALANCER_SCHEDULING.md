@@ -1,4 +1,7 @@
-# Why LoadBalancerSmall has 38 dynamic states and 22 static-priority states
+# Historical investigation: 38 dynamic states versus 22 static-priority states
+
+For the current **27-state** solver, see [HUB_ALTERNATIVES.md](HUB_ALTERNATIVES.md).
+The distinct-Hub choice described below is absent from the current dynamic run.
 
 All measurements below replay the uploaded generated C++ with C++11/O2.
 They do not depend on substituting a different Rebeca compiler. The original

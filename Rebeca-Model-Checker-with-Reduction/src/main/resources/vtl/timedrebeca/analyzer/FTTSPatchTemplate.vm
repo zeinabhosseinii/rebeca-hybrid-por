@@ -384,6 +384,13 @@ void TimedModelChecker::doTimedModelChecking(string userSelectedPropertyName, st
                         if (rebecs[r]->deadline[0] < currentTime) {
                             throw DeadlineMissedException("Deadline missed.", rebecs[r]);
                         }
+#ifdef POR_DIAGNOSTICS
+                        cerr << "POR_ALTERNATIVE state=" << current.state->stateID
+                             << " phase=trial actor=" << rebecs[r]->getName()
+                             << " alternative=" << alternativesCounter
+                             << " msg=" << (int)(unsigned char)rebecs[r]->messageQueue[0]
+                             << " action=" << rebecs[r]->activeAction() << endl;
+#endif
                         nonDetTrans = executeRebec(r);
                         unmarshalRebecs(current.state->rebsIndex, current.state->shiftTimes[current.stateActiveBundleNumber].shift);
                         #ifdef DEBUG_LEVEL_2
@@ -438,6 +445,13 @@ void TimedModelChecker::doTimedModelChecking(string userSelectedPropertyName, st
 				    if (rebecs[r]->deadline[0] < currentTime) {
 				        throw DeadlineMissedException("Deadline missed.", rebecs[r]);
 				    }
+#ifdef POR_DIAGNOSTICS
+                    cerr << "POR_ALTERNATIVE state=" << current.state->stateID
+                         << " phase=full actor=" << rebecs[r]->getName()
+                         << " alternative=" << alternativesCounter
+                         << " msg=" << (int)(unsigned char)rebecs[r]->messageQueue[0]
+                         << " action=" << rebecs[r]->activeAction() << endl;
+#endif
 	            	nonDetTrans = executeRebec(r);
 					unmarshalRebecs(current.state->rebsIndex, current.state->shiftTimes[current.stateActiveBundleNumber].shift);
 				    #ifdef DEBUG_LEVEL_2
