@@ -13,6 +13,7 @@ python3 tests/test_cycle_barrier_reference.py
 python3 tests/validate_cycle_barrier.py
 python3 tests/validate_action_trial.py
 python3 tests/test_online_por_audit.py
+python3 tests/test_cycle_runner.py
 classes=$(mktemp -d)
 trap 'rm -rf "$classes"' EXIT
 javac -cp target/rmc-2.14.jar -d "$classes" tests/QuiescenceCertificateTest.java tests/FullBarrierGateTest.java

@@ -109,3 +109,26 @@ The finite checks and sufficient argument support this scoped refinement; they
 are not a proof that every pre-existing dependency analysis or all generator
 behavior is correct. General feedback-action certificates and further graph-size
 improvements remain separate work.
+
+
+### Portable count reporting
+
+The native runner records the Linux reference counts separately from the measured
+counts. They are measurements, not correctness conditions: the equal-time
+`OpenBorderNode` comparator has no explicit tie break, so traversal order can
+vary between C++ implementations, and the proviso depends on processing order.
+This is a possible explanation for platform count differences, not a diagnosis
+of any particular run.
+
+A macOS report reached QuiescenceResend AST 189 states / 303 transitions before
+an obsolete exact-count assertion stopped the script. That graph has **not yet
+been semantically validated**. The updated runner proceeds to generate the full
+reference and audit both AST and JSON outputs regardless of count differences.
+It still fails on an unexpected property result or any semantic audit failure.
+Matching reference counts also cannot bypass these audits. Incremental
+`tmp/CycleBarriers/summary.json` marks each audit pending or passed; the legacy
+run is explicitly a performance control without a semantic audit.
+
+This correction changes test orchestration only, not the generator or deadlock
+handling. Run `bash tests/compare_cycle_barriers.sh` to finish all checks,
+including the pending-assertion and deadlock regressions.
