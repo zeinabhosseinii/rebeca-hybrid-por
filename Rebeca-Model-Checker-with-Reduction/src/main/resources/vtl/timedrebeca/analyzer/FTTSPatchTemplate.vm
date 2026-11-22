@@ -10,6 +10,7 @@
 	bool areActiveActionsSafe(byte* state, int r, int messageId);
     bool areAllActiveAlternativesSafe(int r, TIME_TYPE execTime);
     bool isEquivalentQueueAlternative(int r, int alternative);
+    int chooseIsolatedLocalAlternative(int r, TIME_TYPE execTime);
 	byte _porResult;
 	TimedBFSState* _porResultState;
 	#end
@@ -51,6 +52,56 @@ bool TimedModelChecker::areActiveActionsSafe(byte* state, int r, int messageId) 
 	int msg = messageId > 0 ? messageId : (unsigned char)rebecs[r]->messageQueue[0];
     return safeActions[r][msg];
 #end
+}
+
+int TimedModelChecker::chooseIsolatedLocalAlternative(int r, TIME_TYPE execTime) {
+    if (!$isolatedLocalAllowed) return -1;
+    static const bool localSafe[REBEC_COUNT][$maxMsgIdPlusOne] = {
+#foreach($row in $isolatedLocalSafe)
+        { #foreach($value in $row)$value#if(!$foreach.last), #end#end }#if(!$foreach.last),#end
+
+#end
+    };
+    static const bool localIndependent[REBEC_COUNT][$maxMsgIdPlusOne][$maxMsgIdPlusOne] = {
+#foreach($actor in $isolatedLocalIndependent)
+        { #foreach($row in $actor){ #foreach($value in $row)$value#if(!$foreach.last), #end#end }#if(!$foreach.last), #end#end }#if(!$foreach.last),#end
+
+#end
+    };
+    // All possible future work must already be in this actor's local queue.
+    for (int j = 0; j < REBEC_COUNT; j++)
+        if (j != r && rebecs[j]->messageQueue[0]) return -1;
+    if (rebecs[r]->maxParamLength != 0 || execTime != current.currentTime ||
+        rebecs[r]->getNow() != execTime) return -1;
+    int count = 0;
+    while (count < rebecs[r]->maxQueueLength && rebecs[r]->messageQueue[count]) {
+        int id = (unsigned char)rebecs[r]->messageQueue[count];
+        if (id <= 0 || id >= $maxMsgIdPlusOne || !localSafe[r][id] ||
+            rebecs[r]->executionTime[count] != execTime ||
+            rebecs[r]->deadline[count] != MAX_TIME) return -1;
+        count++;
+    }
+    // Equal time/priority alternatives only; no postponed work is hidden.
+    if (count < 2 || getNumberOfAlternatives(r, execTime) != count) return -1;
+    for (int k = 0; k < count; k++) {
+        int chosen = (unsigned char)rebecs[r]->messageQueue[k];
+        bool independent = true;
+        for (int other = 0; other < count; other++) {
+            if (other == k) continue;
+            int id = (unsigned char)rebecs[r]->messageQueue[other];
+            // The chosen occurrence is unique; identical-method occurrences
+            // retain the ordinary all-alternatives path.
+            if (id == chosen || !localIndependent[r][chosen][id]) independent = false;
+        }
+        if (independent) {
+#ifdef POR_DIAGNOSTICS
+            cerr << "POR_LOCAL_ACTION state=" << current.state->stateID
+                 << " actor=" << rebecs[r]->getName() << " alternative=" << k << endl;
+#endif
+            return k;
+        }
+    }
+    return -1;
 }
 
 bool TimedModelChecker::areAllActiveAlternativesSafe(int r, TIME_TYPE execTime) {
@@ -190,12 +241,15 @@ void TimedModelChecker::doTimedModelChecking(string userSelectedPropertyName, st
                  << " actor=" << rebecs[r]->getName() << " action=" << rebecs[r]->activeAction()
                  << " alternatives=" << getNumberOfAlternatives(r, execTime) << endl;
 #endif
-            // Every competing message must be safe before selecting this actor.
-            if (areAllActiveAlternativesSafe(r, execTime)) {
+            int localAlternative = chooseIsolatedLocalAlternative(r, execTime);
+            // Either a proven isolated local action, or the existing actor set.
+            if (localAlternative >= 0 || areAllActiveAlternativesSafe(r, execTime)) {
                 long nonDetTrans;
                 bool provisoSatisfied = true;
-                int numberOfAlternatives = getNumberOfAlternatives(r, execTime);
-                for (int alternativesCounter = 0; alternativesCounter < numberOfAlternatives; alternativesCounter++) {
+                int numberOfAlternatives = localAlternative >= 0 ? localAlternative + 1
+                        : getNumberOfAlternatives(r, execTime);
+                int firstAlternative = localAlternative >= 0 ? localAlternative : 0;
+                for (int alternativesCounter = firstAlternative; alternativesCounter < numberOfAlternatives; alternativesCounter++) {
                     if (isEquivalentQueueAlternative(r, alternativesCounter)) continue;
                     do {
                         changeOrder(r, alternativesCounter);

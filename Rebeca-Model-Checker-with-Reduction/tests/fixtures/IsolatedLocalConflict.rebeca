@@ -1,0 +1,12 @@
+// Negative certificate case: both alternatives overwrite x; retain both orders.
+reactiveclass LocalWrites(4) {
+    statevars { int x; }
+    LocalWrites() {
+        x = 0;
+        self.SetX();
+        self.SetY();
+    }
+    msgsrv SetX() { x = 1; }
+    msgsrv SetY() { x = 2; }
+}
+main { LocalWrites Only():(); }

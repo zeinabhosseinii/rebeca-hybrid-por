@@ -1,0 +1,12 @@
+// Positive online-certificate case. Queue drains: deadlock must still stop the run.
+reactiveclass LocalWrites(4) {
+    statevars { int x; int y; }
+    LocalWrites() {
+        x = 0; y = 0;
+        self.SetX();
+        self.SetY();
+    }
+    msgsrv SetX() { x = 1; }
+    msgsrv SetY() { y = 2; }
+}
+main { LocalWrites Only():(); }

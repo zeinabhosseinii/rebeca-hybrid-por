@@ -216,6 +216,14 @@ public class TimedRebecaFileGenerator extends CoreRebecaFileGenerator {
 						: org.rebecalang.rmc.PORSafetyAnalyzer.analyze(rebecaModel);
 		context.put("safeActionsTable", porResult.safeActionsTable);
 		context.put("maxMsgIdPlusOne", porResult.maxMsgId + 1);
+        org.rebecalang.rmc.ERDGSafetyAnalyzer.LocalActionMetadata local =
+                org.rebecalang.rmc.ERDGSafetyAnalyzer.isolatedLocalActions(rebecaModel);
+        context.put("isolatedLocalSafe", local.safe);
+        context.put("isolatedLocalIndependent", local.independent);
+        context.put("isolatedLocalAllowed", fileGeneratorProperties.isAriaReduction() &&
+                !fileGeneratorProperties.isSymmetry() && propertyModel == null &&
+                assertions.isEmpty() && definitions.isEmpty());
+
 		if (porResult.sdiMatrix != null)
 			context.put("sdiMatrix", porResult.sdiMatrix);
 		if (porResult.ampSetOrder != null)

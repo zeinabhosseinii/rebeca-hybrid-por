@@ -119,3 +119,8 @@ An action-level persistent-set reference (different same-actor message servers)
 is documented in [ACTION_POR_REFERENCE.md](ACTION_POR_REFERENCE.md). It operates
 offline on a completed unreduced graph and gives 27 reference states from the
 64-state sender-normalized control. This is not an online RMC state-count result.
+
+The first restricted online sufficient condition is described in
+[ISOLATED_LOCAL_ONLINE.md](ISOLATED_LOCAL_ONLINE.md). It selects a distinct
+message only for certified isolated, constant-local writes; LoadBalancer sends
+remain unsupported and conservatively retain 38/46.

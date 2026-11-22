@@ -956,6 +956,80 @@ public class ERDGSafetyAnalyzer {
         return new PORSafetyAnalyzer.Result(table, idx.maxMsgId, sdiTable, ampSetOrder);
     }
 
+    /** Narrow online certificate: nullary scalar constant assignments only.
+     * No calls, sends, guards, arithmetic, arrays, locals, timing or inheritance.
+     * Runtime must additionally prove an isolated, equally-ready finite queue.
+     */
+    public static final class LocalActionMetadata {
+        public final List<List<Boolean>> safe = new ArrayList<>();
+        public final List<List<List<Boolean>>> independent = new ArrayList<>();
+    }
+
+    public static LocalActionMetadata isolatedLocalActions(RebecaModel model) {
+        ModelIndex idx = new ModelIndex(model);
+        LocalActionMetadata out = new LocalActionMetadata();
+        for (String instance : idx.instanceNames) {
+            ReactiveClassDeclaration rc = idx.typeToRcd.get(idx.instanceTypeName.get(instance));
+            Map<Integer, Set<String>> effects = new HashMap<>();
+            if (rc != null && rc.getExtends() == null) {
+                Set<String> scalars = new HashSet<>();
+                for (FieldDeclaration field : rc.getStatevars()) {
+                    if (field.getType() == null) continue;
+                    String type = field.getType().getTypeName();
+                    if (!(field.getType() instanceof ArrayType) &&
+                            ("int".equals(type) || "boolean".equals(type)))
+                        for (VariableDeclarator var : field.getVariableDeclarators())
+                            scalars.add(var.getVariableName());
+                }
+                int base = idx.startMsgId.get(rc.getName());
+                for (int k = 0; k < rc.getMsgsrvs().size(); k++) {
+                    MsgsrvDeclaration method = rc.getMsgsrvs().get(k);
+                    Set<String> writes = new HashSet<>();
+                    if ((method.getFormalParameters() == null || method.getFormalParameters().isEmpty()) &&
+                            constantLocalBody(method.getBlock(), scalars, writes))
+                        effects.put(base + k, writes);
+                }
+            }
+            List<Boolean> safe = new ArrayList<>();
+            List<List<Boolean>> pairs = new ArrayList<>();
+            for (int a = 0; a <= idx.maxMsgId; a++) {
+                safe.add(effects.containsKey(a));
+                List<Boolean> row = new ArrayList<>();
+                for (int b = 0; b <= idx.maxMsgId; b++)
+                    row.add(a != b && effects.containsKey(a) && effects.containsKey(b) &&
+                            Collections.disjoint(effects.get(a), effects.get(b)));
+                pairs.add(row);
+            }
+            out.safe.add(safe);
+            out.independent.add(pairs);
+        }
+        return out;
+    }
+
+    private static boolean constantLocalBody(Statement statement, Set<String> scalars, Set<String> writes) {
+        if (statement == null) return false;
+        if (statement.getClass() == BlockStatement.class) {
+            for (Statement child : ((BlockStatement) statement).getStatements())
+                if (!constantLocalBody(child, scalars, writes)) return false;
+            return true;
+        }
+        if (statement.getClass() != BinaryExpression.class) return false;
+        BinaryExpression assignment = (BinaryExpression) statement;
+        if (!"=".equals(assignment.getOperator()) || assignment.getLeft() == null ||
+                assignment.getRight() == null || assignment.getLeft().getClass() != TermPrimary.class ||
+                assignment.getRight().getClass() != Literal.class) return false;
+        TermPrimary target = (TermPrimary) assignment.getLeft();
+        if (!scalars.contains(target.getName()) || target.getParentSuffixPrimary() != null ||
+                (target.getIndices() != null && !target.getIndices().isEmpty())) return false;
+        String literal = ((Literal) assignment.getRight()).getLiteralValue();
+        if (!"true".equals(literal) && !"false".equals(literal)) {
+            try { Integer.parseInt(literal); }
+            catch (RuntimeException unsupported) { return false; }
+        }
+        writes.add(target.getName());
+        return true;
+    }
+
     // ── AST traversal helpers ─────────────────────────────────────────────────
 
     private static void collectSends(Statement stmt, List<DotPrimary> out) {
