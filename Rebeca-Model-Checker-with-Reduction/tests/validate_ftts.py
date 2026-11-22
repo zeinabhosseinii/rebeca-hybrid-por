@@ -38,7 +38,7 @@ struct State { int stateID=1; };
 State oldState, nextState;
 struct Node { State* state; };
 Node current={&oldState};
-bool safe(int r) { SAFETY }
+bool safe(int r, int messageId=0) { SAFETY }
 
 long finish(int nextRebecTime) {
     Node newState={&nextState}; (void)newState;

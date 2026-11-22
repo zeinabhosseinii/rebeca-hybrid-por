@@ -7,7 +7,9 @@
 	virtual void storeInitialState();
 	virtual long executeRebec(int rebecId);
 	#if ($fileGeneratorProperties.isReduction())
-	bool areActiveActionsSafe(byte* state, int r, int propertySelector);
+	bool areActiveActionsSafe(byte* state, int r, int messageId);
+    bool areAllActiveAlternativesSafe(int r, TIME_TYPE execTime);
+    bool isEquivalentQueueAlternative(int r, int alternative);
 	byte _porResult;
 	TimedBFSState* _porResultState;
 	#end
@@ -16,7 +18,7 @@
 #macro (timedRebecaFTTSAdditionalBodies $noParam)
 
 #if ($fileGeneratorProperties.isReduction())
-bool TimedModelChecker::areActiveActionsSafe(byte* state, int r, int propertySelector) {
+bool TimedModelChecker::areActiveActionsSafe(byte* state, int r, int messageId) {
 #if ($fileGeneratorProperties.isAriaReduction())
     // Conservative C1 fallback: include future message servers, not just queue heads.
     static bool sdiPairs[REBEC_COUNT][$maxMsgIdPlusOne][REBEC_COUNT][$maxMsgIdPlusOne] = {
@@ -25,7 +27,7 @@ bool TimedModelChecker::areActiveActionsSafe(byte* state, int r, int propertySel
 
 #end
     };
-    int rMsgId = (unsigned char)rebecs[r]->messageQueue[0];
+    int rMsgId = messageId > 0 ? messageId : (unsigned char)rebecs[r]->messageQueue[0];
     for (int j = 0; j < REBEC_COUNT; j++) {
         if (j == r) continue;
         for (int jMsgId = 1; jMsgId < $maxMsgIdPlusOne; jMsgId++)
@@ -46,9 +48,43 @@ bool TimedModelChecker::areActiveActionsSafe(byte* state, int r, int propertySel
 
 #end
 	};
-	return safeActions[r][rebecs[r]->messageQueue[0]];
+	int msg = messageId > 0 ? messageId : (unsigned char)rebecs[r]->messageQueue[0];
+    return safeActions[r][msg];
 #end
 }
+
+bool TimedModelChecker::areAllActiveAlternativesSafe(int r, TIME_TYPE execTime) {
+    int alternatives = getNumberOfAlternatives(r, execTime);
+    for (int k = 0; k < alternatives; k++) {
+        int messageId = (unsigned char)rebecs[r]->messageQueue[k];
+        if (!areActiveActionsSafe(NULL, r, messageId)) return false;
+    }
+    return true;
+}
+
+bool TimedModelChecker::isEquivalentQueueAlternative(int r, int alternative) {
+    // Moving either of two ADJACENT identical queue entries to the head
+    // produces exactly the same pre-execution configuration. Nonadjacent
+    // equal entries cannot be merged: their intervening queue order can differ.
+    if (alternative <= 0 || alternative >= rebecs[r]->maxQueueLength) return false;
+    int previous = alternative - 1;
+    if (!rebecs[r]->messageQueue[alternative] ||
+        rebecs[r]->messageQueue[alternative] != rebecs[r]->messageQueue[previous] ||
+        rebecs[r]->senderQueue[alternative] != rebecs[r]->senderQueue[previous] ||
+        rebecs[r]->executionTime[alternative] != rebecs[r]->executionTime[previous] ||
+        rebecs[r]->deadline[alternative] != rebecs[r]->deadline[previous]) return false;
+    if (rebecs[r]->maxParamLength > 0) {
+        if (!rebecs[r]->paramQueue[alternative] || !rebecs[r]->paramQueue[previous]) return false;
+        for (int b = 0; b < rebecs[r]->maxParamLength; b++)
+            if (rebecs[r]->paramQueue[alternative][b] != rebecs[r]->paramQueue[previous][b]) return false;
+    }
+#ifdef POR_DIAGNOSTICS
+    cerr << "POR_EQUIVALENT_SKIP state=" << current.state->stateID
+         << " actor=" << rebecs[r]->getName() << " alternative=" << alternative << endl;
+#endif
+    return true;
+}
+
 #end
 
 void TimedModelChecker::printCounterExampleTransition(TimedBFSState* parent, TimedBFSState* child) {
@@ -154,12 +190,13 @@ void TimedModelChecker::doTimedModelChecking(string userSelectedPropertyName, st
                  << " actor=" << rebecs[r]->getName() << " action=" << rebecs[r]->activeAction()
                  << " alternatives=" << getNumberOfAlternatives(r, execTime) << endl;
 #endif
-            // Different same-time queue heads need separate dependency checks.
-            if (getNumberOfAlternatives(r, execTime) == 1 && areActiveActionsSafe(NULL, r, 0)) {
+            // Every competing message must be safe before selecting this actor.
+            if (areAllActiveAlternativesSafe(r, execTime)) {
                 long nonDetTrans;
                 bool provisoSatisfied = true;
                 int numberOfAlternatives = getNumberOfAlternatives(r, execTime);
                 for (int alternativesCounter = 0; alternativesCounter < numberOfAlternatives; alternativesCounter++) {
+                    if (isEquivalentQueueAlternative(r, alternativesCounter)) continue;
                     do {
                         changeOrder(r, alternativesCounter);
                         if (rebecs[r]->deadline[0] < currentTime) {
@@ -211,6 +248,9 @@ void TimedModelChecker::doTimedModelChecking(string userSelectedPropertyName, st
             long nonDetTrans;
             int numberOfAlternatives = getNumberOfAlternatives(r, execTime);
             for(int alternativesCounter = 0; alternativesCounter < numberOfAlternatives; alternativesCounter++) {
+#ifdef PO
+                if (isEquivalentQueueAlternative(r, alternativesCounter)) continue;
+#endif
 	            do {
 					changeOrder(r, alternativesCounter);
 				    if (rebecs[r]->deadline[0] < currentTime) {
