@@ -3,6 +3,8 @@ package org.rebecalang.rmc;
 import java.util.*;
 
 import org.rebecalang.compiler.modelcompiler.corerebeca.CoreRebecaTypeSystem;
+import org.rebecalang.compiler.modelcompiler.corerebeca.CoreRebecaLabelUtility;
+import org.rebecalang.compiler.modelcompiler.timedrebeca.objectmodel.TimedRebecaParentSuffixPrimary;
 import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.*;
 
 /**
@@ -979,7 +981,7 @@ public class ERDGSafetyAnalyzer {
                     if (!(field.getType() instanceof ArrayType) &&
                             ("int".equals(type) || "boolean".equals(type)))
                         for (VariableDeclarator var : field.getVariableDeclarators())
-                            scalars.add(var.getVariableName());
+                            if (localScalarName(var.getVariableName())) scalars.add(var.getVariableName());
                 }
                 int base = idx.startMsgId.get(rc.getName());
                 for (int k = 0; k < rc.getMsgsrvs().size(); k++) {
@@ -1006,6 +1008,11 @@ public class ERDGSafetyAnalyzer {
         return out;
     }
 
+    private static boolean localScalarName(String name) {
+        return !Set.of("now", "sender", "self", "currentMessageArrival",
+                "currentMessageDeadline", "currentMessageWaitingTime").contains(name);
+    }
+
     private static boolean constantLocalBody(Statement statement, Set<String> scalars, Set<String> writes) {
         if (statement == null) return false;
         if (statement.getClass() == BlockStatement.class) {
@@ -1027,6 +1034,125 @@ public class ERDGSafetyAnalyzer {
             catch (RuntimeException unsupported) { return false; }
         }
         writes.add(target.getName());
+        return true;
+    }
+
+    /** Passive-send certificate: constant local writes and at most one
+     * unconditional, untimed, nullary send to an empty-effect handler.
+     */
+    public static final class PassiveSendMetadata {
+        public final List<List<Boolean>> safe = new ArrayList<>();
+        public final List<List<Boolean>> passive = new ArrayList<>();
+        public final List<List<List<Boolean>>> independent = new ArrayList<>();
+        public final List<List<Integer>> targetActor = new ArrayList<>();
+        public final List<List<Integer>> targetMessage = new ArrayList<>();
+    }
+
+    public static PassiveSendMetadata passiveSendActions(RebecaModel model) {
+        ModelIndex idx = new ModelIndex(model);
+        LocalActionMetadata local = isolatedLocalActions(model);
+        PassiveSendMetadata out = new PassiveSendMetadata();
+        Map<Integer, Set<String>> writesByAction = new HashMap<>();
+        Map<Integer, DotPrimary> sendsByAction = new HashMap<>();
+        Set<Integer> supported = new HashSet<>(), passive = new HashSet<>();
+        // First identify all effect-free destination handlers independently of senders.
+        for (String inst : idx.instanceNames) {
+            int i = idx.instanceIndex.get(inst);
+            ReactiveClassDeclaration rc = idx.typeToRcd.get(idx.instanceTypeName.get(inst));
+            if (rc == null || rc.getExtends() != null) continue;
+            Set<String> scalars = new HashSet<>();
+            for (FieldDeclaration field : rc.getStatevars()) {
+                if (field.getType() == null || field.getType() instanceof ArrayType) continue;
+                String type = field.getType().getTypeName();
+                if ("int".equals(type) || "boolean".equals(type))
+                    for (VariableDeclarator variable : field.getVariableDeclarators())
+                        if (localScalarName(variable.getVariableName())) scalars.add(variable.getVariableName());
+            }
+            int base = idx.startMsgId.get(rc.getName());
+            for (int k = 0; k < rc.getMsgsrvs().size(); k++) {
+                MsgsrvDeclaration method = rc.getMsgsrvs().get(k);
+                if (method.getFormalParameters() != null && !method.getFormalParameters().isEmpty()) continue;
+                int action = key(i, base + k);
+                Set<String> writes = new HashSet<>();
+                List<DotPrimary> sends = new ArrayList<>();
+                if (!passiveSendBody(method.getBlock(), scalars, writes, sends)) continue;
+                supported.add(action);
+                writesByAction.put(action, writes);
+                if (!sends.isEmpty()) sendsByAction.put(action, sends.get(0));
+                else if (writes.isEmpty() && local.safe.get(i).get(base + k)) passive.add(action);
+            }
+        }
+        Map<Integer, int[]> destinations = new HashMap<>();
+        Set<Integer> certified = new HashSet<>();
+        for (int action : supported) {
+            DotPrimary send = sendsByAction.get(action);
+            if (send == null) { certified.add(action); continue; }
+            int i = instanceOf(action);
+            String inst = idx.instanceNames.get(i);
+            String type = idx.instanceTypeName.get(inst);
+            TermPrimary receiver = (TermPrimary) send.getLeft();
+            // Known-rebec bindings only; never self, sender, computed or mutable refs.
+            List<String> names = idx.fullKnownRebecNames.get(type);
+            if (names == null || !names.contains(receiver.getName())) continue;
+            String target = resolveTargetInstance(receiver, inst, names, idx.instanceBindings.get(inst), idx);
+            if (target == null || target.equals(inst)) continue;
+            Integer j = idx.instanceIndex.get(target);
+            if (j == null) continue;
+            TermPrimary invocation = (TermPrimary) send.getRight();
+            Integer msg = resolveMessageId(invocation.getName(), idx.instanceTypeName.get(target), idx);
+            if (j == null || msg == null || !passive.contains(key(j, msg))) continue;
+            destinations.put(action, new int[]{j, msg});
+            certified.add(action);
+        }
+        for (int i = 0; i < idx.instanceCount; i++) {
+            List<Boolean> safeRow = new ArrayList<>(), passiveRow = new ArrayList<>();
+            List<Integer> targets = new ArrayList<>(), messages = new ArrayList<>();
+            List<List<Boolean>> pairs = new ArrayList<>();
+            for (int a = 0; a <= idx.maxMsgId; a++) {
+                int ka = key(i, a); int[] target = destinations.get(ka);
+                safeRow.add(certified.contains(ka)); passiveRow.add(passive.contains(ka));
+                targets.add(target == null ? -1 : target[0]); messages.add(target == null ? -1 : target[1]);
+                List<Boolean> row = new ArrayList<>();
+                for (int b = 0; b <= idx.maxMsgId; b++) {
+                    int kb = key(i, b); int[] other = destinations.get(kb);
+                    row.add(a != b && certified.contains(ka) && certified.contains(kb) &&
+                            Collections.disjoint(writesByAction.get(ka), writesByAction.get(kb)) &&
+                            (target == null || other == null || target[0] != other[0]));
+                }
+                pairs.add(row);
+            }
+            out.safe.add(safeRow); out.passive.add(passiveRow); out.independent.add(pairs);
+            out.targetActor.add(targets); out.targetMessage.add(messages);
+        }
+        return out;
+    }
+
+    private static boolean passiveSendBody(Statement statement, Set<String> scalars,
+                                          Set<String> writes, List<DotPrimary> sends) {
+        if (statement == null) return false;
+        if (statement.getClass() == BlockStatement.class) {
+            for (Statement child : ((BlockStatement) statement).getStatements())
+                if (!passiveSendBody(child, scalars, writes, sends)) return false;
+            return true;
+        }
+        if (statement.getClass() != DotPrimary.class)
+            return constantLocalBody(statement, scalars, writes);
+        DotPrimary dot = (DotPrimary) statement;
+        if (!sends.isEmpty() || dot.getLeft() == null || dot.getRight() == null ||
+                dot.getLeft().getClass() != TermPrimary.class || dot.getRight().getClass() != TermPrimary.class)
+            return false;
+        TermPrimary receiver = (TermPrimary) dot.getLeft(), call = (TermPrimary) dot.getRight();
+        if (receiver.getParentSuffixPrimary() != null || receiver.getIndices() == null ||
+                call.getIndices() == null || !receiver.getIndices().isEmpty() || !call.getIndices().isEmpty() || call.getLabel() != CoreRebecaLabelUtility.MSGSRV ||
+                call.getParentSuffixPrimary() == null || call.getParentSuffixPrimary().getArguments() == null ||
+                !call.getParentSuffixPrimary().getArguments().isEmpty())
+            return false;
+        Object suffix = call.getParentSuffixPrimary();
+        if (suffix.getClass() == TimedRebecaParentSuffixPrimary.class) {
+            TimedRebecaParentSuffixPrimary timed = (TimedRebecaParentSuffixPrimary) suffix;
+            if (timed.getAfterExpression() != null || timed.getDeadlineExpression() != null) return false;
+        } else if (suffix.getClass() != ParentSuffixPrimary.class) return false;
+        sends.add(dot);
         return true;
     }
 

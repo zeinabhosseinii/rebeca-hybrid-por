@@ -1,0 +1,17 @@
+// Distinct handlers update disjoint fields and send once to different passive sinks.
+reactiveclass Sink(5) {
+    Sink() {}
+    msgsrv Take() {}
+}
+reactiveclass Sender(5) {
+    knownrebecs { Sink Left; Sink Right; }
+    statevars { int x; int y; }
+    Sender() { x = 0; y = 0; self.First(); self.Second(); }
+    msgsrv First() { x = 1; Left.Take(); }
+    msgsrv Second() { y = 2; Right.Take(); }
+}
+main {
+    Sender Root(LeftSink, RightSink):();
+    Sink LeftSink():();
+    Sink RightSink():();
+}

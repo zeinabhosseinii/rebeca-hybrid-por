@@ -9,7 +9,7 @@ import subprocess
 import tempfile
 root=Path(__file__).resolve().parents[1]
 s=(root/'src/main/java/org/rebecalang/rmc/ERDGSafetyAnalyzer.java').read_text()
-a=s.index('    public static final class LocalActionMetadata');b=s.index('    // ── AST traversal helpers',a)
+a=s.index('    public static final class LocalActionMetadata');b=s.index('    /** Passive-send certificate',a)
 code=s[a:b]
 fixture=r'''
 import java.util.*;
@@ -77,6 +77,7 @@ class LocalCertificateFixture {
    check(!isolatedLocalActions(new RebecaModel(c)).safe.get(0).get(2));
   }
   c=model();c.methods.get(1).params.add(new Object());check(!isolatedLocalActions(new RebecaModel(c)).safe.get(0).get(2));
+  c=model();c.fields.add(new FieldDeclaration(new Type("int"),"now"));c.methods.get(1).body=new BlockStatement(assign("now","1"));check(!isolatedLocalActions(new RebecaModel(c)).safe.get(0).get(2));
   c=model();c.parent=new Object();check(!isolatedLocalActions(new RebecaModel(c)).safe.get(0).get(1));
   c=model();c.fields.set(1,new FieldDeclaration(new ArrayType(),"y"));check(!isolatedLocalActions(new RebecaModel(c)).safe.get(0).get(2));
   c=model();TermPrimary indexed=new TermPrimary("y");indexed.indices.add(new Literal("0"));

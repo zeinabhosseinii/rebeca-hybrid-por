@@ -11,6 +11,7 @@
     bool areAllActiveAlternativesSafe(int r, TIME_TYPE execTime);
     bool isEquivalentQueueAlternative(int r, int alternative);
     int chooseIsolatedLocalAlternative(int r, TIME_TYPE execTime);
+    int choosePassiveSendAlternative(int r, TIME_TYPE execTime);
 	byte _porResult;
 	TimedBFSState* _porResultState;
 	#end
@@ -96,6 +97,94 @@ int TimedModelChecker::chooseIsolatedLocalAlternative(int r, TIME_TYPE execTime)
         if (independent) {
 #ifdef POR_DIAGNOSTICS
             cerr << "POR_LOCAL_ACTION state=" << current.state->stateID
+                 << " actor=" << rebecs[r]->getName() << " alternative=" << k << endl;
+#endif
+            return k;
+        }
+    }
+    return -1;
+}
+
+int TimedModelChecker::choosePassiveSendAlternative(int r, TIME_TYPE execTime) {
+    if (!$isolatedLocalAllowed) return -1;
+    static const bool pSafe[REBEC_COUNT][$maxMsgIdPlusOne] = {
+#foreach($row in $passiveSendSafe)
+        { #foreach($value in $row)$value#if(!$foreach.last), #end#end }#if(!$foreach.last),#end
+
+#end
+    };
+    static const bool pPassive[REBEC_COUNT][$maxMsgIdPlusOne] = {
+#foreach($row in $passiveSendPassive)
+        { #foreach($value in $row)$value#if(!$foreach.last), #end#end }#if(!$foreach.last),#end
+
+#end
+    };
+    static const int pTarget[REBEC_COUNT][$maxMsgIdPlusOne] = {
+#foreach($row in $passiveSendTargetActor)
+        { #foreach($value in $row)$value#if(!$foreach.last), #end#end }#if(!$foreach.last),#end
+
+#end
+    };
+    static const int pMessage[REBEC_COUNT][$maxMsgIdPlusOne] = {
+#foreach($row in $passiveSendTargetMessage)
+        { #foreach($value in $row)$value#if(!$foreach.last), #end#end }#if(!$foreach.last),#end
+
+#end
+    };
+    static const bool pIndependent[REBEC_COUNT][$maxMsgIdPlusOne][$maxMsgIdPlusOne] = {
+#foreach($actor in $passiveSendIndependent)
+        { #foreach($row in $actor){ #foreach($value in $row)$value#if(!$foreach.last), #end#end }#if(!$foreach.last), #end#end }#if(!$foreach.last),#end
+
+#end
+    };
+    if (execTime != current.currentTime || rebecs[r]->getNow() != execTime ||
+        rebecs[r]->maxParamLength != 0) return -1;
+    int head = (unsigned char)rebecs[r]->messageQueue[0];
+    if (head <= 0 || head >= $maxMsgIdPlusOne) return -1;
+    int priority = rebecs[r]->messagePriorities[head];
+    int length[REBEC_COUNT] = {0};
+    int pendingSends[REBEC_COUNT] = {0};
+    for (int j = 0; j < REBEC_COUNT; j++) {
+        if (rebecs[j]->getPriority() != rebecs[r]->getPriority()) return -1;
+        while (length[j] < rebecs[j]->maxQueueLength && rebecs[j]->messageQueue[length[j]]) {
+            int k = length[j];
+            int id = (unsigned char)rebecs[j]->messageQueue[k];
+            if (id <= 0 || id >= $maxMsgIdPlusOne ||
+                (j == r ? !pSafe[j][id] : !pPassive[j][id]) ||
+                rebecs[j]->maxParamLength != 0 || rebecs[j]->getNow() != execTime ||
+                rebecs[j]->executionTime[k] != execTime || rebecs[j]->deadline[k] != MAX_TIME ||
+                rebecs[j]->messagePriorities[id] != priority) return -1;
+            length[j]++;
+        }
+        if (length[j] >= rebecs[j]->maxQueueLength) return -1;
+    }
+    if (length[r] < 2 || getNumberOfAlternatives(r, execTime) != length[r]) return -1;
+    for (int k = 0; k < length[r]; k++) {
+        int id = (unsigned char)rebecs[r]->messageQueue[k];
+        int target = pTarget[r][id], method = pMessage[r][id];
+        if (target < 0) { if (method >= 0) return -1; continue; }
+        if (target >= REBEC_COUNT || target == r || method <= 0 || method >= $maxMsgIdPlusOne ||
+            !pPassive[target][method] || rebecs[target]->maxParamLength != 0 ||
+            rebecs[target]->getNow() != execTime ||
+            rebecs[target]->messagePriorities[method] != priority) return -1;
+        pendingSends[target]++;
+    }
+    // Bound all enqueues before any sink is scheduled; keep an empty terminator slot.
+    for (int j = 0; j < REBEC_COUNT; j++)
+        if (pendingSends[j] > 0 && length[j] + pendingSends[j] >= rebecs[j]->maxQueueLength) return -1;
+    for (int k = 0; k < length[r]; k++) {
+        int id = (unsigned char)rebecs[r]->messageQueue[k];
+        int target = pTarget[r][id];
+        if (target >= 0 && length[target] != 0) continue;
+        bool independent = true;
+        for (int b = 0; b < length[r]; b++) {
+            if (b == k) continue;
+            int other = (unsigned char)rebecs[r]->messageQueue[b];
+            if (id == other || !pIndependent[r][id][other]) independent = false;
+        }
+        if (independent) {
+#ifdef POR_DIAGNOSTICS
+            cerr << "POR_PASSIVE_SEND_ACTION state=" << current.state->stateID
                  << " actor=" << rebecs[r]->getName() << " alternative=" << k << endl;
 #endif
             return k;
@@ -242,6 +331,7 @@ void TimedModelChecker::doTimedModelChecking(string userSelectedPropertyName, st
                  << " alternatives=" << getNumberOfAlternatives(r, execTime) << endl;
 #endif
             int localAlternative = chooseIsolatedLocalAlternative(r, execTime);
+            if (localAlternative < 0) localAlternative = choosePassiveSendAlternative(r, execTime);
             // Either a proven isolated local action, or the existing actor set.
             if (localAlternative >= 0 || areAllActiveAlternativesSafe(r, execTime)) {
                 long nonDetTrans;

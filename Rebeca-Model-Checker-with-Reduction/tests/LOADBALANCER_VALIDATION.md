@@ -124,3 +124,7 @@ The first restricted online sufficient condition is described in
 [ISOLATED_LOCAL_ONLINE.md](ISOLATED_LOCAL_ONLINE.md). It selects a distinct
 message only for certified isolated, constant-local writes; LoadBalancer sends
 remain unsupported and conservatively retain 38/46.
+
+The following extension admits at most one send to a certified passive endpoint:
+[PASSIVE_SEND_ONLINE.md](PASSIVE_SEND_ONLINE.md). Feedback routing is still rejected,
+so this does not change LoadBalancer's 38/46 result or implement COND evaluation.
