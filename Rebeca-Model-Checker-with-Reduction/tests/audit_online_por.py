@@ -1,0 +1,129 @@
+#!/usr/bin/env python3
+"""Check actual online decisions against a completed full graph (finite model only)."""
+import argparse
+from collections import Counter
+import hashlib
+import json
+from pathlib import Path
+from action_por_reference import read_full_graph
+from audit_hub_alternatives import export
+
+
+def verify(graph, mapping, online_edges, events):
+    """mapping maps online IDs to full-graph IDs; all nondeterministic targets count."""
+    def fail(message):
+        raise ValueError(message)
+    checked_edges = 0
+    for source, actions in online_edges.items():
+        for action, targets in actions.items():
+            actual = {mapping[t] for t in targets}
+            if not actual <= graph.edges[mapping[source]].get(action, set()):
+                fail(f'{source}: fabricated transition for {action}')
+            checked_edges += len(actual)
+    closed = set()
+    rows = {}
+    current = None
+    rejected = Counter()
+    for event in events:
+        kind = event['event']
+        if kind == 'POR_STATE':
+            source = event['state'] + '_0'
+            if source not in mapping or source in rows:
+                fail(f'{source}: missing mapping or repeated expansion')
+            if current is not None and rows[current]['outcome'] is None:
+                fail(f'{current}: no completed online decision')
+            if not rows and mapping[source] != graph.initial:
+                fail('First expanded state is not the full-graph initial state')
+            current = source; closed.add(mapping[source])
+            rows[source] = {'outcome': None, 'certificates': [], 'proviso_rejections': []}
+        if kind not in ('POR_FULL','POR_TRIAL','POR_PROVISO_REJECT'):
+            continue
+        source = event['state'] + '_0'
+        if source != current:
+            fail(f'{source}: out-of-order event')
+        full_source = mapping[source]
+        row = rows[source]
+        if kind == 'POR_PROVISO_REJECT':
+            target = event['closedSuccessor'] + '_0'
+            if target not in mapping or mapping[target] not in closed:
+                fail(f'{source}: claimed closed successor is not closed')
+            candidates = [a for a in online_edges.get(source, {}) if a[0] == event['actor']]
+            if not any(mapping[target] in graph.edges[full_source].get(a,set()) for a in candidates):
+                fail(f'{source}: proviso witness is not a successor of this actor')
+            rejected[source,event['actor']] += 1
+            row['proviso_rejections'].append(event)
+        elif kind == 'POR_TRIAL':
+            if event['accepted'] == '0':
+                if not rejected[source,event['actor']]:
+                    fail(f'{source}: rejected trial has no closed-successor witness')
+                continue
+            if event['accepted'] != '1' or row['outcome'] is not None:
+                fail(f'{source}: invalid/repeated accepted trial')
+            # Actor-set trial must retain every distinct handler of that actor.
+            actions = [a for a in graph.edges[full_source] if a[0] == event['actor']]
+            if len(actions) != 1:
+                fail(f'{source}: audit supports singleton action identities only, found {actions}')
+            action = actions[0]
+            ok, evidence = graph.certify(full_source, action)
+            if not ok:
+                fail(f'{source}: persistence/diamond certificate failed: {evidence}')
+            full_targets = graph.edges[full_source][action]
+            actual = {mapping[t] for t in online_edges.get(source, {}).get(action, set())}
+            if not full_targets <= actual:
+                fail(f'{source}: selected action lost a nondeterministic successor')
+            if full_targets & closed:
+                fail(f'{source}: accepted trial violates closed-successor proviso')
+            row['outcome'] = 'reduced'
+            row['certificates'].append({'action': action, 'full_state': full_source, **evidence})
+        else:
+            if row['outcome'] is not None:
+                fail(f'{source}: full fallback follows an accepted trial')
+            for action, targets in graph.edges[full_source].items():
+                actual = {mapping[t] for t in online_edges.get(source, {}).get(action, set())}
+                if not targets <= actual:
+                    fail(f'{source}: full expansion lost an enabled action/branch')
+            row['outcome'] = 'full'
+    if set(rows) != set(mapping) or any(r['outcome'] is None for r in rows.values()):
+        fail('Missing/incomplete state decisions')
+    return {'checked_states': len(rows), 'checked_exported_edges': checked_edges,
+            'outcomes': dict(Counter(r['outcome'] for r in rows.values())),
+            'verified_proviso_rejections': sum(rejected.values()), 'decisions': rows}
+
+
+def run(full, online, model, output):
+    if hashlib.sha256(model.read_bytes()).hexdigest() != 'fbd2dbefff81ef86df52c961ba93784f8f5f3ff4bea7a2e9cf9c842ae579108b':
+        raise ValueError('Sender projection is restricted to the exact supplied LoadBalancerSmall model')
+    graph = read_full_graph(full/'statespace.xml', full/'report.xml')
+    _, fs, _ = export(full)
+    inverse = {sig: sid for sid, sig in fs.items()}
+    _, online_sigs, edges = export(online)
+    if any(sig not in inverse for sig in online_sigs.values()):
+        raise ValueError('Online state absent from full graph')
+    if any(not sid.endswith('_0') for sid in online_sigs):
+        raise ValueError('Only single zero-time bundles are supported')
+    mapping = {sid: inverse[sig] for sid, sig in online_sigs.items()}
+    events=[]
+    for line in (online/'errors.log').read_text().splitlines():
+        if line.startswith('POR_'):
+            parts=line.split();fields=dict(p.split('=',1) for p in parts[1:] if '=' in p)
+            events.append({'event':parts[0],**fields})
+    result=verify(graph,mapping,edges,events)
+    result.update(finite_model_only=True, full_graph_required=True, online_reduction_changed=False,
+                  model_sha256=hashlib.sha256(model.read_bytes()).hexdigest(),
+                  full_graph_sha256=hashlib.sha256((full/'statespace.xml').read_bytes()).hexdigest(),
+                  online_graph_sha256=hashlib.sha256((online/'statespace.xml').read_bytes()).hexdigest(),
+                  trace_sha256=hashlib.sha256((online/'errors.log').read_bytes()).hexdigest())
+    output.parent.mkdir(parents=True,exist_ok=True)
+    output.write_text(json.dumps(result,indent=2)+'\n')
+    print(json.dumps({k:v for k,v in result.items() if k!='decisions'},indent=2))
+    return result
+
+
+if __name__=='__main__':
+    p=argparse.ArgumentParser(description=__doc__)
+    root=Path(__file__).resolve().parents[1]
+    p.add_argument('--full',type=Path,default=root/'tmp/LoadBalancerSmall_reference_full')
+    p.add_argument('--online',type=Path,default=root/'tmp/LoadBalancerSmall_post_quiescence_scheduling/dynamic_original')
+    p.add_argument('--model',type=Path,default=root.parent/'ARIA/benchmarks/LoadBalancerSmall.rebeca')
+    p.add_argument('--output',type=Path,default=root/'tmp/LoadBalancerSmall_online_certificate.json')
+    a=p.parse_args();run(a.full,a.online,a.model,a.output)

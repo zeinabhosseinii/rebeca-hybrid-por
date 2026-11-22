@@ -9,6 +9,14 @@ fi
 bash tests/run_action_por_reference.sh
 python3 tests/compare_loadbalancer_scheduling.py --output tmp/LoadBalancerSmall_post_quiescence_scheduling
 python3 tests/audit_hub_alternatives.py
+python3 tests/test_online_por_audit.py
+python3 tests/audit_online_por.py
+(
+  cd tmp/LoadBalancerSmall_aria_json
+  g++ -std=c++11 -pthread -O2 -DPOR_DIAGNOSTICS -DEXPORT_STATE_SPACE *.cpp -o execute-audit 2>compile-audit.log
+  ./execute-audit >report.xml 2>errors.log
+)
+python3 tests/audit_online_por.py --online tmp/LoadBalancerSmall_aria_json --output tmp/LoadBalancerSmall_online_certificate_json.json
 python3 - <<'PY'
 import json
 from pathlib import Path
