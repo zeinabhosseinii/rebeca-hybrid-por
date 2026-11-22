@@ -1,5 +1,10 @@
 # Native quiescence boundary regressions
 
+The numerical snapshot below predates the full-barrier proviso refinement.
+Current default results and scope are in [CYCLE_BARRIERS.md](CYCLE_BARRIERS.md):
+LoadBalancer AST/JSON is 27/31; the resend regression is 201/328.
+
+
 This suite adds four controlled variants of the supplied LoadBalancer model and
 runs each plus the original through the real Java compiler/generator and native
 C++ execution. Each case runs without reduction, with ARIA AST, and with exported

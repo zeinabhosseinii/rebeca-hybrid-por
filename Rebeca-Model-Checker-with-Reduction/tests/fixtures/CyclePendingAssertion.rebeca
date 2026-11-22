@@ -1,0 +1,22 @@
+// A partial loop must not starve the concurrently enabled assertion failure.
+reactiveclass Loop(4) {
+    knownrebecs { Relay Partner; Fault Error; }
+    Loop() { self.Start(); }
+    msgsrv Start() { Partner.Boot(); Error.Reveal(); }
+    msgsrv Spin() { Partner.Forward(); }
+}
+reactiveclass Relay(4) {
+    knownrebecs { Loop Root; }
+    Relay() {}
+    msgsrv Boot() { Root.Spin(); }
+    msgsrv Forward() { Root.Spin(); }
+}
+reactiveclass Fault(4) {
+    Fault() {}
+    msgsrv Reveal() { assertion(false); }
+}
+main {
+    Loop Root(Partner, Error):();
+    Relay Partner(Root):();
+    Fault Error():();
+}

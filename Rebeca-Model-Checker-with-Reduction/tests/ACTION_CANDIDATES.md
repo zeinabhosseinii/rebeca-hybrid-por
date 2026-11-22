@@ -1,5 +1,10 @@
 # Explicit online action candidates and representative reasons
 
+The numerical snapshot below predates the full-barrier proviso refinement.
+Current default results and scope are in [CYCLE_BARRIERS.md](CYCLE_BARRIERS.md):
+LoadBalancer AST/JSON is 27/31; the resend regression is 201/328.
+
+
 COND work is paused. This change makes the existing online selection rules
 explicit and completes enumeration within their supported certificates. It does
 not claim a universal independence procedure for arbitrary actor programs.

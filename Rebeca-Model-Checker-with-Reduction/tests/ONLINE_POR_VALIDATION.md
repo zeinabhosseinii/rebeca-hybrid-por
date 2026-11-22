@@ -1,5 +1,10 @@
 # Semantic audit of the online LoadBalancer reduction
 
+The numerical snapshot below predates the full-barrier proviso refinement.
+Current default results and scope are in [CYCLE_BARRIERS.md](CYCLE_BARRIERS.md):
+LoadBalancer AST/JSON is 27/31; the resend regression is 201/328.
+
+
 The current AST and JSON solvers each have 25 accepted reductions, checked against the completed
 64-state unprioritized, sender-normalized graph. This is a finite-model audit,
 not an online optimization and not a general proof of the Java/C++ generator.

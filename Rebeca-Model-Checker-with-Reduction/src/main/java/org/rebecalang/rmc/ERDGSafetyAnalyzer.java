@@ -1188,36 +1188,62 @@ public class ERDGSafetyAnalyzer {
         return rows;
     }
 
+    public static boolean supportsFullExpansionBarriers(RebecaModel model) {
+        RebecaCode code = model.getRebecaCode();
+        if (!code.getGlobalVariables().isEmpty() || !code.getEnvironmentVariables().isEmpty() ||
+                !code.getFeatureVariables().isEmpty() || !code.getRecordDeclaration().isEmpty() ||
+                !code.getInterfaceDeclaration().isEmpty()) return false;
+        for (MainRebecDefinition instance : code.getMainDeclaration().getMainRebecDefinition())
+            if (!instance.getAnnotations().isEmpty()) return false;
+        Set<String> ignored = new HashSet<>();
+        for (ReactiveClassDeclaration rcd : model.getRebecaCode().getReactiveClassDeclaration()) {
+            if (rcd.getClass() != ReactiveClassDeclaration.class || !rcd.getAnnotations().isEmpty() || rcd.getExtends() != null ||
+                    !rcd.getImplements().isEmpty() || !rcd.getSynchMethods().isEmpty()) return false;
+            for (ConstructorDeclaration ctor : rcd.getConstructors())
+                if (ctor.getClass() != ConstructorDeclaration.class || !ctor.getAnnotations().isEmpty() || ctor.getBlock() == null || !scanRuntimeSends(ctor.getBlock(), ignored, true)) return false;
+            for (MsgsrvDeclaration method : rcd.getMsgsrvs())
+                if (method.getClass() != MsgsrvDeclaration.class || !method.getAnnotations().isEmpty() || method.getBlock() == null ||
+                        !scanRuntimeSends(method.getBlock(), ignored, true)) return false;
+        }
+        return true;
+    }
+
     private static boolean scanRuntimeSends(Statement node, Set<String> sent) {
+        return scanRuntimeSends(node, sent, false);
+    }
+
+    private static boolean scanRuntimeSends(Statement node, Set<String> sent, boolean zeroTime) {
         if (node == null) return true;
         if (node.getClass() == BlockStatement.class) {
             for (Statement child : ((BlockStatement) node).getStatements())
-                if (!scanRuntimeSends(child, sent)) return false;
+                if (!scanRuntimeSends(child, sent, zeroTime)) return false;
             return true;
         }
         if (node.getClass() == ConditionalStatement.class) {
             ConditionalStatement c = (ConditionalStatement) node;
-            return scanRuntimeSends(c.getCondition(), sent) &&
-                    scanRuntimeSends(c.getStatement(), sent) && scanRuntimeSends(c.getElseStatement(), sent);
+            return scanRuntimeSends(c.getCondition(), sent, zeroTime) &&
+                    scanRuntimeSends(c.getStatement(), sent, zeroTime) && scanRuntimeSends(c.getElseStatement(), sent, zeroTime);
         }
         if (node.getClass() == WhileStatement.class) {
             WhileStatement w = (WhileStatement) node;
-            return scanRuntimeSends(w.getCondition(), sent) && scanRuntimeSends(w.getStatement(), sent);
+            return scanRuntimeSends(w.getCondition(), sent, zeroTime) && scanRuntimeSends(w.getStatement(), sent, zeroTime);
         }
         if (node.getClass() == BinaryExpression.class)
-            return scanRuntimeSends(((BinaryExpression) node).getLeft(), sent) &&
-                    scanRuntimeSends(((BinaryExpression) node).getRight(), sent);
+            return scanRuntimeSends(((BinaryExpression) node).getLeft(), sent, zeroTime) &&
+                    scanRuntimeSends(((BinaryExpression) node).getRight(), sent, zeroTime);
         if (node.getClass() == UnaryExpression.class)
-            return scanRuntimeSends(((UnaryExpression) node).getExpression(), sent);
+            return scanRuntimeSends(((UnaryExpression) node).getExpression(), sent, zeroTime);
         if (node.getClass() == Literal.class) return true;
         if (node.getClass() == DotPrimary.class) {
             DotPrimary dot = (DotPrimary) node;
-            return scanRuntimeSends(dot.getLeft(), sent) && scanRuntimeSends(dot.getRight(), sent);
+            return scanRuntimeSends(dot.getLeft(), sent, zeroTime) && scanRuntimeSends(dot.getRight(), sent, zeroTime);
         }
         if (node.getClass() == TermPrimary.class) {
             TermPrimary term = (TermPrimary) node;
+            if (zeroTime && Set.of("now", "currentMessageArrival", "currentMessageDeadline",
+                    "currentMessageWaitingTime").contains(term.getName())) return false;
             for (Expression index : term.getIndices())
-                if (!scanRuntimeSends(index, sent)) return false;
+                if (!scanRuntimeSends(index, sent, zeroTime)) return false;
             ParentSuffixPrimary suffix = term.getParentSuffixPrimary();
             if (suffix == null) return !CoreRebecaLabelUtility.MSGSRV.equals(term.getLabel());
             // Any non-message call (including unknown builtins) disables this rule.
@@ -1226,11 +1252,12 @@ public class ERDGSafetyAnalyzer {
             if (suffix.getClass() != ParentSuffixPrimary.class &&
                     suffix.getClass() != TimedRebecaParentSuffixPrimary.class) return false;
             for (Expression arg : suffix.getArguments())
-                if (!scanRuntimeSends(arg, sent)) return false;
+                if (!scanRuntimeSends(arg, sent, zeroTime)) return false;
             if (suffix instanceof TimedRebecaParentSuffixPrimary) {
                 TimedRebecaParentSuffixPrimary timed = (TimedRebecaParentSuffixPrimary) suffix;
-                if (!scanRuntimeSends(timed.getAfterExpression(), sent) ||
-                        !scanRuntimeSends(timed.getDeadlineExpression(), sent)) return false;
+                if (zeroTime && (timed.getAfterExpression() != null || timed.getDeadlineExpression() != null)) return false;
+                if (!scanRuntimeSends(timed.getAfterExpression(), sent, zeroTime) ||
+                        !scanRuntimeSends(timed.getDeadlineExpression(), sent, zeroTime)) return false;
             }
             return true;
         }

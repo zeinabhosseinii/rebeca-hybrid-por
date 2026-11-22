@@ -1,5 +1,10 @@
 # Is 27 dynamic states versus 22 static states an implementation error?
 
+The numerical snapshot below predates the full-barrier proviso refinement.
+Current default results and scope are in [CYCLE_BARRIERS.md](CYCLE_BARRIERS.md):
+LoadBalancer AST/JSON is 27/31; the resend regression is 201/328.
+
+
 Counts alone cannot answer that. The current dynamic reducer is less effective
 on this benchmark, and the general generator is not proved bug-free. The checks
 below address this exact finite benchmark under the existing default reachability

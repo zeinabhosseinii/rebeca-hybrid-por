@@ -18,6 +18,7 @@ class TimedBFSState : public BFSState<TimedRebecStateIndexType, TimedParentRefer
 public:
     vector<RebecsShiftTime> shiftTimes;
     int openCount = 0;           // number of open-border entries; 0 means fully closed
+    bool porFullExpanded = false; // explicit completed full expansion; never inferred from defaults
     bool usedReducedSet = false; // true iff this state was processed with ample-set reduction
 };
 

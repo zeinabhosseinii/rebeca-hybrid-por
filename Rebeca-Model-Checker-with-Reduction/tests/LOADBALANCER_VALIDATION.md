@@ -3,9 +3,10 @@
 ## Current result
 
 Full Java generation is now available using the user's compiler 2.27 artifact.
-The post-constructor certificate gives AST=JSON **27 states / 32 transitions**,
+The post-constructor certificate gives AST=JSON **27 states / 31 transitions**,
 satisfied; its disabled control retains 38/46. Baseline remains 101/202 and static
 priorities 22/26. See [QUIESCENCE_CERTIFICATE.md](QUIESCENCE_CERTIFICATE.md).
+The full-expansion barrier refinement is described in [CYCLE_BARRIERS.md](CYCLE_BARRIERS.md).
 The remaining sections record earlier investigation stages and counts.
 
 

@@ -43,6 +43,36 @@ class OnlineAudit(unittest.TestCase):
     def test_fabricated_transition_rejected(self):
         g,m,e,log=sample();e['1_0'][B]={'2_0'}
         with self.assertRaisesRegex(ValueError,'fabricated'):verify(g,m,e,log)
+    def test_premature_barrier_rejected(self):
+        g,m,e,log=sample();log.insert(2,{'event':'POR_FULL_BARRIER','state':'1'})
+        with self.assertRaisesRegex(ValueError,'premature'):verify(g,m,e,log)
+    def test_false_exhaustive_flag_rejected(self):
+        g,m,e,log=sample();log[1]['exhaustive']='1'
+        with self.assertRaisesRegex(ValueError,'exhaustive'):verify(g,m,e,log)
+    def test_exhaustive_self_loop_is_safe(self):
+        g=Graph();g.initial='s';g.add('s',A,'s');g.observations={'s':''}
+        r=verify(g,{'1_0':'s'},{'1_0':{A:{'1_0'}}},[
+          {'event':'POR_STATE','state':'1'},
+          {'event':'POR_TRIAL','state':'1','actor':'A','accepted':'1','exhaustive':'1'},
+          {'event':'POR_FULL_BARRIER','state':'1'}])
+        self.assertEqual(r['outcomes'],{'full_candidate':1})
+    def test_closed_completed_full_barrier(self):
+        g=Graph();g.initial='0'
+        for s,a,t in [('0',A,'1'),('0',B,'0'),('1',A,'1'),('1',B,'4'),('1',B,'3'),
+          ('4',A,'3'),('4',B,'0'),('4',B,'2'),('3',A,'0'),('3',B,'3'),
+          ('2',A,'0'),('2',B,'3'),('2',B,'2')]:g.add(s,a,t)
+        g.observations={s:'' for s in g.edges}
+        from cycle_barrier_reference import reduce_with_barriers
+        choices,_,_=reduce_with_barriers(g)
+        ids={s:str(int(s)+1)+'_0' for s in g.edges};m={v:k for k,v in ids.items()}
+        edges={ids[s]:{a:{ids[t] for t in g.edges[s][a]} for a in choices[s]} for s in choices}
+        log=[]
+        for s,actions in choices.items():
+            sid=ids[s].split('_')[0];log.append({'event':'POR_STATE','state':sid})
+            if set(actions)==set(g.edges[s]):
+                log.extend([{'event':'POR_FULL','state':sid},{'event':'POR_FULL_BARRIER','state':sid}])
+            else:log.append({'event':'POR_TRIAL','state':sid,'actor':actions[0][0],'accepted':'1'})
+        self.assertEqual(verify(g,m,edges,log)['outcomes'],{'full':3,'reduced':2})
     def test_truncated_trace_rejected(self):
         g,m,e,log=sample()
         with self.assertRaisesRegex(ValueError,'incomplete'):verify(g,m,e,log[:-1])

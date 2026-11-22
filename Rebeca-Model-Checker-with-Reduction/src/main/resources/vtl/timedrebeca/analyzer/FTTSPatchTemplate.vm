@@ -19,6 +19,8 @@
         std::vector<int> alternatives; // retain every parameter/nondeterministic branch
     };
     std::vector<PorCandidate> collectPorCandidates(int r, TIME_TYPE execTime);
+    bool isPorCandidateFull(const PorCandidate& candidate, TIME_TYPE currentTime, int highestPriority);
+    bool isPorSuccessorAllowed(bool candidateIsFull);
 	byte _porResult;
 	TimedBFSState* _porResultState;
 	#end
@@ -262,6 +264,29 @@ std::vector<TimedModelChecker::PorCandidate> TimedModelChecker::collectPorCandid
     return choices;
 }
 
+bool TimedModelChecker::isPorCandidateFull(const PorCandidate& candidate, TIME_TYPE currentTime, int highestPriority) {
+    int r = candidate.actor;
+    TIME_TYPE execTime = max(rebecs[r]->getNow(), rebecs[r]->executionTime[0]);
+    int count = getNumberOfAlternatives(r, execTime);
+    if ((int)candidate.alternatives.size() != count) return false;
+    for (int k = 0; k < count; k++) if (candidate.alternatives[k] != k) return false;
+    for (int j = 0; j < REBEC_COUNT; j++) {
+        if (j == r || !rebecs[j]->messageQueue[0] || rebecs[j]->getPriority() != highestPriority) continue;
+        if (max(rebecs[j]->getNow(), rebecs[j]->executionTime[0]) <= currentTime) return false;
+    }
+    return true;
+}
+
+bool TimedModelChecker::isPorSuccessorAllowed(bool candidateIsFull) {
+#ifdef POR_LEGACY_PROVISO
+    return (_porResult & NEW_STATE) || _porResultState->openCount > 0;
+\#else
+    if (candidateIsFull || (_porResult & NEW_STATE) || _porResultState->openCount > 0) return true;
+    // Only certified zero-time, single-bundle models may use node-wide barriers.
+    return ${cycleBarriersAllowed} && _porResultState->porFullExpanded;
+#endif
+}
+
 bool TimedModelChecker::areAllActiveAlternativesSafe(int r, TIME_TYPE execTime) {
     int alternatives = getNumberOfAlternatives(r, execTime);
     for (int k = 0; k < alternatives; k++) {
@@ -395,6 +420,7 @@ void TimedModelChecker::doTimedModelChecking(string userSelectedPropertyName, st
         // Try explicitly certified action representatives in configured actor preference order.
         // Unsupported same-actor splitting stays an explicitly labelled actor union.
         bool reductionApplied = false;
+        bool fullExpansion = false;
 #if ($ampSetOrder)
         static const int _por_order[] = {#foreach($oi in $ampSetOrder)${oi}#if($foreach.hasNext), #end#end};
         for (int _ri = 0; _ri < REBEC_COUNT && !reductionApplied; _ri++) {
@@ -414,12 +440,14 @@ void TimedModelChecker::doTimedModelChecking(string userSelectedPropertyName, st
             std::vector<PorCandidate> candidates = collectPorCandidates(r, execTime);
             for (size_t ci = 0; ci < candidates.size() && !reductionApplied; ci++) {
                 const PorCandidate& candidate = candidates[ci];
+                bool candidateIsFull = isPorCandidateFull(candidate, currentTime, highestPriority);
 #ifdef POR_DIAGNOSTICS
                 cerr << "POR_REPRESENTATIVE state=" << current.state->stateID
                      << " actor=" << rebecs[r]->getName()
                      << " scope=" << (candidate.messageId > 0 ? "action" : "actor_union")
                      << " msg=" << candidate.messageId << " proof=" << candidate.proof
-                     << " alternatives=" << candidate.alternatives.size() << endl;
+                     << " alternatives=" << candidate.alternatives.size()
+                     << " exhaustive=" << candidateIsFull << endl;
 #endif
                 long nonDetTrans;
                 bool provisoSatisfied = true;
@@ -447,9 +475,9 @@ void TimedModelChecker::doTimedModelChecking(string userSelectedPropertyName, st
                             out << "</state>" << endl;
                         #endif
                         currentTime = current.currentTime;
-                        // Conservative BFS proviso: EVERY generated successor must be
-                        // new or still open. A closed successor triggers full expansion.
-                        if (!(_porResult & NEW_STATE) && _porResultState->openCount == 0) {
+                        // All outcomes must satisfy the proviso, unless this is already
+                        // the complete enabled set. Closed FULL barriers are explicit.
+                        if (!isPorSuccessorAllowed(candidateIsFull)) {
                             provisoSatisfied = false;
 #ifdef POR_DIAGNOSTICS
                             cerr << "POR_PROVISO_REJECT state=" << current.state->stateID
@@ -457,18 +485,29 @@ void TimedModelChecker::doTimedModelChecking(string userSelectedPropertyName, st
                                  << " closedSuccessor=" << _porResultState->stateID << endl;
 #endif
                         }
+#ifdef POR_DIAGNOSTICS
+                        else if (!(_porResult & NEW_STATE) && _porResultState->openCount == 0) {
+                            cerr << "POR_PROVISO_WITNESS state=" << current.state->stateID
+                                 << " actor=" << rebecs[r]->getName()
+                                 << " target=" << _porResultState->stateID
+                                 << " reason=" << (candidateIsFull ? "exhaustive" : "completed_full_barrier") << endl;
+                        }
+#endif
                     } while (nonDetTrans > 0);
                 }
                 reductionApplied = provisoSatisfied;
+                if (reductionApplied && candidateIsFull) fullExpansion = true;
 #ifdef POR_DIAGNOSTICS
                 cerr << "POR_TRIAL state=" << current.state->stateID
                      << " actor=" << rebecs[r]->getName() << " accepted=" << reductionApplied
                      << " scope=" << (candidate.messageId > 0 ? "action" : "actor_union")
-                     << " msg=" << candidate.messageId << " proof=" << candidate.proof << endl;
+                     << " msg=" << candidate.messageId << " proof=" << candidate.proof
+                     << " exhaustive=" << candidateIsFull << endl;
 #endif
             }
         }
         if (!reductionApplied) {
+            fullExpansion = true;
 #ifdef POR_DIAGNOSTICS
             cerr << "POR_FULL state=" << current.state->stateID << endl;
 #endif
@@ -516,7 +555,13 @@ void TimedModelChecker::doTimedModelChecking(string userSelectedPropertyName, st
 
         #ifdef PO
         } // end if (!reductionApplied)
-        current.state->usedReducedSet = reductionApplied;
+        current.state->usedReducedSet = reductionApplied && !fullExpansion;
+        if (${cycleBarriersAllowed} && fullExpansion) {
+            current.state->porFullExpanded = true;
+#ifdef POR_DIAGNOSTICS
+            cerr << "POR_FULL_BARRIER state=" << current.state->stateID << endl;
+#endif
+        }
         #endif
     }
 }

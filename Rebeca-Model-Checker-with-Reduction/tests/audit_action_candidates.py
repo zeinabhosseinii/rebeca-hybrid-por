@@ -41,13 +41,14 @@ def audit(directory):
             if active is None:raise ValueError('Missing representative identity')
             for field in ('actor','scope','msg','proof'):
                 if e[field]!=active[field]:raise ValueError('Trial identity changed')
+            if e.get('exhaustive','0')!=active.get('exhaustive','0'):raise ValueError('Exhaustive identity changed')
             if not active['executed']:raise ValueError('Empty trial')
             accepted=e['accepted']=='1'
             if accepted==bool(active['closed_successors']):raise ValueError('Proviso/outcome mismatch')
             active['accepted']=accepted
             if accepted:
                 if row['outcome'] is not None:raise ValueError('Repeated accepted outcome')
-                row['outcome']='reduced'
+                row['outcome']='full_candidate' if active.get('exhaustive')=='1' else 'reduced'
             active=None
         elif kind=='POR_FULL':
             if active is not None or row['outcome'] is not None:raise ValueError('Invalid full fallback')
@@ -70,6 +71,7 @@ def audit(directory):
 if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('directories',nargs='+',type=Path)
     p.add_argument('--output',type=Path,default=Path('tmp/action_candidate_decisions.json'))
-    a=p.parse_args();data={d.name:audit(d) for d in a.directories}
+    a=p.parse_args();names=[d.name for d in a.directories]
+    data={(str(d) if names.count(d.name)>1 else d.name):audit(d) for d in a.directories}
     a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(data,indent=2)+'\n')
     for name,r in data.items():print(name,{k:v for k,v in r.items() if k!='states'})

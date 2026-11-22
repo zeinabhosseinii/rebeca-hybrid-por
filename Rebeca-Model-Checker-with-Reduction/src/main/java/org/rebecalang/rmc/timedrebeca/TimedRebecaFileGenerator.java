@@ -233,6 +233,11 @@ public class TimedRebecaFileGenerator extends CoreRebecaFileGenerator {
                 !fileGeneratorProperties.isSymmetry() && propertyModel == null &&
                 assertions.isEmpty() && definitions.isEmpty());
 
+        context.put("cycleBarriersAllowed", fileGeneratorProperties.isAriaReduction() &&
+                !fileGeneratorProperties.isSymmetry() && propertyModel == null &&
+                assertions.isEmpty() && definitions.isEmpty() &&
+                org.rebecalang.rmc.ERDGSafetyAnalyzer.supportsFullExpansionBarriers(rebecaModel));
+
 		if (porResult.sdiMatrix != null)
 			context.put("sdiMatrix", porResult.sdiMatrix);
 		if (porResult.ampSetOrder != null)

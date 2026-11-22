@@ -22,10 +22,12 @@ struct PorCandidate{int actor,messageId;const char* proof;vector<int> alternativ
 struct Checker{
  Actor* rebecs[1]={&actor};int calls=0,_porResult=0;bool doubleBranches=false;State* _porResultState=&closed;
  bool isEquivalentQueueAlternative(int,int){return false;}
+ bool isPorCandidateFull(const PorCandidate&,int,int){return false;}
+ bool isPorSuccessorAllowed(bool full){return full||(_porResult & NEW_STATE)||_porResultState->openCount>0;}
  void changeOrder(int,int k){if(k==1)swap(actor.messageQueue[0],actor.messageQueue[1]);}
- long executeRebec(int){calls++;_porResult=actor.messageQueue[0]==2?NEW_STATE:0;return doubleBranches && calls%2==1?1:0;}
+ long executeRebec(int){calls++;_porResult=(actor.messageQueue[0]==2 || (doubleBranches && calls%2==0))?NEW_STATE:0;return doubleBranches && calls%2==1?1:0;}
  void unmarshalRebecs(int,int){actor.messageQueue[0]=1;actor.messageQueue[1]=2;}
- bool run(){int r=0,currentTime=0;bool reductionApplied=false;
+ bool run(){int r=0,currentTime=0,highestPriority=0;bool reductionApplied=false,fullExpansion=false;
   vector<PorCandidate> candidates={{0,1,"test_certificate",{0}},{0,2,"test_certificate",{1}}};
   LOOP
   return reductionApplied;

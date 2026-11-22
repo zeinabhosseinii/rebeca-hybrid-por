@@ -22,7 +22,7 @@ def audit(directory):
         if parts[0] == 'POR_FULL':
             row['outcome'] = 'full'
         if parts[0] == 'POR_TRIAL' and fields['accepted'] == '1':
-            row['outcome'] = 'reduced'
+            row['outcome'] = 'full_candidate' if fields.get('exhaustive') == '1' else 'reduced'
     if not states or any(r['outcome'] is None for r in states.values()):
         raise ValueError(f'{directory}: missing/incomplete diagnostics')
     for row in states.values():

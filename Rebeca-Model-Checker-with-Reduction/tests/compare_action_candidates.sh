@@ -39,9 +39,9 @@ import xml.etree.ElementTree as E
 r=json.loads(Path('tmp/action_candidate_decisions.json').read_text())
 for mode in ('aria_ast','aria_json'):
     row=r['LoadBalancerSmall_'+mode]
-    if row['accepted_scopes']!={'action':25}:raise SystemExit('FAIL: unexpected LoadBalancer action choices')
+    if row['accepted_scopes']!={'action':26}:raise SystemExit('FAIL: unexpected LoadBalancer action choices')
     report=E.parse('tmp/LoadBalancerSmall_'+mode+'/report.xml').getroot()
-    if (report.findtext('system-info/reached-states'),report.findtext('system-info/reached-transitions'))!=('27','32'):
+    if (report.findtext('system-info/reached-states'),report.findtext('system-info/reached-transitions'))!=('27','31'):
         raise SystemExit('FAIL: unexpected LoadBalancer graph counts')
 for case in ('IsolatedLocalConflict','PassiveSendSharedQueue'):
     if not r[case+'_aria']['accepted_scopes'].get('actor_union'):raise SystemExit('FAIL: unsupported splitting was hidden')
