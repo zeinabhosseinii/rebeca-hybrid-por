@@ -31,7 +31,7 @@ public:
  struct Node {State* state;int currentTime;} current{&state,0};
  int alternatives=2;
  int getNumberOfAlternatives(int,int){return alternatives;}
- int chooseIsolatedLocalAlternative(int r,TIME_TYPE execTime);
+ int chooseIsolatedLocalAlternative(int r,TIME_TYPE execTime,int firstAlternative=0);
  TimedModelChecker(){actors[1].messageQueue[0]=0;}
 };
 FUNCTION
@@ -40,6 +40,10 @@ int main(){
  localIndependent[0][1][2]=localIndependent[0][2][1]=true;
  TimedModelChecker c;
  assert(c.chooseIsolatedLocalAlternative(0,0)==0);
+ assert(c.chooseIsolatedLocalAlternative(0,0,1)==1);
+ assert(c.chooseIsolatedLocalAlternative(0,0,2)==-1);
+ assert(c.chooseIsolatedLocalAlternative(0,0,-1)==-1);
+ localSafe[0][1]=false;assert(c.chooseIsolatedLocalAlternative(0,0,1)==-1);localSafe[0][1]=true;
  localAllowed=false;assert(c.chooseIsolatedLocalAlternative(0,0)==-1);localAllowed=true;
  localIndependent[0][1][2]=localIndependent[0][2][1]=false;
  assert(c.chooseIsolatedLocalAlternative(0,0)==-1);

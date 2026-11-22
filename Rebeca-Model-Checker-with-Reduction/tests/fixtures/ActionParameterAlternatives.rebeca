@@ -1,0 +1,11 @@
+// One action identity, distinct queued parameter frames: BOTH alternatives survive.
+reactiveclass ParameterWrites(4) {
+    statevars { int X; }
+    ParameterWrites() {
+        X = 0;
+        self.Set(1);
+        self.Set(2);
+    }
+    msgsrv Set(int Value) { X = Value; }
+}
+main { ParameterWrites Only():(); }

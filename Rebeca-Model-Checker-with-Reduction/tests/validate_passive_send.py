@@ -29,7 +29,7 @@ public:
  Actor actors[3];Actor* rebecs[3]={&actors[0],&actors[1],&actors[2]};
  struct Node{State* state;int currentTime;}current{&state,0};int alternatives=2;
  int getNumberOfAlternatives(int,int){return alternatives;}
- int choosePassiveSendAlternative(int r,TIME_TYPE execTime);
+ int choosePassiveSendAlternative(int r,TIME_TYPE execTime,int firstAlternative=0);
  TimedModelChecker(){actors[0].messageQueue[0]=1;actors[0].messageQueue[1]=2;}
 };
 FUNCTION
@@ -43,6 +43,10 @@ void reset(){
 }
 int main(){
  reset();TimedModelChecker c;assert(c.choosePassiveSendAlternative(0,0)==0);
+ assert(c.choosePassiveSendAlternative(0,0,1)==1);
+ assert(c.choosePassiveSendAlternative(0,0,2)==-1);
+ assert(c.choosePassiveSendAlternative(0,0,-1)==-1);
+ pSafe[0][1]=false;assert(c.choosePassiveSendAlternative(0,0,1)==-1);pSafe[0][1]=true;
  allowed=false;assert(c.choosePassiveSendAlternative(0,0)==-1);allowed=true;
  pIndependent[0][1][2]=pIndependent[0][2][1]=false;assert(c.choosePassiveSendAlternative(0,0)==-1);reset();
  pSafe[0][2]=false;assert(c.choosePassiveSendAlternative(0,0)==-1);reset();

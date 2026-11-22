@@ -26,6 +26,7 @@ for run_mode in baseline static aria_ast aria_json; do
     cd "$run_dir"
     set -- -std=c++11 -pthread -O2
     if [[ "${POR_DIAGNOSTICS:-0}" == 1 ]]; then set -- "$@" -DPOR_DIAGNOSTICS; fi
+    if [[ "${EXPORT_STATE_SPACE:-0}" == 1 ]]; then set -- "$@" -DEXPORT_STATE_SPACE; fi
     g++ "$@" *.cpp -o execute 2> compile.log
     ./execute > report.xml 2> errors.log
   )

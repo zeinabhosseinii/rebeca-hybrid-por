@@ -10,8 +10,15 @@
 	bool areActiveActionsSafe(byte* state, int r, int messageId);
     bool areAllActiveAlternativesSafe(int r, TIME_TYPE execTime);
     bool isEquivalentQueueAlternative(int r, int alternative);
-    int chooseIsolatedLocalAlternative(int r, TIME_TYPE execTime);
-    int choosePassiveSendAlternative(int r, TIME_TYPE execTime);
+    int chooseIsolatedLocalAlternative(int r, TIME_TYPE execTime, int firstAlternative = 0);
+    int choosePassiveSendAlternative(int r, TIME_TYPE execTime, int firstAlternative = 0);
+    struct PorCandidate {
+        int actor;
+        int messageId; // zero explicitly denotes an unsplit actor union
+        const char* proof;
+        std::vector<int> alternatives; // retain every parameter/nondeterministic branch
+    };
+    std::vector<PorCandidate> collectPorCandidates(int r, TIME_TYPE execTime);
 	byte _porResult;
 	TimedBFSState* _porResultState;
 	#end
@@ -81,7 +88,8 @@ bool TimedModelChecker::areActiveActionsSafe(byte* state, int r, int messageId) 
 #end
 }
 
-int TimedModelChecker::chooseIsolatedLocalAlternative(int r, TIME_TYPE execTime) {
+int TimedModelChecker::chooseIsolatedLocalAlternative(int r, TIME_TYPE execTime, int firstAlternative) {
+    if (firstAlternative < 0) return -1;
     if (!$isolatedLocalAllowed) return -1;
     static const bool localSafe[REBEC_COUNT][$maxMsgIdPlusOne] = {
 #foreach($row in $isolatedLocalSafe)
@@ -110,7 +118,7 @@ int TimedModelChecker::chooseIsolatedLocalAlternative(int r, TIME_TYPE execTime)
     }
     // Equal time/priority alternatives only; no postponed work is hidden.
     if (count < 2 || getNumberOfAlternatives(r, execTime) != count) return -1;
-    for (int k = 0; k < count; k++) {
+    for (int k = firstAlternative; k < count; k++) {
         int chosen = (unsigned char)rebecs[r]->messageQueue[k];
         bool independent = true;
         for (int other = 0; other < count; other++) {
@@ -131,7 +139,8 @@ int TimedModelChecker::chooseIsolatedLocalAlternative(int r, TIME_TYPE execTime)
     return -1;
 }
 
-int TimedModelChecker::choosePassiveSendAlternative(int r, TIME_TYPE execTime) {
+int TimedModelChecker::choosePassiveSendAlternative(int r, TIME_TYPE execTime, int firstAlternative) {
+    if (firstAlternative < 0) return -1;
     if (!$isolatedLocalAllowed) return -1;
     static const bool pSafe[REBEC_COUNT][$maxMsgIdPlusOne] = {
 #foreach($row in $passiveSendSafe)
@@ -198,7 +207,7 @@ int TimedModelChecker::choosePassiveSendAlternative(int r, TIME_TYPE execTime) {
     // Bound all enqueues before any sink is scheduled; keep an empty terminator slot.
     for (int j = 0; j < REBEC_COUNT; j++)
         if (pendingSends[j] > 0 && length[j] + pendingSends[j] >= rebecs[j]->maxQueueLength) return -1;
-    for (int k = 0; k < length[r]; k++) {
+    for (int k = firstAlternative; k < length[r]; k++) {
         int id = (unsigned char)rebecs[r]->messageQueue[k];
         int target = pTarget[r][id];
         if (target >= 0 && length[target] != 0) continue;
@@ -217,6 +226,40 @@ int TimedModelChecker::choosePassiveSendAlternative(int r, TIME_TYPE execTime) {
         }
     }
     return -1;
+}
+
+std::vector<TimedModelChecker::PorCandidate> TimedModelChecker::collectPorCandidates(int r, TIME_TYPE execTime) {
+    std::vector<PorCandidate> choices;
+    int cursor = 0;
+    while (true) {
+        int k = chooseIsolatedLocalAlternative(r, execTime, cursor);
+        if (k < 0) break;
+        PorCandidate c = {r, (unsigned char)rebecs[r]->messageQueue[k], "isolated_local", {k}};
+        choices.push_back(c);
+        cursor = k + 1;
+    }
+    if (!choices.empty()) return choices;
+    cursor = 0;
+    while (true) {
+        int k = choosePassiveSendAlternative(r, execTime, cursor);
+        if (k < 0) break;
+        PorCandidate c = {r, (unsigned char)rebecs[r]->messageQueue[k], "passive_send", {k}};
+        choices.push_back(c);
+        cursor = k + 1;
+    }
+    if (!choices.empty()) return choices;
+    // Global safety alone does NOT justify splitting distinct methods of one actor.
+    if (!areAllActiveAlternativesSafe(r, execTime)) return choices;
+    int count = getNumberOfAlternatives(r, execTime);
+    int id = (unsigned char)rebecs[r]->messageQueue[0];
+    PorCandidate c = {r, id, "global_dependency_check", {}};
+    for (int k = 0; k < count; k++) {
+        c.alternatives.push_back(k);
+        if ((unsigned char)rebecs[r]->messageQueue[k] != id) c.messageId = 0;
+    }
+    if (c.messageId == 0) c.proof = "unsplit_actor_union";
+    choices.push_back(c);
+    return choices;
 }
 
 bool TimedModelChecker::areAllActiveAlternativesSafe(int r, TIME_TYPE execTime) {
@@ -349,8 +392,8 @@ void TimedModelChecker::doTimedModelChecking(string userSelectedPropertyName, st
                  << " status=" << status << endl;
         }
 #endif
-        // POR: try to execute only one safe enabled rebec (ample set = {r}).
-        // Workers (few incoming senders) are tried before hubs to avoid hub-cycle starvation.
+        // Try explicitly certified action representatives in configured actor preference order.
+        // Unsupported same-actor splitting stays an explicitly labelled actor union.
         bool reductionApplied = false;
 #if ($ampSetOrder)
         static const int _por_order[] = {#foreach($oi in $ampSetOrder)${oi}#if($foreach.hasNext), #end#end};
@@ -368,16 +411,20 @@ void TimedModelChecker::doTimedModelChecking(string userSelectedPropertyName, st
                  << " actor=" << rebecs[r]->getName() << " action=" << rebecs[r]->activeAction()
                  << " alternatives=" << getNumberOfAlternatives(r, execTime) << endl;
 #endif
-            int localAlternative = chooseIsolatedLocalAlternative(r, execTime);
-            if (localAlternative < 0) localAlternative = choosePassiveSendAlternative(r, execTime);
-            // Either a proven isolated local action, or the existing actor set.
-            if (localAlternative >= 0 || areAllActiveAlternativesSafe(r, execTime)) {
+            std::vector<PorCandidate> candidates = collectPorCandidates(r, execTime);
+            for (size_t ci = 0; ci < candidates.size() && !reductionApplied; ci++) {
+                const PorCandidate& candidate = candidates[ci];
+#ifdef POR_DIAGNOSTICS
+                cerr << "POR_REPRESENTATIVE state=" << current.state->stateID
+                     << " actor=" << rebecs[r]->getName()
+                     << " scope=" << (candidate.messageId > 0 ? "action" : "actor_union")
+                     << " msg=" << candidate.messageId << " proof=" << candidate.proof
+                     << " alternatives=" << candidate.alternatives.size() << endl;
+#endif
                 long nonDetTrans;
                 bool provisoSatisfied = true;
-                int numberOfAlternatives = localAlternative >= 0 ? localAlternative + 1
-                        : getNumberOfAlternatives(r, execTime);
-                int firstAlternative = localAlternative >= 0 ? localAlternative : 0;
-                for (int alternativesCounter = firstAlternative; alternativesCounter < numberOfAlternatives; alternativesCounter++) {
+                for (size_t ai = 0; ai < candidate.alternatives.size(); ai++) {
+                    int alternativesCounter = candidate.alternatives[ai];
                     if (isEquivalentQueueAlternative(r, alternativesCounter)) continue;
                     do {
                         changeOrder(r, alternativesCounter);
@@ -415,7 +462,9 @@ void TimedModelChecker::doTimedModelChecking(string userSelectedPropertyName, st
                 reductionApplied = provisoSatisfied;
 #ifdef POR_DIAGNOSTICS
                 cerr << "POR_TRIAL state=" << current.state->stateID
-                     << " actor=" << rebecs[r]->getName() << " accepted=" << reductionApplied << endl;
+                     << " actor=" << rebecs[r]->getName() << " accepted=" << reductionApplied
+                     << " scope=" << (candidate.messageId > 0 ? "action" : "actor_union")
+                     << " msg=" << candidate.messageId << " proof=" << candidate.proof << endl;
 #endif
             }
         }

@@ -48,8 +48,9 @@ not a claim that any tool/engine must always return 22. Matching property result
 and a smaller graph do not prove the general priority reduction sound.
 
 The dynamic ARIA path uses action keys `(instance, handler)` in its dependency
-matrix, but its general ample candidate is still an actor, with all its queue
-alternatives examined. Restricted local/passive-send rules can select a specific
+matrix. The current selector represents a single handler explicitly when its
+queue alternatives share that handler, retaining every parameter branch. Mixed
+handlers without a stronger certificate remain an explicit actor union. Restricted local/passive-send rules can select a specific
 alternative; they do not cover LoadBalancer feedback. Runtime COND pruning is
 not connected. Therefore it would be inaccurate to call the current dynamic
 implementation a complete, optimal action-level reducer.
@@ -61,3 +62,6 @@ dynamic run tries its safety checks and conservative BFS proviso. After Initiali
 then PrimarySrc.Dispatch, static selects SecondarySrc.Dispatch and dynamic
 selects PrimaryRelay.Forward. See HUB_ALTERNATIVES.md for controlled measurements.
 These measurements do not establish that the entire generator is bug-free.
+
+Current candidate enumeration and representative explanations are documented in
+[ACTION_CANDIDATES.md](ACTION_CANDIDATES.md).
