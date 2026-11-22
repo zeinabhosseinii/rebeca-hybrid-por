@@ -76,3 +76,9 @@ Decision reports are written by `tests/audit_por_decisions.py`. The new event
 `POR_QUIESCENT_SKIP` names each blocker excluded by this certificate. This is
 not a queue-head-only safety check. Full comparison with general feedback
 sends, other properties and runtime COND evaluation remains separate work.
+
+## Additional native negative cases
+
+See [QUIESCENCE_MODEL_SUITE.md](QUIESCENCE_MODEL_SUITE.md) for runtime resend,
+future-pending messages, terminating feedback and reachable assertion failure,
+compared in baseline/AST/JSON native runs.
