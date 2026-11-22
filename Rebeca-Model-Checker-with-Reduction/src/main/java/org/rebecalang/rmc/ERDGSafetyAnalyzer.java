@@ -1094,7 +1094,7 @@ public class ERDGSafetyAnalyzer {
             // Known-rebec bindings only; never self, sender, computed or mutable refs.
             List<String> names = idx.fullKnownRebecNames.get(type);
             if (names == null || !names.contains(receiver.getName())) continue;
-            String target = resolveTargetInstance(receiver, inst, names, idx.instanceBindings.get(inst), idx);
+            String target = resolveTargetInstance(receiver, inst, names, idx.instanceBindings.get(inst));
             if (target == null || target.equals(inst)) continue;
             Integer j = idx.instanceIndex.get(target);
             if (j == null) continue;

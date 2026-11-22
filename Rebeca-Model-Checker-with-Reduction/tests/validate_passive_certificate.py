@@ -41,13 +41,7 @@ fixture=fixture[:a]+''' static class RebecaModel {
   }
  }
  static int key(int i,int m){return i*1000+m;}static int instanceOf(int k){return k/1000;}
- static String resolveTargetInstance(Expression left,String inst,List<String> names,List<String> bindings,ModelIndex idx){
-  int at=names.indexOf(((TermPrimary)left).name);return at<0?null:bindings.get(at);
- }
- static Integer resolveMessageId(String name,String type,ModelIndex idx){
-  var c=idx.typeToRcd.get(type);if(c==null)return null;
-  for(int k=0;k<c.methods.size();k++)if(c.methods.get(k).name.equals(name))return k+1;return null;
- }
+ REAL_RESOLVERS
 '''+fixture[b:]
 a=fixture.index(' static BinaryExpression assign');fixture=fixture[:a]+r'''
  static BinaryExpression assign(String name,String value){return new BinaryExpression(new TermPrimary(name),new Literal(value));}
@@ -95,6 +89,15 @@ a=fixture.index(' static BinaryExpression assign');fixture=fixture[:a]+r'''
 }
 '''
 fixture=fixture.replace(' CODE',code)
+# Compile against the ACTUAL resolver implementations and signatures, not stubs.
+# This catches accidental argument-count changes in the certificate adapter.
+resolvers=[]
+for name in ('resolveTargetInstance','resolveMessageId'):
+    start=s.index('    private static '+('String' if name=='resolveTargetInstance' else 'Integer')+' '+name+'(')
+    end=s.index('\n    }',start)+len('\n    }')
+    resolvers.append(s[start:end])
+fixture=fixture.replace(' REAL_RESOLVERS','\n'.join(resolvers))
+fixture=fixture.replace('Object parent;','Type parent;').replace('Object getExtends(){return parent;}','Type getExtends(){return parent;}')
 javac=shutil.which('javac') or str(Path(os.environ.get('JAVA_HOME',''))/'bin/javac')
 java=shutil.which('java') or str(Path(os.environ.get('JAVA_HOME',''))/'bin/java')
 with tempfile.TemporaryDirectory() as tmp:
