@@ -56,6 +56,19 @@ class OnlineAudit(unittest.TestCase):
           {'event':'POR_TRIAL','state':'1','actor':'A','accepted':'1','exhaustive':'1'},
           {'event':'POR_FULL_BARRIER','state':'1'}])
         self.assertEqual(r['outcomes'],{'full_candidate':1})
+    def test_exhaustive_actor_union_checks_every_handler(self):
+        g=Graph();g.initial='s';other=('A','Other')
+        g.add('s',A,'s');g.add('s',other,'s');g.observations={'s':''}
+        events=[{'event':'POR_STATE','state':'1'},
+                {'event':'POR_TRIAL','state':'1','actor':'A','accepted':'1','exhaustive':'1'},
+                {'event':'POR_FULL_BARRIER','state':'1'}]
+        edges={'1_0':{A:{'1_0'},other:{'1_0'}}}
+        r=verify(g,{'1_0':'s'},edges,events)
+        self.assertEqual(r['outcomes'],{'full_candidate':1})
+        del edges['1_0'][other]
+        with self.assertRaisesRegex(ValueError,'lost a nondeterministic successor'):
+            verify(g,{'1_0':'s'},edges,events)
+
     def test_closed_completed_full_barrier(self):
         g=Graph();g.initial='0'
         for s,a,t in [('0',A,'1'),('0',B,'0'),('1',A,'1'),('1',B,'4'),('1',B,'3'),

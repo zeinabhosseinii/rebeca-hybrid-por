@@ -71,23 +71,26 @@ def verify(graph, mapping, online_edges, events):
                 fail(f'{source}: invalid/repeated accepted trial')
             # Actor-set trial must retain every distinct handler of that actor.
             actions = [a for a in graph.edges[full_source] if a[0] == event['actor']]
-            if len(actions) != 1:
-                fail(f'{source}: audit supports singleton action identities only, found {actions}')
-            action = actions[0]
             exhaustive = event.get('exhaustive') == '1'
-            if exhaustive and set(graph.edges[full_source]) != {action}:
-                fail(f'{source}: false exhaustive declaration')
-            ok, evidence = (True,{'reason':'exhaustive_enabled_set'}) if exhaustive else graph.certify(full_source, action)
-            if not ok:
-                fail(f'{source}: persistence/diamond certificate failed: {evidence}')
-            full_targets = graph.edges[full_source][action]
-            actual = {mapping[t] for t in online_edges.get(source, {}).get(action, set())}
-            if not full_targets <= actual:
-                fail(f'{source}: selected action lost a nondeterministic successor')
-            if not exhaustive and full_targets & (closed - completed_full):
-                fail(f'{source}: accepted trial violates closed-successor proviso')
+            if not actions:
+                fail(f'{source}: accepted trial has no enabled action')
+            if exhaustive:
+                if set(graph.edges[full_source]) != set(actions):
+                    fail(f'{source}: false exhaustive declaration')
+            elif len(actions) != 1:
+                fail(f'{source}: non-exhaustive multi-action certificate unsupported: {actions}')
+            for action in actions:
+                ok, evidence = (True,{'reason':'exhaustive_enabled_set'}) if exhaustive else graph.certify(full_source, action)
+                if not ok:
+                    fail(f'{source}: persistence/diamond certificate failed: {evidence}')
+                full_targets = graph.edges[full_source][action]
+                actual = {mapping[t] for t in online_edges.get(source, {}).get(action, set())}
+                if not full_targets <= actual:
+                    fail(f'{source}: selected action lost a nondeterministic successor')
+                if not exhaustive and full_targets & (closed - completed_full):
+                    fail(f'{source}: accepted trial violates closed-successor proviso')
+                row['certificates'].append({'action': action, 'full_state': full_source, **evidence})
             row['outcome'] = 'full_candidate' if exhaustive else 'reduced'
-            row['certificates'].append({'action': action, 'full_state': full_source, **evidence})
         else:
             if row['outcome'] is not None:
                 fail(f'{source}: full fallback follows an accepted trial')
