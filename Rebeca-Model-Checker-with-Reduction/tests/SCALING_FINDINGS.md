@@ -117,3 +117,11 @@ controlled changes. It is not an additional full-graph equivalence audit of the
 six-worker instance. First-error stopping is unchanged; an unexpected error
 fails the healthy-instance diagnostic rather than being continued or suppressed.
 Raw Linux evidence: `results/scaling_shared6_diagnostics_linux_20261123.json`.
+
+## Subsequent validation
+
+The three-worker finite audit now passes for both families/modes. Importantly,
+all dynamic independent states in the audited 2/3-worker cases are semantically
+full in the normalized projection. Their lower raw counts are not representative
+pruning evidence. See [VALIDATION_STATUS.md](VALIDATION_STATUS.md) for the exact
+new counts and the next required four-mode measurement control.
