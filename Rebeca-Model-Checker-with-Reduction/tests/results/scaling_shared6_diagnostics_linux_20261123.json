@@ -1,0 +1,220 @@
+{
+  "diagnostic_only": true,
+  "platform": "Linux",
+  "timings_not_benchmarked": true,
+  "model_sha256": "1bcd018710eb702652e6273ce991af7579d01ac09141b882784a63fc59205b62",
+  "controls": {
+    "current": {
+      "result": "satisfied",
+      "states": 22527,
+      "transitions": 36865,
+      "closed_successor_witnesses": {
+        "completed_full_barrier": 13557,
+        "exhaustive": 14
+      },
+      "candidate_alternative_counts": {
+        "1": 18432
+      },
+      "trial_actions": {
+        "H.STEP0": 2048,
+        "H.STEP2": 2048,
+        "H.STEP5": 2048,
+        "H.STEP1": 2048,
+        "H.STEP4": 2048,
+        "H.FINISH5": 1024,
+        "H.STEP3": 2048,
+        "H.FINISH4": 1024,
+        "H.FINISH3": 1024,
+        "H.FINISH2": 1024,
+        "H.FINISH1": 1024,
+        "H.FINISH0": 1024
+      },
+      "por_logged_states": 22527,
+      "outcomes": {
+        "full_fallback": 4095,
+        "reduced": 18414,
+        "full_candidate": 18
+      },
+      "accepted_proofs": {
+        "global_dependency_check": 18432
+      },
+      "accepted_actors": {
+        "H": 18432
+      },
+      "event_counts": {
+        "POR_STATE": 22527,
+        "POR_ACTOR": 157689,
+        "POR_CANDIDATE": 36864,
+        "POR_BLOCK": 18432,
+        "POR_FULL": 4095,
+        "POR_ALTERNATIVE": 36864,
+        "POR_FULL_BARRIER": 4113,
+        "POR_REPRESENTATIVE": 18432,
+        "POR_TRIAL": 18432,
+        "POR_PROVISO_WITNESS": 13571
+      },
+      "blocker_counts": {
+        "W0 <- W1": 3072,
+        "W1 <- W0": 3072,
+        "W2 <- W0": 3072,
+        "W3 <- W0": 3072,
+        "W4 <- W0": 3072,
+        "W5 <- W0": 3072
+      }
+    },
+    "legacy_proviso": {
+      "result": "satisfied",
+      "states": 117434,
+      "transitions": 876849,
+      "closed_successor_witnesses": {},
+      "candidate_alternative_counts": {
+        "1": 18432,
+        "2": 34458,
+        "3": 34500,
+        "4": 19403,
+        "5": 5819,
+        "6": 727
+      },
+      "trial_actions": {
+        "H.STEP0": 33520,
+        "H.STEP2": 33535,
+        "H.STEP5": 33527,
+        "H.STEP1": 33508,
+        "H.STEP4": 33510,
+        "H.FINISH5": 16798,
+        "H.STEP3": 33505,
+        "H.FINISH4": 16801,
+        "H.FINISH3": 16803,
+        "H.FINISH2": 16804,
+        "H.FINISH1": 16802,
+        "H.FINISH0": 16804
+      },
+      "por_logged_states": 117434,
+      "outcomes": {
+        "full_fallback": 111635,
+        "reduced": 5781,
+        "full_candidate": 18
+      },
+      "accepted_proofs": {
+        "global_dependency_check": 4833,
+        "unsplit_actor_union": 966
+      },
+      "accepted_actors": {
+        "H": 5799
+      },
+      "event_counts": {
+        "POR_STATE": 117434,
+        "POR_ACTOR": 822038,
+        "POR_CANDIDATE": 393957,
+        "POR_BLOCK": 280618,
+        "POR_FULL": 111635,
+        "POR_ALTERNATIVE": 876848,
+        "POR_FULL_BARRIER": 111653,
+        "POR_REPRESENTATIVE": 113339,
+        "POR_TRIAL": 113339,
+        "POR_PROVISO_REJECT": 209437
+      },
+      "blocker_counts": {
+        "W0 <- W1": 47194,
+        "W1 <- W0": 47517,
+        "W2 <- W0": 46561,
+        "W3 <- W0": 47003,
+        "W4 <- W0": 46302,
+        "W5 <- W0": 46041
+      }
+    },
+    "no_closed_barriers": {
+      "result": "satisfied",
+      "states": 117434,
+      "transitions": 858477,
+      "closed_successor_witnesses": {
+        "exhaustive": 11884
+      },
+      "candidate_alternative_counts": {
+        "1": 18432,
+        "2": 34458,
+        "3": 34500,
+        "4": 19403,
+        "5": 5819,
+        "6": 727
+      },
+      "trial_actions": {
+        "H.STEP0": 33520,
+        "H.STEP2": 33535,
+        "H.STEP5": 33527,
+        "H.STEP1": 33508,
+        "H.STEP4": 33510,
+        "H.FINISH5": 16798,
+        "H.STEP3": 33505,
+        "H.FINISH4": 16801,
+        "H.FINISH3": 16803,
+        "H.FINISH2": 16804,
+        "H.FINISH1": 16802,
+        "H.FINISH0": 16804
+      },
+      "por_logged_states": 117434,
+      "outcomes": {
+        "full_fallback": 107560,
+        "reduced": 5781,
+        "full_candidate": 4093
+      },
+      "accepted_proofs": {
+        "global_dependency_check": 4848,
+        "unsplit_actor_union": 5026
+      },
+      "accepted_actors": {
+        "H": 9874
+      },
+      "event_counts": {
+        "POR_STATE": 117434,
+        "POR_ACTOR": 822038,
+        "POR_CANDIDATE": 393957,
+        "POR_BLOCK": 280618,
+        "POR_FULL": 107560,
+        "POR_ALTERNATIVE": 858476,
+        "POR_FULL_BARRIER": 111653,
+        "POR_REPRESENTATIVE": 113339,
+        "POR_TRIAL": 113339,
+        "POR_PROVISO_REJECT": 197553,
+        "POR_PROVISO_WITNESS": 11884
+      },
+      "blocker_counts": {
+        "W0 <- W1": 47194,
+        "W1 <- W0": 47517,
+        "W2 <- W0": 46561,
+        "W3 <- W0": 47003,
+        "W4 <- W0": 46302,
+        "W5 <- W0": 46041
+      }
+    },
+    "normalized_full": {
+      "result": "satisfied",
+      "states": 117648,
+      "transitions": 605053,
+      "closed_successor_witnesses": {},
+      "candidate_alternative_counts": {},
+      "trial_actions": {},
+      "por_logged_states": 0,
+      "outcomes": {},
+      "accepted_proofs": {},
+      "accepted_actors": {},
+      "event_counts": {
+        "POR_ALTERNATIVE": 605052
+      },
+      "blocker_counts": {}
+    }
+  },
+  "static_actor_priorities": {
+    "H": 1,
+    "W0": 1,
+    "W1": 1,
+    "W2": 1,
+    "W3": 1,
+    "W4": 1,
+    "W5": 1
+  },
+  "static_hub_method_priorities": {
+    "Finish": 1,
+    "Step": 2
+  }
+}
