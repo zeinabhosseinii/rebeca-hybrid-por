@@ -1,0 +1,628 @@
+{
+  "communicating_models": true,
+  "rmc_jar_sha256": "d3b73df3bce3f8d0389d31384ea3f4ff289728acd7c1dc32e8dcabfe7dc80cd5",
+  "cases": {
+    "unused_load_bounds": {
+      "source_sha256": "0294daa5927a1ca3a810d8c80e95e43b7461bae02aa932bc8ad21f7e7044e81c",
+      "certificate": true,
+      "token_bound": 2,
+      "refusal": null,
+      "modes": {
+        "control": {
+          "result": "satisfied",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 64,
+          "transitions": 128,
+          "trace_states": 0,
+          "solver_reported_seconds": 1,
+          "solver_estimated_bytes": 1536,
+          "native_wall_seconds": 0.782694048999474,
+          "peak_rss_kib": 1705880.0,
+          "native_executable_sha256": "714c263187a1af4cca58ea5d08fbf7e807ed602d86b67b92224bb1e8dddef5ec",
+          "checker_sha256": "bba3e6e5bbb280d704fba09c5a11cb35e563f9ddc95c8fd797bead462af558bc",
+          "message": null,
+          "property_rejections": 0,
+          "queue_dependency_rejections": 0
+        },
+        "filtered": {
+          "result": "satisfied",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 42,
+          "transitions": 55,
+          "trace_states": 0,
+          "solver_reported_seconds": 1,
+          "solver_estimated_bytes": 1008,
+          "native_wall_seconds": 0.7641919420002523,
+          "peak_rss_kib": 1705884.0,
+          "native_executable_sha256": "af2f50376171dd8d73977e8437817349aded560f0732aa675add54f976c44870",
+          "checker_sha256": "bba3e6e5bbb280d704fba09c5a11cb35e563f9ddc95c8fd797bead462af558bc",
+          "message": null,
+          "property_rejections": 24,
+          "queue_dependency_rejections": 0
+        }
+      },
+      "graph_audit": {
+        "control_states": 64,
+        "control_projected_states": 64,
+        "filtered_states": 42,
+        "filtered_projected_states": 42,
+        "control_unique_edges": 109,
+        "filtered_exported_unique_edges": 51,
+        "filtered_selected_unique_edges": 48,
+        "full_vertices": 16,
+        "partial_certificates": [
+          {
+            "state": "2_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 4,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "3_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "4_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 2,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "5_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 3,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "7_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "8_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "9_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "10_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "13_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 2,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "14_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 2,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "15_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 3,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "18_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "19_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "20_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "22_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "23_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "26_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 2,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "27_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 2,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "28_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 3,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "31_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "32_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "33_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "35_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "36_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "39_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 2,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "41_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          }
+        ],
+        "strong_cycle_passed": true,
+        "retained_outcomes_match": true,
+        "c0": true,
+        "all_control_aliases_checked": true
+      }
+    },
+    "unused_global_violation": {
+      "source_sha256": "0294daa5927a1ca3a810d8c80e95e43b7461bae02aa932bc8ad21f7e7044e81c",
+      "certificate": true,
+      "token_bound": 2,
+      "refusal": null,
+      "modes": {
+        "control": {
+          "result": "assertion failed",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 8,
+          "transitions": 9,
+          "trace_states": 5,
+          "solver_reported_seconds": 1,
+          "solver_estimated_bytes": 192,
+          "native_wall_seconds": 0.824117221999586,
+          "peak_rss_kib": 1705888.0,
+          "native_executable_sha256": "89a6ecf4a4f98f959ebff08e149df384454da96147717398be81bc8ba80dc2cb",
+          "checker_sha256": "2bb8740c74a1f74ed309032f99617b0ccddbc34c74a87f3aa1e892ae7f87699a",
+          "message": "NoEarlyHub",
+          "property_rejections": 0,
+          "queue_dependency_rejections": 0
+        },
+        "filtered": {
+          "result": "assertion failed",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 5,
+          "transitions": 5,
+          "trace_states": 5,
+          "solver_reported_seconds": 1,
+          "solver_estimated_bytes": 120,
+          "native_wall_seconds": 0.9117923940002584,
+          "peak_rss_kib": 1705912.0,
+          "native_executable_sha256": "0ca55718b4396071d35b91e06c8972487efdcae4a62ea289ea8c237cb073348b",
+          "checker_sha256": "2bb8740c74a1f74ed309032f99617b0ccddbc34c74a87f3aa1e892ae7f87699a",
+          "message": "NoEarlyHub",
+          "property_rejections": 2,
+          "queue_dependency_rejections": 0
+        }
+      }
+    },
+    "unused_terminating": {
+      "source_sha256": "ad66cfc53a84ba22909457f9819feab2cb10f99723277ae2fe67773a086b05a9",
+      "certificate": true,
+      "token_bound": 2,
+      "refusal": null,
+      "modes": {
+        "control": {
+          "result": "deadlock",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 23,
+          "transitions": 38,
+          "trace_states": 11,
+          "solver_reported_seconds": 2,
+          "solver_estimated_bytes": 552,
+          "native_wall_seconds": 1.7464796790000037,
+          "peak_rss_kib": 1705780.0,
+          "native_executable_sha256": "24dbcdefc1c222ff7f88d218760d4af2c9d21b6815e2ca7b4882954615a9f60a",
+          "checker_sha256": "754ea86e50019652714fad88268d819f6c17c359fc8890c428a12ff56fca79e3",
+          "message": null,
+          "property_rejections": 0,
+          "queue_dependency_rejections": 0
+        },
+        "filtered": {
+          "result": "deadlock",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 14,
+          "transitions": 15,
+          "trace_states": 11,
+          "solver_reported_seconds": 1,
+          "solver_estimated_bytes": 336,
+          "native_wall_seconds": 1.0016354250001314,
+          "peak_rss_kib": 1705908.0,
+          "native_executable_sha256": "abee30dcbe361dfa94f85f33d73a7f83f9d2e9ab8a6a10da0e3ee3921ff3971f",
+          "checker_sha256": "754ea86e50019652714fad88268d819f6c17c359fc8890c428a12ff56fca79e3",
+          "message": null,
+          "property_rejections": 4,
+          "queue_dependency_rejections": 0
+        }
+      }
+    },
+    "observed_parameter": {
+      "source_sha256": "02d651202f62b53974510b27be16d7d9602701f39c0e84ad18f65feb6405fd2d",
+      "certificate": false,
+      "token_bound": null,
+      "refusal": "observed_message_parameter",
+      "modes": {
+        "control": {
+          "result": "satisfied",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 64,
+          "transitions": 128,
+          "trace_states": 0,
+          "solver_reported_seconds": 1,
+          "solver_estimated_bytes": 1536,
+          "native_wall_seconds": 1.0047713459998704,
+          "peak_rss_kib": 1705900.0,
+          "native_executable_sha256": "3ce4d610f6e39f342ef234468f0fb3168de66d23cd3d9e0482a3bef8ad2b303e",
+          "checker_sha256": "f5efd418e5538020e740aa2279ca3702e7dd6d6ca561575773ba9d6d49700832",
+          "message": null,
+          "property_rejections": 0,
+          "queue_dependency_rejections": 0
+        },
+        "filtered": {
+          "result": "satisfied",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 64,
+          "transitions": 110,
+          "trace_states": 0,
+          "solver_reported_seconds": 1,
+          "solver_estimated_bytes": 1536,
+          "native_wall_seconds": 0.918875577000108,
+          "peak_rss_kib": 1705912.0,
+          "native_executable_sha256": "26a0e30e01c5afcf9e2fa4b09674fb0222d427daa28260c4dc52cf065cea7033",
+          "checker_sha256": "f5efd418e5538020e740aa2279ca3702e7dd6d6ca561575773ba9d6d49700832",
+          "message": null,
+          "property_rejections": 60,
+          "queue_dependency_rejections": 0
+        }
+      },
+      "graph_audit": {
+        "control_states": 64,
+        "control_projected_states": 64,
+        "filtered_states": 64,
+        "filtered_projected_states": 64,
+        "control_unique_edges": 109,
+        "filtered_exported_unique_edges": 109,
+        "filtered_selected_unique_edges": 109,
+        "full_vertices": 64,
+        "partial_certificates": [],
+        "strong_cycle_passed": true,
+        "retained_outcomes_match": true,
+        "c0": true,
+        "all_control_aliases_checked": true
+      }
+    },
+    "different_unread_payloads": {
+      "source_sha256": "5f1bb7391ef6dfdab977a4c2163a6839322efe3cf9e52fd400f0d6ac624a8575",
+      "certificate": false,
+      "token_bound": null,
+      "refusal": "multiple_payloads_for_method",
+      "modes": {
+        "control": {
+          "result": "satisfied",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 82,
+          "transitions": 164,
+          "trace_states": 0,
+          "solver_reported_seconds": 1,
+          "solver_estimated_bytes": 1968,
+          "native_wall_seconds": 1.1593250539999644,
+          "peak_rss_kib": 1705880.0,
+          "native_executable_sha256": "4ecfe4e36194a99cbf7c78eed54da641fd1350b5dc7d3f11a8daeab8a433929d",
+          "checker_sha256": "f5efd418e5538020e740aa2279ca3702e7dd6d6ca561575773ba9d6d49700832",
+          "message": null,
+          "property_rejections": 0,
+          "queue_dependency_rejections": 0
+        },
+        "filtered": {
+          "result": "satisfied",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 82,
+          "transitions": 146,
+          "trace_states": 0,
+          "solver_reported_seconds": 1,
+          "solver_estimated_bytes": 1968,
+          "native_wall_seconds": 1.1657155010007045,
+          "peak_rss_kib": 1705912.0,
+          "native_executable_sha256": "3902427e6d5d26268de46d63f22edfde1f9bf3313f71c3f94160303f93df4d55",
+          "checker_sha256": "f5efd418e5538020e740aa2279ca3702e7dd6d6ca561575773ba9d6d49700832",
+          "message": null,
+          "property_rejections": 84,
+          "queue_dependency_rejections": 0
+        }
+      },
+      "graph_audit": {
+        "control_states": 82,
+        "control_projected_states": 82,
+        "filtered_states": 82,
+        "filtered_projected_states": 82,
+        "control_unique_edges": 145,
+        "filtered_exported_unique_edges": 145,
+        "filtered_selected_unique_edges": 145,
+        "full_vertices": 82,
+        "partial_certificates": [],
+        "strong_cycle_passed": true,
+        "retained_outcomes_match": true,
+        "c0": true,
+        "all_control_aliases_checked": true
+      }
+    }
+  },
+  "native_executions": 10,
+  "all_passed": true
+}

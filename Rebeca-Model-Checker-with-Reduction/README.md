@@ -160,3 +160,5 @@ Timed FTTS offers explicit `--aria --aria-property-filter -p MODEL.property` gen
 See [the structural certificate and native graph comparisons](tests/ACTOR_LOCAL_PROPERTY_CERTIFICATE.md), including peer-send refusal, deferred-actor assertions and actual deadlock stopping. Reproduce with `bash tests/check_actor_local_properties.sh`.
 
 Communicating models: [queue certificate, native results and limitations](tests/NULLARY_QUEUE_COMMUNICATION.md). Run `bash tests/check_communicating_properties.sh` for structural refusal tests and 24 native control/reduced executions.
+
+The optional communicating certificate also admits [literal payloads with unread handler parameters](tests/UNREAD_MESSAGE_PARAMETERS.md); parameter-dependent handlers remain conservative.

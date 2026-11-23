@@ -5,13 +5,26 @@ import com.google.gson.*;
 import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.*;
 import org.rebecalang.compiler.propertycompiler.generalrebeca.objectmodel.PropertyModel;
 
-/** Sufficient zero-time/nullary queue-bag certificate. Never used without runtime avoidance closure and proviso. */
+/** Sufficient zero-time queue-bag certificate for nullary or unread literal payloads. Never used without runtime avoidance closure and proviso. */
 public final class NullaryQueueCertificate {
  public static final class Result {
   public final List<List<List<List<Boolean>>>> sends=new ArrayList<>(), conflicts=new ArrayList<>();
   public final List<List<Boolean>> known=new ArrayList<>();
   public long tokenBound;
   public int commutingScalarPairs;
+ }
+ private static boolean readsParameter(Expression e,Set<String> names){
+  if(e instanceof TermPrimary t && names.contains(t.getName()))return true;
+  if(e instanceof BinaryExpression b)return readsParameter(b.getLeft(),names)||readsParameter(b.getRight(),names);
+  if(e instanceof UnaryExpression u)return readsParameter(u.getExpression(),names);
+  return false;
+ }
+ private static boolean readsParameterStatement(Statement s,Set<String> names){
+  if(s instanceof BlockStatement b){for(var child:b.getStatements())if(readsParameterStatement(child,names))return true;return false;}
+  if(s instanceof ConditionalStatement c)return readsParameter(c.getCondition(),names)||readsParameterStatement(c.getStatement(),names)||(c.getElseStatement()!=null&&readsParameterStatement(c.getElseStatement(),names));
+  if(s instanceof DotPrimary d){var call=(TermPrimary)d.getRight();for(var arg:call.getParentSuffixPrimary().getArguments())if(readsParameter(arg,names))return true;return false;}
+  if(s instanceof TermPrimary t && t.getParentSuffixPrimary()!=null){for(var arg:t.getParentSuffixPrimary().getArguments())if(readsParameter(arg,names))return true;return false;}
+  return s instanceof Expression e && readsParameter(e,names);
  }
  private static Object scalarExpression(Expression e){
   if(e instanceof Literal literal)return List.of("literal",e.getType().getTypeName(),literal.getLiteralValue());
@@ -22,22 +35,24 @@ public final class NullaryQueueCertificate {
  }
  private static Object scalarProgram(Statement s){
   if(s instanceof BlockStatement block){List<Object> program=new ArrayList<>();for(var child:block.getStatements()){var node=scalarProgram(child);if(node!=null)program.add(node);}return program;}
-  if(s instanceof DotPrimary)return null; // Fixed nullary sends are separate queue-vector additions, proved nonthrowing by the token bound.
+  if(s instanceof DotPrimary)return null; // Fixed literal-payload sends are separate queue-vector additions, proved nonthrowing by the token bound.
   if(s instanceof BinaryExpression assignment)return List.of("assign",PropertyObservationMetadata.term(assignment.getLeft()).getName(),scalarExpression(assignment.getRight()));
   if(s instanceof ConditionalStatement branch)return Arrays.asList("if",scalarExpression(branch.getCondition()),scalarProgram(branch.getStatement()),branch.getElseStatement()==null?null:scalarProgram(branch.getElseStatement()));
   if(s instanceof TermPrimary)return "assertion_present"; // Such methods are explicitly excluded from scalar-equivalence relaxation.
   throw new PropertyObservationMetadata.Reject("opaque scalar program");
  }
- private static List<List<String>> sends(Statement statement,PropertyObservationMetadata.Effects context,boolean inBranch,boolean constructor){
+ private static List<List<String>> sends(Statement statement,PropertyObservationMetadata.Effects context,boolean inBranch,boolean constructor,Map<List<String>,Object> payloads){
   List<List<String>> out=new ArrayList<>();
-  if(statement instanceof BlockStatement block){for(var child:block.getStatements())out.addAll(sends(child,context,inBranch,constructor));}
-  else if(statement instanceof ConditionalStatement branch){out.addAll(sends(branch.getStatement(),context,true,constructor));if(branch.getElseStatement()!=null)out.addAll(sends(branch.getElseStatement(),context,true,constructor));}
+  if(statement instanceof BlockStatement block){for(var child:block.getStatements())out.addAll(sends(child,context,inBranch,constructor,payloads));}
+  else if(statement instanceof ConditionalStatement branch){out.addAll(sends(branch.getStatement(),context,true,constructor,payloads));if(branch.getElseStatement()!=null)out.addAll(sends(branch.getElseStatement(),context,true,constructor,payloads));}
   else if(statement instanceof DotPrimary dot){
    PropertyObservationMetadata.need(constructor||!inBranch,"conditional runtime send");
    var receiver=PropertyObservationMetadata.term(dot.getLeft());var call=(TermPrimary)dot.getRight();
-   PropertyObservationMetadata.need(call.getParentSuffixPrimary().getArguments().isEmpty(),"message arguments");
+   PropertyObservationMetadata.need(call.getParentSuffixPrimary().getArguments().stream().allMatch(arg->arg instanceof Literal),"nonliteral message arguments");
    String target="self".equals(receiver.getName())?context.instance:context.index.bindings.get(context.instance).get(receiver.getName());
-   PropertyObservationMetadata.need(target!=null,"unresolved send");out.add(List.of(target,call.getName().toUpperCase(Locale.ROOT)));
+   PropertyObservationMetadata.need(target!=null,"unresolved send");List<String> label=List.of(target,call.getName().toUpperCase(Locale.ROOT));
+   List<Object> payload=new ArrayList<>();for(var arg:call.getParentSuffixPrimary().getArguments())payload.add(scalarExpression(arg));
+   Object previous=payloads.putIfAbsent(label,payload);PropertyObservationMetadata.need(previous==null||previous.equals(payload),"multiple_payloads_for_method");out.add(label);
   }
   return out;
  }
@@ -53,18 +68,21 @@ public final class NullaryQueueCertificate {
    var index=new PropertyObservationMetadata.Index(model);List<String> names=new ArrayList<>(index.instances.keySet());int n=names.size();
    Map<List<String>,Integer> ids=new HashMap<>();Map<Integer,PropertyObservationMetadata.Effects> effects=new HashMap<>();Map<Integer,List<List<String>>> outgoing=new HashMap<>();Map<Integer,Integer> seeds=new HashMap<>();Map<Integer,Object> scalarPrograms=new HashMap<>();
    for(int r=0;r<n;r++){int m=1;for(var method:index.instances.get(names.get(r)).getMsgsrvs()){
-    PropertyObservationMetadata.need(method.getFormalParameters().isEmpty()&&m<width,"non_nullary_or_unmapped_method");
+    PropertyObservationMetadata.need(m<width,"unmapped_method");
+    Set<String> parameterNames=new HashSet<>();for(var parameter:method.getFormalParameters())parameterNames.add(parameter.getName());
+    PropertyObservationMetadata.need(!readsParameterStatement(method.getBlock(),parameterNames),"observed_message_parameter");
     PropertyObservationMetadata.need(ids.put(List.of(names.get(r),method.getName().toUpperCase(Locale.ROOT)),r*width+m++)==null,"ambiguous_method_identity");
    }}
+   Map<List<String>,Object> payloads=new HashMap<>();
    long tokens=0;
    for(int r=0;r<n;r++){
     String name=names.get(r);var actor=index.instances.get(name);int m=1;
     for(var method:actor.getMsgsrvs()){
-     var f=new PropertyObservationMetadata.Effects(index,name,method);f.walk(method.getBlock(),0);int key=r*width+m++;effects.put(key,f);scalarPrograms.put(key,scalarProgram(method.getBlock()));outgoing.put(key,sends(method.getBlock(),f,false,false));
+     var f=new PropertyObservationMetadata.Effects(index,name,method);f.walk(method.getBlock(),0);int key=r*width+m++;effects.put(key,f);scalarPrograms.put(key,scalarProgram(method.getBlock()));outgoing.put(key,sends(method.getBlock(),f,false,false,payloads));
     }
     for(var ctor:actor.getConstructors()){
      var f=new PropertyObservationMetadata.Effects(index,name,ctor);f.walk(ctor.getBlock(),0);
-     for(var target:sends(ctor.getBlock(),f,false,true)){Integer key=ids.get(target);PropertyObservationMetadata.need(key!=null,"unmapped_constructor_message");seeds.merge(key,1,Integer::sum);tokens++;}
+     for(var target:sends(ctor.getBlock(),f,false,true,payloads)){Integer key=ids.get(target);PropertyObservationMetadata.need(key!=null,"unmapped_constructor_message");seeds.merge(key,1,Integer::sum);tokens++;}
     }
    }
    Set<Integer> runtimeTargets=new HashSet<>();

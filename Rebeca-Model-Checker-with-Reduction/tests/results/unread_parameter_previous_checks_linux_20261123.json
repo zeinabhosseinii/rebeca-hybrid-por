@@ -1,0 +1,71 @@
+{
+  "all_passed": true,
+  "cases": [
+    {
+      "case": "load",
+      "certified": true,
+      "token_bound": 2,
+      "refusal": null
+    },
+    {
+      "case": "renamed_load",
+      "certified": true,
+      "token_bound": 2,
+      "refusal": null
+    },
+    {
+      "case": "shared_field",
+      "certified": true,
+      "token_bound": 2,
+      "refusal": null
+    },
+    {
+      "case": "conditional_send",
+      "certified": false,
+      "token_bound": null,
+      "refusal": "conditional runtime send"
+    },
+    {
+      "case": "insufficient_margin",
+      "certified": false,
+      "token_bound": null,
+      "refusal": "insufficient_queue_margin"
+    },
+    {
+      "case": "repeatable_fanout",
+      "certified": false,
+      "token_bound": null,
+      "refusal": "repeatable_runtime_fanout"
+    },
+    {
+      "case": "sender_observation",
+      "certified": false,
+      "token_bound": null,
+      "refusal": "unsupported_model_or_property_metadata"
+    },
+    {
+      "case": "timing",
+      "certified": false,
+      "token_bound": null,
+      "refusal": "unsupported_model_or_property_metadata"
+    },
+    {
+      "case": "nondeterminism",
+      "certified": false,
+      "token_bound": null,
+      "refusal": "unsupported_model_or_property_metadata"
+    },
+    {
+      "case": "reserved_constructor_parameter",
+      "certified": false,
+      "token_bound": null,
+      "refusal": "unsupported_model_or_property_metadata"
+    },
+    {
+      "case": "message_parameters",
+      "certified": false,
+      "token_bound": null,
+      "refusal": "observed_message_parameter"
+    }
+  ]
+}

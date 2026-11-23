@@ -1,0 +1,35 @@
+{
+  "all_passed": true,
+  "cases": [
+    {
+      "case": "unread_literal",
+      "certified": true,
+      "reason": null
+    },
+    {
+      "case": "different_literals",
+      "certified": false,
+      "reason": "multiple_payloads_for_method"
+    },
+    {
+      "case": "guard_read",
+      "certified": false,
+      "reason": "observed_message_parameter"
+    },
+    {
+      "case": "assertion_read",
+      "certified": false,
+      "reason": "observed_message_parameter"
+    },
+    {
+      "case": "forwarded_payload",
+      "certified": false,
+      "reason": "observed_message_parameter"
+    },
+    {
+      "case": "computed_payload",
+      "certified": false,
+      "reason": "nonliteral message arguments"
+    }
+  ]
+}

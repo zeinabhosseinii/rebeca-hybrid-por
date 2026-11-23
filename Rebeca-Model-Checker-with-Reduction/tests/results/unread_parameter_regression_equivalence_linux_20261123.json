@@ -1,0 +1,18 @@
+{
+  "final_jar_sha256": "d3b73df3bce3f8d0389d31384ea3f4ff289728acd7c1dc32e8dcabfe7dc80cd5",
+  "native_tested_cases_byte_equivalent": [
+    "conditional_send",
+    "global_violation",
+    "load_bounds",
+    "load_true",
+    "queue_margin_refused",
+    "read_write_hub",
+    "renamed_load",
+    "repeatable_fanout_overflow",
+    "shared_hub_field",
+    "source_assertion",
+    "terminating",
+    "three_token_union"
+  ],
+  "default_generated_bytes_unchanged": true
+}

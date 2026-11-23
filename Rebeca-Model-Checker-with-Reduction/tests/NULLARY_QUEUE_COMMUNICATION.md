@@ -4,6 +4,10 @@ This extends `--aria --aria-property-filter -p MODEL.property`, not ordinary
 `--aria`. No runtime conditional-dependency guard is enabled. The generated
 code without the optional flag remains byte-identical to the previous artifact.
 
+Current extension: literal primitive message payloads are also admitted when
+all handler parameters are unread. See [the exact restrictions and tests](UNREAD_MESSAGE_PARAMETERS.md).
+The nullary restrictions below describe the initial certificate.
+
 ## Admission certificate
 
 The typed compiler AST must expose all relevant primitive state reads/writes,
