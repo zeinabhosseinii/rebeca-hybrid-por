@@ -23,6 +23,7 @@ import erdg.grammar.RebecaParser;
 import erdg.model.PriorityAssignment;
 import erdg.pipeline.RebecDependencyGraph;
 import erdg.pipeline.HRG;
+import erdg.pipeline.ExternalPropertyPriorityPolicy;
 import erdg.pipeline.Step1RebecDependencyGraph;
 import erdg.pipeline.Step2HierarchicalRebecGraph;
 import erdg.pipeline.Step3RebecPriorities;
@@ -65,7 +66,14 @@ public class Main {
                     System.out.println("Usage: file <path-to-rebeca-file>");
                     return;
                 }
-                runFile(args[1]);
+                if (args.length != 2 && (args.length != 4 || !"--property".equals(args[2]))) {
+                    throw new IllegalArgumentException("Usage: file <model> [--property <property-file>]");
+                }
+                boolean externalProperty = args.length == 4;
+                if (externalProperty && !Files.isRegularFile(Paths.get(args[3]))) {
+                    throw new IllegalArgumentException("Property file does not exist: " + args[3]);
+                }
+                runFile(args[1], externalProperty);
             }
             default -> {
                 System.out.println("Unknown command: " + command);
@@ -84,7 +92,7 @@ public class Main {
               list              List all available benchmarks
               run <name>        Run a specific benchmark by name
               run-all           Run all benchmarks
-              file <path>       Run a .rebeca file directly
+              file <path> [--property <path>]  Export; external properties disable static scheduling reduction
             """);
     }
 
@@ -126,11 +134,11 @@ public class Main {
         System.out.println("\n=== All benchmarks complete ===");
     }
 
-    private static void runFile(String filePath) throws IOException {
+    private static void runFile(String filePath, boolean externalProperty) throws IOException {
         String code = Files.readString(Paths.get(filePath));
         String name = Paths.get(filePath).getFileName().toString().replace(".rebeca", "");
         System.out.println("=== Running file: " + filePath + " ===\n");
-        runModel(code, name);
+        runModel(code, name, externalProperty);
     }
 
     // =========================================================================
@@ -138,6 +146,10 @@ public class Main {
     // =========================================================================
 
     private static void runModel(String code, String modelName) {
+        runModel(code, modelName, false);
+    }
+
+    private static void runModel(String code, String modelName, boolean externalProperty) {
         // Parse
         RebecaLexer lexer = new RebecaLexer(CharStreams.fromString(code));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -197,6 +209,12 @@ public class Main {
 
         Step5PriorityAssignmentGenerator step5 = new Step5PriorityAssignmentGenerator(rebecPriorities, msPriorities);
         PriorityAssignment pa = step5.generate();
+        if (externalProperty) {
+            // ARIA has no visibility/preservation certificate for external properties.
+            // Keep all actor and method choices available; RMC checks the property.
+            pa = ExternalPropertyPriorityPolicy.conservative(pa);
+            System.out.println("External property supplied: static scheduling reduction disabled (all priorities equal).");
+        }
         System.out.println("\n✅ Final Priority Assignment: " + pa);
         System.out.println("   Rebec priorities:  " + pa.rebecPriorities());
         System.out.println("   Method priorities: " + pa.methodPriorities());

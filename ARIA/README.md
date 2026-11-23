@@ -154,3 +154,14 @@ runtime conditional resolution.
 Exports generated through the CLI also contain `sourceSha256`, the SHA-256 of
 the input model's UTF-8 source. The RMC `--aria-json` importer requires this hash
 to match its source model. Regenerate JSON after any model edit.
+
+
+### External properties and static priorities
+
+Legacy static priorities are not certified for arbitrary external properties. A reproduced Cell-register counterexample makes full exploration fail an external assertion while legacy static reports satisfied. For a model checked with an external `.property` file, export conservatively:
+
+```bash
+java -jar target/erdg-tool-0.1.0.jar file MODEL.rebeca --property MODEL.property
+```
+
+This explicitly disables actor and message priority reduction by assigning all priorities 1. Pass the same property to RMC with `-p MODEL.property`; ARIA does not parse or prove it. Existing exports and calls without `--property` retain legacy behavior and are not retroactively protected. Use the `file` command for this route. Details and the five-path regression are in `../Rebeca-Model-Checker-with-Reduction/tests/CELL_EXTERNAL_PROPERTY.md`.

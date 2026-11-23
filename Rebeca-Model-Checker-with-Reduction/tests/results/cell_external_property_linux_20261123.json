@@ -1,0 +1,75 @@
+{
+  "source_sha256": "e8e0a20c1af6af94fb02c59ff7ad2f9b33a84dd6b55872ee3b5cb89135a325f6",
+  "property_sha256": "0036336cc8d2dcff564aedc3651c4e4084ed6f8eab031aae41a3b2790995947a",
+  "rmc_jar_sha256": "19b6a097caead0025083b7d4043bdea3f5b031ae38266ef58905f280b94ae967",
+  "aria_jar_sha256": "ebcf691fbbb1bb06b69c2f7ec3dd45f7d24a52c3fe26c91d7b0830919ac33a4b",
+  "modes": {
+    "full": {
+      "result": "assertion failed",
+      "property_type": "Reachability",
+      "property_name": "Deadlock-Freedom and No Deadline Missed",
+      "states": 5,
+      "transitions": 7,
+      "trace_states": 4,
+      "solver_reported_seconds": 1,
+      "solver_estimated_bytes": 80,
+      "native_wall_seconds": 0.7723262649999469,
+      "peak_rss_kib": 919312.0,
+      "assertion_message": "NoEarlyStore"
+    },
+    "legacy_static": {
+      "result": "satisfied",
+      "property_type": "Reachability",
+      "property_name": "Deadlock-Freedom and No Deadline Missed",
+      "states": 9,
+      "transitions": 12,
+      "trace_states": 0,
+      "solver_reported_seconds": 0,
+      "solver_estimated_bytes": 144,
+      "native_wall_seconds": 0.5014723250001225,
+      "peak_rss_kib": 919184.0,
+      "assertion_message": null
+    },
+    "dynamic": {
+      "result": "assertion failed",
+      "property_type": "Reachability",
+      "property_name": "Deadlock-Freedom and No Deadline Missed",
+      "states": 5,
+      "transitions": 7,
+      "trace_states": 4,
+      "solver_reported_seconds": 0,
+      "solver_estimated_bytes": 80,
+      "native_wall_seconds": 0.6003710449999744,
+      "peak_rss_kib": 919312.0,
+      "assertion_message": "NoEarlyStore"
+    },
+    "dynamic_no_por": {
+      "result": "assertion failed",
+      "property_type": "Reachability",
+      "property_name": "Deadlock-Freedom and No Deadline Missed",
+      "states": 5,
+      "transitions": 7,
+      "trace_states": 4,
+      "solver_reported_seconds": 0,
+      "solver_estimated_bytes": 80,
+      "native_wall_seconds": 0.5448366700002225,
+      "peak_rss_kib": 919312.0,
+      "assertion_message": "NoEarlyStore"
+    },
+    "property_aware_static": {
+      "result": "assertion failed",
+      "property_type": "Reachability",
+      "property_name": "Deadlock-Freedom and No Deadline Missed",
+      "states": 5,
+      "transitions": 7,
+      "trace_states": 4,
+      "solver_reported_seconds": 1,
+      "solver_estimated_bytes": 80,
+      "native_wall_seconds": 0.5674332350004079,
+      "peak_rss_kib": 919312.0,
+      "assertion_message": "NoEarlyStore"
+    }
+  },
+  "scope": "Exact finite external state-assertion regression, not performance or general POR proof.",
+  "invalid_property_options_rejected": true
+}

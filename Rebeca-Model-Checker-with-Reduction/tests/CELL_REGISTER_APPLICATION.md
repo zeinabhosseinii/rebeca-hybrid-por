@@ -101,3 +101,7 @@ python3 -m unittest discover -s tests -p 'test_cell_register*.py'
 ```
 
 The command fails if the dynamic sufficient certificate fails. Static refusal is explicitly recorded, not converted into a pass. Three new tests check set-level treatment, disabling and nondeterministic diamond failures; all seven Cell audit tests pass. Counts and witnesses are archived in `results/cell_register_reductions_linux_20261123.json`. This step changes tests and documentation only; certificate scope, runtime COND, proviso and stopping behavior are unchanged.
+
+## External-property counterexample and conservative export
+
+The next step found an actual external-property false negative, not merely a refused sufficient certificate. See `CELL_EXTERNAL_PROPERTY.md`. Adding an observer-only Worker.sent flag and checking NoEarlyStore makes full, dynamic and same-generated PO-off fail, while legacy static says satisfied. The original stored-value bound remains true; this is a different, explicitly stated property. The new `ARIA file MODEL --property PROPERTY` export disables actor and method scheduling reduction, and its native run correctly fails NoEarlyStore. Legacy exports without this option are not thereby certified for arbitrary external properties.

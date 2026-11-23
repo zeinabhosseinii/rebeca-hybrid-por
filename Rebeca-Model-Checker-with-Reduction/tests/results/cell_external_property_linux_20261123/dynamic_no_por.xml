@@ -1,0 +1,138 @@
+<model-checking-report>
+<system-info>
+	<total-spent-time>0</total-spent-time>
+	<reached-states>5</reached-states>
+	<reached-transitions>7</reached-transitions>
+	<consumed-mem>80</consumed-mem>
+</system-info>
+<checked-property>
+	<type>Reachability</type>
+	<name>Deadlock-Freedom and No Deadline Missed</name>
+	<result>assertion failed</result>
+	<message>NoEarlyStore</message>
+<options>
+	<option>Safe mode is enabled</option>
+	<option>FTTS</option>
+</options>
+</checked-property>
+<counter-example-trace>
+<state id="1_0" atomicpropositions="" >
+	<rebec name="cell">
+		<statevariables>
+			<variable name="Cell.value" type="int">0</variable>
+		</statevariables>
+		<queue>
+			<message arrival="0" deadline="infinity" sender="cell">keepAlive()</message>
+		</queue>
+		<now>0</now>
+	</rebec>
+	<rebec name="worker1">
+		<statevariables>
+			<variable name="Worker.id" type="byte">1</variable>
+			<variable name="Worker.sent" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+		<now>0</now>
+	</rebec>
+	<rebec name="worker2">
+		<statevariables>
+			<variable name="Worker.id" type="byte">2</variable>
+			<variable name="Worker.sent" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+		<now>0</now>
+	</rebec>
+	<rebec name="starter">
+		<statevariables>
+		</statevariables>
+		<queue>
+			<message arrival="0" deadline="infinity" sender="cell">startWorkers()</message>
+		</queue>
+		<now>0</now>
+	</rebec>
+</state>
+<transition source="1_0" destination="2_0" executionTime="0" shift="0"> <messageserver sender="cell" owner="starter" title="STARTWORKERS"/></transition>
+<state id="2_0" atomicpropositions="" >
+	<rebec name="cell">
+		<statevariables>
+			<variable name="Cell.value" type="int">0</variable>
+		</statevariables>
+		<queue>
+			<message arrival="0" deadline="infinity" sender="cell">keepAlive()</message>
+		</queue>
+		<now>0</now>
+	</rebec>
+	<rebec name="worker1">
+		<statevariables>
+			<variable name="Worker.id" type="byte">1</variable>
+			<variable name="Worker.sent" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message arrival="0" deadline="infinity" sender="cell">writeValue()</message>
+		</queue>
+		<now>0</now>
+	</rebec>
+	<rebec name="worker2">
+		<statevariables>
+			<variable name="Worker.id" type="byte">2</variable>
+			<variable name="Worker.sent" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message arrival="0" deadline="infinity" sender="cell">writeValue()</message>
+		</queue>
+		<now>0</now>
+	</rebec>
+	<rebec name="starter">
+		<statevariables>
+		</statevariables>
+		<queue>
+		</queue>
+		<now>0</now>
+	</rebec>
+</state>
+<transition source="2_0" destination="3_0" executionTime="0" shift="0"> <messageserver sender="cell" owner="worker1" title="WRITEVALUE"/></transition>
+<state id="3_0" atomicpropositions="" >
+	<rebec name="cell">
+		<statevariables>
+			<variable name="Cell.value" type="int">0</variable>
+		</statevariables>
+		<queue>
+			<message arrival="0" deadline="infinity" sender="cell">store(1)</message>
+			<message arrival="0" deadline="infinity" sender="cell">keepAlive()</message>
+		</queue>
+		<now>0</now>
+	</rebec>
+	<rebec name="worker1">
+		<statevariables>
+			<variable name="Worker.id" type="byte">1</variable>
+			<variable name="Worker.sent" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+		</queue>
+		<now>0</now>
+	</rebec>
+	<rebec name="worker2">
+		<statevariables>
+			<variable name="Worker.id" type="byte">2</variable>
+			<variable name="Worker.sent" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message arrival="0" deadline="infinity" sender="cell">writeValue()</message>
+		</queue>
+		<now>0</now>
+	</rebec>
+	<rebec name="starter">
+		<statevariables>
+		</statevariables>
+		<queue>
+		</queue>
+		<now>0</now>
+	</rebec>
+</state>
+<transition source="3_0" destination="assertion failed" executionTime="0" shift="0"> <messageserver sender="cell" owner="cell" title="STORE"/></transition>
+<state id="assertion failed" atomicpropositions="assertion failed">
+</state>
+</counter-example-trace>
+</model-checking-report>
