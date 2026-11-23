@@ -1,0 +1,610 @@
+{
+  "experimental_generated_cpp_only": true,
+  "production_generator_changed": false,
+  "full_graph_required_online": false,
+  "online_dependency_and_proviso_unchanged": true,
+  "source_sha256": "e8e0a20c1af6af94fb02c59ff7ad2f9b33a84dd6b55872ee3b5cb89135a325f6",
+  "cases": {
+    "CellRegisterObserved": {
+      "metadata": {
+        "diagnostic_only": true,
+        "online_generator_changed": false,
+        "metadata_supported": true,
+        "actions": [
+          {
+            "action": [
+              "cell",
+              "STORE"
+            ],
+            "complete": true,
+            "reads": [
+              [
+                "cell",
+                "Cell.value"
+              ]
+            ],
+            "writes": [
+              [
+                "cell",
+                "Cell.value"
+              ]
+            ],
+            "sends": []
+          },
+          {
+            "action": [
+              "cell",
+              "KEEPALIVE"
+            ],
+            "complete": true,
+            "reads": [],
+            "writes": [],
+            "sends": [
+              [
+                "cell",
+                "KEEPALIVE"
+              ]
+            ]
+          },
+          {
+            "action": [
+              "worker1",
+              "WRITEVALUE"
+            ],
+            "complete": true,
+            "reads": [
+              [
+                "worker1",
+                "Worker.id"
+              ]
+            ],
+            "writes": [
+              [
+                "worker1",
+                "Worker.sent"
+              ]
+            ],
+            "sends": [
+              [
+                "cell",
+                "STORE"
+              ]
+            ]
+          },
+          {
+            "action": [
+              "worker2",
+              "WRITEVALUE"
+            ],
+            "complete": true,
+            "reads": [
+              [
+                "worker2",
+                "Worker.id"
+              ]
+            ],
+            "writes": [
+              [
+                "worker2",
+                "Worker.sent"
+              ]
+            ],
+            "sends": [
+              [
+                "cell",
+                "STORE"
+              ]
+            ]
+          },
+          {
+            "action": [
+              "starter",
+              "STARTWORKERS"
+            ],
+            "complete": true,
+            "reads": [],
+            "writes": [],
+            "sends": [
+              [
+                "worker1",
+                "WRITEVALUE"
+              ],
+              [
+                "worker2",
+                "WRITEVALUE"
+              ]
+            ]
+          }
+        ],
+        "property_name": "NoEarlyStore",
+        "property_reads": [
+          [
+            "cell",
+            "Cell.value"
+          ],
+          [
+            "worker2",
+            "Worker.sent"
+          ]
+        ],
+        "predicate": {
+          "kind": "unary",
+          "op": "!",
+          "operand": {
+            "kind": "binary",
+            "op": "&&",
+            "left": {
+              "kind": "binary",
+              "op": "==",
+              "left": {
+                "kind": "field",
+                "key": [
+                  "cell",
+                  "Cell.value"
+                ],
+                "type": "int"
+              },
+              "right": {
+                "kind": "literal",
+                "type": "byte",
+                "value": "1"
+              }
+            },
+            "right": {
+              "kind": "unary",
+              "op": "!",
+              "operand": {
+                "kind": "field",
+                "key": [
+                  "worker2",
+                  "Worker.sent"
+                ],
+                "type": "boolean"
+              }
+            }
+          }
+        },
+        "source_sha256": "e8e0a20c1af6af94fb02c59ff7ad2f9b33a84dd6b55872ee3b5cb89135a325f6",
+        "property_sha256": "0036336cc8d2dcff564aedc3651c4e4084ed6f8eab031aae41a3b2790995947a"
+      },
+      "modes": {
+        "control": {
+          "result": "assertion failed",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 5,
+          "transitions": 7,
+          "trace_states": 4,
+          "solver_reported_seconds": 1,
+          "solver_estimated_bytes": 80,
+          "native_wall_seconds": 0.881835250000222,
+          "peak_rss_kib": 919440.0,
+          "message": "NoEarlyStore",
+          "property_rejections": 0,
+          "native_executable_sha256": "e5e75cadee599b1d3ee879a04c46ee601703bf0ffc1d050033c46687562dbb19",
+          "checker_sha256": "2147f33aa5a2dfe4c6de10d7c5304bd717d13791916e420033dea16208618a2c"
+        },
+        "original": {
+          "result": "assertion failed",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 5,
+          "transitions": 7,
+          "trace_states": 4,
+          "solver_reported_seconds": 0,
+          "solver_estimated_bytes": 80,
+          "native_wall_seconds": 0.7726799060001213,
+          "peak_rss_kib": 919312.0,
+          "message": "NoEarlyStore",
+          "property_rejections": 0,
+          "native_executable_sha256": "b049bb66c360e61f68d8dc20aec631c4be38f1c13bf9f0040f348dd94f940701",
+          "checker_sha256": "2147f33aa5a2dfe4c6de10d7c5304bd717d13791916e420033dea16208618a2c"
+        },
+        "experimental": {
+          "result": "assertion failed",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 5,
+          "transitions": 7,
+          "trace_states": 4,
+          "solver_reported_seconds": 1,
+          "solver_estimated_bytes": 80,
+          "native_wall_seconds": 0.705683890999353,
+          "peak_rss_kib": 919316.0,
+          "message": "NoEarlyStore",
+          "property_rejections": 1,
+          "native_executable_sha256": "11b8dd2669d696f995445feaa01f4c401a3d2ee810d8516e197eff4b0e38f30e",
+          "checker_sha256": "85cb242eeb171ddaaf86fcbb0e3e29b3ff9a2917d3eab982cbcc15336fb219b5"
+        },
+        "refused_metadata": {
+          "result": "assertion failed",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 5,
+          "transitions": 7,
+          "trace_states": 4,
+          "solver_reported_seconds": 0,
+          "solver_estimated_bytes": 80,
+          "native_wall_seconds": 0.7014529930002027,
+          "peak_rss_kib": 919312.0,
+          "message": "NoEarlyStore",
+          "property_rejections": 4,
+          "native_executable_sha256": "aea75fbbaa6eb880f8edd004f67de56c27e98ebecad4b1320a04cba42e679cb0",
+          "checker_sha256": "8343a3502c854aa2cc0f9db79e26396c900d5bd8eb3056ced0e2008390a16d9e"
+        }
+      },
+      "patches": {
+        "experimental": {
+          "metadata_accepted": true,
+          "default_partial_permission": false,
+          "changed_files": [
+            "TimedModelChecker.cpp"
+          ],
+          "actor_order": [
+            "cell",
+            "worker1",
+            "worker2",
+            "starter"
+          ],
+          "invisible_actions": [
+            [
+              "cell",
+              2
+            ],
+            [
+              "worker1",
+              1
+            ],
+            [
+              "starter",
+              1
+            ]
+          ]
+        },
+        "refused_metadata": {
+          "metadata_accepted": false,
+          "default_partial_permission": false,
+          "changed_files": [
+            "TimedModelChecker.cpp"
+          ],
+          "actor_order": [
+            "cell",
+            "worker1",
+            "worker2",
+            "starter"
+          ],
+          "invisible_actions": []
+        }
+      }
+    },
+    "CellRegisterObservedBounds": {
+      "metadata": {
+        "diagnostic_only": true,
+        "online_generator_changed": false,
+        "metadata_supported": true,
+        "actions": [
+          {
+            "action": [
+              "cell",
+              "STORE"
+            ],
+            "complete": true,
+            "reads": [
+              [
+                "cell",
+                "Cell.value"
+              ]
+            ],
+            "writes": [
+              [
+                "cell",
+                "Cell.value"
+              ]
+            ],
+            "sends": []
+          },
+          {
+            "action": [
+              "cell",
+              "KEEPALIVE"
+            ],
+            "complete": true,
+            "reads": [],
+            "writes": [],
+            "sends": [
+              [
+                "cell",
+                "KEEPALIVE"
+              ]
+            ]
+          },
+          {
+            "action": [
+              "worker1",
+              "WRITEVALUE"
+            ],
+            "complete": true,
+            "reads": [
+              [
+                "worker1",
+                "Worker.id"
+              ]
+            ],
+            "writes": [
+              [
+                "worker1",
+                "Worker.sent"
+              ]
+            ],
+            "sends": [
+              [
+                "cell",
+                "STORE"
+              ]
+            ]
+          },
+          {
+            "action": [
+              "worker2",
+              "WRITEVALUE"
+            ],
+            "complete": true,
+            "reads": [
+              [
+                "worker2",
+                "Worker.id"
+              ]
+            ],
+            "writes": [
+              [
+                "worker2",
+                "Worker.sent"
+              ]
+            ],
+            "sends": [
+              [
+                "cell",
+                "STORE"
+              ]
+            ]
+          },
+          {
+            "action": [
+              "starter",
+              "STARTWORKERS"
+            ],
+            "complete": true,
+            "reads": [],
+            "writes": [],
+            "sends": [
+              [
+                "worker1",
+                "WRITEVALUE"
+              ],
+              [
+                "worker2",
+                "WRITEVALUE"
+              ]
+            ]
+          }
+        ],
+        "property_name": "StoredBounds",
+        "property_reads": [
+          [
+            "cell",
+            "Cell.value"
+          ]
+        ],
+        "predicate": {
+          "kind": "binary",
+          "op": "&&",
+          "left": {
+            "kind": "binary",
+            "op": ">=",
+            "left": {
+              "kind": "field",
+              "key": [
+                "cell",
+                "Cell.value"
+              ],
+              "type": "int"
+            },
+            "right": {
+              "kind": "literal",
+              "type": "byte",
+              "value": "0"
+            }
+          },
+          "right": {
+            "kind": "binary",
+            "op": "<=",
+            "left": {
+              "kind": "field",
+              "key": [
+                "cell",
+                "Cell.value"
+              ],
+              "type": "int"
+            },
+            "right": {
+              "kind": "literal",
+              "type": "byte",
+              "value": "2"
+            }
+          }
+        },
+        "source_sha256": "e8e0a20c1af6af94fb02c59ff7ad2f9b33a84dd6b55872ee3b5cb89135a325f6",
+        "property_sha256": "220f09b9235ec2c4efd71e3bac27d0d49bbf28b0ac11e16c28faf785be54d007"
+      },
+      "modes": {
+        "control": {
+          "result": "satisfied",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 12,
+          "transitions": 28,
+          "trace_states": 0,
+          "solver_reported_seconds": 1,
+          "solver_estimated_bytes": 192,
+          "native_wall_seconds": 0.9641689560003215,
+          "peak_rss_kib": 919440.0,
+          "message": null,
+          "property_rejections": 0,
+          "native_executable_sha256": "cab64e1af2aad950c8d7cfc395dad87832ef6196c53a8dfe5586f5fbcd95577c",
+          "checker_sha256": "be32150a3dc34a12dbd23ae422d33e9aba0a20e4bb0bb6a0512027cbe2e1029f"
+        },
+        "original": {
+          "result": "satisfied",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 12,
+          "transitions": 34,
+          "trace_states": 0,
+          "solver_reported_seconds": 1,
+          "solver_estimated_bytes": 192,
+          "native_wall_seconds": 0.7190201359999264,
+          "peak_rss_kib": 919440.0,
+          "message": null,
+          "property_rejections": 0,
+          "native_executable_sha256": "9c11ed47f7fee30800a53cd3b23473d0b733453c270949429c800f0259c9577d",
+          "checker_sha256": "be32150a3dc34a12dbd23ae422d33e9aba0a20e4bb0bb6a0512027cbe2e1029f"
+        },
+        "experimental": {
+          "result": "satisfied",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 12,
+          "transitions": 30,
+          "trace_states": 0,
+          "solver_reported_seconds": 0,
+          "solver_estimated_bytes": 192,
+          "native_wall_seconds": 0.6674799250004071,
+          "peak_rss_kib": 919444.0,
+          "message": null,
+          "property_rejections": 2,
+          "native_executable_sha256": "c74bdb8b46be445b06eaeb287e1d0681b7fe36609720afba0efbff5095725941",
+          "checker_sha256": "2c719847a114b2e3d1ba92810986b60a8a498eb65ced74aa110def6ccd7b7127"
+        },
+        "refused_metadata": {
+          "result": "satisfied",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 12,
+          "transitions": 28,
+          "trace_states": 0,
+          "solver_reported_seconds": 1,
+          "solver_estimated_bytes": 192,
+          "native_wall_seconds": 0.6776130360003663,
+          "peak_rss_kib": 919316.0,
+          "message": null,
+          "property_rejections": 7,
+          "native_executable_sha256": "0f1ee421450ea8d553ba6be707892b1271843d3797abbe8d502ca99480133048",
+          "checker_sha256": "312a33716e818cc0960c3ac7ec019921b00e5f1a3cfe12e66cf4f9d0e3b85afe"
+        }
+      },
+      "patches": {
+        "experimental": {
+          "metadata_accepted": true,
+          "default_partial_permission": false,
+          "changed_files": [
+            "TimedModelChecker.cpp"
+          ],
+          "actor_order": [
+            "cell",
+            "worker1",
+            "worker2",
+            "starter"
+          ],
+          "invisible_actions": [
+            [
+              "cell",
+              2
+            ],
+            [
+              "worker1",
+              1
+            ],
+            [
+              "worker2",
+              1
+            ],
+            [
+              "starter",
+              1
+            ]
+          ]
+        },
+        "refused_metadata": {
+          "metadata_accepted": false,
+          "default_partial_permission": false,
+          "changed_files": [
+            "TimedModelChecker.cpp"
+          ],
+          "actor_order": [
+            "cell",
+            "worker1",
+            "worker2",
+            "starter"
+          ],
+          "invisible_actions": []
+        }
+      }
+    }
+  },
+  "all_expected_outcomes": true,
+  "healthy_graph_audit": {
+    "original": {
+      "states": 12,
+      "projected_states": 11,
+      "full_vertices": 11,
+      "partial_certificates": [
+        {
+          "state": "1_0",
+          "action": [
+            "starter",
+            "STARTWORKERS"
+          ],
+          "evidence": {
+            "reason": "verified",
+            "avoidance_states": 1
+          }
+        }
+      ],
+      "strong_cycle_passed": true,
+      "retained_outcomes_match": true,
+      "c0": true
+    },
+    "experimental": {
+      "states": 12,
+      "projected_states": 11,
+      "full_vertices": 11,
+      "partial_certificates": [
+        {
+          "state": "1_0",
+          "action": [
+            "starter",
+            "STARTWORKERS"
+          ],
+          "evidence": {
+            "reason": "verified",
+            "avoidance_states": 1
+          }
+        }
+      ],
+      "strong_cycle_passed": true,
+      "retained_outcomes_match": true,
+      "c0": true
+    },
+    "refused_metadata": {
+      "states": 12,
+      "projected_states": 11,
+      "full_vertices": 12,
+      "partial_certificates": [],
+      "strong_cycle_passed": true,
+      "retained_outcomes_match": true,
+      "c0": true
+    }
+  },
+  "rmc_jar_sha256": "19b6a097caead0025083b7d4043bdea3f5b031ae38266ef58905f280b94ae967",
+  "metadata_extractor_sha256": "443e497000140ecf7b2c309872dc5c8d76396c6b4d350061ed59f9e2338825d1"
+}

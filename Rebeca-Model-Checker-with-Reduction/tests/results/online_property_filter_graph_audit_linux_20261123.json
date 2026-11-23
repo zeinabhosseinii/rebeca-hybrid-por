@@ -1,0 +1,53 @@
+{
+  "original": {
+    "states": 12,
+    "projected_states": 11,
+    "full_vertices": 11,
+    "partial_certificates": [
+      {
+        "state": "1_0",
+        "action": [
+          "starter",
+          "STARTWORKERS"
+        ],
+        "evidence": {
+          "reason": "verified",
+          "avoidance_states": 1
+        }
+      }
+    ],
+    "strong_cycle_passed": true,
+    "retained_outcomes_match": true,
+    "c0": true
+  },
+  "experimental": {
+    "states": 12,
+    "projected_states": 11,
+    "full_vertices": 11,
+    "partial_certificates": [
+      {
+        "state": "1_0",
+        "action": [
+          "starter",
+          "STARTWORKERS"
+        ],
+        "evidence": {
+          "reason": "verified",
+          "avoidance_states": 1
+        }
+      }
+    ],
+    "strong_cycle_passed": true,
+    "retained_outcomes_match": true,
+    "c0": true
+  },
+  "refused_metadata": {
+    "states": 12,
+    "projected_states": 11,
+    "full_vertices": 12,
+    "partial_certificates": [],
+    "strong_cycle_passed": true,
+    "retained_outcomes_match": true,
+    "c0": true
+  }
+}

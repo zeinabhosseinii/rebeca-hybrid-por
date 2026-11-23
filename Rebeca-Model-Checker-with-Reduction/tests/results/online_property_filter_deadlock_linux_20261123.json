@@ -1,0 +1,47 @@
+{
+  "source_changed_only_for_terminating_negative_control": true,
+  "patch": {
+    "metadata_accepted": false,
+    "default_partial_permission": false,
+    "changed_files": [
+      "TimedModelChecker.cpp"
+    ],
+    "actor_order": [
+      "cell",
+      "worker1",
+      "worker2",
+      "starter"
+    ],
+    "invisible_actions": []
+  },
+  "modes": {
+    "control": {
+      "result": "deadlock",
+      "property_type": "Reachability",
+      "property_name": "Deadlock-Freedom and No Deadline Missed",
+      "states": 11,
+      "transitions": 13,
+      "trace_states": 6,
+      "solver_reported_seconds": 2,
+      "solver_estimated_bytes": 176,
+      "native_wall_seconds": 1.505172706999474,
+      "peak_rss_kib": 919440.0,
+      "message": null,
+      "property_rejections": 0
+    },
+    "experimental": {
+      "result": "deadlock",
+      "property_type": "Reachability",
+      "property_name": "Deadlock-Freedom and No Deadline Missed",
+      "states": 11,
+      "transitions": 13,
+      "trace_states": 6,
+      "solver_reported_seconds": 1,
+      "solver_estimated_bytes": 176,
+      "native_wall_seconds": 0.7902985549999357,
+      "peak_rss_kib": 919312.0,
+      "message": null,
+      "property_rejections": 2
+    }
+  }
+}

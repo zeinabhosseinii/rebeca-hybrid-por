@@ -48,3 +48,6 @@ bash tests/run_property_representative_experiment.sh
 The wrapper now selects the AST-driven path by default. It builds RMC normally, exports a fresh native full graph, compiles the diagnostic Java classes, extracts both property metadata files, runs full/reduced reference searches, executes thirteen compiler-AST cases, and runs the seven search unit tests. The output contains summary.json and the exact extracted metadata, IR, compile logs and native reference artifacts.
 
 Raw results: `results/cell_ast_property_representatives_linux_20261123.json` and `results/cell_ast_metadata_checks_linux_20261123.json`. The former includes complete metadata, source/property/extractor/graph hashes, all candidate decisions and counterexample paths. Scope remains the finite example; generic online authorization requires a separate supported-property contract and runtime integration review.
+
+
+The subsequent opt-in native connection is documented in `ONLINE_PROPERTY_FILTER_EXPERIMENT.md`. It filters copies of generated C++ and preserves the production conservative baseline; it does not install the diagnostic extractor into production generation.
