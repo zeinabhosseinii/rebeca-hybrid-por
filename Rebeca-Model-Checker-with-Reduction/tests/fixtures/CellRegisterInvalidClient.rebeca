@@ -1,0 +1,43 @@
+reactiveclass Starter(4) {
+	knownrebecs { Worker worker1; Worker worker2; }
+	statevars { }
+	Starter() {
+		self.startWorkers();
+	}
+	msgsrv startWorkers() {
+		worker1.writeValue();
+		worker2.writeValue();
+	}
+}
+
+reactiveclass Worker(3) {
+	knownrebecs { Cell cell; }
+	statevars { byte id; }
+	Worker(byte workerId) { id = workerId; }
+	msgsrv writeValue() {
+		cell.store(id);
+	}
+}
+
+reactiveclass Cell(5) {
+	knownrebecs { }
+	statevars { int value; }
+	Cell() {
+		value = 0;
+		self.keepAlive();
+	}
+	msgsrv store(byte newValue) {
+		value = newValue;
+		assertion(value >= 0 && value <= 2);
+	}
+	msgsrv keepAlive() {
+		self.keepAlive();
+	}
+}
+
+main {
+	Cell    cell():();
+	Worker  worker1(cell):(1);
+	Worker  worker2(cell):(3);
+	Starter starter(worker1, worker2):();
+}

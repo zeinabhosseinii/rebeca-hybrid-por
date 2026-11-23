@@ -1,0 +1,54 @@
+{
+  "diagnostic_only": true,
+  "timings_not_benchmarked": true,
+  "controls": {
+    "current": {
+      "result": "satisfied",
+      "states": 12,
+      "transitions": 34,
+      "closed_successor_witnesses": {
+        "exhaustive": 7
+      },
+      "candidate_alternative_counts": {
+        "1": 6,
+        "2": 4,
+        "3": 2
+      },
+      "trial_actions": {
+        "starter.STARTWORKERS": 1,
+        "cell.KEEPALIVE": 11,
+        "cell.STORE": 8
+      },
+      "por_logged_states": 12,
+      "outcomes": {
+        "reduced": 1,
+        "full_fallback": 5,
+        "full_candidate": 6
+      },
+      "accepted_proofs": {
+        "global_dependency_check": 3,
+        "unsplit_actor_union": 4
+      },
+      "accepted_actors": {
+        "starter": 1,
+        "cell": 6
+      },
+      "event_counts": {
+        "POR_STATE": 12,
+        "POR_ACTOR": 48,
+        "POR_CANDIDATE": 18,
+        "POR_REPRESENTATIVE": 12,
+        "POR_ALTERNATIVE": 33,
+        "POR_TRIAL": 12,
+        "POR_BLOCK": 6,
+        "POR_PROVISO_REJECT": 5,
+        "POR_FULL": 5,
+        "POR_PROVISO_WITNESS": 7
+      },
+      "blocker_counts": {
+        "worker1 <- worker2": 3,
+        "worker2 <- worker1": 3
+      }
+    }
+  }
+}

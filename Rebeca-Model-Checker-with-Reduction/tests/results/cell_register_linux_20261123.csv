@@ -1,0 +1,9 @@
+case,mode,status,result,states,transitions,trace_states,complete_space,measured_samples,median_seconds,min_seconds,max_seconds,peak_rss_median_kib
+CellRegisterBounds,full,completed,satisfied,11,25,0,True,10,0.1627027830000145,0.15593259299998863,0.9526327560000141,919184.0
+CellRegisterBounds,static,completed,satisfied,9,12,0,True,10,0.15851675249999175,0.14739862600004017,0.5346741660000021,919184.0
+CellRegisterBounds,dynamic,completed,satisfied,12,34,0,True,10,0.16553965899998957,0.14875409000001127,0.5241988249999849,919184.0
+CellRegisterBounds,dynamic_no_por,completed,satisfied,12,28,0,True,10,0.1577964189999932,0.15122498499999892,0.36062186699996346,919184.0
+CellRegisterInvalidClient,full,completed,assertion failed,6,9,4,False,10,0.16756673699998714,0.15252896999999166,0.5375679420000097,919312.0
+CellRegisterInvalidClient,static,completed,assertion failed,6,7,5,False,10,0.15944961249999778,0.15073262999999315,0.36915186400000266,919312.0
+CellRegisterInvalidClient,dynamic,completed,assertion failed,6,11,4,False,10,0.16555122350001739,0.15211980200001562,1.044906216999948,919312.0
+CellRegisterInvalidClient,dynamic_no_por,completed,assertion failed,6,9,4,False,10,0.16145436899998344,0.15130594099997552,0.8878880599999661,919312.0
