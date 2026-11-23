@@ -1,0 +1,452 @@
+<transitionsystem>
+<state id="1_0" atomicpropositions="" >
+	<rebec name="cell">
+		<statevariables>
+			<variable name="Cell.value" type="int">0</variable>
+		</statevariables>
+		<queue>
+			<message arrival="0" deadline="infinity" sender="cell">keepAlive()</message>
+		</queue>
+		<now>0</now>
+	</rebec>
+	<rebec name="worker1">
+		<statevariables>
+			<variable name="Worker.id" type="byte">1</variable>
+		</statevariables>
+		<queue>
+		</queue>
+		<now>0</now>
+	</rebec>
+	<rebec name="worker2">
+		<statevariables>
+			<variable name="Worker.id" type="byte">2</variable>
+		</statevariables>
+		<queue>
+		</queue>
+		<now>0</now>
+	</rebec>
+	<rebec name="starter">
+		<statevariables>
+		</statevariables>
+		<queue>
+			<message arrival="0" deadline="infinity" sender="starter">startWorkers()</message>
+		</queue>
+		<now>0</now>
+	</rebec>
+</state>
+<transition source="1_0" destination="1_0" executionTime="0" shift="0"> <messageserver sender="cell" owner="cell" title="KEEPALIVE"/></transition>
+<state id="2_0" atomicpropositions="" >
+	<rebec name="cell">
+		<statevariables>
+			<variable name="Cell.value" type="int">0</variable>
+		</statevariables>
+		<queue>
+			<message arrival="0" deadline="infinity" sender="cell">keepAlive()</message>
+		</queue>
+		<now>0</now>
+	</rebec>
+	<rebec name="worker1">
+		<statevariables>
+			<variable name="Worker.id" type="byte">1</variable>
+		</statevariables>
+		<queue>
+			<message arrival="0" deadline="infinity" sender="starter">writeValue()</message>
+		</queue>
+		<now>0</now>
+	</rebec>
+	<rebec name="worker2">
+		<statevariables>
+			<variable name="Worker.id" type="byte">2</variable>
+		</statevariables>
+		<queue>
+			<message arrival="0" deadline="infinity" sender="starter">writeValue()</message>
+		</queue>
+		<now>0</now>
+	</rebec>
+	<rebec name="starter">
+		<statevariables>
+		</statevariables>
+		<queue>
+		</queue>
+		<now>0</now>
+	</rebec>
+</state>
+<transition source="1_0" destination="2_0" executionTime="0" shift="0"> <messageserver sender="cell" owner="starter" title="STARTWORKERS"/></transition>
+<transition source="2_0" destination="2_0" executionTime="0" shift="0"> <messageserver sender="cell" owner="cell" title="KEEPALIVE"/></transition>
+<state id="3_0" atomicpropositions="" >
+	<rebec name="cell">
+		<statevariables>
+			<variable name="Cell.value" type="int">0</variable>
+		</statevariables>
+		<queue>
+			<message arrival="0" deadline="infinity" sender="worker1">store(1)</message>
+			<message arrival="0" deadline="infinity" sender="cell">keepAlive()</message>
+		</queue>
+		<now>0</now>
+	</rebec>
+	<rebec name="worker1">
+		<statevariables>
+			<variable name="Worker.id" type="byte">1</variable>
+		</statevariables>
+		<queue>
+		</queue>
+		<now>0</now>
+	</rebec>
+	<rebec name="worker2">
+		<statevariables>
+			<variable name="Worker.id" type="byte">2</variable>
+		</statevariables>
+		<queue>
+			<message arrival="0" deadline="infinity" sender="cell">writeValue()</message>
+		</queue>
+		<now>0</now>
+	</rebec>
+	<rebec name="starter">
+		<statevariables>
+		</statevariables>
+		<queue>
+		</queue>
+		<now>0</now>
+	</rebec>
+</state>
+<transition source="2_0" destination="3_0" executionTime="0" shift="0"> <messageserver sender="cell" owner="worker1" title="WRITEVALUE"/></transition>
+<state id="4_0" atomicpropositions="" >
+	<rebec name="cell">
+		<statevariables>
+			<variable name="Cell.value" type="int">0</variable>
+		</statevariables>
+		<queue>
+			<message arrival="0" deadline="infinity" sender="worker2">store(2)</message>
+			<message arrival="0" deadline="infinity" sender="cell">keepAlive()</message>
+		</queue>
+		<now>0</now>
+	</rebec>
+	<rebec name="worker1">
+		<statevariables>
+			<variable name="Worker.id" type="byte">1</variable>
+		</statevariables>
+		<queue>
+			<message arrival="0" deadline="infinity" sender="cell">writeValue()</message>
+		</queue>
+		<now>0</now>
+	</rebec>
+	<rebec name="worker2">
+		<statevariables>
+			<variable name="Worker.id" type="byte">2</variable>
+		</statevariables>
+		<queue>
+		</queue>
+		<now>0</now>
+	</rebec>
+	<rebec name="starter">
+		<statevariables>
+		</statevariables>
+		<queue>
+		</queue>
+		<now>0</now>
+	</rebec>
+</state>
+<transition source="2_0" destination="4_0" executionTime="0" shift="0"> <messageserver sender="cell" owner="worker2" title="WRITEVALUE"/></transition>
+<state id="5_0" atomicpropositions="" >
+	<rebec name="cell">
+		<statevariables>
+			<variable name="Cell.value" type="int">1</variable>
+		</statevariables>
+		<queue>
+			<message arrival="0" deadline="infinity" sender="cell">keepAlive()</message>
+		</queue>
+		<now>0</now>
+	</rebec>
+	<rebec name="worker1">
+		<statevariables>
+			<variable name="Worker.id" type="byte">1</variable>
+		</statevariables>
+		<queue>
+		</queue>
+		<now>0</now>
+	</rebec>
+	<rebec name="worker2">
+		<statevariables>
+			<variable name="Worker.id" type="byte">2</variable>
+		</statevariables>
+		<queue>
+			<message arrival="0" deadline="infinity" sender="cell">writeValue()</message>
+		</queue>
+		<now>0</now>
+	</rebec>
+	<rebec name="starter">
+		<statevariables>
+		</statevariables>
+		<queue>
+		</queue>
+		<now>0</now>
+	</rebec>
+</state>
+<transition source="3_0" destination="5_0" executionTime="0" shift="0"> <messageserver sender="cell" owner="cell" title="STORE"/></transition>
+<transition source="3_0" destination="3_0" executionTime="0" shift="0"> <messageserver sender="cell" owner="cell" title="KEEPALIVE"/></transition>
+<state id="6_0" atomicpropositions="" >
+	<rebec name="cell">
+		<statevariables>
+			<variable name="Cell.value" type="int">0</variable>
+		</statevariables>
+		<queue>
+			<message arrival="0" deadline="infinity" sender="cell">store(1)</message>
+			<message arrival="0" deadline="infinity" sender="worker2">store(2)</message>
+			<message arrival="0" deadline="infinity" sender="cell">keepAlive()</message>
+		</queue>
+		<now>0</now>
+	</rebec>
+	<rebec name="worker1">
+		<statevariables>
+			<variable name="Worker.id" type="byte">1</variable>
+		</statevariables>
+		<queue>
+		</queue>
+		<now>0</now>
+	</rebec>
+	<rebec name="worker2">
+		<statevariables>
+			<variable name="Worker.id" type="byte">2</variable>
+		</statevariables>
+		<queue>
+		</queue>
+		<now>0</now>
+	</rebec>
+	<rebec name="starter">
+		<statevariables>
+		</statevariables>
+		<queue>
+		</queue>
+		<now>0</now>
+	</rebec>
+</state>
+<transition source="3_0" destination="6_0" executionTime="0" shift="0"> <messageserver sender="cell" owner="worker2" title="WRITEVALUE"/></transition>
+<state id="7_0" atomicpropositions="" >
+	<rebec name="cell">
+		<statevariables>
+			<variable name="Cell.value" type="int">2</variable>
+		</statevariables>
+		<queue>
+			<message arrival="0" deadline="infinity" sender="cell">keepAlive()</message>
+		</queue>
+		<now>0</now>
+	</rebec>
+	<rebec name="worker1">
+		<statevariables>
+			<variable name="Worker.id" type="byte">1</variable>
+		</statevariables>
+		<queue>
+			<message arrival="0" deadline="infinity" sender="cell">writeValue()</message>
+		</queue>
+		<now>0</now>
+	</rebec>
+	<rebec name="worker2">
+		<statevariables>
+			<variable name="Worker.id" type="byte">2</variable>
+		</statevariables>
+		<queue>
+		</queue>
+		<now>0</now>
+	</rebec>
+	<rebec name="starter">
+		<statevariables>
+		</statevariables>
+		<queue>
+		</queue>
+		<now>0</now>
+	</rebec>
+</state>
+<transition source="4_0" destination="7_0" executionTime="0" shift="0"> <messageserver sender="cell" owner="cell" title="STORE"/></transition>
+<transition source="4_0" destination="4_0" executionTime="0" shift="0"> <messageserver sender="cell" owner="cell" title="KEEPALIVE"/></transition>
+<state id="8_0" atomicpropositions="" >
+	<rebec name="cell">
+		<statevariables>
+			<variable name="Cell.value" type="int">0</variable>
+		</statevariables>
+		<queue>
+			<message arrival="0" deadline="infinity" sender="cell">store(2)</message>
+			<message arrival="0" deadline="infinity" sender="worker1">store(1)</message>
+			<message arrival="0" deadline="infinity" sender="cell">keepAlive()</message>
+		</queue>
+		<now>0</now>
+	</rebec>
+	<rebec name="worker1">
+		<statevariables>
+			<variable name="Worker.id" type="byte">1</variable>
+		</statevariables>
+		<queue>
+		</queue>
+		<now>0</now>
+	</rebec>
+	<rebec name="worker2">
+		<statevariables>
+			<variable name="Worker.id" type="byte">2</variable>
+		</statevariables>
+		<queue>
+		</queue>
+		<now>0</now>
+	</rebec>
+	<rebec name="starter">
+		<statevariables>
+		</statevariables>
+		<queue>
+		</queue>
+		<now>0</now>
+	</rebec>
+</state>
+<transition source="4_0" destination="8_0" executionTime="0" shift="0"> <messageserver sender="cell" owner="worker1" title="WRITEVALUE"/></transition>
+<transition source="5_0" destination="5_0" executionTime="0" shift="0"> <messageserver sender="cell" owner="cell" title="KEEPALIVE"/></transition>
+<state id="9_0" atomicpropositions="" >
+	<rebec name="cell">
+		<statevariables>
+			<variable name="Cell.value" type="int">1</variable>
+		</statevariables>
+		<queue>
+			<message arrival="0" deadline="infinity" sender="worker2">store(2)</message>
+			<message arrival="0" deadline="infinity" sender="cell">keepAlive()</message>
+		</queue>
+		<now>0</now>
+	</rebec>
+	<rebec name="worker1">
+		<statevariables>
+			<variable name="Worker.id" type="byte">1</variable>
+		</statevariables>
+		<queue>
+		</queue>
+		<now>0</now>
+	</rebec>
+	<rebec name="worker2">
+		<statevariables>
+			<variable name="Worker.id" type="byte">2</variable>
+		</statevariables>
+		<queue>
+		</queue>
+		<now>0</now>
+	</rebec>
+	<rebec name="starter">
+		<statevariables>
+		</statevariables>
+		<queue>
+		</queue>
+		<now>0</now>
+	</rebec>
+</state>
+<transition source="5_0" destination="9_0" executionTime="0" shift="0"> <messageserver sender="cell" owner="worker2" title="WRITEVALUE"/></transition>
+<transition source="7_0" destination="7_0" executionTime="0" shift="0"> <messageserver sender="cell" owner="cell" title="KEEPALIVE"/></transition>
+<state id="10_0" atomicpropositions="" >
+	<rebec name="cell">
+		<statevariables>
+			<variable name="Cell.value" type="int">2</variable>
+		</statevariables>
+		<queue>
+			<message arrival="0" deadline="infinity" sender="worker1">store(1)</message>
+			<message arrival="0" deadline="infinity" sender="cell">keepAlive()</message>
+		</queue>
+		<now>0</now>
+	</rebec>
+	<rebec name="worker1">
+		<statevariables>
+			<variable name="Worker.id" type="byte">1</variable>
+		</statevariables>
+		<queue>
+		</queue>
+		<now>0</now>
+	</rebec>
+	<rebec name="worker2">
+		<statevariables>
+			<variable name="Worker.id" type="byte">2</variable>
+		</statevariables>
+		<queue>
+		</queue>
+		<now>0</now>
+	</rebec>
+	<rebec name="starter">
+		<statevariables>
+		</statevariables>
+		<queue>
+		</queue>
+		<now>0</now>
+	</rebec>
+</state>
+<transition source="7_0" destination="10_0" executionTime="0" shift="0"> <messageserver sender="cell" owner="worker1" title="WRITEVALUE"/></transition>
+<transition source="8_0" destination="10_0" executionTime="0" shift="0"> <messageserver sender="cell" owner="cell" title="STORE"/></transition>
+<transition source="8_0" destination="9_0" executionTime="0" shift="0"> <messageserver sender="cell" owner="cell" title="STORE"/></transition>
+<transition source="8_0" destination="8_0" executionTime="0" shift="0"> <messageserver sender="cell" owner="cell" title="KEEPALIVE"/></transition>
+<state id="11_0" atomicpropositions="" >
+	<rebec name="cell">
+		<statevariables>
+			<variable name="Cell.value" type="int">2</variable>
+		</statevariables>
+		<queue>
+			<message arrival="0" deadline="infinity" sender="cell">keepAlive()</message>
+		</queue>
+		<now>0</now>
+	</rebec>
+	<rebec name="worker1">
+		<statevariables>
+			<variable name="Worker.id" type="byte">1</variable>
+		</statevariables>
+		<queue>
+		</queue>
+		<now>0</now>
+	</rebec>
+	<rebec name="worker2">
+		<statevariables>
+			<variable name="Worker.id" type="byte">2</variable>
+		</statevariables>
+		<queue>
+		</queue>
+		<now>0</now>
+	</rebec>
+	<rebec name="starter">
+		<statevariables>
+		</statevariables>
+		<queue>
+		</queue>
+		<now>0</now>
+	</rebec>
+</state>
+<transition source="9_0" destination="11_0" executionTime="0" shift="0"> <messageserver sender="cell" owner="cell" title="STORE"/></transition>
+<transition source="9_0" destination="9_0" executionTime="0" shift="0"> <messageserver sender="cell" owner="cell" title="KEEPALIVE"/></transition>
+<transition source="6_0" destination="9_0" executionTime="0" shift="0"> <messageserver sender="cell" owner="cell" title="STORE"/></transition>
+<transition source="6_0" destination="10_0" executionTime="0" shift="0"> <messageserver sender="cell" owner="cell" title="STORE"/></transition>
+<transition source="6_0" destination="6_0" executionTime="0" shift="0"> <messageserver sender="cell" owner="cell" title="KEEPALIVE"/></transition>
+<state id="12_0" atomicpropositions="" >
+	<rebec name="cell">
+		<statevariables>
+			<variable name="Cell.value" type="int">1</variable>
+		</statevariables>
+		<queue>
+			<message arrival="0" deadline="infinity" sender="cell">keepAlive()</message>
+		</queue>
+		<now>0</now>
+	</rebec>
+	<rebec name="worker1">
+		<statevariables>
+			<variable name="Worker.id" type="byte">1</variable>
+		</statevariables>
+		<queue>
+		</queue>
+		<now>0</now>
+	</rebec>
+	<rebec name="worker2">
+		<statevariables>
+			<variable name="Worker.id" type="byte">2</variable>
+		</statevariables>
+		<queue>
+		</queue>
+		<now>0</now>
+	</rebec>
+	<rebec name="starter">
+		<statevariables>
+		</statevariables>
+		<queue>
+		</queue>
+		<now>0</now>
+	</rebec>
+</state>
+<transition source="10_0" destination="12_0" executionTime="0" shift="0"> <messageserver sender="cell" owner="cell" title="STORE"/></transition>
+<transition source="10_0" destination="10_0" executionTime="0" shift="0"> <messageserver sender="cell" owner="cell" title="KEEPALIVE"/></transition>
+<transition source="11_0" destination="11_0" executionTime="0" shift="0"> <messageserver sender="cell" owner="cell" title="KEEPALIVE"/></transition>
+<transition source="12_0" destination="12_0" executionTime="0" shift="0"> <messageserver sender="cell" owner="cell" title="KEEPALIVE"/></transition>
+</transitionsystem>

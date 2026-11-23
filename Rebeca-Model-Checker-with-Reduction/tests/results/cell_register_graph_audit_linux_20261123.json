@@ -1,0 +1,63 @@
+{
+  "finite_exact_model_only": true,
+  "source_sha256": "88b73b2cc8caf2bd6441024fd3afeef17b5d3d1e5e9fde1b25717b734bafcae0",
+  "full_control_projected_graph_equal": true,
+  "all_alias_successors_checked": true,
+  "initial_state_equal": true,
+  "parameters_types_values_and_multiplicities_retained": true,
+  "projection": {
+    "unused_sender_ignored": true,
+    "zero_time_queue_order_ignored": true
+  },
+  "modes": {
+    "full": {
+      "raw_states": 11,
+      "unique_edges": 24,
+      "strict_sender_order_states": 11,
+      "ordered_sender_projected_states": 11,
+      "multiset_projected_states": 11,
+      "graph_sha256": "97275d3f6de6da31927e02b97a63afdd7b8d7275b660f520397a8a031bca5ded",
+      "report_sha256": "33591f0893f67d2cf08d6ac40d411972ee7235f24778b0114f5b54799a19a6e0"
+    },
+    "static": {
+      "raw_states": 9,
+      "unique_edges": 11,
+      "strict_sender_order_states": 9,
+      "ordered_sender_projected_states": 9,
+      "multiset_projected_states": 9,
+      "graph_sha256": "1aa6b6f3e04c90424ec34be76bc3f56b2f1cc2830b5f430faa3dd97cb2b2ac5b",
+      "report_sha256": "92aa22b55d144401168179fa1f78da01fa40e97bdf1cc0217bef02a6f79905dc"
+    },
+    "dynamic": {
+      "raw_states": 12,
+      "unique_edges": 26,
+      "strict_sender_order_states": 12,
+      "ordered_sender_projected_states": 12,
+      "multiset_projected_states": 11,
+      "graph_sha256": "5ed1e7f67ad2cb6de6187ee7c43981240933c4d41c761d771e6eaf85944c4b8d",
+      "report_sha256": "341141451fbe4be465448c61fb5c3e0951819b362ec77b53d6f9eca72fe0f009"
+    },
+    "dynamic_no_por": {
+      "raw_states": 12,
+      "unique_edges": 27,
+      "strict_sender_order_states": 12,
+      "ordered_sender_projected_states": 12,
+      "multiset_projected_states": 11,
+      "graph_sha256": "b65d24e5b77a37b4573b35fd368f75a0b843dbb1c09472821438cde2ba56ebf6",
+      "report_sha256": "8bdd840969e391aea73f6675e3f4594188fc6e2af7ac513159624a6be35990fe"
+    }
+  },
+  "control_alias_groups": [
+    [
+      "6_0",
+      "8_0"
+    ]
+  ],
+  "control_ordered_states_absent_from_full": [
+    {
+      "id": "8_0",
+      "state": "<state id=\"8_0\" atomicpropositions=\"\">\n\t<rebec name=\"cell\">\n\t\t<statevariables>\n\t\t\t<variable name=\"Cell.value\" type=\"int\">0</variable>\n\t\t</statevariables>\n\t\t<queue>\n\t\t\t<message arrival=\"0\" deadline=\"infinity\" sender=\"cell\">store(2)</message>\n\t\t\t<message arrival=\"0\" deadline=\"infinity\" sender=\"worker1\">store(1)</message>\n\t\t\t<message arrival=\"0\" deadline=\"infinity\" sender=\"cell\">keepAlive()</message>\n\t\t</queue>\n\t\t<now>0</now>\n\t</rebec>\n\t<rebec name=\"worker1\">\n\t\t<statevariables>\n\t\t\t<variable name=\"Worker.id\" type=\"byte\">1</variable>\n\t\t</statevariables>\n\t\t<queue>\n\t\t</queue>\n\t\t<now>0</now>\n\t</rebec>\n\t<rebec name=\"worker2\">\n\t\t<statevariables>\n\t\t\t<variable name=\"Worker.id\" type=\"byte\">2</variable>\n\t\t</statevariables>\n\t\t<queue>\n\t\t</queue>\n\t\t<now>0</now>\n\t</rebec>\n\t<rebec name=\"starter\">\n\t\t<statevariables>\n\t\t</statevariables>\n\t\t<queue>\n\t\t</queue>\n\t\t<now>0</now>\n\t</rebec>\n</state>\n"
+    }
+  ],
+  "scope": "Complete finite healthy full/control graphs only; no general generator theorem or static/dynamic POR certificate."
+}

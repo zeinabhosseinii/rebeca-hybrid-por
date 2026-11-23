@@ -31,7 +31,7 @@ A separate healthy diagnostic run reproduces 12 states and 34 reported transitio
 
 Dynamic exploration saves no states against its same-generated control here (12 versus 12), and static priorities produce fewer states (9). This is a negative reduction result with conservative certificate refusal, not a performance win. Healthy medians are about 0.16 seconds with substantial ranges; these short runs support no speed ranking or memory advantage.
 
-The unannotated full path has 11 states while the same-generated control has 12. These are distinct generated-code baselines. This experiment checks outcomes and fault traces, not semantic graph equivalence for this parameterized benchmark; the numerical difference alone neither proves a defect nor establishes harmless representation equivalence. A full normalized graph audit is a separate next step before claiming that equivalence. Passing these finite tests is not a general property-preservation theorem.
+The unannotated full path has 11 states while the same-generated control has 12. The subsequent finite graph audit below resolves this difference for this exact healthy model. Passing these finite tests is not a general property-preservation theorem.
 
 Raw observations, source and executable hashes, toolchain identity, per-run order, certificate reports, and build durations are in `results/cell_register_linux_20261123.json`; the CSV and Markdown provide compact tables. Diagnostics are in `results/cell_register_diagnostics_linux_20261123.json`. These measurements are from Linux, not macOS.
 
@@ -44,3 +44,31 @@ bash tests/compare_cell_register.sh
 ```
 
 The wrapper builds both Java tools, selects Java 17 on macOS, then runs the experiment in a fresh timestamped directory. It requires the project's compiler dependency and a C++11 compiler. Defaults are ten measured repetitions and a 30-second timeout per native run; optional `--repeats` and `--timeout` arguments are forwarded. Each output includes `summary.json`, `summary.csv`, the exact sources, static annotation, generated C++, certificate reports, native reports, and logs.
+
+## Follow-up: resolving 11 versus 12
+
+`audit_cell_register_graphs.py` compiles fresh exports of all four native variants. It checks the exact healthy source hash and refuses nonzero times. It preserves variable names, types and values, actor identities, message text including arguments, message attributes other than unused sender, and queue multiplicities. The source never reads sender. Equal-time queues are compared as multisets, explicitly separate from the initial ordered comparison.
+
+The extra control state is `8_0`: Cell value is zero, both workers have finished forwarding, and the Cell queue contains `store(2), store(1), keepAlive()`. Control state `6_0` has the same pending messages with the two stores reversed. Removing sender alone does not merge them: the ordered comparison still has 12 states. The queue multiset comparison gives 11.
+
+Crucially, the audit checks **every raw alias individually**. Both have identical sets of projected successors for each actor/handler action, retaining every distinct target value caused by the different store arguments. It does not union differing alias behavior to make an equality pass. The full and same-generated PO-off initial states, complete projected state sets, and complete labeled successor relations are equal. This is a finite transition-system equivalence under the stated projection for this source, not just a count match. It does not license queue sorting in arbitrary models or certify all parameter handling.
+
+| Path | Raw states | Ordered states ignoring sender | Multiset states ignoring sender | Unique actor/handler/source/target edges |
+|---|---:|---:|---:|---:|
+| Full | 11 | 11 | 11 | 24 |
+| Static | 9 | 9 | 9 | 11 |
+| Dynamic | 12 | 12 | 11 | 26 |
+| Same-generated PO-off | 12 | 12 | 11 | 27 |
+
+Unique exported edge counts differ from the solver's reported transition counts in the timing table. Static and dynamic raw/projection counts are recorded, but this new audit establishes full/control equivalence only; it is not a new static/dynamic POR correctness certificate.
+
+No production generator, hashing rule, assertion, proviso or deadlock behavior is changed. The extra raw state is explained by queue representation in this finite comparison; there is still no dynamic state saving against its same-generated control. Static remains smaller at nine states.
+
+Run after the four-path experiment, replacing CASE with its healthy case directory:
+
+```bash
+python3 tests/audit_cell_register_graphs.py --case CASE/CellRegisterBounds --output CASE/graph_audit.json --export-native
+python3 -m unittest discover -s tests -p test_cell_register_graph_audit.py
+```
+
+The four focused tests require parameter values and multiplicities to remain distinct, require queue-order projection to be explicit, reject timed messages, and reject aliases with missing behavior. The Linux audit is archived in `results/cell_register_graph_audit_linux_20261123.json`. Full/control exported graphs and reports are archived alongside it in `results/cell_register_graphs_linux_20261123/`; they retain their exact hashes from the audit. No performance comparison is made from these export-enabled runs.
