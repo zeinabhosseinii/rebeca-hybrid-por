@@ -1,0 +1,558 @@
+{
+  "diagnostic_only": true,
+  "runtime_gate_changed": false,
+  "reports": {
+    "healthy": {
+      "diagnostic_only": true,
+      "runtime_gate_changed": false,
+      "runtime_independence_certified": false,
+      "current_full_barrier_gate": false,
+      "traversal_complete": true,
+      "assertions": [
+        {
+          "suffix_class": "TimedRebecaParentSuffixPrimary",
+          "argument_count": 1,
+          "predicate_class": "BinaryExpression",
+          "predicate_type": "boolean",
+          "actor_class": "Worker0",
+          "method": "Tick",
+          "syntax_supported": true,
+          "read_footprint_complete": true,
+          "classification": "local_side_effect_free_shape_only",
+          "local_read_fields": [
+            "cycle"
+          ],
+          "potential_runtime_writers": [
+            {
+              "method": "Tick",
+              "overlap": [
+                "cycle"
+              ],
+              "unknown_effects": false
+            }
+          ],
+          "obligation": "preserve error reachability over all deferred continuations; predicate purity alone is insufficient"
+        },
+        {
+          "suffix_class": "TimedRebecaParentSuffixPrimary",
+          "argument_count": 1,
+          "predicate_class": "BinaryExpression",
+          "predicate_type": "boolean",
+          "actor_class": "Worker1",
+          "method": "Tick",
+          "syntax_supported": true,
+          "read_footprint_complete": true,
+          "classification": "local_side_effect_free_shape_only",
+          "local_read_fields": [
+            "cycle"
+          ],
+          "potential_runtime_writers": [
+            {
+              "method": "Tick",
+              "overlap": [
+                "cycle"
+              ],
+              "unknown_effects": false
+            }
+          ],
+          "obligation": "preserve error reachability over all deferred continuations; predicate purity alone is insufficient"
+        },
+        {
+          "suffix_class": "TimedRebecaParentSuffixPrimary",
+          "argument_count": 1,
+          "predicate_class": "BinaryExpression",
+          "predicate_type": "boolean",
+          "actor_class": "Hub",
+          "method": "Step0",
+          "syntax_supported": true,
+          "read_footprint_complete": true,
+          "classification": "local_side_effect_free_shape_only",
+          "local_read_fields": [
+            "count"
+          ],
+          "potential_runtime_writers": [
+            {
+              "method": "Step0",
+              "overlap": [
+                "count"
+              ],
+              "unknown_effects": false
+            },
+            {
+              "method": "Step1",
+              "overlap": [
+                "count"
+              ],
+              "unknown_effects": false
+            }
+          ],
+          "obligation": "preserve error reachability over all deferred continuations; predicate purity alone is insufficient"
+        },
+        {
+          "suffix_class": "TimedRebecaParentSuffixPrimary",
+          "argument_count": 1,
+          "predicate_class": "BinaryExpression",
+          "predicate_type": "boolean",
+          "actor_class": "Hub",
+          "method": "Finish0",
+          "syntax_supported": true,
+          "read_footprint_complete": true,
+          "classification": "local_side_effect_free_shape_only",
+          "local_read_fields": [
+            "done"
+          ],
+          "potential_runtime_writers": [
+            {
+              "method": "Finish0",
+              "overlap": [
+                "done"
+              ],
+              "unknown_effects": false
+            },
+            {
+              "method": "Finish1",
+              "overlap": [
+                "done"
+              ],
+              "unknown_effects": false
+            }
+          ],
+          "obligation": "preserve error reachability over all deferred continuations; predicate purity alone is insufficient"
+        },
+        {
+          "suffix_class": "TimedRebecaParentSuffixPrimary",
+          "argument_count": 1,
+          "predicate_class": "BinaryExpression",
+          "predicate_type": "boolean",
+          "actor_class": "Hub",
+          "method": "Step1",
+          "syntax_supported": true,
+          "read_footprint_complete": true,
+          "classification": "local_side_effect_free_shape_only",
+          "local_read_fields": [
+            "count"
+          ],
+          "potential_runtime_writers": [
+            {
+              "method": "Step0",
+              "overlap": [
+                "count"
+              ],
+              "unknown_effects": false
+            },
+            {
+              "method": "Step1",
+              "overlap": [
+                "count"
+              ],
+              "unknown_effects": false
+            }
+          ],
+          "obligation": "preserve error reachability over all deferred continuations; predicate purity alone is insufficient"
+        },
+        {
+          "suffix_class": "TimedRebecaParentSuffixPrimary",
+          "argument_count": 1,
+          "predicate_class": "BinaryExpression",
+          "predicate_type": "boolean",
+          "actor_class": "Hub",
+          "method": "Finish1",
+          "syntax_supported": true,
+          "read_footprint_complete": true,
+          "classification": "local_side_effect_free_shape_only",
+          "local_read_fields": [
+            "done"
+          ],
+          "potential_runtime_writers": [
+            {
+              "method": "Finish0",
+              "overlap": [
+                "done"
+              ],
+              "unknown_effects": false
+            },
+            {
+              "method": "Finish1",
+              "overlap": [
+                "done"
+              ],
+              "unknown_effects": false
+            }
+          ],
+          "obligation": "preserve error reachability over all deferred continuations; predicate purity alone is insufficient"
+        }
+      ],
+      "source_sha256": "e16a4345640ecb055ea1079f970f283277339315fd1a0a2f319c1d9876af0120"
+    },
+    "fault": {
+      "diagnostic_only": true,
+      "runtime_gate_changed": false,
+      "runtime_independence_certified": false,
+      "current_full_barrier_gate": false,
+      "traversal_complete": true,
+      "assertions": [
+        {
+          "suffix_class": "TimedRebecaParentSuffixPrimary",
+          "argument_count": 1,
+          "predicate_class": "BinaryExpression",
+          "predicate_type": "boolean",
+          "actor_class": "Worker0",
+          "method": "Tick",
+          "syntax_supported": true,
+          "read_footprint_complete": true,
+          "classification": "local_side_effect_free_shape_only",
+          "local_read_fields": [
+            "cycle"
+          ],
+          "potential_runtime_writers": [
+            {
+              "method": "Tick",
+              "overlap": [
+                "cycle"
+              ],
+              "unknown_effects": false
+            }
+          ],
+          "obligation": "preserve error reachability over all deferred continuations; predicate purity alone is insufficient"
+        },
+        {
+          "suffix_class": "TimedRebecaParentSuffixPrimary",
+          "argument_count": 1,
+          "predicate_class": "BinaryExpression",
+          "predicate_type": "boolean",
+          "actor_class": "Worker1",
+          "method": "Tick",
+          "syntax_supported": true,
+          "read_footprint_complete": true,
+          "classification": "local_side_effect_free_shape_only",
+          "local_read_fields": [
+            "cycle"
+          ],
+          "potential_runtime_writers": [
+            {
+              "method": "Tick",
+              "overlap": [
+                "cycle"
+              ],
+              "unknown_effects": false
+            }
+          ],
+          "obligation": "preserve error reachability over all deferred continuations; predicate purity alone is insufficient"
+        },
+        {
+          "suffix_class": "TimedRebecaParentSuffixPrimary",
+          "argument_count": 1,
+          "predicate_class": "BinaryExpression",
+          "predicate_type": "boolean",
+          "actor_class": "Worker1",
+          "method": "Tick",
+          "syntax_supported": true,
+          "read_footprint_complete": true,
+          "classification": "local_side_effect_free_shape_only",
+          "local_read_fields": [
+            "cycle"
+          ],
+          "potential_runtime_writers": [
+            {
+              "method": "Tick",
+              "overlap": [
+                "cycle"
+              ],
+              "unknown_effects": false
+            }
+          ],
+          "obligation": "preserve error reachability over all deferred continuations; predicate purity alone is insufficient"
+        },
+        {
+          "suffix_class": "TimedRebecaParentSuffixPrimary",
+          "argument_count": 1,
+          "predicate_class": "BinaryExpression",
+          "predicate_type": "boolean",
+          "actor_class": "Hub",
+          "method": "Step0",
+          "syntax_supported": true,
+          "read_footprint_complete": true,
+          "classification": "local_side_effect_free_shape_only",
+          "local_read_fields": [
+            "count"
+          ],
+          "potential_runtime_writers": [
+            {
+              "method": "Step0",
+              "overlap": [
+                "count"
+              ],
+              "unknown_effects": false
+            },
+            {
+              "method": "Step1",
+              "overlap": [
+                "count"
+              ],
+              "unknown_effects": false
+            }
+          ],
+          "obligation": "preserve error reachability over all deferred continuations; predicate purity alone is insufficient"
+        },
+        {
+          "suffix_class": "TimedRebecaParentSuffixPrimary",
+          "argument_count": 1,
+          "predicate_class": "BinaryExpression",
+          "predicate_type": "boolean",
+          "actor_class": "Hub",
+          "method": "Finish0",
+          "syntax_supported": true,
+          "read_footprint_complete": true,
+          "classification": "local_side_effect_free_shape_only",
+          "local_read_fields": [
+            "done"
+          ],
+          "potential_runtime_writers": [
+            {
+              "method": "Finish0",
+              "overlap": [
+                "done"
+              ],
+              "unknown_effects": false
+            },
+            {
+              "method": "Finish1",
+              "overlap": [
+                "done"
+              ],
+              "unknown_effects": false
+            }
+          ],
+          "obligation": "preserve error reachability over all deferred continuations; predicate purity alone is insufficient"
+        },
+        {
+          "suffix_class": "TimedRebecaParentSuffixPrimary",
+          "argument_count": 1,
+          "predicate_class": "BinaryExpression",
+          "predicate_type": "boolean",
+          "actor_class": "Hub",
+          "method": "Step1",
+          "syntax_supported": true,
+          "read_footprint_complete": true,
+          "classification": "local_side_effect_free_shape_only",
+          "local_read_fields": [
+            "count"
+          ],
+          "potential_runtime_writers": [
+            {
+              "method": "Step0",
+              "overlap": [
+                "count"
+              ],
+              "unknown_effects": false
+            },
+            {
+              "method": "Step1",
+              "overlap": [
+                "count"
+              ],
+              "unknown_effects": false
+            }
+          ],
+          "obligation": "preserve error reachability over all deferred continuations; predicate purity alone is insufficient"
+        },
+        {
+          "suffix_class": "TimedRebecaParentSuffixPrimary",
+          "argument_count": 1,
+          "predicate_class": "BinaryExpression",
+          "predicate_type": "boolean",
+          "actor_class": "Hub",
+          "method": "Finish1",
+          "syntax_supported": true,
+          "read_footprint_complete": true,
+          "classification": "local_side_effect_free_shape_only",
+          "local_read_fields": [
+            "done"
+          ],
+          "potential_runtime_writers": [
+            {
+              "method": "Finish0",
+              "overlap": [
+                "done"
+              ],
+              "unknown_effects": false
+            },
+            {
+              "method": "Finish1",
+              "overlap": [
+                "done"
+              ],
+              "unknown_effects": false
+            }
+          ],
+          "obligation": "preserve error reachability over all deferred continuations; predicate purity alone is insufficient"
+        }
+      ],
+      "source_sha256": "50b64277a1f6edd849d4e5d884514a159b034e134b2e6594d828e81a35cd118d"
+    },
+    "unsupported": {
+      "diagnostic_only": true,
+      "runtime_gate_changed": false,
+      "runtime_independence_certified": false,
+      "current_full_barrier_gate": false,
+      "traversal_complete": false,
+      "assertions": [
+        {
+          "suffix_class": "TimedRebecaParentSuffixPrimary",
+          "argument_count": 1,
+          "predicate_class": "BinaryExpression",
+          "predicate_type": "boolean",
+          "actor_class": "Probe",
+          "method": "Run",
+          "syntax_supported": true,
+          "read_footprint_complete": true,
+          "classification": "local_side_effect_free_shape_only",
+          "local_read_fields": [
+            "x"
+          ],
+          "potential_runtime_writers": [
+            {
+              "method": "Run",
+              "overlap": [],
+              "unknown_effects": true
+            }
+          ],
+          "obligation": "preserve error reachability over all deferred continuations; predicate purity alone is insufficient"
+        },
+        {
+          "suffix_class": "TimedRebecaParentSuffixPrimary",
+          "argument_count": 1,
+          "predicate_class": "BinaryExpression",
+          "predicate_type": "boolean",
+          "actor_class": "Probe",
+          "method": "Run",
+          "syntax_supported": false,
+          "read_footprint_complete": false,
+          "classification": "outside_supported_predicate_syntax",
+          "local_read_fields": [],
+          "potential_runtime_writers": [
+            {
+              "method": "Run",
+              "overlap": [],
+              "unknown_effects": true
+            }
+          ],
+          "obligation": "preserve error reachability over all deferred continuations; predicate purity alone is insufficient"
+        },
+        {
+          "suffix_class": "TimedRebecaParentSuffixPrimary",
+          "argument_count": 1,
+          "predicate_class": "BinaryExpression",
+          "predicate_type": "boolean",
+          "actor_class": "Probe",
+          "method": "Run",
+          "syntax_supported": false,
+          "read_footprint_complete": false,
+          "classification": "outside_supported_predicate_syntax",
+          "local_read_fields": [],
+          "potential_runtime_writers": [
+            {
+              "method": "Run",
+              "overlap": [],
+              "unknown_effects": true
+            }
+          ],
+          "obligation": "preserve error reachability over all deferred continuations; predicate purity alone is insufficient"
+        },
+        {
+          "suffix_class": "TimedRebecaParentSuffixPrimary",
+          "argument_count": 1,
+          "predicate_class": "BinaryExpression",
+          "predicate_type": "boolean",
+          "actor_class": "Probe",
+          "method": "Run",
+          "syntax_supported": false,
+          "read_footprint_complete": false,
+          "classification": "outside_supported_predicate_syntax",
+          "local_read_fields": [],
+          "potential_runtime_writers": [
+            {
+              "method": "Run",
+              "overlap": [],
+              "unknown_effects": true
+            }
+          ],
+          "obligation": "preserve error reachability over all deferred continuations; predicate purity alone is insufficient"
+        },
+        {
+          "suffix_class": "TimedRebecaParentSuffixPrimary",
+          "argument_count": 1,
+          "predicate_class": "BinaryExpression",
+          "predicate_type": "boolean",
+          "actor_class": "Probe",
+          "method": "Run",
+          "syntax_supported": false,
+          "read_footprint_complete": false,
+          "classification": "outside_supported_predicate_syntax",
+          "local_read_fields": [],
+          "potential_runtime_writers": [
+            {
+              "method": "Run",
+              "overlap": [],
+              "unknown_effects": true
+            }
+          ],
+          "obligation": "preserve error reachability over all deferred continuations; predicate purity alone is insufficient"
+        },
+        {
+          "suffix_class": "TimedRebecaParentSuffixPrimary",
+          "argument_count": 1,
+          "predicate_class": "BinaryExpression",
+          "predicate_type": "boolean",
+          "actor_class": "Probe",
+          "method": "Run",
+          "syntax_supported": false,
+          "read_footprint_complete": false,
+          "classification": "outside_supported_predicate_syntax",
+          "local_read_fields": [],
+          "potential_runtime_writers": [
+            {
+              "method": "Run",
+              "overlap": [],
+              "unknown_effects": true
+            }
+          ],
+          "obligation": "preserve error reachability over all deferred continuations; predicate purity alone is insufficient"
+        },
+        {
+          "suffix_class": "TimedRebecaParentSuffixPrimary",
+          "argument_count": 1,
+          "predicate_class": "Literal",
+          "predicate_type": "boolean",
+          "actor_class": "Probe",
+          "method": "Run",
+          "syntax_supported": true,
+          "read_footprint_complete": true,
+          "classification": "local_side_effect_free_shape_only",
+          "local_read_fields": [],
+          "potential_runtime_writers": [
+            {
+              "method": "Run",
+              "overlap": [],
+              "unknown_effects": true
+            }
+          ],
+          "obligation": "preserve error reachability over all deferred continuations; predicate purity alone is insufficient"
+        }
+      ],
+      "source_sha256": "ccdef8052d962d092c3a990e750b45f07afae0cc34bedc64dd33d1764d95d4f8"
+    }
+  },
+  "counterexample": {
+    "pure_local_counterexample": "rejected",
+    "strong_cycle_alone_passes": true,
+    "failure": {
+      "reason": "diamond_failed",
+      "state": "s",
+      "other": [
+        "Actor",
+        "Set"
+      ]
+    }
+  }
+}

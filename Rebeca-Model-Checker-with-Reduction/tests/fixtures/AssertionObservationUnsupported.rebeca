@@ -1,0 +1,15 @@
+// Compile-only diagnostic input: pure shape is not a runtime correctness proof.
+reactiveclass Probe(2) {
+ statevars { int x; int[2] a; }
+ Probe() { x=0; a[0]=0; self.Run(0); }
+ msgsrv Run(int y) {
+  assertion(x >= 0);
+  assertion(x++ >= 0);
+  assertion(x / 2 >= 0);
+  assertion(now >= 0);
+  assertion(y >= 0);
+  assertion(a[0] >= 0);
+  assertion(false);
+ }
+}
+main { Probe P():(); }
