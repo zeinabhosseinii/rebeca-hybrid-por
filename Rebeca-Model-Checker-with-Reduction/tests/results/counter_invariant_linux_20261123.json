@@ -1,0 +1,843 @@
+{
+  "offline_only": true,
+  "runtime_gate_changed": false,
+  "native_checks_enabled": true,
+  "cases": {
+    "healthy": {
+      "expected_certificate": true,
+      "report": {
+        "proof_kind": "inductive_integer_intervals",
+        "atomic_handlers_required": true,
+        "no_runtime_integration": true,
+        "diagnostic_only": true,
+        "runtime_gate_changed": false,
+        "runtime_observation_compatibility_certified": false,
+        "actors": [
+          {
+            "actor_class": "Worker0",
+            "invariant": {
+              "cycle": {
+                "lo": 0,
+                "hi": 2
+              }
+            },
+            "checked_methods": [
+              "Worker0",
+              "Tick"
+            ]
+          },
+          {
+            "actor_class": "Worker1",
+            "invariant": {
+              "cycle": {
+                "lo": 0,
+                "hi": 2
+              }
+            },
+            "checked_methods": [
+              "Worker1",
+              "Tick"
+            ]
+          },
+          {
+            "actor_class": "Hub",
+            "invariant": {
+              "count": {
+                "lo": 0,
+                "hi": 2
+              },
+              "done": {
+                "lo": 0,
+                "hi": 1
+              }
+            },
+            "checked_methods": [
+              "Hub",
+              "Step0",
+              "Finish0",
+              "Step1",
+              "Finish1"
+            ]
+          }
+        ],
+        "all_assertions_invariant": true,
+        "assertion_sites": 6,
+        "source_sha256": "e16a4345640ecb055ea1079f970f283277339315fd1a0a2f319c1d9876af0120"
+      }
+    },
+    "three_workers": {
+      "expected_certificate": true,
+      "report": {
+        "proof_kind": "inductive_integer_intervals",
+        "atomic_handlers_required": true,
+        "no_runtime_integration": true,
+        "diagnostic_only": true,
+        "runtime_gate_changed": false,
+        "runtime_observation_compatibility_certified": false,
+        "actors": [
+          {
+            "actor_class": "Worker0",
+            "invariant": {
+              "cycle": {
+                "lo": 0,
+                "hi": 2
+              }
+            },
+            "checked_methods": [
+              "Worker0",
+              "Tick"
+            ]
+          },
+          {
+            "actor_class": "Worker1",
+            "invariant": {
+              "cycle": {
+                "lo": 0,
+                "hi": 2
+              }
+            },
+            "checked_methods": [
+              "Worker1",
+              "Tick"
+            ]
+          },
+          {
+            "actor_class": "Worker2",
+            "invariant": {
+              "cycle": {
+                "lo": 0,
+                "hi": 2
+              }
+            },
+            "checked_methods": [
+              "Worker2",
+              "Tick"
+            ]
+          },
+          {
+            "actor_class": "Hub",
+            "invariant": {
+              "count": {
+                "lo": 0,
+                "hi": 2
+              },
+              "done": {
+                "lo": 0,
+                "hi": 2
+              }
+            },
+            "checked_methods": [
+              "Hub",
+              "Step0",
+              "Finish0",
+              "Step1",
+              "Finish1",
+              "Step2",
+              "Finish2"
+            ]
+          }
+        ],
+        "all_assertions_invariant": true,
+        "assertion_sites": 9,
+        "source_sha256": "ed83d0f1e741fa281d2363d4572ab18bf696abbe24d50f917ececd136e2c17b1"
+      }
+    },
+    "six_workers": {
+      "expected_certificate": true,
+      "report": {
+        "proof_kind": "inductive_integer_intervals",
+        "atomic_handlers_required": true,
+        "no_runtime_integration": true,
+        "diagnostic_only": true,
+        "runtime_gate_changed": false,
+        "runtime_observation_compatibility_certified": false,
+        "actors": [
+          {
+            "actor_class": "Worker0",
+            "invariant": {
+              "cycle": {
+                "lo": 0,
+                "hi": 2
+              }
+            },
+            "checked_methods": [
+              "Worker0",
+              "Tick"
+            ]
+          },
+          {
+            "actor_class": "Worker1",
+            "invariant": {
+              "cycle": {
+                "lo": 0,
+                "hi": 2
+              }
+            },
+            "checked_methods": [
+              "Worker1",
+              "Tick"
+            ]
+          },
+          {
+            "actor_class": "Worker2",
+            "invariant": {
+              "cycle": {
+                "lo": 0,
+                "hi": 2
+              }
+            },
+            "checked_methods": [
+              "Worker2",
+              "Tick"
+            ]
+          },
+          {
+            "actor_class": "Worker3",
+            "invariant": {
+              "cycle": {
+                "lo": 0,
+                "hi": 2
+              }
+            },
+            "checked_methods": [
+              "Worker3",
+              "Tick"
+            ]
+          },
+          {
+            "actor_class": "Worker4",
+            "invariant": {
+              "cycle": {
+                "lo": 0,
+                "hi": 2
+              }
+            },
+            "checked_methods": [
+              "Worker4",
+              "Tick"
+            ]
+          },
+          {
+            "actor_class": "Worker5",
+            "invariant": {
+              "cycle": {
+                "lo": 0,
+                "hi": 2
+              }
+            },
+            "checked_methods": [
+              "Worker5",
+              "Tick"
+            ]
+          },
+          {
+            "actor_class": "Hub",
+            "invariant": {
+              "count": {
+                "lo": 0,
+                "hi": 2
+              },
+              "done": {
+                "lo": 0,
+                "hi": 5
+              }
+            },
+            "checked_methods": [
+              "Hub",
+              "Step0",
+              "Finish0",
+              "Step1",
+              "Finish1",
+              "Step2",
+              "Finish2",
+              "Step3",
+              "Finish3",
+              "Step4",
+              "Finish4",
+              "Step5",
+              "Finish5"
+            ]
+          }
+        ],
+        "all_assertions_invariant": true,
+        "assertion_sites": 18,
+        "source_sha256": "dfa27a02d322be7b401b0cf74ad1ba759bf3ec345941021b8b5c45e3296ad8cd"
+      }
+    },
+    "renamed_fields": {
+      "expected_certificate": true,
+      "report": {
+        "proof_kind": "inductive_integer_intervals",
+        "atomic_handlers_required": true,
+        "no_runtime_integration": true,
+        "diagnostic_only": true,
+        "runtime_gate_changed": false,
+        "runtime_observation_compatibility_certified": false,
+        "actors": [
+          {
+            "actor_class": "Worker0",
+            "invariant": {
+              "phase": {
+                "lo": 0,
+                "hi": 2
+              }
+            },
+            "checked_methods": [
+              "Worker0",
+              "Tick"
+            ]
+          },
+          {
+            "actor_class": "Worker1",
+            "invariant": {
+              "phase": {
+                "lo": 0,
+                "hi": 2
+              }
+            },
+            "checked_methods": [
+              "Worker1",
+              "Tick"
+            ]
+          },
+          {
+            "actor_class": "Hub",
+            "invariant": {
+              "finished": {
+                "lo": 0,
+                "hi": 1
+              },
+              "total": {
+                "lo": 0,
+                "hi": 2
+              }
+            },
+            "checked_methods": [
+              "Hub",
+              "Step0",
+              "Finish0",
+              "Step1",
+              "Finish1"
+            ]
+          }
+        ],
+        "all_assertions_invariant": true,
+        "assertion_sites": 6,
+        "source_sha256": "b3fd2ede0b587940f486bd6fc9693c449eea0738e316d2874bf1a2f1689e769a"
+      }
+    },
+    "other_valid_initial": {
+      "expected_certificate": true,
+      "report": {
+        "proof_kind": "inductive_integer_intervals",
+        "atomic_handlers_required": true,
+        "no_runtime_integration": true,
+        "diagnostic_only": true,
+        "runtime_gate_changed": false,
+        "runtime_observation_compatibility_certified": false,
+        "actors": [
+          {
+            "actor_class": "Worker0",
+            "invariant": {
+              "cycle": {
+                "lo": 0,
+                "hi": 2
+              }
+            },
+            "checked_methods": [
+              "Worker0",
+              "Tick"
+            ]
+          },
+          {
+            "actor_class": "Worker1",
+            "invariant": {
+              "cycle": {
+                "lo": 0,
+                "hi": 2
+              }
+            },
+            "checked_methods": [
+              "Worker1",
+              "Tick"
+            ]
+          },
+          {
+            "actor_class": "Hub",
+            "invariant": {
+              "count": {
+                "lo": 0,
+                "hi": 2
+              },
+              "done": {
+                "lo": 0,
+                "hi": 1
+              }
+            },
+            "checked_methods": [
+              "Hub",
+              "Step0",
+              "Finish0",
+              "Step1",
+              "Finish1"
+            ]
+          }
+        ],
+        "all_assertions_invariant": true,
+        "assertion_sites": 6,
+        "source_sha256": "c615c76c20b3a0a07495742e519c85b4cd319aeaec2dd64cdcb91a8c5dbf5481"
+      }
+    },
+    "valid_extra_writer": {
+      "expected_certificate": true,
+      "report": {
+        "proof_kind": "inductive_integer_intervals",
+        "atomic_handlers_required": true,
+        "no_runtime_integration": true,
+        "diagnostic_only": true,
+        "runtime_gate_changed": false,
+        "runtime_observation_compatibility_certified": false,
+        "actors": [
+          {
+            "actor_class": "Worker0",
+            "invariant": {
+              "cycle": {
+                "lo": 0,
+                "hi": 2
+              }
+            },
+            "checked_methods": [
+              "Worker0",
+              "Tick"
+            ]
+          },
+          {
+            "actor_class": "Worker1",
+            "invariant": {
+              "cycle": {
+                "lo": 0,
+                "hi": 2
+              }
+            },
+            "checked_methods": [
+              "Worker1",
+              "Tick"
+            ]
+          },
+          {
+            "actor_class": "Hub",
+            "invariant": {
+              "count": {
+                "lo": 0,
+                "hi": 2
+              },
+              "done": {
+                "lo": 0,
+                "hi": 1
+              }
+            },
+            "checked_methods": [
+              "Hub",
+              "Reset",
+              "Step0",
+              "Finish0",
+              "Step1",
+              "Finish1"
+            ]
+          }
+        ],
+        "all_assertions_invariant": true,
+        "assertion_sites": 6,
+        "source_sha256": "16075f6912044ba11b13ac6f4acaff621ca3dd195ce8299f7aa81117da6a3652"
+      }
+    },
+    "equivalent_guard": {
+      "expected_certificate": true,
+      "report": {
+        "proof_kind": "inductive_integer_intervals",
+        "atomic_handlers_required": true,
+        "no_runtime_integration": true,
+        "diagnostic_only": true,
+        "runtime_gate_changed": false,
+        "runtime_observation_compatibility_certified": false,
+        "actors": [
+          {
+            "actor_class": "Worker0",
+            "invariant": {
+              "cycle": {
+                "lo": 0,
+                "hi": 2
+              }
+            },
+            "checked_methods": [
+              "Worker0",
+              "Tick"
+            ]
+          },
+          {
+            "actor_class": "Worker1",
+            "invariant": {
+              "cycle": {
+                "lo": 0,
+                "hi": 2
+              }
+            },
+            "checked_methods": [
+              "Worker1",
+              "Tick"
+            ]
+          },
+          {
+            "actor_class": "Hub",
+            "invariant": {
+              "count": {
+                "lo": 0,
+                "hi": 2
+              },
+              "done": {
+                "lo": 0,
+                "hi": 1
+              }
+            },
+            "checked_methods": [
+              "Hub",
+              "Step0",
+              "Finish0",
+              "Step1",
+              "Finish1"
+            ]
+          }
+        ],
+        "all_assertions_invariant": true,
+        "assertion_sites": 6,
+        "source_sha256": "78807e3abf791438b4542ce3505bf172141fa5cec485c4c56a91e4cfa11a7a97"
+      }
+    },
+    "removed_reset": {
+      "expected_certificate": false,
+      "report": {
+        "proof_kind": "inductive_integer_intervals",
+        "atomic_handlers_required": true,
+        "no_runtime_integration": true,
+        "diagnostic_only": true,
+        "runtime_gate_changed": false,
+        "runtime_observation_compatibility_certified": false,
+        "actors": [
+          {
+            "actor_class": "Worker0",
+            "invariant": {
+              "cycle": {
+                "lo": 0,
+                "hi": 2
+              }
+            },
+            "checked_methods": [
+              "Worker0"
+            ]
+          }
+        ],
+        "all_assertions_invariant": false,
+        "refusal": "assertion not established at its program point",
+        "source_sha256": "3f2f7e5b702394d1d21355af75c83347e2f9ddf06d0f23797e793d34f68f6983"
+      },
+      "native": {
+        "result": "assertion failed",
+        "states": 21,
+        "transitions": 29,
+        "trace_states": 8,
+        "complete_space": false
+      }
+    },
+    "bad_initial": {
+      "expected_certificate": false,
+      "report": {
+        "proof_kind": "inductive_integer_intervals",
+        "atomic_handlers_required": true,
+        "no_runtime_integration": true,
+        "diagnostic_only": true,
+        "runtime_gate_changed": false,
+        "runtime_observation_compatibility_certified": false,
+        "actors": [
+          {
+            "actor_class": "Worker0",
+            "invariant": {
+              "cycle": {
+                "lo": 0,
+                "hi": 2
+              }
+            },
+            "checked_methods": []
+          }
+        ],
+        "all_assertions_invariant": false,
+        "refusal": "invariant not preserved for cycle",
+        "source_sha256": "ec019b70001b735b620b93c0b273fd13273c6ff1e188541c1280af8ca03a833a"
+      }
+    },
+    "missing_initial": {
+      "expected_certificate": false,
+      "report": {
+        "proof_kind": "inductive_integer_intervals",
+        "atomic_handlers_required": true,
+        "no_runtime_integration": true,
+        "diagnostic_only": true,
+        "runtime_gate_changed": false,
+        "runtime_observation_compatibility_certified": false,
+        "actors": [
+          {
+            "actor_class": "Worker0",
+            "invariant": {
+              "cycle": {
+                "lo": 0,
+                "hi": 2
+              }
+            },
+            "checked_methods": []
+          }
+        ],
+        "all_assertions_invariant": false,
+        "refusal": "invariant not preserved for cycle",
+        "source_sha256": "8246c8f1c15d45baf29e82a5a77861d06a1f5e1e2197c81c0ef24289938b904f"
+      }
+    },
+    "extra_writer": {
+      "expected_certificate": false,
+      "report": {
+        "proof_kind": "inductive_integer_intervals",
+        "atomic_handlers_required": true,
+        "no_runtime_integration": true,
+        "diagnostic_only": true,
+        "runtime_gate_changed": false,
+        "runtime_observation_compatibility_certified": false,
+        "actors": [
+          {
+            "actor_class": "Worker0",
+            "invariant": {
+              "cycle": {
+                "lo": 0,
+                "hi": 2
+              }
+            },
+            "checked_methods": [
+              "Worker0",
+              "Tick"
+            ]
+          },
+          {
+            "actor_class": "Worker1",
+            "invariant": {
+              "cycle": {
+                "lo": 0,
+                "hi": 2
+              }
+            },
+            "checked_methods": [
+              "Worker1",
+              "Tick"
+            ]
+          },
+          {
+            "actor_class": "Hub",
+            "invariant": {
+              "count": {
+                "lo": 0,
+                "hi": 2
+              },
+              "done": {
+                "lo": 0,
+                "hi": 1
+              }
+            },
+            "checked_methods": [
+              "Hub"
+            ]
+          }
+        ],
+        "all_assertions_invariant": false,
+        "refusal": "invariant not preserved for count",
+        "source_sha256": "027e26ab43373e760bc679687b4f55fc6c18c3d55c08caf36faf73b28d7f584e"
+      }
+    },
+    "int32_overflow": {
+      "expected_certificate": false,
+      "report": {
+        "proof_kind": "inductive_integer_intervals",
+        "atomic_handlers_required": true,
+        "no_runtime_integration": true,
+        "diagnostic_only": true,
+        "runtime_gate_changed": false,
+        "runtime_observation_compatibility_certified": false,
+        "actors": [
+          {
+            "actor_class": "Worker0",
+            "invariant": {
+              "cycle": {
+                "lo": 0,
+                "hi": 2
+              }
+            },
+            "checked_methods": [
+              "Worker0"
+            ]
+          }
+        ],
+        "all_assertions_invariant": false,
+        "refusal": "empty interval or int32 overflow",
+        "source_sha256": "2bd4d4a462ff661148dbb9ef8621685cc9279aee1cab864ae3a27bfab6f1bf7d"
+      }
+    },
+    "assert_before_wrap": {
+      "expected_certificate": false,
+      "report": {
+        "proof_kind": "inductive_integer_intervals",
+        "atomic_handlers_required": true,
+        "no_runtime_integration": true,
+        "diagnostic_only": true,
+        "runtime_gate_changed": false,
+        "runtime_observation_compatibility_certified": false,
+        "actors": [
+          {
+            "actor_class": "Worker0",
+            "invariant": {
+              "cycle": {
+                "lo": 0,
+                "hi": 2
+              }
+            },
+            "checked_methods": [
+              "Worker0"
+            ]
+          }
+        ],
+        "all_assertions_invariant": false,
+        "refusal": "assertion not established at its program point",
+        "source_sha256": "f70e8f51d5495600738d2ed6f74e3178de11e7a588f0eacdba0bab67469b12d8"
+      }
+    },
+    "unsupported_loop": {
+      "expected_certificate": false,
+      "report": {
+        "proof_kind": "inductive_integer_intervals",
+        "atomic_handlers_required": true,
+        "no_runtime_integration": true,
+        "diagnostic_only": true,
+        "runtime_gate_changed": false,
+        "runtime_observation_compatibility_certified": false,
+        "actors": [
+          {
+            "actor_class": "Worker0",
+            "invariant": {
+              "cycle": {
+                "lo": 0,
+                "hi": 2
+              }
+            },
+            "checked_methods": [
+              "Worker0",
+              "Tick"
+            ]
+          },
+          {
+            "actor_class": "Worker1",
+            "invariant": {
+              "cycle": {
+                "lo": 0,
+                "hi": 2
+              }
+            },
+            "checked_methods": [
+              "Worker1",
+              "Tick"
+            ]
+          }
+        ],
+        "all_assertions_invariant": false,
+        "refusal": "unsupported statement: WhileStatement",
+        "source_sha256": "db7a09b0627bbd986bac255681e1c691cd4313ab7152abdaf4f123984980b305"
+      }
+    },
+    "tighter_assertion": {
+      "expected_certificate": false,
+      "report": {
+        "proof_kind": "inductive_integer_intervals",
+        "atomic_handlers_required": true,
+        "no_runtime_integration": true,
+        "diagnostic_only": true,
+        "runtime_gate_changed": false,
+        "runtime_observation_compatibility_certified": false,
+        "actors": [
+          {
+            "actor_class": "Worker0",
+            "invariant": {
+              "cycle": {
+                "lo": 0,
+                "hi": 1
+              }
+            },
+            "checked_methods": [
+              "Worker0"
+            ]
+          }
+        ],
+        "all_assertions_invariant": false,
+        "refusal": "assertion not established at its program point",
+        "source_sha256": "f4dc521d62351ecb741cc9a0e67edb560209391ce01fe4b18719a024f0dc0ade"
+      },
+      "native": {
+        "result": "assertion failed",
+        "states": 6,
+        "transitions": 7,
+        "trace_states": 4,
+        "complete_space": false
+      }
+    },
+    "existing_fault": {
+      "expected_certificate": false,
+      "report": {
+        "proof_kind": "inductive_integer_intervals",
+        "atomic_handlers_required": true,
+        "no_runtime_integration": true,
+        "diagnostic_only": true,
+        "runtime_gate_changed": false,
+        "runtime_observation_compatibility_certified": false,
+        "actors": [
+          {
+            "actor_class": "Worker0",
+            "invariant": {
+              "cycle": {
+                "lo": 0,
+                "hi": 2
+              }
+            },
+            "checked_methods": [
+              "Worker0",
+              "Tick"
+            ]
+          }
+        ],
+        "all_assertions_invariant": false,
+        "refusal": "unsupported assertion comparison: !=",
+        "source_sha256": "50b64277a1f6edd849d4e5d884514a159b034e134b2e6594d828e81a35cd118d"
+      }
+    },
+    "missing_lower_bound": {
+      "expected_certificate": false,
+      "report": {
+        "proof_kind": "inductive_integer_intervals",
+        "atomic_handlers_required": true,
+        "no_runtime_integration": true,
+        "diagnostic_only": true,
+        "runtime_gate_changed": false,
+        "runtime_observation_compatibility_certified": false,
+        "actors": [],
+        "all_assertions_invariant": false,
+        "refusal": "both finite explicit bounds required",
+        "source_sha256": "62f22afbd98f7b19569ecc5866c274d6081c55c7f9699ef8cd6c5f34ac0be748"
+      }
+    }
+  },
+  "all_checks_passed": true,
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "rmc_jar_sha256": "7738d4c5be8a3391208b3ac2ddd799128ab640bc4a0ebb6507a0d884ad41ca20",
+  "verifier_java_sha256": "2c72252fc2a6336cf6a338523c4bb6edd86bf171c566a267c25e6a363e161484"
+}
