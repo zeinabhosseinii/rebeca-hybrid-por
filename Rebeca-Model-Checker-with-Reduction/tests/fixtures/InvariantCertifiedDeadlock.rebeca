@@ -1,0 +1,6 @@
+reactiveclass Worker(2) {
+ statevars { int x; }
+ Worker() { x=0; self.Check(); }
+ msgsrv Check() { x=1; assertion(x >= 0 && x < 2); }
+}
+main { Worker W():(); }

@@ -1,5 +1,9 @@
 # Restricted inductive counter invariant checker
 
+Historical diagnostic checkpoint: a restricted production integration now exists;
+see [INVARIANT_GATE_INTEGRATION.md](INVARIANT_GATE_INTEGRATION.md). Statements
+below about no runtime integration describe that earlier checkpoint.
+
 This is a new OFFLINE proof prototype over the compiler's typed AST. It is not
 wired to runtime selection or the full-barrier gate. Reports explicitly retain
 `runtime_gate_changed=false` and

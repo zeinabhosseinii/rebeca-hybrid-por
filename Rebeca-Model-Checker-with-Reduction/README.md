@@ -4,11 +4,14 @@ Rebeca Model Checker (RMC) with Partial Order Reduction (POR), Aria's ERDG-based
 
 ## Fixed ARIA implementation baseline
 
-The current scope, proviso contract, first-error behavior, verified measurements
+The historical scope, proviso contract, first-error behavior, verified measurements
 and remaining limitations are recorded in [tests/ARIA_BASELINE.md](tests/ARIA_BASELINE.md),
 anchored to implementation commit `0a4687b`. This is finite-model validation,
 not a general correctness proof. The dynamic/static LoadBalancer gap remains
 27 versus 22 states. Older test documents include historical measurements.
+
+The later restricted source-assertion extension and its validation are described
+in [tests/INVARIANT_GATE_INTEGRATION.md](tests/INVARIANT_GATE_INTEGRATION.md).
 
 ## Build
 

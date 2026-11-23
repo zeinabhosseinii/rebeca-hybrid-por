@@ -64,8 +64,8 @@ def finite_audit(case,model):
     # This audit is deliberately sufficient, not complete for every safe POR.
     import re
     match=re.fullmatch(r'Scale_(independent|shared)_(\d+)\.rebeca',model.name)
-    if not match or model.read_text()!=make_model(match[1],int(match[2])):
-        raise ValueError('Audit restricted to exact generated family source')
+    if not ((match and model.read_text()==make_model(match[1],int(match[2]))) or digest(model)=='e16a4345640ecb055ea1079f970f283277339315fd1a0a2f319c1d9876af0120'):
+        raise ValueError('Audit restricted to exact generated family or reviewed invariant-certified assertion fixture')
     from audit_hub_alternatives import signature
     from action_por_reference import Graph,read_full_graph
     from audit_both_reductions import every_cycle_has_full_state

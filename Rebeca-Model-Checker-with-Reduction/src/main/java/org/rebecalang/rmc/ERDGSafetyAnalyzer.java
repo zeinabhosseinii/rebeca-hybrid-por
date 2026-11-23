@@ -1189,6 +1189,14 @@ public class ERDGSafetyAnalyzer {
     }
 
     public static boolean supportsFullExpansionBarriers(RebecaModel model) {
+        if (supportsFullExpansionBarriers(model, false)) return true;
+        // An independently checked, always-true source assertion is error-inert.
+        // The original zero-time shape, property/symmetry gates and C1 stay required.
+        return CounterInvariantCertificate.provesAllAssertions(model) &&
+                supportsFullExpansionBarriers(model, true);
+    }
+
+    private static boolean supportsFullExpansionBarriers(RebecaModel model, boolean provenAssertions) {
         RebecaCode code = model.getRebecaCode();
         if (!code.getGlobalVariables().isEmpty() || !code.getEnvironmentVariables().isEmpty() ||
                 !code.getFeatureVariables().isEmpty() || !code.getRecordDeclaration().isEmpty() ||
@@ -1200,10 +1208,10 @@ public class ERDGSafetyAnalyzer {
             if (rcd.getClass() != ReactiveClassDeclaration.class || !rcd.getAnnotations().isEmpty() || rcd.getExtends() != null ||
                     !rcd.getImplements().isEmpty() || !rcd.getSynchMethods().isEmpty()) return false;
             for (ConstructorDeclaration ctor : rcd.getConstructors())
-                if (ctor.getClass() != ConstructorDeclaration.class || !ctor.getAnnotations().isEmpty() || ctor.getBlock() == null || !scanRuntimeSends(ctor.getBlock(), ignored, true)) return false;
+                if (ctor.getClass() != ConstructorDeclaration.class || !ctor.getAnnotations().isEmpty() || ctor.getBlock() == null || !scanRuntimeSends(ctor.getBlock(), ignored, true, provenAssertions)) return false;
             for (MsgsrvDeclaration method : rcd.getMsgsrvs())
                 if (method.getClass() != MsgsrvDeclaration.class || !method.getAnnotations().isEmpty() || method.getBlock() == null ||
-                        !scanRuntimeSends(method.getBlock(), ignored, true)) return false;
+                        !scanRuntimeSends(method.getBlock(), ignored, true, provenAssertions)) return false;
         }
         return true;
     }
@@ -1213,51 +1221,65 @@ public class ERDGSafetyAnalyzer {
     }
 
     private static boolean scanRuntimeSends(Statement node, Set<String> sent, boolean zeroTime) {
+        return scanRuntimeSends(node, sent, zeroTime, false);
+    }
+
+    private static boolean scanRuntimeSends(Statement node, Set<String> sent, boolean zeroTime, boolean provenAssertions) {
         if (node == null) return true;
         if (node.getClass() == BlockStatement.class) {
             for (Statement child : ((BlockStatement) node).getStatements())
-                if (!scanRuntimeSends(child, sent, zeroTime)) return false;
+                if (!scanRuntimeSends(child, sent, zeroTime, provenAssertions)) return false;
             return true;
         }
         if (node.getClass() == ConditionalStatement.class) {
             ConditionalStatement c = (ConditionalStatement) node;
-            return scanRuntimeSends(c.getCondition(), sent, zeroTime) &&
-                    scanRuntimeSends(c.getStatement(), sent, zeroTime) && scanRuntimeSends(c.getElseStatement(), sent, zeroTime);
+            return scanRuntimeSends(c.getCondition(), sent, zeroTime, provenAssertions) &&
+                    scanRuntimeSends(c.getStatement(), sent, zeroTime, provenAssertions) && scanRuntimeSends(c.getElseStatement(), sent, zeroTime, provenAssertions);
         }
         if (node.getClass() == WhileStatement.class) {
             WhileStatement w = (WhileStatement) node;
-            return scanRuntimeSends(w.getCondition(), sent, zeroTime) && scanRuntimeSends(w.getStatement(), sent, zeroTime);
+            return scanRuntimeSends(w.getCondition(), sent, zeroTime, provenAssertions) && scanRuntimeSends(w.getStatement(), sent, zeroTime, provenAssertions);
         }
         if (node.getClass() == BinaryExpression.class)
-            return scanRuntimeSends(((BinaryExpression) node).getLeft(), sent, zeroTime) &&
-                    scanRuntimeSends(((BinaryExpression) node).getRight(), sent, zeroTime);
+            return scanRuntimeSends(((BinaryExpression) node).getLeft(), sent, zeroTime, provenAssertions) &&
+                    scanRuntimeSends(((BinaryExpression) node).getRight(), sent, zeroTime, provenAssertions);
         if (node.getClass() == UnaryExpression.class)
-            return scanRuntimeSends(((UnaryExpression) node).getExpression(), sent, zeroTime);
+            return scanRuntimeSends(((UnaryExpression) node).getExpression(), sent, zeroTime, provenAssertions);
         if (node.getClass() == Literal.class) return true;
         if (node.getClass() == DotPrimary.class) {
             DotPrimary dot = (DotPrimary) node;
-            return scanRuntimeSends(dot.getLeft(), sent, zeroTime) && scanRuntimeSends(dot.getRight(), sent, zeroTime);
+            return scanRuntimeSends(dot.getLeft(), sent, zeroTime, provenAssertions) && scanRuntimeSends(dot.getRight(), sent, zeroTime, provenAssertions);
         }
         if (node.getClass() == TermPrimary.class) {
             TermPrimary term = (TermPrimary) node;
             if (zeroTime && Set.of("now", "currentMessageArrival", "currentMessageDeadline",
                     "currentMessageWaitingTime").contains(term.getName())) return false;
             for (Expression index : term.getIndices())
-                if (!scanRuntimeSends(index, sent, zeroTime)) return false;
+                if (!scanRuntimeSends(index, sent, zeroTime, provenAssertions)) return false;
             ParentSuffixPrimary suffix = term.getParentSuffixPrimary();
             if (suffix == null) return !CoreRebecaLabelUtility.MSGSRV.equals(term.getLabel());
+            if (zeroTime && provenAssertions && "assertion".equals(term.getName()) &&
+                    CoreRebecaLabelUtility.BUILT_IN_METHOD.equals(term.getLabel())) {
+                if (suffix.getArguments().size() != 1) return false;
+                if (suffix.getClass() != ParentSuffixPrimary.class && suffix.getClass() != TimedRebecaParentSuffixPrimary.class) return false;
+                if (suffix instanceof TimedRebecaParentSuffixPrimary) {
+                    TimedRebecaParentSuffixPrimary timed = (TimedRebecaParentSuffixPrimary) suffix;
+                    if (timed.getAfterExpression() != null || timed.getDeadlineExpression() != null) return false;
+                }
+                return scanRuntimeSends(suffix.getArguments().get(0), sent, zeroTime, provenAssertions);
+            }
             // Any non-message call (including unknown builtins) disables this rule.
             if (!CoreRebecaLabelUtility.MSGSRV.equals(term.getLabel())) return false;
             sent.add(term.getName()); // includes self, sender and aliased receivers
             if (suffix.getClass() != ParentSuffixPrimary.class &&
                     suffix.getClass() != TimedRebecaParentSuffixPrimary.class) return false;
             for (Expression arg : suffix.getArguments())
-                if (!scanRuntimeSends(arg, sent, zeroTime)) return false;
+                if (!scanRuntimeSends(arg, sent, zeroTime, provenAssertions)) return false;
             if (suffix instanceof TimedRebecaParentSuffixPrimary) {
                 TimedRebecaParentSuffixPrimary timed = (TimedRebecaParentSuffixPrimary) suffix;
                 if (zeroTime && (timed.getAfterExpression() != null || timed.getDeadlineExpression() != null)) return false;
-                if (!scanRuntimeSends(timed.getAfterExpression(), sent, zeroTime) ||
-                        !scanRuntimeSends(timed.getDeadlineExpression(), sent, zeroTime)) return false;
+                if (!scanRuntimeSends(timed.getAfterExpression(), sent, zeroTime, provenAssertions) ||
+                        !scanRuntimeSends(timed.getDeadlineExpression(), sent, zeroTime, provenAssertions)) return false;
             }
             return true;
         }

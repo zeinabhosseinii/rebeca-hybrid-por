@@ -1,5 +1,9 @@
 # Explicit assertion controls and the property-scope boundary
 
+Historical diagnostic checkpoint: a restricted production integration now exists;
+see [INVARIANT_GATE_INTEGRATION.md](INVARIANT_GATE_INTEGRATION.md). Statements
+below about no runtime integration describe that earlier checkpoint.
+
 These are native correctness regressions, not additional performance timings.
 Production generator, dependency rules, proviso and error handling are unchanged.
 The new four-mode macOS measurements are also archived in

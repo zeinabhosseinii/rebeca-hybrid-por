@@ -29,7 +29,7 @@ def property_model(fault=False):
     return result
 
 def main():
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--output',type=Path,required=True);p.add_argument('--export-healthy',action='store_true');a=p.parse_args()
     out=a.output.resolve()
     if out.exists():p.error('Choose a fresh output directory')
     out.mkdir(parents=True);os.environ['ARIA_PRUNE']='1';os.environ['ARIA_EXPORT']='1'
@@ -51,7 +51,7 @@ def main():
                     args=['java','-jar',ROOT/'target/rmc-2.14.jar','-s',annotated if mode=='static' else model,'-e','TIMED_REBECA','-v','2.3','-o',d]
                     if mode=='dynamic':args+=['--aria']
                     command(args,ROOT,d/'generate.log')
-                report=compile_run(d,['-DPOR_DIAGNOSTICS'])
+                report=compile_run(d,['-DPOR_DIAGNOSTICS']+(['-DEXPORT_STATE_SPACE'] if a.export_healthy and not fault else []))
                 xml=ET.parse(d/'report.xml').getroot();trace=len(xml.findall('counter-example-trace/state'))
                 if report['result']!=expected or (fault and trace==0):raise ValueError(('Unexpected result or missing error trace',name,mode,report,trace))
                 match=re.search(r'return (true|false) && _porResultState->porFullExpanded;', (d/'TimedModelChecker.cpp').read_text())

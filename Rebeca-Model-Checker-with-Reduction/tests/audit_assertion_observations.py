@@ -16,7 +16,7 @@ def main():
    subprocess.run(['java','-cp',str(jar)+os.pathsep+str(classes),'AssertionObservationAudit',str(ROOT/'tests/fixtures'/source),str(out/(tag+'.json'))],stdout=log,stderr=subprocess.STDOUT,check=True)
   report=json.loads((out/(tag+'.json')).read_text())
   assert report['runtime_independence_certified'] is False and report['runtime_gate_changed'] is False
-  assert report['current_full_barrier_gate'] is False
+  assert report['current_full_barrier_gate']==(tag=='healthy')
   reports[tag]=report
  assert reports['healthy']['traversal_complete'] and reports['fault']['traversal_complete']
  assert len(reports['healthy']['assertions'])==6 and len(reports['fault']['assertions'])==7

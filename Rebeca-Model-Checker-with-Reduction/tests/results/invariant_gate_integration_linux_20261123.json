@@ -1,0 +1,182 @@
+{
+  "runtime_extension": "proved source assertions plus independent zero-time gate",
+  "rmc_jar_sha256": "19b6a097caead0025083b7d4043bdea3f5b031ae38266ef58905f280b94ae967",
+  "healthy_fault_native": {
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "rmc_jar_sha256": "19b6a097caead0025083b7d4043bdea3f5b031ae38266ef58905f280b94ae967",
+    "aria_jar_sha256": "60506443bba540e979da6876a11e14d74533f184ad24800437594b2aa1d8c3c7",
+    "diagnostic_only": true,
+    "timings_not_benchmarked": true,
+    "cases": {
+      "ScalePropertyHealthy": {
+        "expected": "satisfied",
+        "source_sha256": "e16a4345640ecb055ea1079f970f283277339315fd1a0a2f319c1d9876af0120",
+        "modes": {
+          "full": {
+            "result": "satisfied",
+            "states": 157,
+            "transitions": 277,
+            "trace_states": 0,
+            "complete_space": true,
+            "generated_closed_barrier_gate": null,
+            "full_barrier_events": 0
+          },
+          "static": {
+            "result": "satisfied",
+            "states": 157,
+            "transitions": 265,
+            "trace_states": 0,
+            "complete_space": true,
+            "generated_closed_barrier_gate": null,
+            "full_barrier_events": 0
+          },
+          "dynamic": {
+            "result": "satisfied",
+            "states": 117,
+            "transitions": 145,
+            "trace_states": 0,
+            "complete_space": true,
+            "generated_closed_barrier_gate": true,
+            "full_barrier_events": 63
+          },
+          "dynamic_no_por": {
+            "result": "satisfied",
+            "states": 144,
+            "transitions": 253,
+            "trace_states": 0,
+            "complete_space": true,
+            "generated_closed_barrier_gate": true,
+            "full_barrier_events": 0
+          }
+        }
+      },
+      "ScalePropertyFault": {
+        "expected": "assertion failed",
+        "source_sha256": "50b64277a1f6edd849d4e5d884514a159b034e134b2e6594d828e81a35cd118d",
+        "modes": {
+          "full": {
+            "result": "assertion failed",
+            "states": 12,
+            "transitions": 16,
+            "trace_states": 5,
+            "complete_space": false,
+            "generated_closed_barrier_gate": null,
+            "full_barrier_events": 0,
+            "injected_fault_edge_verified": {
+              "actor": "W1",
+              "action": "TICK"
+            }
+          },
+          "static": {
+            "result": "assertion failed",
+            "states": 12,
+            "transitions": 16,
+            "trace_states": 5,
+            "complete_space": false,
+            "generated_closed_barrier_gate": null,
+            "full_barrier_events": 0,
+            "injected_fault_edge_verified": {
+              "actor": "W1",
+              "action": "TICK"
+            }
+          },
+          "dynamic": {
+            "result": "assertion failed",
+            "states": 8,
+            "transitions": 8,
+            "trace_states": 4,
+            "complete_space": false,
+            "generated_closed_barrier_gate": false,
+            "full_barrier_events": 0,
+            "injected_fault_edge_verified": {
+              "actor": "W1",
+              "action": "TICK"
+            }
+          },
+          "dynamic_no_por": {
+            "result": "assertion failed",
+            "states": 12,
+            "transitions": 16,
+            "trace_states": 5,
+            "complete_space": false,
+            "generated_closed_barrier_gate": false,
+            "full_barrier_events": 0,
+            "injected_fault_edge_verified": {
+              "actor": "W1",
+              "action": "TICK"
+            }
+          }
+        }
+      }
+    },
+    "all_expected_outcomes": true
+  },
+  "finite_healthy_audit": {
+    "finite_generated_instance_only": true,
+    "unused_sender_projection": true,
+    "equal_time_queue_multiset_projection": true,
+    "full_projection_successor_consistency_checked": true,
+    "model_sha256": "e16a4345640ecb055ea1079f970f283277339315fd1a0a2f319c1d9876af0120",
+    "modes": {
+      "static": {
+        "states": 157,
+        "partial_action_certificates": 12,
+        "full_vertices": 145,
+        "strong_cycle_passed": true
+      },
+      "dynamic": {
+        "states": 117,
+        "partial_action_certificates": 54,
+        "full_vertices": 63,
+        "strong_cycle_passed": true
+      },
+      "dynamic_no_por": {
+        "states": 144,
+        "partial_action_certificates": 0,
+        "full_vertices": 144,
+        "strong_cycle_passed": true
+      }
+    }
+  },
+  "negative_native": {
+    "removed_reset": {
+      "result": "assertion failed",
+      "states": 12,
+      "transitions": 12,
+      "generated_gate": false,
+      "trace_states": 6
+    },
+    "tighter_assertion": {
+      "result": "assertion failed",
+      "states": 5,
+      "transitions": 5,
+      "generated_gate": false,
+      "trace_states": 4
+    },
+    "proved_deadlock_baseline": {
+      "result": "deadlock",
+      "states": 2,
+      "transitions": 2,
+      "trace_states": 2,
+      "full_barrier_events": 0
+    },
+    "proved_deadlock_aria_ast": {
+      "result": "deadlock",
+      "states": 2,
+      "transitions": 2,
+      "trace_states": 2,
+      "full_barrier_events": 0
+    }
+  },
+  "excluded_gates": {
+    "timed": false,
+    "symmetry": false,
+    "external_property": false
+  },
+  "production_mutation_cases": 17,
+  "concurrent_certificate_calls": 136,
+  "unchanged_loadbalancer_native_files": 30,
+  "original_ast_gate_tests_passed": true,
+  "original_quiescence_tests_passed": true,
+  "actual_native_proviso_and_trial_helpers_passed": true
+}

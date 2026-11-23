@@ -1,5 +1,9 @@
 # Assertion observations: inspected scope and proof obligations
 
+Historical diagnostic checkpoint: a restricted production integration now exists;
+see [INVARIANT_GATE_INTEGRATION.md](INVARIANT_GATE_INTEGRATION.md). Statements
+below about no runtime integration describe that earlier checkpoint.
+
 This work adds an OFFLINE typed-AST audit and an adversarial finite-graph check.
 It does not change the runtime gate, dependency matrix, candidate selection,
 proviso or first-error handling. All reports explicitly set
