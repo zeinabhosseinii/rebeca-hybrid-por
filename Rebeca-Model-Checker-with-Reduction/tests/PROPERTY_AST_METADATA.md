@@ -1,5 +1,7 @@
 # Typed-AST property and action metadata for the offline experiment
 
+Update: the actor-local structural admission and the stricter optional-path cycle rule are documented in `ACTOR_LOCAL_PROPERTY_CERTIFICATE.md`. Historical single-source results below retain their original scope.
+
 Update: the subsequent optional production generator path is documented in `PROPERTY_FILTER_INTEGRATION.md`. The results below describe their original experiment stage; defaults remain unchanged.
 
 This replaces the manually supplied metadata in the default property-representative experiment. It remains diagnostic/offline: no production RMC, native proviso, assertion/deadlock behavior or ARIA static export code is changed. The conservative production `--property` policy remains the baseline.

@@ -18,7 +18,7 @@ public class PropertyEffectAstAudit {
   if(args.length!=3)throw new IllegalArgumentException("model.rebeca property.property metadata.json");JsonObject result;
   try(var c=new AnnotationConfigApplicationContext(CompilerConfig.class,RMCConfig.class)){
    var errors=c.getBean(ExceptionContainer.class);errors.clear();var model=c.getBean(RebecaModelCompiler.class).compileRebecaFile(Path.of(args[0]).toFile(),Set.of(CompilerExtension.TIMED_REBECA),CoreVersion.CORE_2_3);need(errors.exceptionsIsEmpty(),"model compilation failed");
-   var property=c.getBean(PropertyCompiler.class).compilePropertyFile(Path.of(args[1]).toFile(),model.getFirst(),Set.of(CompilerExtension.TIMED_REBECA));need(errors.exceptionsIsEmpty(),"property compilation failed");result=PropertyObservationMetadata.audit(model.getFirst(),property);
+   var property=c.getBean(PropertyCompiler.class).compilePropertyFile(Path.of(args[1]).toFile(),model.getFirst(),Set.of(CompilerExtension.TIMED_REBECA));need(errors.exceptionsIsEmpty(),"property compilation failed");result=PropertyObservationMetadata.audit(model.getFirst(),property);result.addProperty("actor_local_runtime_certified",PropertyObservationMetadata.supportsActorLocalRuntime(model.getFirst(),property));
   }catch(Reject failure){result=new JsonObject();result.addProperty("metadata_supported",false);result.addProperty("reason",failure.getMessage());result.addProperty("diagnostic_only",true);result.addProperty("online_generator_changed",false);}
   result.addProperty("source_sha256",sha(Path.of(args[0])));result.addProperty("property_sha256",sha(Path.of(args[1])));Files.createDirectories(Path.of(args[2]).toAbsolutePath().getParent());Files.writeString(Path.of(args[2]),new GsonBuilder().setPrettyPrinting().create().toJson(result)+"\n");
  }

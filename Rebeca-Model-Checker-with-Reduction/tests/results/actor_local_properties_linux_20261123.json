@@ -1,0 +1,2271 @@
+{
+  "structural_gate": true,
+  "cases": {
+    "healthy2": {
+      "source_sha256": "03e3de3c8f043e6433d716c864997b05341f6fc85b3969a3e0f5650dd21d4b7f",
+      "partial_permissions_present": true,
+      "modes": {
+        "control": {
+          "result": "satisfied",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 9,
+          "transitions": 19,
+          "trace_states": 0,
+          "solver_reported_seconds": 1,
+          "solver_estimated_bytes": 72,
+          "native_wall_seconds": 0.9277105789997222,
+          "peak_rss_kib": 394896.0,
+          "native_executable_sha256": "b3ea93185a829a5998ace758e9390869fbb430facfd832c92237623a90c38e11",
+          "checker_sha256": "02889acafd68ebdb3c0651fcaedf7896f61efc4d50cd6063444c6c192a29cce6",
+          "message": null,
+          "property_rejections": 0
+        },
+        "filtered": {
+          "result": "satisfied",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 9,
+          "transitions": 16,
+          "trace_states": 0,
+          "solver_reported_seconds": 0,
+          "solver_estimated_bytes": 72,
+          "native_wall_seconds": 0.3631243190002351,
+          "peak_rss_kib": 394896.0,
+          "native_executable_sha256": "515cfddd8766af407cb3c6b32c77e270d3c1df037a0723fe1d27013e22463926",
+          "checker_sha256": "02889acafd68ebdb3c0651fcaedf7896f61efc4d50cd6063444c6c192a29cce6",
+          "message": null,
+          "property_rejections": 9
+        }
+      },
+      "graph_audit": {
+        "control_states": 9,
+        "filtered_states": 9,
+        "control_unique_edges": 18,
+        "filtered_exported_unique_edges": 12,
+        "filtered_selected_unique_edges": 12,
+        "full_vertices": 3,
+        "partial_certificates": [
+          {
+            "state": "1_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 3
+            }
+          },
+          {
+            "state": "2_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 3
+            }
+          },
+          {
+            "state": "4_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 3
+            }
+          },
+          {
+            "state": "5_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 3
+            }
+          },
+          {
+            "state": "7_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 3
+            }
+          },
+          {
+            "state": "8_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 3
+            }
+          }
+        ],
+        "strong_cycle_passed": true,
+        "retained_outcomes_match": true,
+        "c0": true,
+        "all_control_aliases_checked": true
+      }
+    },
+    "healthy3": {
+      "source_sha256": "957bac9440443cde1851604171c964af605cbbdde33228882ed1549c525284d9",
+      "partial_permissions_present": true,
+      "modes": {
+        "control": {
+          "result": "satisfied",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 27,
+          "transitions": 82,
+          "trace_states": 0,
+          "solver_reported_seconds": 1,
+          "solver_estimated_bytes": 324,
+          "native_wall_seconds": 0.4440103960005217,
+          "peak_rss_kib": 394896.0,
+          "native_executable_sha256": "c66338dcbc496ee74e6e8fb82b7ca6642e0d64c626909f37e9f77ea9c2bdf400",
+          "checker_sha256": "7a48eae628b8548988e66c6584f053e29903c5c7cbdfab6b5649463220a518e0",
+          "message": null,
+          "property_rejections": 0
+        },
+        "filtered": {
+          "result": "satisfied",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 27,
+          "transitions": 46,
+          "trace_states": 0,
+          "solver_reported_seconds": 0,
+          "solver_estimated_bytes": 324,
+          "native_wall_seconds": 0.363927947000775,
+          "peak_rss_kib": 394896.0,
+          "native_executable_sha256": "02e0df5295db1cd4ab99ae54d1f5b04a48c17c08aa99883dcc26afd609292152",
+          "checker_sha256": "7a48eae628b8548988e66c6584f053e29903c5c7cbdfab6b5649463220a518e0",
+          "message": null,
+          "property_rejections": 27
+        }
+      },
+      "graph_audit": {
+        "control_states": 27,
+        "filtered_states": 27,
+        "control_unique_edges": 81,
+        "filtered_exported_unique_edges": 39,
+        "filtered_selected_unique_edges": 33,
+        "full_vertices": 3,
+        "partial_certificates": [
+          {
+            "state": "1_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 9
+            }
+          },
+          {
+            "state": "2_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 9
+            }
+          },
+          {
+            "state": "3_0",
+            "action": [
+              "N2",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 9
+            }
+          },
+          {
+            "state": "4_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 9
+            }
+          },
+          {
+            "state": "5_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 9
+            }
+          },
+          {
+            "state": "6_0",
+            "action": [
+              "N2",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 9
+            }
+          },
+          {
+            "state": "7_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 9
+            }
+          },
+          {
+            "state": "8_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 9
+            }
+          },
+          {
+            "state": "10_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 9
+            }
+          },
+          {
+            "state": "11_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 9
+            }
+          },
+          {
+            "state": "12_0",
+            "action": [
+              "N2",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 9
+            }
+          },
+          {
+            "state": "13_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 9
+            }
+          },
+          {
+            "state": "14_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 9
+            }
+          },
+          {
+            "state": "15_0",
+            "action": [
+              "N2",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 9
+            }
+          },
+          {
+            "state": "16_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 9
+            }
+          },
+          {
+            "state": "17_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 9
+            }
+          },
+          {
+            "state": "19_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 9
+            }
+          },
+          {
+            "state": "20_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 9
+            }
+          },
+          {
+            "state": "21_0",
+            "action": [
+              "N2",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 9
+            }
+          },
+          {
+            "state": "22_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 9
+            }
+          },
+          {
+            "state": "23_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 9
+            }
+          },
+          {
+            "state": "24_0",
+            "action": [
+              "N2",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 9
+            }
+          },
+          {
+            "state": "25_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 9
+            }
+          },
+          {
+            "state": "26_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 9
+            }
+          }
+        ],
+        "strong_cycle_passed": true,
+        "retained_outcomes_match": true,
+        "c0": true,
+        "all_control_aliases_checked": true
+      }
+    },
+    "healthy4": {
+      "source_sha256": "3b13172e79492d07c5a8f0444356569e0775fd294593b493231a9c092960e55d",
+      "partial_permissions_present": true,
+      "modes": {
+        "control": {
+          "result": "satisfied",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 81,
+          "transitions": 325,
+          "trace_states": 0,
+          "solver_reported_seconds": 0,
+          "solver_estimated_bytes": 1296,
+          "native_wall_seconds": 0.3211297280004146,
+          "peak_rss_kib": 394768.0,
+          "native_executable_sha256": "42c18e5c23d632e0d76182b923534b4ce79f3be6eb9e3931e724e13f74293c14",
+          "checker_sha256": "850d5b72e3b6d0d2e76a745c9578051ab06841f8219152c0016ef3fc4a8760bc",
+          "message": null,
+          "property_rejections": 0
+        },
+        "filtered": {
+          "result": "satisfied",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 81,
+          "transitions": 130,
+          "trace_states": 0,
+          "solver_reported_seconds": 0,
+          "solver_estimated_bytes": 1296,
+          "native_wall_seconds": 0.6547006569999212,
+          "peak_rss_kib": 394896.0,
+          "native_executable_sha256": "878242cef83e9c776a0141b110dbd90ad316d1c0f31c5081d09545d5b1f7d315",
+          "checker_sha256": "850d5b72e3b6d0d2e76a745c9578051ab06841f8219152c0016ef3fc4a8760bc",
+          "message": null,
+          "property_rejections": 81
+        }
+      },
+      "graph_audit": {
+        "control_states": 81,
+        "filtered_states": 81,
+        "control_unique_edges": 324,
+        "filtered_exported_unique_edges": 120,
+        "filtered_selected_unique_edges": 90,
+        "full_vertices": 3,
+        "partial_certificates": [
+          {
+            "state": "1_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "2_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "3_0",
+            "action": [
+              "N2",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "4_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "5_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "6_0",
+            "action": [
+              "N2",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "7_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "8_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "9_0",
+            "action": [
+              "N3",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "10_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "11_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "12_0",
+            "action": [
+              "N2",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "13_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "14_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "15_0",
+            "action": [
+              "N2",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "16_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "17_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "18_0",
+            "action": [
+              "N3",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "19_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "20_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "21_0",
+            "action": [
+              "N2",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "22_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "23_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "24_0",
+            "action": [
+              "N2",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "25_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "26_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "28_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "29_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "30_0",
+            "action": [
+              "N2",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "31_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "32_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "33_0",
+            "action": [
+              "N2",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "34_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "35_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "36_0",
+            "action": [
+              "N3",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "37_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "38_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "39_0",
+            "action": [
+              "N2",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "40_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "41_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "42_0",
+            "action": [
+              "N2",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "43_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "44_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "45_0",
+            "action": [
+              "N3",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "46_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "47_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "48_0",
+            "action": [
+              "N2",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "49_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "50_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "51_0",
+            "action": [
+              "N2",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "52_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "53_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "55_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "56_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "57_0",
+            "action": [
+              "N2",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "58_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "59_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "60_0",
+            "action": [
+              "N2",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "61_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "62_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "63_0",
+            "action": [
+              "N3",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "64_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "65_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "66_0",
+            "action": [
+              "N2",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "67_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "68_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "69_0",
+            "action": [
+              "N2",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "70_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "71_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "72_0",
+            "action": [
+              "N3",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "73_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "74_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "75_0",
+            "action": [
+              "N2",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "76_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "77_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "78_0",
+            "action": [
+              "N2",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "79_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          },
+          {
+            "state": "80_0",
+            "action": [
+              "N1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 27
+            }
+          }
+        ],
+        "strong_cycle_passed": true,
+        "retained_outcomes_match": true,
+        "c0": true,
+        "all_control_aliases_checked": true
+      }
+    },
+    "global_violation": {
+      "source_sha256": "957bac9440443cde1851604171c964af605cbbdde33228882ed1549c525284d9",
+      "partial_permissions_present": true,
+      "modes": {
+        "control": {
+          "result": "assertion failed",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 2,
+          "transitions": 2,
+          "trace_states": 2,
+          "solver_reported_seconds": 1,
+          "solver_estimated_bytes": 24,
+          "native_wall_seconds": 0.5820849309993719,
+          "peak_rss_kib": 395024.0,
+          "native_executable_sha256": "a68c8ee5997b875f3edf3528f43baf93bfe39d49ca852dc01283d69efdecae57",
+          "checker_sha256": "50ff617f251c60ad281768724b4ac51f754f3c286ac82a50dd557d215712f7de",
+          "message": "Check",
+          "property_rejections": 0
+        },
+        "filtered": {
+          "result": "assertion failed",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 4,
+          "transitions": 5,
+          "trace_states": 4,
+          "solver_reported_seconds": 0,
+          "solver_estimated_bytes": 48,
+          "native_wall_seconds": 0.470021870999517,
+          "peak_rss_kib": 395024.0,
+          "native_executable_sha256": "100458e6b388c63e8405e77bb0fd96837aba9faf0bedb5dfdcb993b64c4c7fa6",
+          "checker_sha256": "50ff617f251c60ad281768724b4ac51f754f3c286ac82a50dd557d215712f7de",
+          "message": "Check",
+          "property_rejections": 6
+        }
+      }
+    },
+    "source_assertion": {
+      "source_sha256": "9e3d2394dfeebec9edc16306301f0b1545016dd5a866d11f12602cfe6f784a68",
+      "partial_permissions_present": true,
+      "modes": {
+        "control": {
+          "result": "assertion failed",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 4,
+          "transitions": 4,
+          "trace_states": 3,
+          "solver_reported_seconds": 0,
+          "solver_estimated_bytes": 48,
+          "native_wall_seconds": 0.429802878999908,
+          "peak_rss_kib": 395024.0,
+          "native_executable_sha256": "2253caa2888005f972371bb43a67f5863e827b508110ba241db4d38a91351081",
+          "checker_sha256": "7a48eae628b8548988e66c6584f053e29903c5c7cbdfab6b5649463220a518e0",
+          "message": "no message",
+          "property_rejections": 0
+        },
+        "filtered": {
+          "result": "assertion failed",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 2,
+          "transitions": 2,
+          "trace_states": 3,
+          "solver_reported_seconds": 0,
+          "solver_estimated_bytes": 24,
+          "native_wall_seconds": 0.5306525060004788,
+          "peak_rss_kib": 395024.0,
+          "native_executable_sha256": "f80e5a51ed8f31dadf12e13d87c3d49b665995acd7b93dbe97f1fa51558bf074",
+          "checker_sha256": "7a48eae628b8548988e66c6584f053e29903c5c7cbdfab6b5649463220a518e0",
+          "message": "no message",
+          "property_rejections": 2
+        }
+      }
+    },
+    "deadlock": {
+      "source_sha256": "a7901e9c021c1709284af351b7db38f8694ec49efbe3a4507b67baaf7d6f0aed",
+      "partial_permissions_present": true,
+      "modes": {
+        "control": {
+          "result": "deadlock",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 8,
+          "transitions": 9,
+          "trace_states": 4,
+          "solver_reported_seconds": 0,
+          "solver_estimated_bytes": 96,
+          "native_wall_seconds": 0.326825490000374,
+          "peak_rss_kib": 395024.0,
+          "native_executable_sha256": "a5a6523ccb8bf3c50da8f7c5d0ab7576f18ccd1fd18201ac5368a17a1ca5b8d5",
+          "checker_sha256": "f8fc58a58da1ad0be591d5400027ea0697e1c261b9b0c74614e7cd14bee62694",
+          "message": null,
+          "property_rejections": 0
+        },
+        "filtered": {
+          "result": "deadlock",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 4,
+          "transitions": 4,
+          "trace_states": 4,
+          "solver_reported_seconds": 1,
+          "solver_estimated_bytes": 48,
+          "native_wall_seconds": 0.4921682049998708,
+          "peak_rss_kib": 395024.0,
+          "native_executable_sha256": "a5675aa76efe5541d8ef8dd8fc37599c66748f6dbdca3152d4d2f07824a2f325",
+          "checker_sha256": "f8fc58a58da1ad0be591d5400027ea0697e1c261b9b0c74614e7cd14bee62694",
+          "message": null,
+          "property_rejections": 2
+        }
+      }
+    },
+    "cross_send_refused": {
+      "source_sha256": "1165f96b911cf9e8587cb98f9abde2b8d1508d03018fae217571d0cbbb24af68",
+      "partial_permissions_present": false,
+      "modes": {
+        "control": {
+          "result": "satisfied",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 9,
+          "transitions": 19,
+          "trace_states": 0,
+          "solver_reported_seconds": 0,
+          "solver_estimated_bytes": 72,
+          "native_wall_seconds": 0.66703833199972,
+          "peak_rss_kib": 394896.0,
+          "native_executable_sha256": "8a5a8cedafc70631711fbe1f1743e4387f3ca836fa58d88972c86f07a84ef547",
+          "checker_sha256": "42378a17a80c4e583f744da32bd2b491e1b61073bdf85b54cd95e12d8f8c94be",
+          "message": null,
+          "property_rejections": 0
+        },
+        "filtered": {
+          "result": "satisfied",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 9,
+          "transitions": 13,
+          "trace_states": 0,
+          "solver_reported_seconds": 0,
+          "solver_estimated_bytes": 72,
+          "native_wall_seconds": 0.5123265820002416,
+          "peak_rss_kib": 394896.0,
+          "native_executable_sha256": "2dbd502fc224310d65d96d3fbb6c0e92f1f2028fb797fc9e43b16bdc9bcbf6c7",
+          "checker_sha256": "42378a17a80c4e583f744da32bd2b491e1b61073bdf85b54cd95e12d8f8c94be",
+          "message": null,
+          "property_rejections": 6
+        }
+      },
+      "graph_audit": {
+        "control_states": 9,
+        "filtered_states": 9,
+        "control_unique_edges": 12,
+        "filtered_exported_unique_edges": 12,
+        "filtered_selected_unique_edges": 12,
+        "full_vertices": 9,
+        "partial_certificates": [],
+        "strong_cycle_passed": true,
+        "retained_outcomes_match": true,
+        "c0": true,
+        "all_control_aliases_checked": true
+      }
+    },
+    "renamed_product": {
+      "source_sha256": "204425b6b42e42fab022e26d349194418c9258ddb679d95b5cdec55c418a2593",
+      "partial_permissions_present": true,
+      "modes": {
+        "control": {
+          "result": "satisfied",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 64,
+          "transitions": 193,
+          "trace_states": 0,
+          "solver_reported_seconds": 1,
+          "solver_estimated_bytes": 768,
+          "native_wall_seconds": 0.6132263539993801,
+          "peak_rss_kib": 394896.0,
+          "native_executable_sha256": "e571aab1068d3a15d27f715b9874ea4295a837358a1c5369883035423981ffc8",
+          "checker_sha256": "7a48eae628b8548988e66c6584f053e29903c5c7cbdfab6b5649463220a518e0",
+          "message": null,
+          "property_rejections": 0
+        },
+        "filtered": {
+          "result": "satisfied",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 64,
+          "transitions": 93,
+          "trace_states": 0,
+          "solver_reported_seconds": 0,
+          "solver_estimated_bytes": 768,
+          "native_wall_seconds": 0.5643675749997783,
+          "peak_rss_kib": 394896.0,
+          "native_executable_sha256": "0cab86107b63dbb53ced4f974981e41b9ee138bef2614119b5fe160e4ee5b3c8",
+          "checker_sha256": "7a48eae628b8548988e66c6584f053e29903c5c7cbdfab6b5649463220a518e0",
+          "message": null,
+          "property_rejections": 64
+        }
+      },
+      "graph_audit": {
+        "control_states": 64,
+        "filtered_states": 64,
+        "control_unique_edges": 192,
+        "filtered_exported_unique_edges": 84,
+        "filtered_selected_unique_edges": 72,
+        "full_vertices": 4,
+        "partial_certificates": [
+          {
+            "state": "1_0",
+            "action": [
+              "R1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "2_0",
+            "action": [
+              "R1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "3_0",
+            "action": [
+              "R1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "4_0",
+            "action": [
+              "R2",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "5_0",
+            "action": [
+              "R1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "6_0",
+            "action": [
+              "R1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "7_0",
+            "action": [
+              "R1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "8_0",
+            "action": [
+              "R2",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "9_0",
+            "action": [
+              "R1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "10_0",
+            "action": [
+              "R1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "11_0",
+            "action": [
+              "R1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "12_0",
+            "action": [
+              "R2",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "13_0",
+            "action": [
+              "R1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "14_0",
+            "action": [
+              "R1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "15_0",
+            "action": [
+              "R1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "17_0",
+            "action": [
+              "R1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "18_0",
+            "action": [
+              "R1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "19_0",
+            "action": [
+              "R1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "20_0",
+            "action": [
+              "R2",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "21_0",
+            "action": [
+              "R1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "22_0",
+            "action": [
+              "R1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "23_0",
+            "action": [
+              "R1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "24_0",
+            "action": [
+              "R2",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "25_0",
+            "action": [
+              "R1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "26_0",
+            "action": [
+              "R1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "27_0",
+            "action": [
+              "R1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "28_0",
+            "action": [
+              "R2",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "29_0",
+            "action": [
+              "R1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "30_0",
+            "action": [
+              "R1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "31_0",
+            "action": [
+              "R1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "33_0",
+            "action": [
+              "R1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "34_0",
+            "action": [
+              "R1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "35_0",
+            "action": [
+              "R1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "36_0",
+            "action": [
+              "R2",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "37_0",
+            "action": [
+              "R1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "38_0",
+            "action": [
+              "R1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "39_0",
+            "action": [
+              "R1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "40_0",
+            "action": [
+              "R2",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "41_0",
+            "action": [
+              "R1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "42_0",
+            "action": [
+              "R1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "43_0",
+            "action": [
+              "R1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "44_0",
+            "action": [
+              "R2",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "45_0",
+            "action": [
+              "R1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "46_0",
+            "action": [
+              "R1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "47_0",
+            "action": [
+              "R1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "49_0",
+            "action": [
+              "R1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "50_0",
+            "action": [
+              "R1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "51_0",
+            "action": [
+              "R1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "52_0",
+            "action": [
+              "R2",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "53_0",
+            "action": [
+              "R1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "54_0",
+            "action": [
+              "R1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "55_0",
+            "action": [
+              "R1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "56_0",
+            "action": [
+              "R2",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "57_0",
+            "action": [
+              "R1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "58_0",
+            "action": [
+              "R1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "59_0",
+            "action": [
+              "R1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "60_0",
+            "action": [
+              "R2",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "61_0",
+            "action": [
+              "R1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "62_0",
+            "action": [
+              "R1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          },
+          {
+            "state": "63_0",
+            "action": [
+              "R1",
+              "TICK"
+            ],
+            "evidence": {
+              "reason": "verified",
+              "avoidance_states": 16
+            }
+          }
+        ],
+        "strong_cycle_passed": true,
+        "retained_outcomes_match": true,
+        "c0": true,
+        "all_control_aliases_checked": true
+      }
+    },
+    "deferred_actor_assertion": {
+      "source_sha256": "dc8e65d4ffe8722ee54ac66794fc45341788608dda43ae1f83414a9810e7d217",
+      "partial_permissions_present": true,
+      "modes": {
+        "control": {
+          "result": "assertion failed",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 12,
+          "transitions": 15,
+          "trace_states": 4,
+          "solver_reported_seconds": 1,
+          "solver_estimated_bytes": 144,
+          "native_wall_seconds": 0.9878045840005143,
+          "peak_rss_kib": 395024.0,
+          "native_executable_sha256": "a17cd08d399ed18f7254c1cada37f74b1935779323376027ee821d76cb182d1e",
+          "checker_sha256": "7a48eae628b8548988e66c6584f053e29903c5c7cbdfab6b5649463220a518e0",
+          "message": "no message",
+          "property_rejections": 0,
+          "failing_actor_verified": "N2"
+        },
+        "filtered": {
+          "result": "assertion failed",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 6,
+          "transitions": 8,
+          "trace_states": 7,
+          "solver_reported_seconds": 0,
+          "solver_estimated_bytes": 72,
+          "native_wall_seconds": 0.23016826299954118,
+          "peak_rss_kib": 395024.0,
+          "native_executable_sha256": "8d623031fe795afd7383a55cf1d4477391a016c0376cf3aacbccb0a9ebc536e2",
+          "checker_sha256": "7a48eae628b8548988e66c6584f053e29903c5c7cbdfab6b5649463220a518e0",
+          "message": "no message",
+          "property_rejections": 6,
+          "failing_actor_verified": "N2"
+        }
+      }
+    }
+  },
+  "native_executions": 18,
+  "all_passed": true,
+  "jar_sha256": "4f51cdceed5fa9c66474fe1536938d25813f5b8e1fea2a6934a979ed4f111adb",
+  "default_generated_bytes_unchanged": true,
+  "partial_successor_rule": "NEW_STATE only; exhaustive candidates exempt"
+}

@@ -1,0 +1,40 @@
+{
+  "criterion": "every cycle passes a semantically full expansion",
+  "not_a_general_unsoundness_proof": true,
+  "source_sha256": "957bac9440443cde1851604171c964af605cbbdde33228882ed1549c525284d9",
+  "graph_sha256": "4668dfe4453acc7962cbec5626224348f08ac292259c7e9f197bb4232b075a82",
+  "cycle": [
+    {
+      "source": "10_0",
+      "action": [
+        "N1",
+        "TICK"
+      ],
+      "target": "11_0"
+    },
+    {
+      "source": "11_0",
+      "action": [
+        "N1",
+        "TICK"
+      ],
+      "target": "12_0"
+    },
+    {
+      "source": "12_0",
+      "action": [
+        "N1",
+        "TICK"
+      ],
+      "target": "10_0"
+    }
+  ],
+  "cycle_state_xml": {
+    "10_0": "<state id=\"10_0\" atomicpropositions=\"\">\n\t<rebec name=\"N0\">\n\t\t<statevariables>\n\t\t\t<variable name=\"Node.value\" type=\"int\">1</variable>\n\t\t</statevariables>\n\t\t<queue>\n\t\t\t<message arrival=\"0\" deadline=\"infinity\" sender=\"N0\">tick()</message>\n\t\t</queue>\n\t\t<now>0</now>\n\t</rebec>\n\t<rebec name=\"N1\">\n\t\t<statevariables>\n\t\t\t<variable name=\"Node.value\" type=\"int\">0</variable>\n\t\t</statevariables>\n\t\t<queue>\n\t\t\t<message arrival=\"0\" deadline=\"infinity\" sender=\"N0\">tick()</message>\n\t\t</queue>\n\t\t<now>0</now>\n\t</rebec>\n\t<rebec name=\"N2\">\n\t\t<statevariables>\n\t\t\t<variable name=\"Node.value\" type=\"int\">2</variable>\n\t\t</statevariables>\n\t\t<queue>\n\t\t\t<message arrival=\"0\" deadline=\"infinity\" sender=\"N0\">tick()</message>\n\t\t</queue>\n\t\t<now>0</now>\n\t</rebec>\n</state>\n",
+    "11_0": "<state id=\"11_0\" atomicpropositions=\"\">\n\t<rebec name=\"N0\">\n\t\t<statevariables>\n\t\t\t<variable name=\"Node.value\" type=\"int\">1</variable>\n\t\t</statevariables>\n\t\t<queue>\n\t\t\t<message arrival=\"0\" deadline=\"infinity\" sender=\"N0\">tick()</message>\n\t\t</queue>\n\t\t<now>0</now>\n\t</rebec>\n\t<rebec name=\"N1\">\n\t\t<statevariables>\n\t\t\t<variable name=\"Node.value\" type=\"int\">1</variable>\n\t\t</statevariables>\n\t\t<queue>\n\t\t\t<message arrival=\"0\" deadline=\"infinity\" sender=\"N1\">tick()</message>\n\t\t</queue>\n\t\t<now>0</now>\n\t</rebec>\n\t<rebec name=\"N2\">\n\t\t<statevariables>\n\t\t\t<variable name=\"Node.value\" type=\"int\">2</variable>\n\t\t</statevariables>\n\t\t<queue>\n\t\t\t<message arrival=\"0\" deadline=\"infinity\" sender=\"N0\">tick()</message>\n\t\t</queue>\n\t\t<now>0</now>\n\t</rebec>\n</state>\n",
+    "12_0": "<state id=\"12_0\" atomicpropositions=\"\">\n\t<rebec name=\"N0\">\n\t\t<statevariables>\n\t\t\t<variable name=\"Node.value\" type=\"int\">1</variable>\n\t\t</statevariables>\n\t\t<queue>\n\t\t\t<message arrival=\"0\" deadline=\"infinity\" sender=\"N0\">tick()</message>\n\t\t</queue>\n\t\t<now>0</now>\n\t</rebec>\n\t<rebec name=\"N1\">\n\t\t<statevariables>\n\t\t\t<variable name=\"Node.value\" type=\"int\">2</variable>\n\t\t</statevariables>\n\t\t<queue>\n\t\t\t<message arrival=\"0\" deadline=\"infinity\" sender=\"N1\">tick()</message>\n\t\t</queue>\n\t\t<now>0</now>\n\t</rebec>\n\t<rebec name=\"N2\">\n\t\t<statevariables>\n\t\t\t<variable name=\"Node.value\" type=\"int\">2</variable>\n\t\t</statevariables>\n\t\t<queue>\n\t\t\t<message arrival=\"0\" deadline=\"infinity\" sender=\"N0\">tick()</message>\n\t\t</queue>\n\t\t<now>0</now>\n\t</rebec>\n</state>\n"
+  },
+  "interpretation": "This is a cycle in exported trial-inclusive edges, not in final selected policy edges. Rechecking the old rule with final decisions passes the strong cycle certificate for this example; do not call it an unsoundness counterexample.",
+  "final_selected_policy_strong_cycle_passed": true,
+  "trial_inclusive_export_strong_cycle_passed": false
+}

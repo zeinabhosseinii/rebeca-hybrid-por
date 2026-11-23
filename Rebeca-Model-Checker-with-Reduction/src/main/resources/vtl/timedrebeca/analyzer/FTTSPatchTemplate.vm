@@ -278,6 +278,10 @@ bool TimedModelChecker::isPorCandidateFull(const PorCandidate& candidate, TIME_T
 }
 
 bool TimedModelChecker::isPorSuccessorAllowed(bool candidateIsFull) {
+#if($ariaPropertyFilterEnabled)
+    // Every accepted partial edge must discover a fresh state: partial-only cycles are impossible.
+    return candidateIsFull || (_porResult & NEW_STATE);
+#else
 #ifdef POR_LEGACY_PROVISO
     return (_porResult & NEW_STATE) || _porResultState->openCount > 0;
 \#else
@@ -285,6 +289,7 @@ bool TimedModelChecker::isPorSuccessorAllowed(bool candidateIsFull) {
     // Only certified zero-time, single-bundle models may use node-wide barriers.
     return ${cycleBarriersAllowed} && _porResultState->porFullExpanded;
 #endif
+#end
 }
 
 bool TimedModelChecker::areAllActiveAlternativesSafe(int r, TIME_TYPE execTime) {

@@ -9,6 +9,18 @@ import org.rebecalang.compiler.propertycompiler.generalrebeca.objectmodel.Proper
 /** Restricted typed-AST footprints. Mode and reviewed-source gates are mandatory at the caller. */
 public final class PropertyObservationMetadata {
  public static class ConfigurationException extends IllegalArgumentException { public ConfigurationException(String message){super(message);} }
+ /** Sufficient product-model certificate: runtime handlers cannot read/write another actor or enqueue there. */
+ public static boolean supportsActorLocalRuntime(RebecaModel model,PropertyModel property){
+  try {
+   var metadata=audit(model,property);
+   if(!metadata.get("metadata_supported").getAsBoolean() || hasModelAnnotations(model))return false;
+   for(var item:metadata.getAsJsonArray("actions")){
+    var row=item.getAsJsonObject();String owner=row.getAsJsonArray("action").get(0).getAsString();
+    for(var send:row.getAsJsonArray("sends"))if(!owner.equals(send.getAsJsonArray().get(0).getAsString()))return false;
+   }
+   return true;
+  }catch(RuntimeException failure){return false;}
+ }
  public static boolean hasModelAnnotations(RebecaModel model){
   for(var instance:model.getRebecaCode().getMainDeclaration().getMainRebecDefinition())if(!instance.getAnnotations().isEmpty())return true;
   for(var actor:model.getRebecaCode().getReactiveClassDeclaration()){

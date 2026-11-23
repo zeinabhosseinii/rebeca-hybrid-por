@@ -1,5 +1,7 @@
 # Opt-in AST property filter in the production FTTS generator
 
+Update: the actor-local structural admission and the stricter optional-path cycle rule are documented in `ACTOR_LOCAL_PROPERTY_CERTIFICATE.md`. Historical single-source results below retain their original scope.
+
 This promotes the tested native candidate filter into an explicit generator option. It remains experimental and restricted. The default generator behavior is unchanged; no default switch, static priorities, C1 relation, proviso rule, full-expansion barrier, assertion handler or deadlock exception is changed.
 
 ## Usage and contract

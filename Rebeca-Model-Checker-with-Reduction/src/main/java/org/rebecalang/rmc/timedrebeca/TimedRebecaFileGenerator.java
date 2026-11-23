@@ -221,11 +221,12 @@ public class TimedRebecaFileGenerator extends CoreRebecaFileGenerator {
             if (org.rebecalang.rmc.PropertyObservationMetadata.hasModelAnnotations(rebecaModel))
                 throw new org.rebecalang.rmc.PropertyObservationMetadata.ConfigurationException("--aria-property-filter requires an unannotated model; it does not undo existing static priorities");
 
-            // Exact-source review remains mandatory: broader metadata syntax is not a generic C1 proof.
+            // Admit a structurally certified actor-local product, or the separately reviewed legacy fixture.
             boolean reviewed = "e8e0a20c1af6af94fb02c59ff7ad2f9b33a84dd6b55872ee3b5cb89135a325f6".equals(fileGeneratorProperties.getAriaModelSha256()) &&
                     !fileGeneratorProperties.isSymmetry() && propertyModel != null;
+            boolean actorLocal = org.rebecalang.rmc.PropertyObservationMetadata.supportsActorLocalRuntime(rebecaModel, propertyModel);
             context.put("propertyInvisibleTable", org.rebecalang.rmc.PropertyObservationMetadata.invisibleTable(
-                    rebecaModel, propertyModel, porResult.maxMsgId, reviewed));
+                    rebecaModel, propertyModel, porResult.maxMsgId, reviewed || actorLocal));
         }
 
         org.rebecalang.rmc.ERDGSafetyAnalyzer.LocalActionMetadata local =

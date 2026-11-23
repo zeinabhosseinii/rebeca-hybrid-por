@@ -1,0 +1,59 @@
+{
+  "all_passed": true,
+  "cases": [
+    {
+      "case": "local",
+      "certified": true,
+      "metadata_supported": true,
+      "reason": null
+    },
+    {
+      "case": "renamed",
+      "certified": true,
+      "metadata_supported": true,
+      "reason": null
+    },
+    {
+      "case": "cross_send",
+      "certified": false,
+      "metadata_supported": true,
+      "reason": null
+    },
+    {
+      "case": "unreachable_cross_send",
+      "certified": false,
+      "metadata_supported": true,
+      "reason": null
+    },
+    {
+      "case": "timed_self_send",
+      "certified": false,
+      "metadata_supported": false,
+      "reason": "unknown/timed message send"
+    },
+    {
+      "case": "array",
+      "certified": false,
+      "metadata_supported": false,
+      "reason": "only primitive scalar fields without initializers"
+    },
+    {
+      "case": "increment",
+      "certified": false,
+      "metadata_supported": false,
+      "reason": "at least one action outside supported fragment; whole experiment reduction disabled"
+    },
+    {
+      "case": "loop",
+      "certified": false,
+      "metadata_supported": false,
+      "reason": "at least one action outside supported fragment; whole experiment reduction disabled"
+    },
+    {
+      "case": "annotated",
+      "certified": false,
+      "metadata_supported": false,
+      "reason": "at least one action outside supported fragment; whole experiment reduction disabled"
+    }
+  ]
+}
