@@ -58,6 +58,10 @@ public class FileGeneratorProperties {
 		this.reduction = reduction;
 	}
 
+	private boolean ariaPropertyFilter;
+    public boolean isAriaPropertyFilter() { return ariaPropertyFilter; }
+    public void setAriaPropertyFilter(boolean enabled) { ariaPropertyFilter = enabled; }
+
 	public boolean isAriaReduction() {
 		return ariaReduction;
 	}

@@ -441,6 +441,28 @@ void TimedModelChecker::doTimedModelChecking(string userSelectedPropertyName, st
             for (size_t ci = 0; ci < candidates.size() && !reductionApplied; ci++) {
                 const PorCandidate& candidate = candidates[ci];
                 bool candidateIsFull = isPorCandidateFull(candidate, currentTime, highestPriority);
+#if($ariaPropertyFilterEnabled)
+                // Optional property filter only removes partial candidates; native C1/proviso remain mandatory.
+                static const bool propertyInvisible[REBEC_COUNT][$maxMsgIdPlusOne] = {
+#foreach($row in $propertyInvisibleTable)
+                    {#foreach($permission in $row)$permission#if(!$foreach.last),#end#end}#if(!$foreach.last),#end
+#end
+                };
+                bool propertyCandidateAllowed = candidateIsFull;
+                if (!propertyCandidateAllowed) {
+                    propertyCandidateAllowed = !candidate.alternatives.empty();
+                    for (size_t pi = 0; pi < candidate.alternatives.size(); ++pi) {
+                        int pm = (unsigned char)rebecs[r]->messageQueue[candidate.alternatives[pi]];
+                        if (pm <= 0 || pm >= $maxMsgIdPlusOne || !propertyInvisible[r][pm]) propertyCandidateAllowed = false;
+                    }
+                }
+                if (!propertyCandidateAllowed) {
+#ifdef POR_DIAGNOSTICS
+                    cerr << "POR_PROPERTY_REJECT state=" << current.state->stateID << " actor=" << rebecs[r]->getName() << endl;
+#endif
+                    continue;
+                }
+#end
 #ifdef POR_DIAGNOSTICS
                 cerr << "POR_REPRESENTATIVE state=" << current.state->stateID
                      << " actor=" << rebecs[r]->getName()

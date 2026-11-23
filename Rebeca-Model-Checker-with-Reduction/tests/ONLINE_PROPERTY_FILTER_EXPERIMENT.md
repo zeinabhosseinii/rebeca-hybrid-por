@@ -1,5 +1,7 @@
 # Experimental online property filter in generated native code
 
+Update: the subsequent optional production generator path is documented in `PROPERTY_FILTER_INTEGRATION.md`. The results below describe their original experiment stage; defaults remain unchanged.
+
 This is the first native online use of the typed-AST metadata, implemented as an opt-in generated-C++ experiment. Production Java and Velocity templates are unchanged. The conservative ARIA external-property export remains the production baseline. This is not generic property-aware POR integration.
 
 ## What is connected

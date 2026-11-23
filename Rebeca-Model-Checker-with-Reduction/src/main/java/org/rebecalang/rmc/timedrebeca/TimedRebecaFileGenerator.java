@@ -216,6 +216,18 @@ public class TimedRebecaFileGenerator extends CoreRebecaFileGenerator {
 						: org.rebecalang.rmc.PORSafetyAnalyzer.analyze(rebecaModel);
 		context.put("safeActionsTable", porResult.safeActionsTable);
 		context.put("maxMsgIdPlusOne", porResult.maxMsgId + 1);
+        context.put("ariaPropertyFilterEnabled", fileGeneratorProperties.isAriaPropertyFilter());
+        if (fileGeneratorProperties.isAriaPropertyFilter()) {
+            if (org.rebecalang.rmc.PropertyObservationMetadata.hasModelAnnotations(rebecaModel))
+                throw new org.rebecalang.rmc.PropertyObservationMetadata.ConfigurationException("--aria-property-filter requires an unannotated model; it does not undo existing static priorities");
+
+            // Exact-source review remains mandatory: broader metadata syntax is not a generic C1 proof.
+            boolean reviewed = "e8e0a20c1af6af94fb02c59ff7ad2f9b33a84dd6b55872ee3b5cb89135a325f6".equals(fileGeneratorProperties.getAriaModelSha256()) &&
+                    !fileGeneratorProperties.isSymmetry() && propertyModel != null;
+            context.put("propertyInvisibleTable", org.rebecalang.rmc.PropertyObservationMetadata.invisibleTable(
+                    rebecaModel, propertyModel, porResult.maxMsgId, reviewed));
+        }
+
         org.rebecalang.rmc.ERDGSafetyAnalyzer.LocalActionMetadata local =
                 org.rebecalang.rmc.ERDGSafetyAnalyzer.isolatedLocalActions(rebecaModel);
         context.put("isolatedLocalSafe", local.safe);

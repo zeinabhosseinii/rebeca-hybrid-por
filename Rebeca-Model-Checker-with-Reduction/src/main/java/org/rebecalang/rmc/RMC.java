@@ -99,6 +99,7 @@ public class RMC {
 			options.addOption(new Option(null, "compactdtg", false, "Using this feature, compact DTG is generated on-the-fly from TTS."));
 			options.addOption(new Option(null, "por", false, "Enable partial order reduction."));
 			options.addOption(new Option(null, "aria-json", true, "Read ARIA v2 action dependencies (requires --aria, timed FTTS)."));
+			options.addOption(new Option(null, "aria-property-filter", false, "Experimental AST visibility filter; requires --aria, external property, unprioritized timed FTTS. Unsupported metadata retains full choices."));
 			options.addOption(new Option(null, "aria", false, "Enable ERDG-based partial order reduction (Aria's method)."));
 			options.addOption(new Option(null, "symm", false, "Enable symmetry reduction."));
 
@@ -195,6 +196,16 @@ public class RMC {
 			fileGenerationProperties.setReduction(commandLine.hasOption("por"));
 			fileGenerationProperties.setAriaReduction(commandLine.hasOption("aria"));
 			fileGenerationProperties.setSymmetry(commandLine.hasOption("symm"));
+            if (commandLine.hasOption("aria-property-filter")) {
+                if (!commandLine.hasOption("aria") || propertyFile == null || commandLine.hasOption("symm") || commandLine.hasOption("aria-json") ||
+                        !(fileGenerationProperties instanceof TimedRebecaFileGeneratorProperties) ||
+                        ((TimedRebecaFileGeneratorProperties)fileGenerationProperties).isTTS() || fileGenerationProperties.isTraceGenerator())
+                    throw new PropertyObservationMetadata.ConfigurationException("--aria-property-filter requires --aria, an external property, timed FTTS, no symmetry/JSON/trace mode");
+                fileGenerationProperties.setAriaPropertyFilter(true);
+                fileGenerationProperties.setAriaModelSha256(java.util.HexFormat.of().formatHex(
+                    java.security.MessageDigest.getInstance("SHA-256").digest(java.nio.file.Files.readAllBytes(rebecaFile.toPath()))));
+            }
+
             if (commandLine.hasOption("aria-json")) {
                 if (!commandLine.hasOption("aria") ||
                         !(fileGenerationProperties instanceof TimedRebecaFileGeneratorProperties) ||
@@ -213,7 +224,10 @@ public class RMC {
 				rmc.exceptionContainer.print(out);
 			}
 
-		} catch (ParseException e) {
+		} catch (PropertyObservationMetadata.ConfigurationException e) {
+            out.println(e.getMessage());
+            System.exit(2);
+        } catch (ParseException e) {
 			if(!e.getMessage().isEmpty())
 				out.println("Unexpected exception: " + e.getMessage());
 			HelpFormatter formatter = new HelpFormatter();

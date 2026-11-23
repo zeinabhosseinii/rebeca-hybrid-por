@@ -1,0 +1,97 @@
+{
+  "cases": [
+    {
+      "case": "baseline",
+      "metadata_supported": true,
+      "reason": null,
+      "unknown_actions": []
+    },
+    {
+      "case": "renamed_field",
+      "metadata_supported": true,
+      "reason": null,
+      "unknown_actions": []
+    },
+    {
+      "case": "different_instance",
+      "metadata_supported": true,
+      "reason": null,
+      "unknown_actions": []
+    },
+    {
+      "case": "extra_branch_write",
+      "metadata_supported": true,
+      "reason": null,
+      "unknown_actions": []
+    },
+    {
+      "case": "timed_send",
+      "metadata_supported": false,
+      "reason": "at least one action outside supported fragment; whole experiment reduction disabled",
+      "unknown_actions": [
+        "unknown/timed message send",
+        "unknown/timed message send"
+      ]
+    },
+    {
+      "case": "array_field",
+      "metadata_supported": false,
+      "reason": "only primitive scalar fields without initializers",
+      "unknown_actions": []
+    },
+    {
+      "case": "loop",
+      "metadata_supported": false,
+      "reason": "at least one action outside supported fragment; whole experiment reduction disabled",
+      "unknown_actions": [
+        "unsupported statement WhileStatement",
+        "unsupported statement WhileStatement"
+      ]
+    },
+    {
+      "case": "increment",
+      "metadata_supported": false,
+      "reason": "at least one action outside supported fragment; whole experiment reduction disabled",
+      "unknown_actions": [
+        "unsupported statement PlusSubExpression",
+        "unsupported statement PlusSubExpression"
+      ]
+    },
+    {
+      "case": "local_declaration",
+      "metadata_supported": false,
+      "reason": "at least one action outside supported fragment; whole experiment reduction disabled",
+      "unknown_actions": [
+        "unsupported statement FieldDeclaration",
+        "unsupported statement FieldDeclaration"
+      ]
+    },
+    {
+      "case": "property_arithmetic",
+      "metadata_supported": false,
+      "reason": "unsupported property operator",
+      "unknown_actions": []
+    },
+    {
+      "case": "property_alias",
+      "metadata_supported": false,
+      "reason": "property aliases/definitions unsupported",
+      "unknown_actions": []
+    },
+    {
+      "case": "multiple_assertions",
+      "metadata_supported": false,
+      "reason": "exactly one external state assertion required",
+      "unknown_actions": []
+    },
+    {
+      "case": "main_nondeterminism",
+      "metadata_supported": false,
+      "reason": "model compilation failed",
+      "unknown_actions": []
+    }
+  ],
+  "all_passed": true,
+  "unsupported_consumer_reduction_disabled": true,
+  "unknown_predicate_ir_refused": true
+}

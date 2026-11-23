@@ -1,5 +1,7 @@
 # Typed-AST property and action metadata for the offline experiment
 
+Update: the subsequent optional production generator path is documented in `PROPERTY_FILTER_INTEGRATION.md`. The results below describe their original experiment stage; defaults remain unchanged.
+
 This replaces the manually supplied metadata in the default property-representative experiment. It remains diagnostic/offline: no production RMC, native proviso, assertion/deadlock behavior or ARIA static export code is changed. The conservative production `--property` policy remains the baseline.
 
 ## Extraction

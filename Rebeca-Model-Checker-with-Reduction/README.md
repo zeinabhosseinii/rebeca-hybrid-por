@@ -151,3 +151,8 @@ imported ARIA JSON. The comparison reports normal property outcomes, never
 continues past deadlocks, and does not equate equal outcomes with a POR proof.
 The English comment describing channel balance is not an executable property.
 Run `python3 tests/validate_ftts.py` for standalone snippet regressions.
+
+
+### Experimental external-property visibility filter
+
+Timed FTTS offers explicit `--aria --aria-property-filter -p MODEL.property` generation for an unannotated model. The default remains unchanged. Partial permissions are restricted to the reviewed CellRegisterObserved digest; other unannotated sources or unsupported metadata retain full choices. Annotated models and incompatible modes are refused. This does not restore legacy static-priority preservation for arbitrary properties. See [the integration contract and native validation](tests/PROPERTY_FILTER_INTEGRATION.md) and run `bash tests/check_property_filter_integration.sh` to reproduce.

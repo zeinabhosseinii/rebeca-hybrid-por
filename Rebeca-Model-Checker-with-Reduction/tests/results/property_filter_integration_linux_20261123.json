@@ -1,0 +1,356 @@
+{
+  "production_opt_in": true,
+  "default_changed": false,
+  "rmc_jar_sha256": "475e872ef90e065c76eb0f6ec35ec70aa3c60564690bdde88df562c7d1a74acc",
+  "cases": {
+    "NoEarlyStore": {
+      "source_sha256": "e8e0a20c1af6af94fb02c59ff7ad2f9b33a84dd6b55872ee3b5cb89135a325f6",
+      "property_sha256": "0036336cc8d2dcff564aedc3651c4e4084ed6f8eab031aae41a3b2790995947a",
+      "partial_permission_present": true,
+      "modes": {
+        "control": {
+          "result": "assertion failed",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 5,
+          "transitions": 7,
+          "trace_states": 4,
+          "solver_reported_seconds": 1,
+          "solver_estimated_bytes": 80,
+          "native_wall_seconds": 1.032934879000095,
+          "peak_rss_kib": 919440.0,
+          "native_executable_sha256": "e5e75cadee599b1d3ee879a04c46ee601703bf0ffc1d050033c46687562dbb19",
+          "checker_sha256": "2ab8b9de1345535de53a78b4fbea3a0c6b18edab0f3fe8065f02b5aa1a5c1d04",
+          "message": "NoEarlyStore",
+          "property_rejections": 0
+        },
+        "filtered": {
+          "result": "assertion failed",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 5,
+          "transitions": 7,
+          "trace_states": 4,
+          "solver_reported_seconds": 1,
+          "solver_estimated_bytes": 80,
+          "native_wall_seconds": 0.8084257500004242,
+          "peak_rss_kib": 919440.0,
+          "native_executable_sha256": "b209958432f23b14f845b2f356192f7b9af6a52128b3b76503e37df87da3dbbb",
+          "checker_sha256": "2ab8b9de1345535de53a78b4fbea3a0c6b18edab0f3fe8065f02b5aa1a5c1d04",
+          "message": "NoEarlyStore",
+          "property_rejections": 1
+        }
+      },
+      "default_all_generated_files_byte_identical_to_preintegration": true
+    },
+    "StoredBounds": {
+      "source_sha256": "e8e0a20c1af6af94fb02c59ff7ad2f9b33a84dd6b55872ee3b5cb89135a325f6",
+      "property_sha256": "220f09b9235ec2c4efd71e3bac27d0d49bbf28b0ac11e16c28faf785be54d007",
+      "partial_permission_present": true,
+      "modes": {
+        "control": {
+          "result": "satisfied",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 12,
+          "transitions": 28,
+          "trace_states": 0,
+          "solver_reported_seconds": 1,
+          "solver_estimated_bytes": 192,
+          "native_wall_seconds": 0.7074214280000888,
+          "peak_rss_kib": 919440.0,
+          "native_executable_sha256": "cab64e1af2aad950c8d7cfc395dad87832ef6196c53a8dfe5586f5fbcd95577c",
+          "checker_sha256": "fb271324d731202c78aa9c9da88b8174d86238bb2169c386fd687303ac8bc2d6",
+          "message": null,
+          "property_rejections": 0
+        },
+        "filtered": {
+          "result": "satisfied",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 12,
+          "transitions": 30,
+          "trace_states": 0,
+          "solver_reported_seconds": 1,
+          "solver_estimated_bytes": 192,
+          "native_wall_seconds": 0.5209065389999523,
+          "peak_rss_kib": 919316.0,
+          "native_executable_sha256": "c3cf9bc6a0cbe4aef2542247c502dbdfd468524e5dd3697a85bbcebb8db32630",
+          "checker_sha256": "fb271324d731202c78aa9c9da88b8174d86238bb2169c386fd687303ac8bc2d6",
+          "message": null,
+          "property_rejections": 2
+        }
+      },
+      "default_all_generated_files_byte_identical_to_preintegration": true
+    },
+    "unreviewed_source": {
+      "source_sha256": "f860d9afc4d1eb70fca5f27f330739a9129b65c6f8e48a3c62a26127745d9e64",
+      "property_sha256": "0036336cc8d2dcff564aedc3651c4e4084ed6f8eab031aae41a3b2790995947a",
+      "partial_permission_present": false,
+      "modes": {
+        "control": {
+          "result": "assertion failed",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 5,
+          "transitions": 7,
+          "trace_states": 4,
+          "solver_reported_seconds": 1,
+          "solver_estimated_bytes": 80,
+          "native_wall_seconds": 0.8195124720004969,
+          "peak_rss_kib": 919440.0,
+          "native_executable_sha256": "e5e75cadee599b1d3ee879a04c46ee601703bf0ffc1d050033c46687562dbb19",
+          "checker_sha256": "76440d59f9058adfba46c38d504363cf7685192f47f755a4a665706d3226930e",
+          "message": "NoEarlyStore",
+          "property_rejections": 0
+        },
+        "filtered": {
+          "result": "assertion failed",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 5,
+          "transitions": 7,
+          "trace_states": 4,
+          "solver_reported_seconds": 0,
+          "solver_estimated_bytes": 80,
+          "native_wall_seconds": 0.6711353790005887,
+          "peak_rss_kib": 919444.0,
+          "native_executable_sha256": "a8104b3aa833fd3287f859ec6bc905c428045568771be3652853907fc76e3064",
+          "checker_sha256": "76440d59f9058adfba46c38d504363cf7685192f47f755a4a665706d3226930e",
+          "message": "NoEarlyStore",
+          "property_rejections": 4
+        }
+      }
+    },
+    "unreviewed_healthy": {
+      "source_sha256": "f860d9afc4d1eb70fca5f27f330739a9129b65c6f8e48a3c62a26127745d9e64",
+      "property_sha256": "220f09b9235ec2c4efd71e3bac27d0d49bbf28b0ac11e16c28faf785be54d007",
+      "partial_permission_present": false,
+      "modes": {
+        "control": {
+          "result": "satisfied",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 12,
+          "transitions": 28,
+          "trace_states": 0,
+          "solver_reported_seconds": 0,
+          "solver_estimated_bytes": 192,
+          "native_wall_seconds": 0.8153184650000185,
+          "peak_rss_kib": 919312.0,
+          "native_executable_sha256": "cab64e1af2aad950c8d7cfc395dad87832ef6196c53a8dfe5586f5fbcd95577c",
+          "checker_sha256": "d220acd37ffe6a161a70c17782013db6c020f2c436472e5e0f35f58cf8dd7336",
+          "message": null,
+          "property_rejections": 0
+        },
+        "filtered": {
+          "result": "satisfied",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 12,
+          "transitions": 28,
+          "trace_states": 0,
+          "solver_reported_seconds": 0,
+          "solver_estimated_bytes": 192,
+          "native_wall_seconds": 0.7835574800001268,
+          "peak_rss_kib": 919440.0,
+          "native_executable_sha256": "910a892f383ceaf425dc26d73add9379b64bdcbaac89dd23fe4063ea928eb23c",
+          "checker_sha256": "d220acd37ffe6a161a70c17782013db6c020f2c436472e5e0f35f58cf8dd7336",
+          "message": null,
+          "property_rejections": 7
+        }
+      }
+    },
+    "unsupported_property": {
+      "source_sha256": "e8e0a20c1af6af94fb02c59ff7ad2f9b33a84dd6b55872ee3b5cb89135a325f6",
+      "property_sha256": "f8e498f1b8aabb3be1ba10fe8f0bd61721a77a986d2208059c91d57ff06fae9a",
+      "partial_permission_present": false,
+      "modes": {
+        "control": {
+          "result": "assertion failed",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 5,
+          "transitions": 7,
+          "trace_states": 4,
+          "solver_reported_seconds": 1,
+          "solver_estimated_bytes": 80,
+          "native_wall_seconds": 1.3146859720000066,
+          "peak_rss_kib": 919440.0,
+          "native_executable_sha256": "e5e75cadee599b1d3ee879a04c46ee601703bf0ffc1d050033c46687562dbb19",
+          "checker_sha256": "76440d59f9058adfba46c38d504363cf7685192f47f755a4a665706d3226930e",
+          "message": "NoEarlyStore",
+          "property_rejections": 0
+        },
+        "filtered": {
+          "result": "assertion failed",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 5,
+          "transitions": 7,
+          "trace_states": 4,
+          "solver_reported_seconds": 1,
+          "solver_estimated_bytes": 80,
+          "native_wall_seconds": 0.8171038350001254,
+          "peak_rss_kib": 919444.0,
+          "native_executable_sha256": "a8104b3aa833fd3287f859ec6bc905c428045568771be3652853907fc76e3064",
+          "checker_sha256": "76440d59f9058adfba46c38d504363cf7685192f47f755a4a665706d3226930e",
+          "message": "NoEarlyStore",
+          "property_rejections": 4
+        }
+      }
+    },
+    "terminating": {
+      "source_sha256": "1d87651fbf1f4a94d97d7ec52538f18d05787b2e2d2e953b98bf7a6992ba639a",
+      "property_sha256": "220f09b9235ec2c4efd71e3bac27d0d49bbf28b0ac11e16c28faf785be54d007",
+      "partial_permission_present": false,
+      "modes": {
+        "control": {
+          "result": "deadlock",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 11,
+          "transitions": 13,
+          "trace_states": 6,
+          "solver_reported_seconds": 2,
+          "solver_estimated_bytes": 176,
+          "native_wall_seconds": 1.4608281410000927,
+          "peak_rss_kib": 919440.0,
+          "native_executable_sha256": "648c4574c11c5739e4b639360068ff5b1df5edc1ccae70dac34bc31ac6e240a7",
+          "checker_sha256": "4aae972acc106c7f5d61eaec05a6aa813a942914a27884e0d14e1f1b38082c48",
+          "message": null,
+          "property_rejections": 0
+        },
+        "filtered": {
+          "result": "deadlock",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 11,
+          "transitions": 13,
+          "trace_states": 6,
+          "solver_reported_seconds": 1,
+          "solver_estimated_bytes": 176,
+          "native_wall_seconds": 0.5293504070004929,
+          "peak_rss_kib": 919312.0,
+          "native_executable_sha256": "6923a64dbf4ab808dd808da433d42f1c781158fcf4e3af38405764a04d9a02c9",
+          "checker_sha256": "4aae972acc106c7f5d61eaec05a6aa813a942914a27884e0d14e1f1b38082c48",
+          "message": null,
+          "property_rejections": 2
+        }
+      }
+    },
+    "source_assertion": {
+      "source_sha256": "819d3154255b3cbcad121dc1c15fd2f0fd52c3df82720752f75899a7b37b7f78",
+      "property_sha256": "220f09b9235ec2c4efd71e3bac27d0d49bbf28b0ac11e16c28faf785be54d007",
+      "partial_permission_present": false,
+      "modes": {
+        "control": {
+          "result": "assertion failed",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 4,
+          "transitions": 6,
+          "trace_states": 4,
+          "solver_reported_seconds": 0,
+          "solver_estimated_bytes": 64,
+          "native_wall_seconds": 0.8566534720002892,
+          "peak_rss_kib": 919440.0,
+          "native_executable_sha256": "c6d1cb6e76cc6900e0e3a4700d9867dc6bff459c6fd1db45e23d261a13b16a1e",
+          "checker_sha256": "d220acd37ffe6a161a70c17782013db6c020f2c436472e5e0f35f58cf8dd7336",
+          "message": "no message",
+          "property_rejections": 0
+        },
+        "filtered": {
+          "result": "assertion failed",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 4,
+          "transitions": 6,
+          "trace_states": 4,
+          "solver_reported_seconds": 1,
+          "solver_estimated_bytes": 64,
+          "native_wall_seconds": 0.6614579409997532,
+          "peak_rss_kib": 919444.0,
+          "native_executable_sha256": "59aacafe381806c8ae8015abf91bdee9651c7b1befd7fd1fa8db9aada8051fc5",
+          "checker_sha256": "d220acd37ffe6a161a70c17782013db6c020f2c436472e5e0f35f58cf8dd7336",
+          "message": "no message",
+          "property_rejections": 4
+        }
+      }
+    }
+  },
+  "healthy_graph_audit": {
+    "original": {
+      "states": 12,
+      "projected_states": 11,
+      "full_vertices": 11,
+      "partial_certificates": [
+        {
+          "state": "1_0",
+          "action": [
+            "starter",
+            "STARTWORKERS"
+          ],
+          "evidence": {
+            "reason": "verified",
+            "avoidance_states": 1
+          }
+        }
+      ],
+      "strong_cycle_passed": true,
+      "retained_outcomes_match": true,
+      "c0": true
+    },
+    "experimental": {
+      "states": 12,
+      "projected_states": 11,
+      "full_vertices": 11,
+      "partial_certificates": [
+        {
+          "state": "1_0",
+          "action": [
+            "starter",
+            "STARTWORKERS"
+          ],
+          "evidence": {
+            "reason": "verified",
+            "avoidance_states": 1
+          }
+        }
+      ],
+      "strong_cycle_passed": true,
+      "retained_outcomes_match": true,
+      "c0": true
+    },
+    "refused_metadata": {
+      "states": 12,
+      "projected_states": 11,
+      "full_vertices": 12,
+      "partial_certificates": [],
+      "strong_cycle_passed": true,
+      "retained_outcomes_match": true,
+      "c0": true
+    }
+  },
+  "invalid_modes_rejected": true,
+  "all_passed": true,
+  "final_artifact_validation": {
+    "post_guard_jar_sha256": "995b84d988663d116e1797f71ab1585b019a566a9a53d63cefe8733938a91930",
+    "all_seven_native_sources_byte_identical_after_guard": true,
+    "annotated_model_explicitly_refused": true,
+    "invalid_modes_exit_status": 2
+  },
+  "production_metadata_policy_test": {
+    "passed": true,
+    "concurrent_calls": 32,
+    "checks": [
+      "native actor/message identity",
+      "disabled",
+      "missing property",
+      "truncated message ID space",
+      "caller mutation isolation"
+    ]
+  },
+  "metadata_java_sha256": "76d7079ce1480f8386ab35301a68b3ef0e809aec30ff027f8c37ae7302675ffd",
+  "final_maven_build": "BUILD SUCCESS; release17; executable assembly"
+}
