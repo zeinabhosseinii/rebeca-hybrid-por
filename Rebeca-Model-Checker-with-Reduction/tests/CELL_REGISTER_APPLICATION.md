@@ -72,3 +72,32 @@ python3 -m unittest discover -s tests -p test_cell_register_graph_audit.py
 ```
 
 The four focused tests require parameter values and multiplicities to remain distinct, require queue-order projection to be explicit, reject timed messages, and reject aliases with missing behavior. The Linux audit is archived in `results/cell_register_graph_audit_linux_20261123.json`. Full/control exported graphs and reports are archived alongside it in `results/cell_register_graphs_linux_20261123/`; they retain their exact hashes from the audit. No performance comparison is made from these export-enabled runs.
+
+## Follow-up: reduction certificates and real assertion stopping
+
+`audit_cell_register_reductions.py` builds on the pinned-source full/control equivalence. For each static/dynamic raw state it checks C0, equality of all retained actor/handler outcome sets, and a sufficient set-level persistence/relational-diamond condition along all full-graph paths avoiding the selected set. Actions inside the selected set need not commute with one another. It also removes semantically fully expanded raw vertices and checks that the remaining reduced graph is acyclic, a strong sufficient cycle proviso. This is an exported finite-graph certificate, not an audit of every runtime diagnostic decision.
+
+The exact healthy source has only the stored-value assertion. Every reachable full-state Cell.value is within 0..2; full exploration completed satisfied, and no model step is an error. Assertions occur immediately after the single store assignment, so their truth is covered for this source. Empty atomic propositions alone would not justify invisibility for arbitrary properties. Do not reuse this observation argument for another property or model.
+
+| Check | Dynamic | Static |
+|---|---|---|
+| Initial state/C0 | Pass | Pass |
+| Retained action outcomes | Pass | Pass |
+| Strong cycle condition | Pass | Pass |
+| Sufficient persistent-set/diamond certificate | Pass | Refused |
+| Semantically full raw states | 11 of 12 | 2 of 9 |
+
+Dynamic has one partially expanded raw state: it chooses starter.STARTWORKERS, with a verified avoidance region. The remaining eleven are semantically full, explaining why this example gives practically no dynamic reduction.
+
+Static's sufficient certificate is refused at two partial choices, when a remaining worker sends a value while Cell already has a pending store. For example, full state 3_0 has value zero, pending store(1), and worker2.WRITEVALUE enabled. Executing the new send before STORE permits storing either pending value; executing STORE first must store 1. The two orders therefore have different two-step outcome sets. The JSON records the exact full-state IDs and left/right destination sets. This fails a sufficient commutation test; it is **not** a proof that ARIA's static algorithm is incorrect, nor a counterexample to this bound assertion. A different, property-specific or algorithm-specific argument would be needed to certify those static choices. The healthy assertion remains satisfied in the complete reference graph and both reduced runs.
+
+A fresh native execution of each faulty mode still stopped at assertion failed, with a nonempty trace whose failing edge is cell.STORE. These four observations are in `results/cell_register_fault_recheck_linux_20261123.json`; the preceding benchmark also verified all 44 faulty runs including warmups. This is actual first-error stopping; no error bypass or generator change was introduced. These fault runs do not exercise deadlock; the separate deadlock integration tests remain the evidence for that behavior.
+
+Run after graph export:
+
+```bash
+python3 tests/audit_cell_register_reductions.py --case CASE/CellRegisterBounds --output CASE/reduction_audit.json
+python3 -m unittest discover -s tests -p 'test_cell_register*.py'
+```
+
+The command fails if the dynamic sufficient certificate fails. Static refusal is explicitly recorded, not converted into a pass. Three new tests check set-level treatment, disabling and nondeterministic diamond failures; all seven Cell audit tests pass. Counts and witnesses are archived in `results/cell_register_reductions_linux_20261123.json`. This step changes tests and documentation only; certificate scope, runtime COND, proviso and stopping behavior are unchanged.

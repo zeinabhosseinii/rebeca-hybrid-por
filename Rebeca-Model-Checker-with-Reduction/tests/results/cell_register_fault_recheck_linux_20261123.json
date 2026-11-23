@@ -1,0 +1,54 @@
+{
+  "full": {
+    "result": "assertion failed",
+    "property_type": "Reachability",
+    "property_name": "Deadlock-Freedom and No Deadline Missed",
+    "states": 6,
+    "transitions": 9,
+    "trace_states": 4,
+    "solver_reported_seconds": 2,
+    "solver_estimated_bytes": 96,
+    "native_wall_seconds": 1.9586222139998881,
+    "peak_rss_kib": 919184.0,
+    "store_fault_edge": true
+  },
+  "static": {
+    "result": "assertion failed",
+    "property_type": "Reachability",
+    "property_name": "Deadlock-Freedom and No Deadline Missed",
+    "states": 6,
+    "transitions": 7,
+    "trace_states": 5,
+    "solver_reported_seconds": 1,
+    "solver_estimated_bytes": 96,
+    "native_wall_seconds": 0.6674290920000203,
+    "peak_rss_kib": 919312.0,
+    "store_fault_edge": true
+  },
+  "dynamic": {
+    "result": "assertion failed",
+    "property_type": "Reachability",
+    "property_name": "Deadlock-Freedom and No Deadline Missed",
+    "states": 6,
+    "transitions": 11,
+    "trace_states": 4,
+    "solver_reported_seconds": 0,
+    "solver_estimated_bytes": 96,
+    "native_wall_seconds": 0.285504795000179,
+    "peak_rss_kib": 919312.0,
+    "store_fault_edge": true
+  },
+  "dynamic_no_por": {
+    "result": "assertion failed",
+    "property_type": "Reachability",
+    "property_name": "Deadlock-Freedom and No Deadline Missed",
+    "states": 6,
+    "transitions": 9,
+    "trace_states": 4,
+    "solver_reported_seconds": 0,
+    "solver_estimated_bytes": 96,
+    "native_wall_seconds": 0.3541847559999951,
+    "peak_rss_kib": 919312.0,
+    "store_fault_edge": true
+  }
+}

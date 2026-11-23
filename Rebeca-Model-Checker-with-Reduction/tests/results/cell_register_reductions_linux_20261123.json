@@ -1,0 +1,189 @@
+{
+  "finite_exact_healthy_model_only": true,
+  "source_sha256": "88b73b2cc8caf2bd6441024fd3afeef17b5d3d1e5e9fde1b25717b734bafcae0",
+  "full_control_equivalence_rechecked": true,
+  "sufficient_test_only": true,
+  "assertion_scope": "All reachable full states satisfy 0 <= Cell.value <= 2; this checks only the exact stored-value safety property, not arbitrary properties.",
+  "modes": {
+    "static": {
+      "raw_states": 9,
+      "c0": true,
+      "retained_action_outcomes_match": true,
+      "semantically_full_raw_states": 2,
+      "strong_cycle_passed": true,
+      "partial_choices": [
+        {
+          "state": "1_0",
+          "full_state": "1_0",
+          "selected": [
+            [
+              "starter",
+              "STARTWORKERS"
+            ]
+          ],
+          "certified": true,
+          "evidence": {
+            "reason": "verified",
+            "avoidance_states": 1
+          }
+        },
+        {
+          "state": "2_0",
+          "full_state": "2_0",
+          "selected": [
+            [
+              "worker1",
+              "WRITEVALUE"
+            ],
+            [
+              "worker2",
+              "WRITEVALUE"
+            ]
+          ],
+          "certified": true,
+          "evidence": {
+            "reason": "verified",
+            "avoidance_states": 1
+          }
+        },
+        {
+          "state": "3_0",
+          "full_state": "3_0",
+          "selected": [
+            [
+              "worker2",
+              "WRITEVALUE"
+            ]
+          ],
+          "certified": false,
+          "evidence": {
+            "reason": "relational_diamond_failed",
+            "state": "3_0",
+            "selected": [
+              "worker2",
+              "WRITEVALUE"
+            ],
+            "other": [
+              "cell",
+              "STORE"
+            ],
+            "selected_then_other": [
+              "8_0",
+              "9_0"
+            ],
+            "other_then_selected": [
+              "8_0"
+            ]
+          }
+        },
+        {
+          "state": "4_0",
+          "full_state": "4_0",
+          "selected": [
+            [
+              "worker1",
+              "WRITEVALUE"
+            ]
+          ],
+          "certified": false,
+          "evidence": {
+            "reason": "relational_diamond_failed",
+            "state": "4_0",
+            "selected": [
+              "worker1",
+              "WRITEVALUE"
+            ],
+            "other": [
+              "cell",
+              "STORE"
+            ],
+            "selected_then_other": [
+              "8_0",
+              "9_0"
+            ],
+            "other_then_selected": [
+              "9_0"
+            ]
+          }
+        },
+        {
+          "state": "5_0",
+          "full_state": "6_0",
+          "selected": [
+            [
+              "cell",
+              "STORE"
+            ]
+          ],
+          "certified": true,
+          "evidence": {
+            "reason": "verified",
+            "avoidance_states": 1
+          }
+        },
+        {
+          "state": "6_0",
+          "full_state": "8_0",
+          "selected": [
+            [
+              "cell",
+              "STORE"
+            ]
+          ],
+          "certified": true,
+          "evidence": {
+            "reason": "verified",
+            "avoidance_states": 1
+          }
+        },
+        {
+          "state": "7_0",
+          "full_state": "9_0",
+          "selected": [
+            [
+              "cell",
+              "STORE"
+            ]
+          ],
+          "certified": true,
+          "evidence": {
+            "reason": "verified",
+            "avoidance_states": 1
+          }
+        }
+      ],
+      "sufficient_certificate_passed": false,
+      "interpretation": "A rejected sufficient certificate is inconclusive about general correctness; do not call it a proved defect."
+    },
+    "dynamic": {
+      "raw_states": 12,
+      "c0": true,
+      "retained_action_outcomes_match": true,
+      "semantically_full_raw_states": 11,
+      "strong_cycle_passed": true,
+      "partial_choices": [
+        {
+          "state": "1_0",
+          "full_state": "1_0",
+          "selected": [
+            [
+              "starter",
+              "STARTWORKERS"
+            ]
+          ],
+          "certified": true,
+          "evidence": {
+            "reason": "verified",
+            "avoidance_states": 1
+          }
+        }
+      ],
+      "sufficient_certificate_passed": true,
+      "interpretation": "A rejected sufficient certificate is inconclusive about general correctness; do not call it a proved defect."
+    }
+  },
+  "witness_full_states": {
+    "3_0": "('', (('cell', (('Cell.value', 'int', '0'),), (((('arrival', '0'), ('deadline', 'infinity')), 'keepAlive()'), ((('arrival', '0'), ('deadline', 'infinity')), 'store(1)')), '0'), ('starter', (), (), '0'), ('worker1', (('Worker.id', 'byte', '1'),), (), '0'), ('worker2', (('Worker.id', 'byte', '2'),), (((('arrival', '0'), ('deadline', 'infinity')), 'writeValue()'),), '0')))",
+    "4_0": "('', (('cell', (('Cell.value', 'int', '0'),), (((('arrival', '0'), ('deadline', 'infinity')), 'keepAlive()'), ((('arrival', '0'), ('deadline', 'infinity')), 'store(2)')), '0'), ('starter', (), (), '0'), ('worker1', (('Worker.id', 'byte', '1'),), (((('arrival', '0'), ('deadline', 'infinity')), 'writeValue()'),), '0'), ('worker2', (('Worker.id', 'byte', '2'),), (), '0')))"
+  }
+}
