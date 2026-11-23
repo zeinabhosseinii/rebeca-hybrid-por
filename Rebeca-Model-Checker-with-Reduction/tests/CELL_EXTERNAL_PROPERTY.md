@@ -57,3 +57,6 @@ The wrapper builds both Java projects, runs a Java policy check, then regenerate
 The Java check covers actor and method normalization, unchanged input maps and preserved keys/id. Locally all 35 ARIA Java sources including the existing generated grammar were compiled with Java 17 against the existing shaded dependencies, then the executable artifact was updated and all five native tests passed. A Maven build was attempted but the offline cache lacked antlr4-maven-plugin 4.13.1; this is not reported as a successful Maven build. The wrapper provides the normal complete Maven build for an environment with those dependencies.
 
 Raw observations and executable/source hashes are in `results/cell_external_property_linux_20261123.json`; five native reports including counterexamples are in the sibling `cell_external_property_linux_20261123/` directory. Scope is this exact regression. No arbitrary-property preservation theorem is claimed.
+
+
+A subsequent offline property-aware representative experiment is documented in `PROPERTY_REPRESENTATIVE_EXPERIMENT.md`. It retains the NoEarlyStore violation and reduces three healthy reference edges without reducing states. It does not change the conservative production policy described here.
