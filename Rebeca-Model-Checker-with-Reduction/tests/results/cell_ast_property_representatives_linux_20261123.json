@@ -1,0 +1,1143 @@
+{
+  "reference_only": true,
+  "online_generator_changed": false,
+  "manual_effects_used": false,
+  "manual_predicate_used": false,
+  "full_graph_required": true,
+  "source_sha256": "e8e0a20c1af6af94fb02c59ff7ad2f9b33a84dd6b55872ee3b5cb89135a325f6",
+  "full_graph_sha256": "0c956f72816ae5aec6e92919fd86dc22d104b3a1d2dcb0d23726989138d4e73b",
+  "metadata_java_sha256": "443e497000140ecf7b2c309872dc5c8d76396c6b4d350061ed59f9e2338825d1",
+  "properties": {
+    "NoEarlyStore": {
+      "metadata": {
+        "diagnostic_only": true,
+        "online_generator_changed": false,
+        "metadata_supported": true,
+        "actions": [
+          {
+            "action": [
+              "cell",
+              "STORE"
+            ],
+            "complete": true,
+            "reads": [
+              [
+                "cell",
+                "Cell.value"
+              ]
+            ],
+            "writes": [
+              [
+                "cell",
+                "Cell.value"
+              ]
+            ],
+            "sends": []
+          },
+          {
+            "action": [
+              "cell",
+              "KEEPALIVE"
+            ],
+            "complete": true,
+            "reads": [],
+            "writes": [],
+            "sends": [
+              [
+                "cell",
+                "KEEPALIVE"
+              ]
+            ]
+          },
+          {
+            "action": [
+              "worker1",
+              "WRITEVALUE"
+            ],
+            "complete": true,
+            "reads": [
+              [
+                "worker1",
+                "Worker.id"
+              ]
+            ],
+            "writes": [
+              [
+                "worker1",
+                "Worker.sent"
+              ]
+            ],
+            "sends": [
+              [
+                "cell",
+                "STORE"
+              ]
+            ]
+          },
+          {
+            "action": [
+              "worker2",
+              "WRITEVALUE"
+            ],
+            "complete": true,
+            "reads": [
+              [
+                "worker2",
+                "Worker.id"
+              ]
+            ],
+            "writes": [
+              [
+                "worker2",
+                "Worker.sent"
+              ]
+            ],
+            "sends": [
+              [
+                "cell",
+                "STORE"
+              ]
+            ]
+          },
+          {
+            "action": [
+              "starter",
+              "STARTWORKERS"
+            ],
+            "complete": true,
+            "reads": [],
+            "writes": [],
+            "sends": [
+              [
+                "worker1",
+                "WRITEVALUE"
+              ],
+              [
+                "worker2",
+                "WRITEVALUE"
+              ]
+            ]
+          }
+        ],
+        "property_name": "NoEarlyStore",
+        "property_reads": [
+          [
+            "cell",
+            "Cell.value"
+          ],
+          [
+            "worker2",
+            "Worker.sent"
+          ]
+        ],
+        "predicate": {
+          "kind": "unary",
+          "op": "!",
+          "operand": {
+            "kind": "binary",
+            "op": "&&",
+            "left": {
+              "kind": "binary",
+              "op": "==",
+              "left": {
+                "kind": "field",
+                "key": [
+                  "cell",
+                  "Cell.value"
+                ],
+                "type": "int"
+              },
+              "right": {
+                "kind": "literal",
+                "type": "byte",
+                "value": "1"
+              }
+            },
+            "right": {
+              "kind": "unary",
+              "op": "!",
+              "operand": {
+                "kind": "field",
+                "key": [
+                  "worker2",
+                  "Worker.sent"
+                ],
+                "type": "boolean"
+              }
+            }
+          }
+        },
+        "source_sha256": "e8e0a20c1af6af94fb02c59ff7ad2f9b33a84dd6b55872ee3b5cb89135a325f6",
+        "property_sha256": "0036336cc8d2dcff564aedc3651c4e4084ed6f8eab031aae41a3b2790995947a"
+      },
+      "status": "checked",
+      "reduction_enabled": true,
+      "full": {
+        "result": "assertion failed",
+        "discovered_states": 5,
+        "expanded_states": 3,
+        "explored_edges": 7,
+        "counterexample": [
+          {
+            "source": "1_0",
+            "action": [
+              "starter",
+              "STARTWORKERS"
+            ],
+            "target": "2_0"
+          },
+          {
+            "source": "2_0",
+            "action": [
+              "worker1",
+              "WRITEVALUE"
+            ],
+            "target": "3_0"
+          },
+          {
+            "source": "3_0",
+            "action": [
+              "cell",
+              "STORE"
+            ],
+            "target": "5_0"
+          }
+        ],
+        "decisions": [
+          {
+            "state": "1_0",
+            "selected": [
+              [
+                "cell",
+                "KEEPALIVE"
+              ],
+              [
+                "starter",
+                "STARTWORKERS"
+              ]
+            ],
+            "full": true
+          },
+          {
+            "state": "2_0",
+            "selected": [
+              [
+                "cell",
+                "KEEPALIVE"
+              ],
+              [
+                "worker1",
+                "WRITEVALUE"
+              ],
+              [
+                "worker2",
+                "WRITEVALUE"
+              ]
+            ],
+            "full": true
+          },
+          {
+            "state": "3_0",
+            "selected": [
+              [
+                "cell",
+                "KEEPALIVE"
+              ],
+              [
+                "cell",
+                "STORE"
+              ],
+              [
+                "worker2",
+                "WRITEVALUE"
+              ]
+            ],
+            "full": true
+          }
+        ],
+        "candidate_trials": [],
+        "complete_reduced_graph": false,
+        "strong_cycle_passed": null,
+        "no_processing_after_first_error": true
+      },
+      "property_aware": {
+        "result": "assertion failed",
+        "discovered_states": 5,
+        "expanded_states": 3,
+        "explored_edges": 6,
+        "counterexample": [
+          {
+            "source": "1_0",
+            "action": [
+              "starter",
+              "STARTWORKERS"
+            ],
+            "target": "2_0"
+          },
+          {
+            "source": "2_0",
+            "action": [
+              "worker1",
+              "WRITEVALUE"
+            ],
+            "target": "3_0"
+          },
+          {
+            "source": "3_0",
+            "action": [
+              "cell",
+              "STORE"
+            ],
+            "target": "5_0"
+          }
+        ],
+        "decisions": [
+          {
+            "state": "1_0",
+            "selected": [
+              [
+                "starter",
+                "STARTWORKERS"
+              ]
+            ],
+            "full": false
+          },
+          {
+            "state": "2_0",
+            "selected": [
+              [
+                "cell",
+                "KEEPALIVE"
+              ],
+              [
+                "worker1",
+                "WRITEVALUE"
+              ],
+              [
+                "worker2",
+                "WRITEVALUE"
+              ]
+            ],
+            "full": true
+          },
+          {
+            "state": "3_0",
+            "selected": [
+              [
+                "cell",
+                "KEEPALIVE"
+              ],
+              [
+                "cell",
+                "STORE"
+              ],
+              [
+                "worker2",
+                "WRITEVALUE"
+              ]
+            ],
+            "full": true
+          }
+        ],
+        "candidate_trials": [
+          {
+            "state": "1_0",
+            "action": [
+              "cell",
+              "KEEPALIVE"
+            ],
+            "reason": "proviso_rejected"
+          },
+          {
+            "state": "1_0",
+            "action": [
+              "starter",
+              "STARTWORKERS"
+            ],
+            "reason": "accepted",
+            "dependency_evidence": {
+              "reason": "verified",
+              "avoidance_states": 1
+            }
+          },
+          {
+            "state": "2_0",
+            "action": [
+              "cell",
+              "KEEPALIVE"
+            ],
+            "reason": "proviso_rejected"
+          },
+          {
+            "state": "4_0",
+            "action": [
+              "worker1",
+              "WRITEVALUE"
+            ],
+            "reason": "diamond_failed",
+            "other": [
+              "cell",
+              "STORE"
+            ]
+          },
+          {
+            "state": "2_0",
+            "action": [
+              "worker2",
+              "WRITEVALUE"
+            ],
+            "reason": "property_visible_write"
+          },
+          {
+            "state": "3_0",
+            "action": [
+              "cell",
+              "KEEPALIVE"
+            ],
+            "reason": "proviso_rejected"
+          },
+          {
+            "state": "3_0",
+            "action": [
+              "cell",
+              "STORE"
+            ],
+            "reason": "property_visible_write"
+          },
+          {
+            "state": "3_0",
+            "action": [
+              "worker2",
+              "WRITEVALUE"
+            ],
+            "reason": "property_visible_write"
+          }
+        ],
+        "complete_reduced_graph": false,
+        "strong_cycle_passed": null,
+        "no_processing_after_first_error": true
+      },
+      "property_reads": [
+        [
+          "cell",
+          "Cell.value"
+        ],
+        [
+          "worker2",
+          "Worker.sent"
+        ]
+      ]
+    },
+    "StoredBounds": {
+      "metadata": {
+        "diagnostic_only": true,
+        "online_generator_changed": false,
+        "metadata_supported": true,
+        "actions": [
+          {
+            "action": [
+              "cell",
+              "STORE"
+            ],
+            "complete": true,
+            "reads": [
+              [
+                "cell",
+                "Cell.value"
+              ]
+            ],
+            "writes": [
+              [
+                "cell",
+                "Cell.value"
+              ]
+            ],
+            "sends": []
+          },
+          {
+            "action": [
+              "cell",
+              "KEEPALIVE"
+            ],
+            "complete": true,
+            "reads": [],
+            "writes": [],
+            "sends": [
+              [
+                "cell",
+                "KEEPALIVE"
+              ]
+            ]
+          },
+          {
+            "action": [
+              "worker1",
+              "WRITEVALUE"
+            ],
+            "complete": true,
+            "reads": [
+              [
+                "worker1",
+                "Worker.id"
+              ]
+            ],
+            "writes": [
+              [
+                "worker1",
+                "Worker.sent"
+              ]
+            ],
+            "sends": [
+              [
+                "cell",
+                "STORE"
+              ]
+            ]
+          },
+          {
+            "action": [
+              "worker2",
+              "WRITEVALUE"
+            ],
+            "complete": true,
+            "reads": [
+              [
+                "worker2",
+                "Worker.id"
+              ]
+            ],
+            "writes": [
+              [
+                "worker2",
+                "Worker.sent"
+              ]
+            ],
+            "sends": [
+              [
+                "cell",
+                "STORE"
+              ]
+            ]
+          },
+          {
+            "action": [
+              "starter",
+              "STARTWORKERS"
+            ],
+            "complete": true,
+            "reads": [],
+            "writes": [],
+            "sends": [
+              [
+                "worker1",
+                "WRITEVALUE"
+              ],
+              [
+                "worker2",
+                "WRITEVALUE"
+              ]
+            ]
+          }
+        ],
+        "property_name": "StoredBounds",
+        "property_reads": [
+          [
+            "cell",
+            "Cell.value"
+          ]
+        ],
+        "predicate": {
+          "kind": "binary",
+          "op": "&&",
+          "left": {
+            "kind": "binary",
+            "op": ">=",
+            "left": {
+              "kind": "field",
+              "key": [
+                "cell",
+                "Cell.value"
+              ],
+              "type": "int"
+            },
+            "right": {
+              "kind": "literal",
+              "type": "byte",
+              "value": "0"
+            }
+          },
+          "right": {
+            "kind": "binary",
+            "op": "<=",
+            "left": {
+              "kind": "field",
+              "key": [
+                "cell",
+                "Cell.value"
+              ],
+              "type": "int"
+            },
+            "right": {
+              "kind": "literal",
+              "type": "byte",
+              "value": "2"
+            }
+          }
+        },
+        "source_sha256": "e8e0a20c1af6af94fb02c59ff7ad2f9b33a84dd6b55872ee3b5cb89135a325f6",
+        "property_sha256": "220f09b9235ec2c4efd71e3bac27d0d49bbf28b0ac11e16c28faf785be54d007"
+      },
+      "status": "checked",
+      "reduction_enabled": true,
+      "full": {
+        "result": "satisfied",
+        "discovered_states": 11,
+        "expanded_states": 11,
+        "explored_edges": 24,
+        "counterexample": [],
+        "decisions": [
+          {
+            "state": "1_0",
+            "selected": [
+              [
+                "cell",
+                "KEEPALIVE"
+              ],
+              [
+                "starter",
+                "STARTWORKERS"
+              ]
+            ],
+            "full": true
+          },
+          {
+            "state": "2_0",
+            "selected": [
+              [
+                "cell",
+                "KEEPALIVE"
+              ],
+              [
+                "worker1",
+                "WRITEVALUE"
+              ],
+              [
+                "worker2",
+                "WRITEVALUE"
+              ]
+            ],
+            "full": true
+          },
+          {
+            "state": "3_0",
+            "selected": [
+              [
+                "cell",
+                "KEEPALIVE"
+              ],
+              [
+                "cell",
+                "STORE"
+              ],
+              [
+                "worker2",
+                "WRITEVALUE"
+              ]
+            ],
+            "full": true
+          },
+          {
+            "state": "4_0",
+            "selected": [
+              [
+                "cell",
+                "KEEPALIVE"
+              ],
+              [
+                "cell",
+                "STORE"
+              ],
+              [
+                "worker1",
+                "WRITEVALUE"
+              ]
+            ],
+            "full": true
+          },
+          {
+            "state": "5_0",
+            "selected": [
+              [
+                "cell",
+                "KEEPALIVE"
+              ],
+              [
+                "worker2",
+                "WRITEVALUE"
+              ]
+            ],
+            "full": true
+          },
+          {
+            "state": "6_0",
+            "selected": [
+              [
+                "cell",
+                "KEEPALIVE"
+              ],
+              [
+                "cell",
+                "STORE"
+              ]
+            ],
+            "full": true
+          },
+          {
+            "state": "7_0",
+            "selected": [
+              [
+                "cell",
+                "KEEPALIVE"
+              ],
+              [
+                "worker1",
+                "WRITEVALUE"
+              ]
+            ],
+            "full": true
+          },
+          {
+            "state": "8_0",
+            "selected": [
+              [
+                "cell",
+                "KEEPALIVE"
+              ],
+              [
+                "cell",
+                "STORE"
+              ]
+            ],
+            "full": true
+          },
+          {
+            "state": "9_0",
+            "selected": [
+              [
+                "cell",
+                "KEEPALIVE"
+              ],
+              [
+                "cell",
+                "STORE"
+              ]
+            ],
+            "full": true
+          },
+          {
+            "state": "10_0",
+            "selected": [
+              [
+                "cell",
+                "KEEPALIVE"
+              ]
+            ],
+            "full": true
+          },
+          {
+            "state": "11_0",
+            "selected": [
+              [
+                "cell",
+                "KEEPALIVE"
+              ]
+            ],
+            "full": true
+          }
+        ],
+        "candidate_trials": [],
+        "complete_reduced_graph": true,
+        "strong_cycle_passed": true,
+        "no_processing_after_first_error": true
+      },
+      "property_aware": {
+        "result": "satisfied",
+        "discovered_states": 11,
+        "expanded_states": 11,
+        "explored_edges": 21,
+        "counterexample": [],
+        "decisions": [
+          {
+            "state": "1_0",
+            "selected": [
+              [
+                "starter",
+                "STARTWORKERS"
+              ]
+            ],
+            "full": false
+          },
+          {
+            "state": "2_0",
+            "selected": [
+              [
+                "cell",
+                "KEEPALIVE"
+              ],
+              [
+                "worker1",
+                "WRITEVALUE"
+              ],
+              [
+                "worker2",
+                "WRITEVALUE"
+              ]
+            ],
+            "full": true
+          },
+          {
+            "state": "3_0",
+            "selected": [
+              [
+                "cell",
+                "KEEPALIVE"
+              ],
+              [
+                "cell",
+                "STORE"
+              ],
+              [
+                "worker2",
+                "WRITEVALUE"
+              ]
+            ],
+            "full": true
+          },
+          {
+            "state": "4_0",
+            "selected": [
+              [
+                "cell",
+                "KEEPALIVE"
+              ],
+              [
+                "cell",
+                "STORE"
+              ],
+              [
+                "worker1",
+                "WRITEVALUE"
+              ]
+            ],
+            "full": true
+          },
+          {
+            "state": "5_0",
+            "selected": [
+              [
+                "worker2",
+                "WRITEVALUE"
+              ]
+            ],
+            "full": false
+          },
+          {
+            "state": "6_0",
+            "selected": [
+              [
+                "cell",
+                "KEEPALIVE"
+              ],
+              [
+                "cell",
+                "STORE"
+              ]
+            ],
+            "full": true
+          },
+          {
+            "state": "7_0",
+            "selected": [
+              [
+                "worker1",
+                "WRITEVALUE"
+              ]
+            ],
+            "full": false
+          },
+          {
+            "state": "8_0",
+            "selected": [
+              [
+                "cell",
+                "KEEPALIVE"
+              ],
+              [
+                "cell",
+                "STORE"
+              ]
+            ],
+            "full": true
+          },
+          {
+            "state": "9_0",
+            "selected": [
+              [
+                "cell",
+                "KEEPALIVE"
+              ],
+              [
+                "cell",
+                "STORE"
+              ]
+            ],
+            "full": true
+          },
+          {
+            "state": "10_0",
+            "selected": [
+              [
+                "cell",
+                "KEEPALIVE"
+              ]
+            ],
+            "full": true
+          },
+          {
+            "state": "11_0",
+            "selected": [
+              [
+                "cell",
+                "KEEPALIVE"
+              ]
+            ],
+            "full": true
+          }
+        ],
+        "candidate_trials": [
+          {
+            "state": "1_0",
+            "action": [
+              "cell",
+              "KEEPALIVE"
+            ],
+            "reason": "proviso_rejected"
+          },
+          {
+            "state": "1_0",
+            "action": [
+              "starter",
+              "STARTWORKERS"
+            ],
+            "reason": "accepted",
+            "dependency_evidence": {
+              "reason": "verified",
+              "avoidance_states": 1
+            }
+          },
+          {
+            "state": "2_0",
+            "action": [
+              "cell",
+              "KEEPALIVE"
+            ],
+            "reason": "proviso_rejected"
+          },
+          {
+            "state": "4_0",
+            "action": [
+              "worker1",
+              "WRITEVALUE"
+            ],
+            "reason": "diamond_failed",
+            "other": [
+              "cell",
+              "STORE"
+            ]
+          },
+          {
+            "state": "3_0",
+            "action": [
+              "worker2",
+              "WRITEVALUE"
+            ],
+            "reason": "diamond_failed",
+            "other": [
+              "cell",
+              "STORE"
+            ]
+          },
+          {
+            "state": "3_0",
+            "action": [
+              "cell",
+              "KEEPALIVE"
+            ],
+            "reason": "proviso_rejected"
+          },
+          {
+            "state": "3_0",
+            "action": [
+              "cell",
+              "STORE"
+            ],
+            "reason": "property_visible_write"
+          },
+          {
+            "state": "3_0",
+            "action": [
+              "worker2",
+              "WRITEVALUE"
+            ],
+            "reason": "diamond_failed",
+            "other": [
+              "cell",
+              "STORE"
+            ]
+          },
+          {
+            "state": "4_0",
+            "action": [
+              "cell",
+              "KEEPALIVE"
+            ],
+            "reason": "proviso_rejected"
+          },
+          {
+            "state": "4_0",
+            "action": [
+              "cell",
+              "STORE"
+            ],
+            "reason": "property_visible_write"
+          },
+          {
+            "state": "4_0",
+            "action": [
+              "worker1",
+              "WRITEVALUE"
+            ],
+            "reason": "diamond_failed",
+            "other": [
+              "cell",
+              "STORE"
+            ]
+          },
+          {
+            "state": "5_0",
+            "action": [
+              "cell",
+              "KEEPALIVE"
+            ],
+            "reason": "proviso_rejected"
+          },
+          {
+            "state": "5_0",
+            "action": [
+              "worker2",
+              "WRITEVALUE"
+            ],
+            "reason": "accepted",
+            "dependency_evidence": {
+              "reason": "verified",
+              "avoidance_states": 1
+            }
+          },
+          {
+            "state": "6_0",
+            "action": [
+              "cell",
+              "KEEPALIVE"
+            ],
+            "reason": "proviso_rejected"
+          },
+          {
+            "state": "6_0",
+            "action": [
+              "cell",
+              "STORE"
+            ],
+            "reason": "property_visible_write"
+          },
+          {
+            "state": "7_0",
+            "action": [
+              "cell",
+              "KEEPALIVE"
+            ],
+            "reason": "proviso_rejected"
+          },
+          {
+            "state": "7_0",
+            "action": [
+              "worker1",
+              "WRITEVALUE"
+            ],
+            "reason": "accepted",
+            "dependency_evidence": {
+              "reason": "verified",
+              "avoidance_states": 1
+            }
+          },
+          {
+            "state": "8_0",
+            "action": [
+              "cell",
+              "KEEPALIVE"
+            ],
+            "reason": "proviso_rejected"
+          },
+          {
+            "state": "8_0",
+            "action": [
+              "cell",
+              "STORE"
+            ],
+            "reason": "property_visible_write"
+          },
+          {
+            "state": "9_0",
+            "action": [
+              "cell",
+              "KEEPALIVE"
+            ],
+            "reason": "proviso_rejected"
+          },
+          {
+            "state": "9_0",
+            "action": [
+              "cell",
+              "STORE"
+            ],
+            "reason": "property_visible_write"
+          },
+          {
+            "state": "10_0",
+            "action": [
+              "cell",
+              "KEEPALIVE"
+            ],
+            "reason": "proviso_rejected"
+          },
+          {
+            "state": "11_0",
+            "action": [
+              "cell",
+              "KEEPALIVE"
+            ],
+            "reason": "proviso_rejected"
+          }
+        ],
+        "complete_reduced_graph": true,
+        "strong_cycle_passed": true,
+        "no_processing_after_first_error": true
+      },
+      "property_reads": [
+        [
+          "cell",
+          "Cell.value"
+        ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,1 @@
+property { Assertion { StoredBounds: cell.value >= 0 && cell.value <= 2; } }

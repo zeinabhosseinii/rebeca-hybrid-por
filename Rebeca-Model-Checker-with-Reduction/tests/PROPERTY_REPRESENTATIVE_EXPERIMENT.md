@@ -1,5 +1,7 @@
 # Offline property-aware representative selection
 
+The initial experiment below used reviewed manual metadata. The current reproduction wrapper now uses compiler AST-derived metadata and property IR; see `PROPERTY_AST_METADATA.md`. The original manual experiment remains available as a historical comparison, not as the current default.
+
 This is a separate exact-model experiment. It does not change production RMC, static priorities, the conservative ARIA `--property` export, runtime COND, or native error stopping. It requires a complete full graph and is not an online performance improvement.
 
 ## Reviewed model and observations
@@ -52,7 +54,7 @@ From Rebeca-Model-Checker-with-Reduction:
 bash tests/run_property_representative_experiment.sh
 ```
 
-The wrapper builds RMC, creates a fresh native full export, runs both properties and both search policies, and runs the seven tests. A successful experiment requires the NoEarlyStore violation, matching full/reduced results, and the healthy cycle certificate. It does not rerun the separate native external-property controls; use `check_cell_external_property.sh` for those.
+The wrapper now builds RMC, creates a fresh native full export, extracts typed-AST property/effect metadata, runs both properties and both search policies, runs the metadata mutation checks, and runs the seven search tests. A successful experiment requires the NoEarlyStore violation, matching full/reduced results, and the healthy cycle certificate. It does not rerun the separate native external-property controls; use `check_cell_external_property.sh` for those.
 
 The result is archived in `results/cell_property_representatives_linux_20261123.json`, including every candidate rejection, selected set and error trace. Complete reference graph, report and provenance are archived in `results/cell_property_reference_linux_20261123/`. Reproduction should rebuild with `--build-full`: the strict graph loader also inspects generated C++ configuration and priority sources, which are retained in the working output rather than this compact archive.
 
