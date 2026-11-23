@@ -1,3 +1,5 @@
+Current extension: structurally certified nullary communicating models are now admitted by the optional filter. See [the queue certificate](NULLARY_QUEUE_COMMUNICATION.md). Historical results and restrictions below describe the earlier admission policy.
+
 # Opt-in AST property filter in the production FTTS generator
 
 Update: the actor-local structural admission and the stricter optional-path cycle rule are documented in `ACTOR_LOCAL_PROPERTY_CERTIFICATE.md`. Historical single-source results below retain their original scope.

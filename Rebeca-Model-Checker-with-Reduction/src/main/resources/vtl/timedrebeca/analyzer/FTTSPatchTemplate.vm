@@ -19,6 +19,9 @@
         std::vector<int> alternatives; // retain every parameter/nondeterministic branch
     };
     std::vector<PorCandidate> collectPorCandidates(int r, TIME_TYPE execTime);
+#if($ariaPropertyFilterEnabled && $tokenQueueCertified)
+    bool isNullaryQueueCandidateSafe(int r, TIME_TYPE execTime);
+#end
     bool isPorCandidateFull(const PorCandidate& candidate, TIME_TYPE currentTime, int highestPriority);
     bool isPorSuccessorAllowed(bool candidateIsFull);
 	byte _porResult;
@@ -230,6 +233,58 @@ int TimedModelChecker::choosePassiveSendAlternative(int r, TIME_TYPE execTime, i
     return -1;
 }
 
+#if($ariaPropertyFilterEnabled && $tokenQueueCertified)
+bool TimedModelChecker::isNullaryQueueCandidateSafe(int r, TIME_TYPE execTime) {
+    static const bool known[REBEC_COUNT][$maxMsgIdPlusOne] = {
+#foreach($row in $tokenQueueKnown)
+        {#foreach($value in $row)$value#if(!$foreach.last),#end#end}#if(!$foreach.last),#end
+#end
+    };
+    static const bool sends[REBEC_COUNT][$maxMsgIdPlusOne][REBEC_COUNT][$maxMsgIdPlusOne] = {
+#foreach($actor in $tokenQueueSends)
+        {#foreach($method in $actor){#foreach($target in $method){#foreach($value in $target)$value#if(!$foreach.last),#end#end}#if(!$foreach.last),#end#end}#if(!$foreach.last),#end#end}#if(!$foreach.last),#end
+#end
+    };
+    static const bool conflicts[REBEC_COUNT][$maxMsgIdPlusOne][REBEC_COUNT][$maxMsgIdPlusOne] = {
+#foreach($actor in $tokenQueueConflicts)
+        {#foreach($method in $actor){#foreach($target in $method){#foreach($value in $target)$value#if(!$foreach.last),#end#end}#if(!$foreach.last),#end#end}#if(!$foreach.last),#end#end}#if(!$foreach.last),#end
+#end
+    };
+    bool selected[$maxMsgIdPlusOne] = {};
+    for (int k = 0; k < getNumberOfAlternatives(r, execTime); ++k) {
+        int id = (unsigned char)rebecs[r]->messageQueue[k];
+        if (id <= 0 || id >= $maxMsgIdPlusOne || !known[r][id]) return false;
+        selected[id] = true;
+    }
+    bool seen[REBEC_COUNT][$maxMsgIdPlusOne] = {};
+    std::vector<int> pending;
+    for (int j = 0; j < REBEC_COUNT; ++j)
+        for (int slot = 0; slot < rebecs[j]->maxQueueLength && rebecs[j]->messageQueue[slot]; ++slot) {
+            int id = (unsigned char)rebecs[j]->messageQueue[slot];
+            if (id <= 0 || id >= $maxMsgIdPlusOne || !known[j][id]) return false;
+            if (j != r || !selected[id]) pending.push_back(j * $maxMsgIdPlusOne + id);
+        }
+    while (!pending.empty()) {
+        int key = pending.back(); pending.pop_back();
+        int j = key / $maxMsgIdPlusOne, id = key % $maxMsgIdPlusOne;
+        if (seen[j][id]) continue;
+        seen[j][id] = true;
+        for (int chosen = 1; chosen < $maxMsgIdPlusOne; ++chosen)
+            if (selected[chosen] && conflicts[r][chosen][j][id]) {
+#ifdef POR_DIAGNOSTICS
+                cerr << "POR_QUEUE_BLOCK state=" << current.state->stateID << " actor=" << rebecs[r]->getName()
+                     << " selectedMsg=" << chosen << " futureActor=" << rebecs[j]->getName() << " futureMsg=" << id << endl;
+#endif
+                return false;
+            }
+        for (int target = 0; target < REBEC_COUNT; ++target)
+            for (int method = 1; method < $maxMsgIdPlusOne; ++method)
+                if (sends[j][id][target][method] && (target != r || !selected[method]))
+                    pending.push_back(target * $maxMsgIdPlusOne + method);
+    }
+    return true;
+}
+#end
 std::vector<TimedModelChecker::PorCandidate> TimedModelChecker::collectPorCandidates(int r, TIME_TYPE execTime) {
     std::vector<PorCandidate> choices;
     int cursor = 0;
@@ -251,10 +306,18 @@ std::vector<TimedModelChecker::PorCandidate> TimedModelChecker::collectPorCandid
     }
     if (!choices.empty()) return choices;
     // Global safety alone does NOT justify splitting distinct methods of one actor.
+#if($ariaPropertyFilterEnabled && $tokenQueueCertified)
+    if (!isNullaryQueueCandidateSafe(r, execTime)) return choices;
+#else
     if (!areAllActiveAlternativesSafe(r, execTime)) return choices;
+#end
     int count = getNumberOfAlternatives(r, execTime);
     int id = (unsigned char)rebecs[r]->messageQueue[0];
+#if($ariaPropertyFilterEnabled && $tokenQueueCertified)
+    PorCandidate c = {r, id, "nullary_queue_closure", {}};
+#else
     PorCandidate c = {r, id, "global_dependency_check", {}};
+#end
     for (int k = 0; k < count; k++) {
         c.alternatives.push_back(k);
         if ((unsigned char)rebecs[r]->messageQueue[k] != id) c.messageId = 0;

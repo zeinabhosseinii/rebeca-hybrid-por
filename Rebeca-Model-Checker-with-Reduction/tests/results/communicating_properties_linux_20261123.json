@@ -1,0 +1,5006 @@
+{
+  "communicating_models": true,
+  "rmc_jar_sha256": "4af144943e6b6ec63e6bfbc44a5e80727832a9a6faf2d7f9cf80eabc63021480",
+  "cases": {
+    "load_bounds": {
+      "source_sha256": "fbd2dbefff81ef86df52c961ba93784f8f5f3ff4bea7a2e9cf9c842ae579108b",
+      "certificate": true,
+      "token_bound": 2,
+      "refusal": null,
+      "modes": {
+        "control": {
+          "result": "satisfied",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 64,
+          "transitions": 128,
+          "trace_states": 0,
+          "solver_reported_seconds": 2,
+          "solver_estimated_bytes": 1536,
+          "native_wall_seconds": 1.35790976699991,
+          "peak_rss_kib": 1705908.0,
+          "native_executable_sha256": "e4b1d138368f39967e7b2a8db301018dfc25342548fdcbbba3271e4082d8bb57",
+          "checker_sha256": "bba3e6e5bbb280d704fba09c5a11cb35e563f9ddc95c8fd797bead462af558bc",
+          "message": null,
+          "property_rejections": 0,
+          "queue_dependency_rejections": 0
+        },
+        "filtered": {
+          "result": "satisfied",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 42,
+          "transitions": 55,
+          "trace_states": 0,
+          "solver_reported_seconds": 0,
+          "solver_estimated_bytes": 1008,
+          "native_wall_seconds": 0.9534891060000064,
+          "peak_rss_kib": 1705904.0,
+          "native_executable_sha256": "bd731a753405c93a38bd724128c12a63638cf2aa2b69349f01c02523c4beac0d",
+          "checker_sha256": "bba3e6e5bbb280d704fba09c5a11cb35e563f9ddc95c8fd797bead462af558bc",
+          "message": null,
+          "property_rejections": 24,
+          "queue_dependency_rejections": 0
+        }
+      },
+      "graph_audit": {
+        "control_states": 64,
+        "control_projected_states": 64,
+        "filtered_states": 42,
+        "filtered_projected_states": 42,
+        "control_unique_edges": 109,
+        "filtered_exported_unique_edges": 51,
+        "filtered_selected_unique_edges": 48,
+        "full_vertices": 16,
+        "partial_certificates": [
+          {
+            "state": "2_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 4,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "3_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "4_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 2,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "5_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 3,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "7_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "8_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "9_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "10_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "13_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 2,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "14_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 2,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "15_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 3,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "18_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "19_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "20_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "22_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "23_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "26_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 2,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "27_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 2,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "28_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 3,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "31_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "32_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "33_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "35_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "36_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "39_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 2,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "41_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          }
+        ],
+        "strong_cycle_passed": true,
+        "retained_outcomes_match": true,
+        "c0": true,
+        "all_control_aliases_checked": true
+      }
+    },
+    "load_true": {
+      "source_sha256": "fbd2dbefff81ef86df52c961ba93784f8f5f3ff4bea7a2e9cf9c842ae579108b",
+      "certificate": true,
+      "token_bound": 2,
+      "refusal": null,
+      "modes": {
+        "control": {
+          "result": "satisfied",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 64,
+          "transitions": 128,
+          "trace_states": 0,
+          "solver_reported_seconds": 1,
+          "solver_estimated_bytes": 1536,
+          "native_wall_seconds": 0.6967824739999742,
+          "peak_rss_kib": 1705904.0,
+          "native_executable_sha256": "16b5acfc8bf9f3e1485c8d4816d4715f2b51e97d4eede588ccdc355bd3f82af8",
+          "checker_sha256": "4989faecbe0b1f5e43485d96288184c593738c05aac29e851bbde695dd85a8ea",
+          "message": null,
+          "property_rejections": 0,
+          "queue_dependency_rejections": 0
+        },
+        "filtered": {
+          "result": "satisfied",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 27,
+          "transitions": 31,
+          "trace_states": 0,
+          "solver_reported_seconds": 0,
+          "solver_estimated_bytes": 648,
+          "native_wall_seconds": 0.4242654509998829,
+          "peak_rss_kib": 1705912.0,
+          "native_executable_sha256": "562006d896a1bacc2d2412f8c122f85b7a92cbb9374faff5671cd2261abbf613",
+          "checker_sha256": "4989faecbe0b1f5e43485d96288184c593738c05aac29e851bbde695dd85a8ea",
+          "message": null,
+          "property_rejections": 0,
+          "queue_dependency_rejections": 0
+        }
+      },
+      "graph_audit": {
+        "control_states": 64,
+        "control_projected_states": 64,
+        "filtered_states": 27,
+        "filtered_projected_states": 27,
+        "control_unique_edges": 109,
+        "filtered_exported_unique_edges": 30,
+        "filtered_selected_unique_edges": 27,
+        "full_vertices": 6,
+        "partial_certificates": [
+          {
+            "state": "2_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 4,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "3_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "4_0",
+            "actions": [
+              [
+                "Hub",
+                "RECEIVEPRIMARY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "6_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 2,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "7_0",
+            "actions": [
+              [
+                "Hub",
+                "RECEIVESECONDARY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 3,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "8_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 4,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "9_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "10_0",
+            "actions": [
+              [
+                "Hub",
+                "RECEIVEPRIMARY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "12_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 2,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "13_0",
+            "actions": [
+              [
+                "Hub",
+                "RECEIVESECONDARY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 3,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "14_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 4,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "15_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "16_0",
+            "actions": [
+              [
+                "Hub",
+                "RECEIVEPRIMARY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "18_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 2,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "19_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "20_0",
+            "actions": [
+              [
+                "Hub",
+                "RECEIVESECONDARY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 2,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "21_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "22_0",
+            "actions": [
+              [
+                "Hub",
+                "RECEIVESECONDARY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "24_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 2,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "25_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "26_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          }
+        ],
+        "strong_cycle_passed": true,
+        "retained_outcomes_match": true,
+        "c0": true,
+        "all_control_aliases_checked": true
+      }
+    },
+    "renamed_load": {
+      "source_sha256": "cae783c782670e62eb1aeb2a4bd6a43692a3e456611535c035462b9bbcc51c03",
+      "certificate": true,
+      "token_bound": 2,
+      "refusal": null,
+      "modes": {
+        "control": {
+          "result": "satisfied",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 64,
+          "transitions": 128,
+          "trace_states": 0,
+          "solver_reported_seconds": 0,
+          "solver_estimated_bytes": 1536,
+          "native_wall_seconds": 0.6321123169998373,
+          "peak_rss_kib": 1705908.0,
+          "native_executable_sha256": "fd943526e064b147162d11cf00e0322bf13ea78107236e38c5457e1556948f4e",
+          "checker_sha256": "bba3e6e5bbb280d704fba09c5a11cb35e563f9ddc95c8fd797bead462af558bc",
+          "message": null,
+          "property_rejections": 0,
+          "queue_dependency_rejections": 0
+        },
+        "filtered": {
+          "result": "satisfied",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 42,
+          "transitions": 55,
+          "trace_states": 0,
+          "solver_reported_seconds": 0,
+          "solver_estimated_bytes": 1008,
+          "native_wall_seconds": 0.44026821400007066,
+          "peak_rss_kib": 1705892.0,
+          "native_executable_sha256": "95de7d7c43dc09852fd40d68f9100b49acc6773f048aec1eacc1f49e23b52136",
+          "checker_sha256": "bba3e6e5bbb280d704fba09c5a11cb35e563f9ddc95c8fd797bead462af558bc",
+          "message": null,
+          "property_rejections": 24,
+          "queue_dependency_rejections": 0
+        }
+      },
+      "graph_audit": {
+        "control_states": 64,
+        "control_projected_states": 64,
+        "filtered_states": 42,
+        "filtered_projected_states": 42,
+        "control_unique_edges": 109,
+        "filtered_exported_unique_edges": 51,
+        "filtered_selected_unique_edges": 48,
+        "full_vertices": 16,
+        "partial_certificates": [
+          {
+            "state": "2_0",
+            "actions": [
+              [
+                "Left",
+                "PUSH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 4,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "3_0",
+            "actions": [
+              [
+                "RelayA",
+                "RELAY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "4_0",
+            "actions": [
+              [
+                "Right",
+                "PUSH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 2,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "5_0",
+            "actions": [
+              [
+                "RelayB",
+                "RELAY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 3,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "7_0",
+            "actions": [
+              [
+                "Left",
+                "PUSH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "8_0",
+            "actions": [
+              [
+                "Right",
+                "PUSH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "9_0",
+            "actions": [
+              [
+                "RelayA",
+                "RELAY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "10_0",
+            "actions": [
+              [
+                "RelayB",
+                "RELAY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "13_0",
+            "actions": [
+              [
+                "Right",
+                "PUSH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 2,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "14_0",
+            "actions": [
+              [
+                "Left",
+                "PUSH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 2,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "15_0",
+            "actions": [
+              [
+                "RelayB",
+                "RELAY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 3,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "18_0",
+            "actions": [
+              [
+                "Left",
+                "PUSH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "19_0",
+            "actions": [
+              [
+                "Left",
+                "PUSH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "20_0",
+            "actions": [
+              [
+                "Right",
+                "PUSH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "22_0",
+            "actions": [
+              [
+                "RelayA",
+                "RELAY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "23_0",
+            "actions": [
+              [
+                "RelayB",
+                "RELAY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "26_0",
+            "actions": [
+              [
+                "Right",
+                "PUSH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 2,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "27_0",
+            "actions": [
+              [
+                "Left",
+                "PUSH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 2,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "28_0",
+            "actions": [
+              [
+                "RelayB",
+                "RELAY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 3,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "31_0",
+            "actions": [
+              [
+                "Left",
+                "PUSH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "32_0",
+            "actions": [
+              [
+                "Left",
+                "PUSH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "33_0",
+            "actions": [
+              [
+                "Right",
+                "PUSH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "35_0",
+            "actions": [
+              [
+                "RelayA",
+                "RELAY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "36_0",
+            "actions": [
+              [
+                "RelayB",
+                "RELAY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "39_0",
+            "actions": [
+              [
+                "Left",
+                "PUSH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 2,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "41_0",
+            "actions": [
+              [
+                "Left",
+                "PUSH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          }
+        ],
+        "strong_cycle_passed": true,
+        "retained_outcomes_match": true,
+        "c0": true,
+        "all_control_aliases_checked": true
+      }
+    },
+    "shared_hub_field": {
+      "source_sha256": "7e896c23ca9b4e7930c7f39464346494f5a84f3271bdb7dbded3d9aa2fa1a481",
+      "certificate": true,
+      "token_bound": 2,
+      "commuting_scalar_pairs": 1,
+      "modes": {
+        "control": {
+          "result": "satisfied",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 64,
+          "transitions": 128,
+          "trace_states": 0,
+          "solver_reported_seconds": 3,
+          "solver_estimated_bytes": 1536,
+          "native_wall_seconds": 2.8553861219998,
+          "peak_rss_kib": 1705624.0,
+          "native_executable_sha256": "f65f3bcb66a76a24f7cdd4a11a4b207e9264c94d4cc0ae0e8fb317ba8be9930a",
+          "checker_sha256": "2e70e1d5076689041b6674d65f8ed824b3283ee3c453f2a93eebbb71ba523eb4",
+          "message": null,
+          "property_rejections": 0,
+          "queue_dependency_rejections": 0
+        },
+        "filtered": {
+          "result": "satisfied",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 27,
+          "transitions": 31,
+          "trace_states": 0,
+          "solver_reported_seconds": 2,
+          "solver_estimated_bytes": 648,
+          "native_wall_seconds": 1.4787392270000055,
+          "peak_rss_kib": 1705908.0,
+          "native_executable_sha256": "f5a39a93702bdfccca94d9f11f10be2cffbd9278f55768df3801349c3cca5915",
+          "checker_sha256": "2e70e1d5076689041b6674d65f8ed824b3283ee3c453f2a93eebbb71ba523eb4",
+          "message": null,
+          "property_rejections": 0,
+          "queue_dependency_rejections": 0
+        }
+      },
+      "graph_audit": {
+        "control_states": 64,
+        "control_projected_states": 64,
+        "filtered_states": 27,
+        "filtered_projected_states": 27,
+        "control_unique_edges": 109,
+        "filtered_exported_unique_edges": 30,
+        "filtered_selected_unique_edges": 27,
+        "full_vertices": 6,
+        "partial_certificates": [
+          {
+            "state": "2_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 4,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "3_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "4_0",
+            "actions": [
+              [
+                "Hub",
+                "RECEIVEPRIMARY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "6_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 2,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "7_0",
+            "actions": [
+              [
+                "Hub",
+                "RECEIVESECONDARY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 3,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "8_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 4,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "9_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "10_0",
+            "actions": [
+              [
+                "Hub",
+                "RECEIVEPRIMARY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "12_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 2,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "13_0",
+            "actions": [
+              [
+                "Hub",
+                "RECEIVESECONDARY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 3,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "14_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 4,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "15_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "16_0",
+            "actions": [
+              [
+                "Hub",
+                "RECEIVEPRIMARY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "18_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 2,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "19_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "20_0",
+            "actions": [
+              [
+                "Hub",
+                "RECEIVESECONDARY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 2,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "21_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "22_0",
+            "actions": [
+              [
+                "Hub",
+                "RECEIVESECONDARY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "24_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 2,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "25_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "26_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          }
+        ],
+        "strong_cycle_passed": true,
+        "retained_outcomes_match": true,
+        "c0": true,
+        "all_control_aliases_checked": true
+      }
+    },
+    "global_violation": {
+      "source_sha256": "fbd2dbefff81ef86df52c961ba93784f8f5f3ff4bea7a2e9cf9c842ae579108b",
+      "certificate": true,
+      "token_bound": 2,
+      "refusal": null,
+      "modes": {
+        "control": {
+          "result": "assertion failed",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 8,
+          "transitions": 9,
+          "trace_states": 5,
+          "solver_reported_seconds": 0,
+          "solver_estimated_bytes": 192,
+          "native_wall_seconds": 0.5633815909998248,
+          "peak_rss_kib": 1705908.0,
+          "native_executable_sha256": "2ca62607804184e3cc2828aa3cfd573d49af3356a1aff11067e26aeafefe75db",
+          "checker_sha256": "2bb8740c74a1f74ed309032f99617b0ccddbc34c74a87f3aa1e892ae7f87699a",
+          "message": "NoEarlyHub",
+          "property_rejections": 0,
+          "queue_dependency_rejections": 0
+        },
+        "filtered": {
+          "result": "assertion failed",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 5,
+          "transitions": 5,
+          "trace_states": 5,
+          "solver_reported_seconds": 1,
+          "solver_estimated_bytes": 120,
+          "native_wall_seconds": 0.36483570299992607,
+          "peak_rss_kib": 1705912.0,
+          "native_executable_sha256": "14056e6dc5b18d974c3498c14cb79efb0ba4ee8a67f2cca5273b702a127c1e30",
+          "checker_sha256": "2bb8740c74a1f74ed309032f99617b0ccddbc34c74a87f3aa1e892ae7f87699a",
+          "message": "NoEarlyHub",
+          "property_rejections": 2,
+          "queue_dependency_rejections": 0
+        }
+      }
+    },
+    "source_assertion": {
+      "source_sha256": "3ac026daf17e6fbda3b9a430cb92bbdbdefec9292b47f5d56b70191e7ddea2dd",
+      "certificate": true,
+      "token_bound": 2,
+      "refusal": null,
+      "modes": {
+        "control": {
+          "result": "assertion failed",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 16,
+          "transitions": 23,
+          "trace_states": 7,
+          "solver_reported_seconds": 1,
+          "solver_estimated_bytes": 384,
+          "native_wall_seconds": 0.4523153140000886,
+          "peak_rss_kib": 1705908.0,
+          "native_executable_sha256": "7f5c9f8e4daca60e12463b735456e9922d3ab398214fb073c155026e9c9d7a46",
+          "checker_sha256": "e70054943ffcfe02eb7524ee4aacf9cd63bb9ae51580e75d18d11b6c7b46d4d5",
+          "message": "no message",
+          "property_rejections": 0,
+          "queue_dependency_rejections": 0
+        },
+        "filtered": {
+          "result": "assertion failed",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 8,
+          "transitions": 8,
+          "trace_states": 8,
+          "solver_reported_seconds": 1,
+          "solver_estimated_bytes": 192,
+          "native_wall_seconds": 0.43876670899999226,
+          "peak_rss_kib": 1705896.0,
+          "native_executable_sha256": "21b95c9c1090b3d8cf1a6fbb1ef17d6e85b4ee698f487b10ef4ec1d0ecfa427a",
+          "checker_sha256": "e70054943ffcfe02eb7524ee4aacf9cd63bb9ae51580e75d18d11b6c7b46d4d5",
+          "message": "no message",
+          "property_rejections": 3,
+          "queue_dependency_rejections": 0
+        }
+      }
+    },
+    "terminating": {
+      "source_sha256": "3482d06c72c1f09eea63584b9f9ea3ceb1e7f82ef80d14a6e1217b9f73ba91c1",
+      "certificate": true,
+      "token_bound": 2,
+      "refusal": null,
+      "modes": {
+        "control": {
+          "result": "deadlock",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 23,
+          "transitions": 38,
+          "trace_states": 11,
+          "solver_reported_seconds": 1,
+          "solver_estimated_bytes": 552,
+          "native_wall_seconds": 0.6028206359999331,
+          "peak_rss_kib": 1705880.0,
+          "native_executable_sha256": "7912bcd28e5ccf922b4721644cc0862e044c58cb91cf07f0290f67841bca6ff8",
+          "checker_sha256": "754ea86e50019652714fad88268d819f6c17c359fc8890c428a12ff56fca79e3",
+          "message": null,
+          "property_rejections": 0,
+          "queue_dependency_rejections": 0
+        },
+        "filtered": {
+          "result": "deadlock",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 14,
+          "transitions": 15,
+          "trace_states": 11,
+          "solver_reported_seconds": 0,
+          "solver_estimated_bytes": 336,
+          "native_wall_seconds": 0.618099194000024,
+          "peak_rss_kib": 1705888.0,
+          "native_executable_sha256": "b07abc4203ac41d41183580ee1e77d439230b2eba7c7d0b0f1fad3a75137141a",
+          "checker_sha256": "754ea86e50019652714fad88268d819f6c17c359fc8890c428a12ff56fca79e3",
+          "message": null,
+          "property_rejections": 4,
+          "queue_dependency_rejections": 0
+        }
+      }
+    },
+    "conditional_send": {
+      "source_sha256": "e9599f1a8d8922bf019211dec78e7ff4a8fa86a7f58b145af76495d61b349856",
+      "certificate": false,
+      "token_bound": null,
+      "refusal": "conditional runtime send",
+      "modes": {
+        "control": {
+          "result": "deadlock",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 30,
+          "transitions": 50,
+          "trace_states": 13,
+          "solver_reported_seconds": 1,
+          "solver_estimated_bytes": 720,
+          "native_wall_seconds": 0.6479943059998732,
+          "peak_rss_kib": 1705900.0,
+          "native_executable_sha256": "d2962012a7bc93a0242e5fbe322ac4767cadb6b7e69b6dfee5739ae503dd65a6",
+          "checker_sha256": "f5efd418e5538020e740aa2279ca3702e7dd6d6ca561575773ba9d6d49700832",
+          "message": null,
+          "property_rejections": 0,
+          "queue_dependency_rejections": 0
+        },
+        "filtered": {
+          "result": "deadlock",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 30,
+          "transitions": 46,
+          "trace_states": 13,
+          "solver_reported_seconds": 0,
+          "solver_estimated_bytes": 720,
+          "native_wall_seconds": 0.7128879990000314,
+          "peak_rss_kib": 1705912.0,
+          "native_executable_sha256": "98559c7936083e28822a39b34b52c298442af3efc582659f4d36c499192bafdf",
+          "checker_sha256": "f5efd418e5538020e740aa2279ca3702e7dd6d6ca561575773ba9d6d49700832",
+          "message": null,
+          "property_rejections": 24,
+          "queue_dependency_rejections": 0
+        }
+      }
+    },
+    "queue_margin_refused": {
+      "source_sha256": "1cab2778c00e4bbd5590c8d6444330fdbf65f1282ec9daeb7ac62a2066c21f4e",
+      "certificate": false,
+      "token_bound": null,
+      "refusal": "insufficient_queue_margin",
+      "modes": {
+        "control": {
+          "result": "satisfied",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 64,
+          "transitions": 128,
+          "trace_states": 0,
+          "solver_reported_seconds": 1,
+          "solver_estimated_bytes": 1536,
+          "native_wall_seconds": 0.66850278600009,
+          "peak_rss_kib": 1705900.0,
+          "native_executable_sha256": "648d62b5db5971cfb1659f5c358e3570485a77cebeadbd3258df8fdeb725c042",
+          "checker_sha256": "f5efd418e5538020e740aa2279ca3702e7dd6d6ca561575773ba9d6d49700832",
+          "message": null,
+          "property_rejections": 0,
+          "queue_dependency_rejections": 0
+        },
+        "filtered": {
+          "result": "satisfied",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 64,
+          "transitions": 110,
+          "trace_states": 0,
+          "solver_reported_seconds": 1,
+          "solver_estimated_bytes": 1536,
+          "native_wall_seconds": 0.6517049579999821,
+          "peak_rss_kib": 1705912.0,
+          "native_executable_sha256": "5a996e66747ae069d80336e47e14662de252136e39a3f002d0f666f0c2c7b34e",
+          "checker_sha256": "f5efd418e5538020e740aa2279ca3702e7dd6d6ca561575773ba9d6d49700832",
+          "message": null,
+          "property_rejections": 60,
+          "queue_dependency_rejections": 0
+        }
+      },
+      "graph_audit": {
+        "control_states": 64,
+        "control_projected_states": 64,
+        "filtered_states": 64,
+        "filtered_projected_states": 64,
+        "control_unique_edges": 109,
+        "filtered_exported_unique_edges": 109,
+        "filtered_selected_unique_edges": 109,
+        "full_vertices": 64,
+        "partial_certificates": [],
+        "strong_cycle_passed": true,
+        "retained_outcomes_match": true,
+        "c0": true,
+        "all_control_aliases_checked": true
+      }
+    },
+    "repeatable_fanout_overflow": {
+      "certificate": false,
+      "refusal": "repeatable_runtime_fanout",
+      "modes": {
+        "control": {
+          "result": "queue overflow",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 14,
+          "transitions": 55,
+          "trace_states": 8,
+          "solver_reported_seconds": 1,
+          "solver_estimated_bytes": 112,
+          "native_wall_seconds": 1.0470595150000008,
+          "peak_rss_kib": 395052.0,
+          "native_executable_sha256": "e7ce298e864e0736e00cd6a9ffb559416b1c816b33b0f77ff7607a7a27d52e03",
+          "checker_sha256": "42378a17a80c4e583f744da32bd2b491e1b61073bdf85b54cd95e12d8f8c94be",
+          "message": null,
+          "property_rejections": 0
+        },
+        "filtered": {
+          "result": "queue overflow",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 14,
+          "transitions": 19,
+          "trace_states": 8,
+          "solver_reported_seconds": 0,
+          "solver_estimated_bytes": 112,
+          "native_wall_seconds": 0.4538406250001117,
+          "peak_rss_kib": 395024.0,
+          "native_executable_sha256": "3bc37253bbbbd078a61cbe3b8f35dfb215577d782078ea6ba15a0726a7777a8f",
+          "checker_sha256": "42378a17a80c4e583f744da32bd2b491e1b61073bdf85b54cd95e12d8f8c94be",
+          "message": null,
+          "property_rejections": 16
+        }
+      }
+    },
+    "read_write_hub": {
+      "source_sha256": "cfb8452f44c997947e9adbeb0f46aa05285377f4c426cccf7da0bf51830a59be",
+      "certificate": true,
+      "token_bound": 2,
+      "modes": {
+        "control": {
+          "result": "satisfied",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 109,
+          "transitions": 218,
+          "trace_states": 0,
+          "solver_reported_seconds": 1,
+          "solver_estimated_bytes": 2616,
+          "native_wall_seconds": 1.2027548370001568,
+          "peak_rss_kib": 1705908.0,
+          "native_executable_sha256": "192082dff530405e73fe8420e8304dfa33765c60f52edefdaa3b641c2e1d5495",
+          "checker_sha256": "5ab87877c34e85f3f60737f2181dd000570d96eac5dd7ca8ce6e337b2a079577",
+          "message": null,
+          "property_rejections": 0,
+          "queue_dependency_rejections": 0
+        },
+        "filtered": {
+          "result": "satisfied",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 48,
+          "transitions": 63,
+          "trace_states": 0,
+          "solver_reported_seconds": 1,
+          "solver_estimated_bytes": 1152,
+          "native_wall_seconds": 0.9414697919996797,
+          "peak_rss_kib": 1705904.0,
+          "native_executable_sha256": "20c8c29c40a43a7f6fcceade49e85887a1bb13e0097ea566af5a8e489c58d6e6",
+          "checker_sha256": "5ab87877c34e85f3f60737f2181dd000570d96eac5dd7ca8ce6e337b2a079577",
+          "message": null,
+          "property_rejections": 0,
+          "queue_dependency_rejections": 12
+        }
+      },
+      "graph_audit": {
+        "control_states": 109,
+        "control_projected_states": 109,
+        "filtered_states": 48,
+        "filtered_projected_states": 48,
+        "control_unique_edges": 190,
+        "filtered_exported_unique_edges": 62,
+        "filtered_selected_unique_edges": 54,
+        "full_vertices": 11,
+        "partial_certificates": [
+          {
+            "state": "2_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 4,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "3_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "4_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 2,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "5_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 3,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "7_0",
+            "actions": [
+              [
+                "Hub",
+                "RECEIVEPRIMARY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 3,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "8_0",
+            "actions": [
+              [
+                "Hub",
+                "RECEIVESECONDARY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 3,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "9_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 4,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "10_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 4,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "11_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "12_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "13_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 2,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "14_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 2,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "15_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 3,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "16_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 3,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "19_0",
+            "actions": [
+              [
+                "Hub",
+                "RECEIVEPRIMARY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 3,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "20_0",
+            "actions": [
+              [
+                "Hub",
+                "RECEIVESECONDARY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 3,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "21_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "22_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 4,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "23_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 4,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "24_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "25_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "26_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "28_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 2,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "29_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 2,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "30_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 3,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "31_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 3,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "34_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "35_0",
+            "actions": [
+              [
+                "Hub",
+                "RECEIVESECONDARY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 3,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "36_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "37_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "38_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 4,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "39_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "41_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "43_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 2,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "44_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 3,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "46_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "47_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          }
+        ],
+        "strong_cycle_passed": true,
+        "retained_outcomes_match": true,
+        "c0": true,
+        "all_control_aliases_checked": true
+      }
+    },
+    "three_token_union": {
+      "source_sha256": "88a502a03b753cd10a9afb3bad15ed9152679be9dcbf93c8aa03e7eae2dd84ef",
+      "certificate": true,
+      "token_bound": 3,
+      "modes": {
+        "control": {
+          "result": "satisfied",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 391,
+          "transitions": 1172,
+          "trace_states": 0,
+          "solver_reported_seconds": 2,
+          "solver_estimated_bytes": 9384,
+          "native_wall_seconds": 1.209951123999872,
+          "peak_rss_kib": 1706028.0,
+          "native_executable_sha256": "44651dd81cba061f95d630164eb46ffc59c895e91eeabcff45e9be6180ed8154",
+          "checker_sha256": "5ab87877c34e85f3f60737f2181dd000570d96eac5dd7ca8ce6e337b2a079577",
+          "message": null,
+          "property_rejections": 0
+        },
+        "filtered": {
+          "result": "satisfied",
+          "property_type": "Reachability",
+          "property_name": "Deadlock-Freedom and No Deadline Missed",
+          "states": 242,
+          "transitions": 454,
+          "trace_states": 0,
+          "solver_reported_seconds": 1,
+          "solver_estimated_bytes": 5808,
+          "native_wall_seconds": 0.8406550039999274,
+          "peak_rss_kib": 1705912.0,
+          "native_executable_sha256": "45aadcd2284dc7a73237a333332269a9d1c5705d9dfa11f34ef1c60741bda3da",
+          "checker_sha256": "5ab87877c34e85f3f60737f2181dd000570d96eac5dd7ca8ce6e337b2a079577",
+          "message": null,
+          "property_rejections": 0
+        }
+      },
+      "graph_audit": {
+        "control_states": 391,
+        "control_projected_states": 391,
+        "filtered_states": 242,
+        "filtered_projected_states": 242,
+        "control_unique_edges": 892,
+        "filtered_exported_unique_edges": 395,
+        "filtered_selected_unique_edges": 307,
+        "full_vertices": 62,
+        "partial_certificates": [
+          {
+            "state": "2_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 4,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "3_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 9,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "4_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 18,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "5_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 29,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "6_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 3,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "7_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "9_0",
+            "actions": [
+              [
+                "Hub",
+                "RECEIVEPRIMARY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 3,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "10_0",
+            "actions": [
+              [
+                "Hub",
+                "RECEIVEPRIMARY"
+              ],
+              [
+                "Hub",
+                "RECEIVESECONDARY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 3,
+              "selected_labels": 2
+            }
+          },
+          {
+            "state": "11_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 18,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "12_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 18,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "13_0",
+            "actions": [
+              [
+                "Hub",
+                "RECEIVESECONDARY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "14_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 29,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "15_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 29,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "16_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 10,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "17_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 3,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "18_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 3,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "19_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 15,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "20_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "21_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "22_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 2,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "26_0",
+            "actions": [
+              [
+                "Hub",
+                "RECEIVEPRIMARY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 3,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "27_0",
+            "actions": [
+              [
+                "Hub",
+                "RECEIVEPRIMARY"
+              ],
+              [
+                "Hub",
+                "RECEIVESECONDARY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 3,
+              "selected_labels": 2
+            }
+          },
+          {
+            "state": "28_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 19,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "29_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 18,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "30_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 18,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "31_0",
+            "actions": [
+              [
+                "Hub",
+                "RECEIVESECONDARY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "32_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 30,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "33_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 29,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "34_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 10,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "36_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 3,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "37_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 15,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "38_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "39_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 2,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "40_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 29,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "42_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "43_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 3,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "45_0",
+            "actions": [
+              [
+                "Hub",
+                "RECEIVEPRIMARY"
+              ],
+              [
+                "Hub",
+                "RECEIVESECONDARY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 3,
+              "selected_labels": 2
+            }
+          },
+          {
+            "state": "46_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 12,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "47_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "48_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 18,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "49_0",
+            "actions": [
+              [
+                "Hub",
+                "RECEIVESECONDARY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "50_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 18,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "51_0",
+            "actions": [
+              [
+                "Hub",
+                "RECEIVEPRIMARY"
+              ],
+              [
+                "Hub",
+                "RECEIVESECONDARY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 2,
+              "selected_labels": 2
+            }
+          },
+          {
+            "state": "53_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 10,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "54_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 29,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "55_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 12,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "56_0",
+            "actions": [
+              [
+                "Hub",
+                "RECEIVESECONDARY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "57_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 19,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "58_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 15,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "59_0",
+            "actions": [
+              [
+                "Hub",
+                "RECEIVEPRIMARY"
+              ],
+              [
+                "Hub",
+                "RECEIVESECONDARY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 3,
+              "selected_labels": 2
+            }
+          },
+          {
+            "state": "60_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 9,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "61_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 30,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "62_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 2,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "63_0",
+            "actions": [
+              [
+                "Hub",
+                "RECEIVEPRIMARY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "64_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 7,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "65_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 7,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "67_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "68_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 15,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "69_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 15,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "70_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 12,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "71_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 9,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "72_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 24,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "73_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 4,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "74_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 18,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "75_0",
+            "actions": [
+              [
+                "Hub",
+                "RECEIVEPRIMARY"
+              ],
+              [
+                "Hub",
+                "RECEIVESECONDARY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 2,
+              "selected_labels": 2
+            }
+          },
+          {
+            "state": "76_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 21,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "77_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "78_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 22,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "79_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 16,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "80_0",
+            "actions": [
+              [
+                "Hub",
+                "RECEIVESECONDARY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "81_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 16,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "84_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "85_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 9,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "86_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 13,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "87_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 18,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "88_0",
+            "actions": [
+              [
+                "Hub",
+                "RECEIVEPRIMARY"
+              ],
+              [
+                "Hub",
+                "RECEIVESECONDARY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 3,
+              "selected_labels": 2
+            }
+          },
+          {
+            "state": "89_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 4,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "90_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 7,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "91_0",
+            "actions": [
+              [
+                "Hub",
+                "RECEIVESECONDARY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 2,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "92_0",
+            "actions": [
+              [
+                "Hub",
+                "RECEIVEPRIMARY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "93_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 7,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "94_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 9,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "95_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 12,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "96_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 26,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "97_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 15,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "99_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 12,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "100_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 3,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "101_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 9,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "102_0",
+            "actions": [
+              [
+                "Hub",
+                "RECEIVEPRIMARY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "103_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 18,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "104_0",
+            "actions": [
+              [
+                "Hub",
+                "RECEIVEPRIMARY"
+              ],
+              [
+                "Hub",
+                "RECEIVESECONDARY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 2,
+              "selected_labels": 2
+            }
+          },
+          {
+            "state": "105_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "106_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 21,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "107_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 22,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "108_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 12,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "109_0",
+            "actions": [
+              [
+                "Hub",
+                "RECEIVESECONDARY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "111_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 12,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "113_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "114_0",
+            "actions": [
+              [
+                "Hub",
+                "RECEIVEPRIMARY"
+              ],
+              [
+                "Hub",
+                "RECEIVESECONDARY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 3,
+              "selected_labels": 2
+            }
+          },
+          {
+            "state": "115_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 9,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "116_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 13,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "117_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 18,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "118_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 4,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "119_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "120_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 7,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "121_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 7,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "124_0",
+            "actions": [
+              [
+                "Hub",
+                "RECEIVESECONDARY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 2,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "125_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 9,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "126_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 15,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "127_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 15,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "128_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 24,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "129_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 26,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "131_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 9,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "132_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 24,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "133_0",
+            "actions": [
+              [
+                "Hub",
+                "RECEIVEPRIMARY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 3,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "135_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 24,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "136_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 21,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "137_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "138_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "139_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 2,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "140_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "141_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 16,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "144_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 4,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "145_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 15,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "146_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 30,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "147_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 13,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "148_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 18,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "149_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 9,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "150_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 3,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "152_0",
+            "actions": [
+              [
+                "Hub",
+                "RECEIVESECONDARY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 2,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "154_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 24,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "156_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 24,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "157_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 26,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "158_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 24,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "160_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 24,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "161_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 24,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "164_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 19,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "165_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "166_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 19,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "168_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 2,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "169_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 30,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "170_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 30,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "171_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 30,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "172_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 15,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "177_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 3,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "178_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 24,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "179_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 27,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "180_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 11,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "181_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 24,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "184_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 29,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "185_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 19,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "186_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 19,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "187_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 14,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "188_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 3,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "189_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 30,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "190_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 30,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "192_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "195_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 24,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "199_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 10,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "200_0",
+            "actions": [
+              [
+                "Hub",
+                "RECEIVESECONDARY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 3,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "203_0",
+            "actions": [
+              [
+                "SecondaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 15,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "204_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "205_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 24,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "206_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 2,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "207_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 10,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "210_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 5,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "212_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 14,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "214_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 24,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "215_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 27,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "216_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 14,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "221_0",
+            "actions": [
+              [
+                "Hub",
+                "RECEIVESECONDARY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 3,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "222_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 29,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "223_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 3,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "224_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "227_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 10,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "231_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 29,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "232_0",
+            "actions": [
+              [
+                "SecondarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 24,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "237_0",
+            "actions": [
+              [
+                "Hub",
+                "RECEIVESECONDARY"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 3,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "239_0",
+            "actions": [
+              [
+                "PrimarySrc",
+                "DISPATCH"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 6,
+              "selected_labels": 1
+            }
+          },
+          {
+            "state": "241_0",
+            "actions": [
+              [
+                "PrimaryRelay",
+                "FORWARD"
+              ]
+            ],
+            "evidence": {
+              "reason": "verified_set",
+              "avoidance_states": 10,
+              "selected_labels": 1
+            }
+          }
+        ],
+        "strong_cycle_passed": true,
+        "retained_outcomes_match": true,
+        "c0": true,
+        "all_control_aliases_checked": true
+      }
+    }
+  },
+  "all_passed": true,
+  "native_executions": 24,
+  "scalar_equivalence_validation": "shared Hub methods have identical assertion-free scalar programs; different read/write programs remain dependent"
+}

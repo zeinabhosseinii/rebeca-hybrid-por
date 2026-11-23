@@ -225,8 +225,15 @@ public class TimedRebecaFileGenerator extends CoreRebecaFileGenerator {
             boolean reviewed = "e8e0a20c1af6af94fb02c59ff7ad2f9b33a84dd6b55872ee3b5cb89135a325f6".equals(fileGeneratorProperties.getAriaModelSha256()) &&
                     !fileGeneratorProperties.isSymmetry() && propertyModel != null;
             boolean actorLocal = org.rebecalang.rmc.PropertyObservationMetadata.supportsActorLocalRuntime(rebecaModel, propertyModel);
+            var tokenQueue = org.rebecalang.rmc.NullaryQueueCertificate.analyze(rebecaModel, propertyModel, porResult.maxMsgId + 1);
+            context.put("tokenQueueCertified", tokenQueue != null);
+            if (tokenQueue != null) {
+                context.put("tokenQueueKnown", tokenQueue.known);
+                context.put("tokenQueueSends", tokenQueue.sends);
+                context.put("tokenQueueConflicts", tokenQueue.conflicts);
+            }
             context.put("propertyInvisibleTable", org.rebecalang.rmc.PropertyObservationMetadata.invisibleTable(
-                    rebecaModel, propertyModel, porResult.maxMsgId, reviewed || actorLocal));
+                    rebecaModel, propertyModel, porResult.maxMsgId, reviewed || actorLocal || tokenQueue != null));
         }
 
         org.rebecalang.rmc.ERDGSafetyAnalyzer.LocalActionMetadata local =

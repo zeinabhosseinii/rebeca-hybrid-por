@@ -62,6 +62,7 @@ public final class PropertyObservationMetadata {
  }
  private static List<List<Boolean>> emptyLike(List<List<Boolean>> input){List<List<Boolean>> out=new ArrayList<>();for(var row:input)out.add(new ArrayList<>(Collections.nCopies(row.size(),false)));return out;}
 
+ static final Set<String> RESERVED=Set.of("now","sender","self","currentMessageArrival","currentMessageDeadline","currentMessageWaitingTime");
  static final Set<String> TYPES=Set.of("int","byte","short","boolean");
  static final Set<String> OPS=Set.of("==","!=","<","<=",">",">=","&&","||");
  static boolean scalar(Type type){return type!=null && !(type instanceof ArrayType) && TYPES.contains(type.getTypeName());}
@@ -77,17 +78,17 @@ public final class PropertyObservationMetadata {
     need(a.getClass()==ReactiveClassDeclaration.class&&a.getExtends()==null&&a.getImplements().isEmpty()&&a.getSynchMethods().isEmpty()&&a.getAnnotations().isEmpty(),"inheritance/synchronous/annotated classes unsupported");classes.put(a.getName(),a);
     Map<String,String> fieldsOfClass=new LinkedHashMap<>();
     for(var f:a.getStatevars())for(var v:f.getVariableDeclarators()){
-     need(scalar(f.getType())&&v.getVariableInitializer()==null,"only primitive scalar fields without initializers");fieldsOfClass.put(v.getVariableName(),f.getType().getTypeName());
+     need(scalar(f.getType())&&v.getVariableInitializer()==null&&!RESERVED.contains(v.getVariableName()),"only primitive scalar fields without initializers");fieldsOfClass.put(v.getVariableName(),f.getType().getTypeName());
     }
     fields.put(a.getName(),fieldsOfClass);
    }
    for(var i:c.getMainDeclaration().getMainRebecDefinition()){
-    need(i.getAnnotations().isEmpty()&&classes.containsKey(i.getType().getTypeName()),"unknown/annotated instance");
+    need(!RESERVED.contains(i.getName())&&i.getAnnotations().isEmpty()&&classes.containsKey(i.getType().getTypeName()),"unknown/annotated instance");
     for(var arg:i.getArguments())need(arg.getClass()==Literal.class&&scalar(arg.getType()),"only literal primitive constructor actual arguments supported");
     need(!instances.containsKey(i.getName()),"duplicate instance");instances.put(i.getName(),classes.get(i.getType().getTypeName()));
    }
    for(var i:c.getMainDeclaration().getMainRebecDefinition()){
-    List<String> names=new ArrayList<>();for(var f:instances.get(i.getName()).getKnownRebecs())for(var v:f.getVariableDeclarators())names.add(v.getVariableName());
+    List<String> names=new ArrayList<>();for(var f:instances.get(i.getName()).getKnownRebecs())for(var v:f.getVariableDeclarators()){need(!RESERVED.contains(v.getVariableName()),"reserved knownrebec name");names.add(v.getVariableName());}
     need(names.size()==i.getBindings().size(),"unresolved knownrebec bindings");Map<String,String> map=new LinkedHashMap<>();
     for(int k=0;k<names.size();k++){TermPrimary t=term(i.getBindings().get(k));need(instances.containsKey(t.getName()),"dynamic/unknown binding");map.put(names.get(k),t.getName());}
     bindings.put(i.getName(),map);
@@ -98,8 +99,8 @@ public final class PropertyObservationMetadata {
  static TermPrimary term(Expression e){need(e!=null&&e.getClass()==TermPrimary.class,"expected simple term");var t=(TermPrimary)e;need(t.getIndices().isEmpty()&&t.getParentSuffixPrimary()==null,"indexed/call term unsupported");return t;}
  static class Effects {
   Set<List<String>> reads=new LinkedHashSet<>(),writes=new LinkedHashSet<>(),sends=new LinkedHashSet<>();
-  Set<String> params=new HashSet<>();Index index;String instance;int nodes;
-  Effects(Index i,String name,MethodDeclaration method){index=i;instance=name;need(method.getBlock()!=null&&method.getAnnotations().isEmpty(),"missing/annotated method");for(var p:method.getFormalParameters()){need(scalar(p.getType()),"reference/array parameters unsupported");params.add(p.getName());}}
+  Set<String> params=new HashSet<>();Index index;String instance;int nodes;boolean hasAssertions;
+  Effects(Index i,String name,MethodDeclaration method){index=i;instance=name;need(method.getBlock()!=null&&method.getAnnotations().isEmpty(),"missing/annotated method");for(var p:method.getFormalParameters()){need(scalar(p.getType())&&!RESERVED.contains(p.getName()),"reserved/reference/array parameters unsupported");params.add(p.getName());}}
   void budget(int depth){need(depth<100&&++nodes<100000,"AST traversal budget");}
   List<String> local(TermPrimary t){need(CoreRebecaLabelUtility.STATE_VARIABLE.equals(t.getLabel()),"assignment target must be local state");return List.of(instance,index.field(instance,t.getName()));}
   void expr(Expression e,int depth){
@@ -115,7 +116,7 @@ public final class PropertyObservationMetadata {
    if(s.getClass()==BlockStatement.class){for(var x:((BlockStatement)s).getStatements())walk(x,depth+1);return;}
    if(s.getClass()==ConditionalStatement.class){var c=(ConditionalStatement)s;expr(c.getCondition(),depth+1);walk(c.getStatement(),depth+1);if(c.getElseStatement()!=null)walk(c.getElseStatement(),depth+1);return;}
    if(s.getClass()==BinaryExpression.class){var b=(BinaryExpression)s;need("=".equals(b.getOperator()),"only direct scalar assignment statements");writes.add(local(term(b.getLeft())));expr(b.getRight(),depth+1);return;}
-   if(s.getClass()==TermPrimary.class){var t=(TermPrimary)s;need("assertion".equals(t.getName())&&CoreRebecaLabelUtility.BUILT_IN_METHOD.equals(t.getLabel()),"unknown builtin/bare call");need(t.getParentSuffixPrimary()!=null&&untimed(t.getParentSuffixPrimary())&&t.getParentSuffixPrimary().getArguments().size()==1,"unsupported source assertion");expr(t.getParentSuffixPrimary().getArguments().get(0),depth+1);return;}
+   if(s.getClass()==TermPrimary.class){var t=(TermPrimary)s;need("assertion".equals(t.getName())&&CoreRebecaLabelUtility.BUILT_IN_METHOD.equals(t.getLabel()),"unknown builtin/bare call");need(t.getParentSuffixPrimary()!=null&&untimed(t.getParentSuffixPrimary())&&t.getParentSuffixPrimary().getArguments().size()==1,"unsupported source assertion");hasAssertions=true;expr(t.getParentSuffixPrimary().getArguments().get(0),depth+1);return;}
    if(s.getClass()==DotPrimary.class){var d=(DotPrimary)s;var receiver=term(d.getLeft());String target;
     if("self".equals(receiver.getName()))target=instance;else {target=index.bindings.get(instance).get(receiver.getName());need(target!=null,"dynamic/unknown receiver");}
     need(d.getRight().getClass()==TermPrimary.class,"computed message target");var call=(TermPrimary)d.getRight();need(CoreRebecaLabelUtility.MSGSRV.equals(call.getLabel())&&call.getIndices().isEmpty()&&call.getParentSuffixPrimary()!=null&&untimed(call.getParentSuffixPrimary()),"unknown/timed message send");

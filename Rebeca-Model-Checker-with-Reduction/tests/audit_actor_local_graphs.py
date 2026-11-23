@@ -12,15 +12,36 @@ from compare_model_suite import digest
 
 def need(ok,message):
  if not ok:raise ValueError(message)
-def load(d):
- t=ET.parse(d/'statespace.xml').getroot();report=ET.parse(d/'report-0.xml').getroot();need(report.findtext('checked-property/result')=='satisfied','Complete healthy graph required');ss={s.get('id'):s for s in t.findall('state')};need(len(ss)==int(report.findtext('system-info/reached-states')),'Report mismatch');sg={i:signature(s) for i,s in ss.items()};ee=collections.defaultdict(lambda:collections.defaultdict(set))
+def load(d,bag=False):
+ t=ET.parse(d/'statespace.xml').getroot();report=ET.parse(d/'report-0.xml').getroot();need(report.findtext('checked-property/result')=='satisfied','Complete healthy graph required');ss={s.get('id'):s for s in t.findall('state')};need(len(ss)==int(report.findtext('system-info/reached-states')),'Report mismatch');sg={i:signature(s) for i,s in ss.items()}
+ if bag:sg={i:(atomic,tuple((name,fields,tuple(sorted(queue,key=repr)),now) for name,fields,queue,now in actors)) for i,(atomic,actors) in sg.items()}
+ ee=collections.defaultdict(lambda:collections.defaultdict(set))
  for edge in t.findall('transition'):
   need(edge.get('shift')=='0' and edge.get('executionTime')=='0','Timed edge unsupported');a=edge.find('messageserver');ee[edge.get('source')][(a.get('owner'),a.get('title'))].add(edge.get('destination'))
  return ss,sg,ee
 
+def certify_choices(graph,start,chosen):
+ # Internal dependence is permitted: every member of an ample actor union is retained.
+ pending=[start];seen=set()
+ while pending:
+  v=pending.pop()
+  if v in seen:continue
+  seen.add(v)
+  for action in chosen:
+   selected=graph.edges[v].get(action,set())
+   if not selected:return False,{'reason':'selected_disabled','state':v}
+   if any(graph.observations[v]!=graph.observations[t] for t in selected):return False,{'reason':'property_visible','state':v}
+   for other,targets in graph.edges[v].items():
+    if other in chosen:continue
+    if any(not graph.edges[t].get(other) for t in selected) or any(not graph.edges[t].get(action) for t in targets):return False,{'reason':'disabled_in_diamond','state':v}
+    left=set().union(*(graph.edges[t][other] for t in selected));right=set().union(*(graph.edges[t][action] for t in targets))
+    if left!=right:return False,{'reason':'diamond_failed','state':v,'selected':action,'other':other}
+    pending.extend(targets)
+ return True,{'reason':'verified_set','avoidance_states':len(seen),'selected_labels':len(chosen)}
+
 def audit(case):
  meta=json.loads((case/'metadata.json').read_text());need(meta['source_sha256']==digest(case/'model.rebeca') and meta['property_sha256']==digest(case/'model.property'),'Metadata/source mismatch');need(meta['metadata_supported'],'Incomplete effects')
- read_full_graph(case/'control/statespace.xml',case/'control/report-0.xml');ss,sg,ee=load(case/'control');inv={sig:i for i,sig in sg.items()};g=Graph();g.initial=inv[sg[next(iter(ss))]];reads=[tuple(k) for k in meta['property_reads']];relations={}
+ read_full_graph(case/'control/statespace.xml',case/'control/report-0.xml');ss,sg,ee=load(case/'control',meta.get('nullary_queue_certified',False));inv={sig:i for i,sig in sg.items()};g=Graph();g.initial=inv[sg[next(iter(ss))]];reads=[tuple(k) for k in meta['property_reads']];relations={}
  for i,s in ss.items():
   q=inv[sg[i]];v=values(s);need(evaluate(meta['predicate'],v),'False healthy observation');g.observations[q]=tuple(v[k] for k in reads)
   rel={a:{inv[sg[t]] for t in targets} for a,targets in ee[i].items()};need(q not in relations or relations[q]==rel,'Projected aliases have different outcomes');relations[q]=rel
@@ -28,7 +49,7 @@ def audit(case):
   g.edges[q]
   for a,targets in rel.items():
    for t in targets:g.add(q,a,t)
- states,sigs,exported_edges=load(case/'filtered')
+ states,sigs,exported_edges=load(case/'filtered',meta.get('nullary_queue_certified',False))
  # Export includes executions from rejected trials. Certify the FINAL chosen actor set,
  # and separately validate/count every exported trial edge against the full reference.
  decisions={}
@@ -48,9 +69,9 @@ def audit(case):
   need(bool(rel)==bool(original),'C0 mismatch');need(all(original.get(a)==ts for a,ts in rel.items()),'Changed retained outcomes')
   if rel==original:full.add(s)
   else:
-   for a in rel:
-    ok,evidence=g.certify(mp[s],a);need(ok,str(evidence));certificates.append({'state':s,'action':a,'evidence':evidence})
+   ok,evidence=certify_choices(g,mp[s],set(rel));need(ok,str(evidence))
+   certificates.append({'state':s,'actions':sorted(rel),'evidence':evidence})
  need(every_cycle_has_full_state(states,edges,full),'Strong cycle condition failed')
- return {'control_states':len(ss),'filtered_states':len(states),'control_unique_edges':sum(len(ts) for actions in ee.values() for ts in actions.values()),'filtered_exported_unique_edges':sum(len(ts) for actions in exported_edges.values() for ts in actions.values()),'filtered_selected_unique_edges':sum(len(ts) for actions in edges.values() for ts in actions.values()),'full_vertices':len(full),'partial_certificates':certificates,'strong_cycle_passed':True,'retained_outcomes_match':True,'c0':True,'all_control_aliases_checked':True}
+ return {'control_states':len(ss),'control_projected_states':len(set(sg.values())),'filtered_states':len(states),'filtered_projected_states':len(set(sigs.values())),'control_unique_edges':sum(len(ts) for actions in ee.values() for ts in actions.values()),'filtered_exported_unique_edges':sum(len(ts) for actions in exported_edges.values() for ts in actions.values()),'filtered_selected_unique_edges':sum(len(ts) for actions in edges.values() for ts in actions.values()),'full_vertices':len(full),'partial_certificates':certificates,'strong_cycle_passed':True,'retained_outcomes_match':True,'c0':True,'all_control_aliases_checked':True}
 if __name__=='__main__':
  p=argparse.ArgumentParser();p.add_argument('--case',type=Path,required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args();r=audit(a.case);a.output.write_text(json.dumps(r,indent=2)+'\n');print({k:v for k,v in r.items() if k!='partial_certificates'})
