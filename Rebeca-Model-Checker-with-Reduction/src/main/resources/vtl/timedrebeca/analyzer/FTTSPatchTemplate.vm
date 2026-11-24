@@ -250,6 +250,14 @@ bool TimedModelChecker::isNullaryQueueCandidateSafe(int r, TIME_TYPE execTime) {
         {#foreach($method in $actor){#foreach($target in $method){#foreach($value in $target)$value#if(!$foreach.last),#end#end}#if(!$foreach.last),#end#end}#if(!$foreach.last),#end#end}#if(!$foreach.last),#end
 #end
     };
+#if($tokenQueueVariablePayload)
+    static const bool variablePayload[REBEC_COUNT][$maxMsgIdPlusOne] = {
+#foreach($row in $tokenQueueVariablePayload)
+        {#foreach($value in $row)$value#if(!$foreach.last),#end#end}#if(!$foreach.last),#end
+#end
+    };
+    const int selectedCount = getNumberOfAlternatives(r, execTime);
+#end
     bool selected[$maxMsgIdPlusOne] = {};
     for (int k = 0; k < getNumberOfAlternatives(r, execTime); ++k) {
         int id = (unsigned char)rebecs[r]->messageQueue[k];
@@ -262,7 +270,12 @@ bool TimedModelChecker::isNullaryQueueCandidateSafe(int r, TIME_TYPE execTime) {
         for (int slot = 0; slot < rebecs[j]->maxQueueLength && rebecs[j]->messageQueue[slot]; ++slot) {
             int id = (unsigned char)rebecs[j]->messageQueue[slot];
             if (id <= 0 || id >= $maxMsgIdPlusOne || !known[j][id]) return false;
+#if($tokenQueueVariablePayload)
+            if (j == r && slot >= selectedCount) return false;
+            if (j != r) pending.push_back(j * $maxMsgIdPlusOne + id);
+#else
             if (j != r || !selected[id]) pending.push_back(j * $maxMsgIdPlusOne + id);
+#end
         }
     while (!pending.empty()) {
         int key = pending.back(); pending.pop_back();
@@ -279,8 +292,26 @@ bool TimedModelChecker::isNullaryQueueCandidateSafe(int r, TIME_TYPE execTime) {
             }
         for (int target = 0; target < REBEC_COUNT; ++target)
             for (int method = 1; method < $maxMsgIdPlusOne; ++method)
+#if($tokenQueueVariablePayload)
+                if (sends[j][id][target][method]) {
+                    if (target == r && selected[method]) {
+                        // An avoidance path may enqueue a new payload for this label.
+                        // The selected set consists only of frames currently enabled.
+                        if (variablePayload[r][method]) {
+#ifdef POR_DIAGNOSTICS
+                            cerr << "POR_PAYLOAD_BLOCK state=" << current.state->stateID
+                                 << " actor=" << rebecs[r]->getName() << " msg=" << method << endl;
+#endif
+                            return false;
+                        }
+                    } else {
+                        pending.push_back(target * $maxMsgIdPlusOne + method);
+                    }
+                }
+#else
                 if (sends[j][id][target][method] && (target != r || !selected[method]))
                     pending.push_back(target * $maxMsgIdPlusOne + method);
+#end
     }
     return true;
 }
@@ -672,6 +703,16 @@ long TimedModelChecker::executeRebec(int rebecId) {
     #ifdef EXPORT_STATE_SPACE
     TIME_TYPE executionTime = rebecs[rebecId]->getNow();
 	string sender = rebecs[rebecs[rebecId]->senderQueue[0]]->getName();
+#if($tokenQueueVariablePayload)
+    // Capture the executed head before the handler mutates the queue.
+    string payload;
+    const char* digits = "0123456789abcdef";
+    for (int b = 0; b < rebecs[rebecId]->maxParamLength; ++b) {
+        unsigned char value = rebecs[rebecId]->paramQueue[0][b];
+        payload += digits[value >> 4];
+        payload += digits[value & 15];
+    }
+#end
     #endif
 
     try {
@@ -730,7 +771,15 @@ long TimedModelChecker::executeRebec(int rebecId) {
     }
     #ifdef EXPORT_STATE_SPACE
     string label = actionName;
+#if($tokenQueueVariablePayload)
+    statespace << "<transition source=\"" << current.state->stateID << "_" << current.stateActiveBundleNumber
+               << "\" destination=\"" << newState.state->stateID << "_" << newState.stateActiveBundleNumber
+               << "\" executionTime=\"" << (int)executionTime << "\" shift=\"" << (int)shift
+               << "\"><messageserver sender=\"" << sender << "\" owner=\"" << rebecs[rebecId]->getName()
+               << "\" title=\"" << label << "\" payload=\"" << payload << "\"/></transition>" << endl;
+#else
     exportTransition(current, newState, sender, rebecs[rebecId]->getName(), label, executionTime, shift, statespace);
+#end
 	#endif
     return nonDetTrans;
 }

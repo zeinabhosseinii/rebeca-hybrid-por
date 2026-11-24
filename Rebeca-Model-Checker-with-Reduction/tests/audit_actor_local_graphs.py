@@ -17,7 +17,12 @@ def load(d,bag=False):
  if bag:sg={i:(atomic,tuple((name,fields,tuple(sorted(queue,key=repr)),now) for name,fields,queue,now in actors)) for i,(atomic,actors) in sg.items()}
  ee=collections.defaultdict(lambda:collections.defaultdict(set))
  for edge in t.findall('transition'):
-  need(edge.get('shift')=='0' and edge.get('executionTime')=='0','Timed edge unsupported');a=edge.find('messageserver');ee[edge.get('source')][(a.get('owner'),a.get('title'))].add(edge.get('destination'))
+  need(edge.get('shift')=='0' and edge.get('executionTime')=='0','Timed edge unsupported')
+  action=edge.find('messageserver')
+  identity=(action.get('owner'),action.get('title'))
+  if 'payload' in action.attrib:
+   identity+=(action.get('payload'),)
+  ee[edge.get('source')][identity].add(edge.get('destination'))
  return ss,sg,ee
 
 def certify_choices(graph,start,chosen):

@@ -5,11 +5,11 @@ import com.google.gson.*;
 import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.*;
 import org.rebecalang.compiler.propertycompiler.generalrebeca.objectmodel.PropertyModel;
 
-/** Sufficient zero-time queue-bag certificate for nullary or per-method fixed literal payloads. Never used without runtime avoidance closure and proviso. */
+/** Sufficient zero-time queue-bag certificate for primitive payloads. Never used without runtime avoidance closure and proviso. */
 public final class NullaryQueueCertificate {
  public static final class Result {
   public final List<List<List<List<Boolean>>>> sends=new ArrayList<>(), conflicts=new ArrayList<>();
-  public final List<List<Boolean>> known=new ArrayList<>();
+  public final List<List<Boolean>> known=new ArrayList<>(), variablePayload=new ArrayList<>();
   public long tokenBound;
   public int commutingScalarPairs;
  }
@@ -22,24 +22,32 @@ public final class NullaryQueueCertificate {
  }
  private static Object scalarProgram(Statement s){
   if(s instanceof BlockStatement block){List<Object> program=new ArrayList<>();for(var child:block.getStatements()){var node=scalarProgram(child);if(node!=null)program.add(node);}return program;}
-  if(s instanceof DotPrimary)return null; // Fixed literal-payload sends are separate queue-vector additions, proved nonthrowing by the token bound.
+  if(s instanceof DotPrimary)return null; // Sends are separate queue-vector additions, proved nonthrowing by the token bound.
   if(s instanceof BinaryExpression assignment)return List.of("assign",PropertyObservationMetadata.term(assignment.getLeft()).getName(),scalarExpression(assignment.getRight()));
   if(s instanceof ConditionalStatement branch)return Arrays.asList("if",scalarExpression(branch.getCondition()),scalarProgram(branch.getStatement()),branch.getElseStatement()==null?null:scalarProgram(branch.getElseStatement()));
   if(s instanceof TermPrimary)return "assertion_present"; // Such methods are explicitly excluded from scalar-equivalence relaxation.
   throw new PropertyObservationMetadata.Reject("opaque scalar program");
  }
- private static List<List<String>> sends(Statement statement,PropertyObservationMetadata.Effects context,boolean inBranch,boolean constructor,Map<List<String>,Object> payloads){
+ private static List<List<String>> sends(Statement statement,PropertyObservationMetadata.Effects context,boolean inBranch,boolean constructor,Map<List<String>,List<Object>> literals,Set<List<String>> variablePayloads){
   List<List<String>> out=new ArrayList<>();
-  if(statement instanceof BlockStatement block){for(var child:block.getStatements())out.addAll(sends(child,context,inBranch,constructor,payloads));}
-  else if(statement instanceof ConditionalStatement branch){out.addAll(sends(branch.getStatement(),context,true,constructor,payloads));if(branch.getElseStatement()!=null)out.addAll(sends(branch.getElseStatement(),context,true,constructor,payloads));}
+  if(statement instanceof BlockStatement block){for(var child:block.getStatements())out.addAll(sends(child,context,inBranch,constructor,literals,variablePayloads));}
+  else if(statement instanceof ConditionalStatement branch){out.addAll(sends(branch.getStatement(),context,true,constructor,literals,variablePayloads));if(branch.getElseStatement()!=null)out.addAll(sends(branch.getElseStatement(),context,true,constructor,literals,variablePayloads));}
   else if(statement instanceof DotPrimary dot){
    PropertyObservationMetadata.need(constructor||!inBranch,"conditional runtime send");
    var receiver=PropertyObservationMetadata.term(dot.getLeft());var call=(TermPrimary)dot.getRight();
-   PropertyObservationMetadata.need(call.getParentSuffixPrimary().getArguments().stream().allMatch(arg->arg instanceof Literal),"nonliteral message arguments");
    String target="self".equals(receiver.getName())?context.instance:context.index.bindings.get(context.instance).get(receiver.getName());
    PropertyObservationMetadata.need(target!=null,"unresolved send");List<String> label=List.of(target,call.getName().toUpperCase(Locale.ROOT));
-   List<Object> payload=new ArrayList<>();for(var arg:call.getParentSuffixPrimary().getArguments())payload.add(scalarExpression(arg));
-   Object previous=payloads.putIfAbsent(label,payload);PropertyObservationMetadata.need(previous==null||previous.equals(payload),"multiple_payloads_for_method");out.add(label);
+   var arguments=call.getParentSuffixPrimary().getArguments();
+   // Effects.walk has already checked purity and recorded reads of all send arguments.
+   if(arguments.stream().allMatch(arg->arg instanceof Literal)){
+    List<Object> payload=new ArrayList<>();
+    for(var arg:arguments)payload.add(scalarExpression(arg));
+    var previous=literals.putIfAbsent(label,payload);
+    if(previous!=null&&!previous.equals(payload))variablePayloads.add(label);
+   }else{
+    variablePayloads.add(label);
+   }
+   out.add(label);
   }
   return out;
  }
@@ -58,16 +66,17 @@ public final class NullaryQueueCertificate {
     PropertyObservationMetadata.need(m<width,"unmapped_method");
     PropertyObservationMetadata.need(ids.put(List.of(names.get(r),method.getName().toUpperCase(Locale.ROOT)),r*width+m++)==null,"ambiguous_method_identity");
    }}
-   Map<List<String>,Object> payloads=new HashMap<>();
+   Map<List<String>,List<Object>> literals=new HashMap<>();
+   Set<List<String>> variablePayloads=new HashSet<>();
    long tokens=0;
    for(int r=0;r<n;r++){
     String name=names.get(r);var actor=index.instances.get(name);int m=1;
     for(var method:actor.getMsgsrvs()){
-     var f=new PropertyObservationMetadata.Effects(index,name,method);f.walk(method.getBlock(),0);int key=r*width+m++;effects.put(key,f);scalarPrograms.put(key,scalarProgram(method.getBlock()));outgoing.put(key,sends(method.getBlock(),f,false,false,payloads));
+     var f=new PropertyObservationMetadata.Effects(index,name,method);f.walk(method.getBlock(),0);int key=r*width+m++;effects.put(key,f);scalarPrograms.put(key,scalarProgram(method.getBlock()));outgoing.put(key,sends(method.getBlock(),f,false,false,literals,variablePayloads));
     }
     for(var ctor:actor.getConstructors()){
      var f=new PropertyObservationMetadata.Effects(index,name,ctor);f.walk(ctor.getBlock(),0);
-     for(var target:sends(ctor.getBlock(),f,false,true,payloads)){Integer key=ids.get(target);PropertyObservationMetadata.need(key!=null,"unmapped_constructor_message");seeds.merge(key,1,Integer::sum);tokens++;}
+     for(var target:sends(ctor.getBlock(),f,false,true,literals,variablePayloads)){Integer key=ids.get(target);PropertyObservationMetadata.need(key!=null,"unmapped_constructor_message");seeds.merge(key,1,Integer::sum);tokens++;}
     }
    }
    Set<Integer> runtimeTargets=new HashSet<>();
@@ -81,11 +90,13 @@ public final class NullaryQueueCertificate {
    // Execution dequeues after handler completion, so reserve one extra message per atomic handler.
    long transientBound=tokens+1;
    for(var actor:index.instances.values())PropertyObservationMetadata.need(actor.getQueueSize()!=null&&actor.getQueueSize()>transientBound,"insufficient_queue_margin");
+   Set<Integer> variableIds=new HashSet<>();
+   for(var target:variablePayloads)variableIds.add(ids.get(target));
    Result result=new Result();result.tokenBound=tokens;
    for(int r=0;r<n;r++){
-    List<Boolean> knownRow=new ArrayList<>();List<List<List<Boolean>>> sendRow=new ArrayList<>(), conflictRow=new ArrayList<>();
+    List<Boolean> knownRow=new ArrayList<>(), variableRow=new ArrayList<>();List<List<List<Boolean>>> sendRow=new ArrayList<>(), conflictRow=new ArrayList<>();
     for(int m=0;m<width;m++){
-     int a=r*width+m;knownRow.add(effects.containsKey(a));List<List<Boolean>> sendActor=new ArrayList<>(),conflictActor=new ArrayList<>();
+     int a=r*width+m;knownRow.add(effects.containsKey(a));variableRow.add(variableIds.contains(a));List<List<Boolean>> sendActor=new ArrayList<>(),conflictActor=new ArrayList<>();
      for(int j=0;j<n;j++){
       List<Boolean> sendMethod=new ArrayList<>(),conflictMethod=new ArrayList<>();
       for(int k=0;k<width;k++){
@@ -98,7 +109,7 @@ public final class NullaryQueueCertificate {
         // Identical total scalar functions commute with themselves, even with overlapping writes.
         // Source-assertion bodies remain conservative; no assertion is assumed or removed.
         // Parameter names alone do not identify functions: different methods may receive different fixed constants.
-        if(conflict && a!=b && !x.hasAssertions && !y.hasAssertions && x.params.isEmpty() && y.params.isEmpty() && Objects.equals(scalarPrograms.get(a),scalarPrograms.get(b))){
+        if(conflict && variableIds.isEmpty() && a!=b && !x.hasAssertions && !y.hasAssertions && x.params.isEmpty() && y.params.isEmpty() && Objects.equals(scalarPrograms.get(a),scalarPrograms.get(b))){
          conflict=false;if(a<b)result.commutingScalarPairs++;
         }
        }
@@ -108,7 +119,7 @@ public final class NullaryQueueCertificate {
      }
      sendRow.add(sendActor);conflictRow.add(conflictActor);
     }
-    result.known.add(knownRow);result.sends.add(sendRow);result.conflicts.add(conflictRow);
+    result.known.add(knownRow);result.variablePayload.add(variableRow);result.sends.add(sendRow);result.conflicts.add(conflictRow);
    }
    return result;
  }

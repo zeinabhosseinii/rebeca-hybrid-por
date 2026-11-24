@@ -229,6 +229,9 @@ public class TimedRebecaFileGenerator extends CoreRebecaFileGenerator {
             context.put("tokenQueueCertified", tokenQueue != null);
             if (tokenQueue != null) {
                 context.put("tokenQueueKnown", tokenQueue.known);
+                if (tokenQueue.variablePayload.stream().anyMatch(row -> row.contains(true))) {
+                    context.put("tokenQueueVariablePayload", tokenQueue.variablePayload);
+                }
                 context.put("tokenQueueSends", tokenQueue.sends);
                 context.put("tokenQueueConflicts", tokenQueue.conflicts);
             }

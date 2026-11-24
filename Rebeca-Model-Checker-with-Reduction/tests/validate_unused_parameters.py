@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Native differential checks for fixed payloads; multiple values refuse."""
+"""Native differential checks for fixed and mixed payloads."""
 import communicating_property_models as models
 import validate_communicating_properties as driver
 base=models.cases()
@@ -15,7 +15,7 @@ def variants():
  result.append(('observed_parameter',source,prop,'satisfied',True))
  name,source,prop,outcome,_=result[0]
  source=source.replace('PrimarySrc.Dispatch(7);','PrimarySrc.Dispatch(9);',1)
- result.append(('different_unread_payloads',source,prop,outcome,False))
+ result.append(('different_unread_payloads',source,prop,outcome,True))
  return result
 driver.cases=variants
 if __name__=='__main__':driver.main()

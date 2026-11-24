@@ -29,5 +29,27 @@ def cases():
  shared=shared.replace('PrimaryLoad = PrimaryLoad + 1;','PrimaryLoad = PrimaryLoad + increment;')
  result.append(('different_constants_same_syntax',shared,TRUE,'satisfied',True))
  mixed=source.replace('PrimarySrc.Dispatch(2);','PrimarySrc.Dispatch(3);',1)
- result.append(('mixed_used_payloads_refused',mixed,prop,'satisfied',False))
+ result.append(('mixed_used_payloads',mixed,prop,'satisfied',True))
+
+ # Both values can be simultaneously enabled at a single receiver and handler.
+ mixed=mixed.replace('PrimarySrc.Dispatch(3);','PrimarySrc.Dispatch(7); PrimarySrc.Dispatch(9);',1)
+ result.append(('three_token_mixed_payloads',mixed,TRUE,'satisfied',True))
+ fault=mixed.replace('Cycle = Cycle + 1;','assertion(limit != 9); Cycle = Cycle + 1;',1)
+ result.append(('three_token_payload_assertion',fault,TRUE,'assertion failed',True))
+
+ forwarded=source.replace('Relay.Forward(2);','Relay.Forward(limit);')
+ result.append(('forwarded_payloads',forwarded,prop,'satisfied',True))
+ computed=forwarded.replace('Hub.ReceivePrimary(2);','Hub.ReceivePrimary(limit + Round);')
+ result.append(('computed_payloads',computed,TRUE,'satisfied',True))
+ result.append(('computed_payload_property_error',computed,GLOBAL,'assertion failed',True))
+
+ # Either actor can introduce a new parameter value into the other's selected set.
+ mutual='''reactiveclass Node(5) {
+    knownrebecs { Node peer; }
+    Node() { self.tick(false); }
+    msgsrv tick(boolean value) { peer.tick(!value); }
+}
+main { Node A(B):(); Node B(A):(); }
+'''
+ result.append(('mutual_variable_payload_fallback',mutual,TRUE,'satisfied',True))
  return result
