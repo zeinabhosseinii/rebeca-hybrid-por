@@ -26,6 +26,7 @@ def main():
   if expected=='satisfied':row['graph_audit']=audit(case)
   if name=='three_token_union' and not any(len(c['actions'])>1 for c in row['graph_audit']['partial_certificates']):raise ValueError('Mixed Hub union was not exercised')
   if name=='read_write_hub' and modes['filtered']['queue_dependency_rejections']==0:raise ValueError('Future conflicting Hub handler was not exercised')
+  if name=='different_constants_same_syntax' and (metadata.get('commuting_scalar_pairs',0)!=0 or modes['filtered']['queue_dependency_rejections']==0):raise ValueError('Different parameter constants must not trigger scalar equivalence')
   summary['cases'][name]=row;(out/'summary.json').write_text(json.dumps(summary,indent=2)+'\n')
  summary['native_executions']=2*len(summary['cases']);summary['all_passed']=True;(out/'summary.json').write_text(json.dumps(summary,indent=2)+'\n');print('PASS: supplied communicating LoadBalancer, renamed/mutant models, native errors and finite semantic audits')
 if __name__=='__main__':main()

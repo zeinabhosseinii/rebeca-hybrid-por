@@ -1,0 +1,1 @@
+property { Assertion { Balanced: Hub.PrimaryLoad >= 1 && Hub.PrimaryLoad <= 192 && Hub.SecondaryLoad >= 1 && Hub.SecondaryLoad <= 192; } }

@@ -5,26 +5,13 @@ import com.google.gson.*;
 import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.*;
 import org.rebecalang.compiler.propertycompiler.generalrebeca.objectmodel.PropertyModel;
 
-/** Sufficient zero-time queue-bag certificate for nullary or unread literal payloads. Never used without runtime avoidance closure and proviso. */
+/** Sufficient zero-time queue-bag certificate for nullary or per-method fixed literal payloads. Never used without runtime avoidance closure and proviso. */
 public final class NullaryQueueCertificate {
  public static final class Result {
   public final List<List<List<List<Boolean>>>> sends=new ArrayList<>(), conflicts=new ArrayList<>();
   public final List<List<Boolean>> known=new ArrayList<>();
   public long tokenBound;
   public int commutingScalarPairs;
- }
- private static boolean readsParameter(Expression e,Set<String> names){
-  if(e instanceof TermPrimary t && names.contains(t.getName()))return true;
-  if(e instanceof BinaryExpression b)return readsParameter(b.getLeft(),names)||readsParameter(b.getRight(),names);
-  if(e instanceof UnaryExpression u)return readsParameter(u.getExpression(),names);
-  return false;
- }
- private static boolean readsParameterStatement(Statement s,Set<String> names){
-  if(s instanceof BlockStatement b){for(var child:b.getStatements())if(readsParameterStatement(child,names))return true;return false;}
-  if(s instanceof ConditionalStatement c)return readsParameter(c.getCondition(),names)||readsParameterStatement(c.getStatement(),names)||(c.getElseStatement()!=null&&readsParameterStatement(c.getElseStatement(),names));
-  if(s instanceof DotPrimary d){var call=(TermPrimary)d.getRight();for(var arg:call.getParentSuffixPrimary().getArguments())if(readsParameter(arg,names))return true;return false;}
-  if(s instanceof TermPrimary t && t.getParentSuffixPrimary()!=null){for(var arg:t.getParentSuffixPrimary().getArguments())if(readsParameter(arg,names))return true;return false;}
-  return s instanceof Expression e && readsParameter(e,names);
  }
  private static Object scalarExpression(Expression e){
   if(e instanceof Literal literal)return List.of("literal",e.getType().getTypeName(),literal.getLiteralValue());
@@ -69,8 +56,6 @@ public final class NullaryQueueCertificate {
    Map<List<String>,Integer> ids=new HashMap<>();Map<Integer,PropertyObservationMetadata.Effects> effects=new HashMap<>();Map<Integer,List<List<String>>> outgoing=new HashMap<>();Map<Integer,Integer> seeds=new HashMap<>();Map<Integer,Object> scalarPrograms=new HashMap<>();
    for(int r=0;r<n;r++){int m=1;for(var method:index.instances.get(names.get(r)).getMsgsrvs()){
     PropertyObservationMetadata.need(m<width,"unmapped_method");
-    Set<String> parameterNames=new HashSet<>();for(var parameter:method.getFormalParameters())parameterNames.add(parameter.getName());
-    PropertyObservationMetadata.need(!readsParameterStatement(method.getBlock(),parameterNames),"observed_message_parameter");
     PropertyObservationMetadata.need(ids.put(List.of(names.get(r),method.getName().toUpperCase(Locale.ROOT)),r*width+m++)==null,"ambiguous_method_identity");
    }}
    Map<List<String>,Object> payloads=new HashMap<>();
@@ -112,7 +97,8 @@ public final class NullaryQueueCertificate {
         conflict=!Collections.disjoint(x.writes,y.writes)||!Collections.disjoint(x.writes,y.reads)||!Collections.disjoint(y.writes,x.reads);
         // Identical total scalar functions commute with themselves, even with overlapping writes.
         // Source-assertion bodies remain conservative; no assertion is assumed or removed.
-        if(conflict && a!=b && !x.hasAssertions && !y.hasAssertions && Objects.equals(scalarPrograms.get(a),scalarPrograms.get(b))){
+        // Parameter names alone do not identify functions: different methods may receive different fixed constants.
+        if(conflict && a!=b && !x.hasAssertions && !y.hasAssertions && x.params.isEmpty() && y.params.isEmpty() && Objects.equals(scalarPrograms.get(a),scalarPrograms.get(b))){
          conflict=false;if(a<b)result.commutingScalarPairs++;
         }
        }

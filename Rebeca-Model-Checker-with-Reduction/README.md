@@ -162,3 +162,5 @@ See [the structural certificate and native graph comparisons](tests/ACTOR_LOCAL_
 Communicating models: [queue certificate, native results and limitations](tests/NULLARY_QUEUE_COMMUNICATION.md). Run `bash tests/check_communicating_properties.sh` for structural refusal tests and 24 native control/reduced executions.
 
 The optional communicating certificate also admits [literal payloads with unread handler parameters](tests/UNREAD_MESSAGE_PARAMETERS.md); parameter-dependent handlers remain conservative.
+
+[Fixed-parameter communication](tests/FIXED_PARAMETER_COMMUNICATION.md) extends the optional queue certificate to actual parameter use in updates, guards and source assertions, under one fixed literal argument vector per receiver/method.

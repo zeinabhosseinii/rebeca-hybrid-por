@@ -1,0 +1,1 @@
+property { Assertion { NoEarlyHub: !(Hub.SecondaryLoad == 2 && SecondarySrc.Cycle == 0); } }

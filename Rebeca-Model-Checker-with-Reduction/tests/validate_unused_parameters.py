@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Native differential checks for unread primitive payloads; observed payloads refuse."""
+"""Native differential checks for fixed payloads; multiple values refuse."""
 import communicating_property_models as models
 import validate_communicating_properties as driver
 base=models.cases()
@@ -12,7 +12,7 @@ def variants():
   result.append(('unused_'+name,source,prop,outcome,True))
  name,source,prop,outcome,_=result[0]
  source=source.replace('Cycle = Cycle + 1;', 'Cycle = Cycle + ignored;',1)
- result.append(('observed_parameter',source,prop,'satisfied',False))
+ result.append(('observed_parameter',source,prop,'satisfied',True))
  name,source,prop,outcome,_=result[0]
  source=source.replace('PrimarySrc.Dispatch(7);','PrimarySrc.Dispatch(9);',1)
  result.append(('different_unread_payloads',source,prop,outcome,False))

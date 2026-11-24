@@ -1,0 +1,19 @@
+{
+  "jar_sha256": "1d21806f0491b8869bb193c7c48ccb1255388ca978d11b8c985f8d7cccdf4632",
+  "byte_identical_cases": [
+    "conditional_send",
+    "global_violation",
+    "load_bounds",
+    "load_true",
+    "queue_margin_refused",
+    "read_write_hub",
+    "renamed_load",
+    "repeatable_fanout_overflow",
+    "shared_hub_field",
+    "source_assertion",
+    "terminating",
+    "three_token_union"
+  ],
+  "default_generation_byte_identical": true,
+  "all_passed": true
+}

@@ -1,3 +1,5 @@
+Current extension: fixed literal parameters may now be read in scalar updates, guards and assertions. The original unread-only restrictions below are historical; see [current behavior and evidence](FIXED_PARAMETER_COMMUNICATION.md).
+
 # Literal payloads not observed by handlers
 
 The optional `--aria --aria-property-filter` queue certificate now also accepts

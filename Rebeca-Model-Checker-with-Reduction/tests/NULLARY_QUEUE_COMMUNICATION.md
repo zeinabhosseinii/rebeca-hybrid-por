@@ -1,3 +1,5 @@
+Current extension: [fixed literal payloads may be consumed by handlers](FIXED_PARAMETER_COMMUNICATION.md), with parameterized scalar-function equality kept conservative.
+
 # Nullary communicating models: optional property-aware POR
 
 This extends `--aria --aria-property-filter -p MODEL.property`, not ordinary
