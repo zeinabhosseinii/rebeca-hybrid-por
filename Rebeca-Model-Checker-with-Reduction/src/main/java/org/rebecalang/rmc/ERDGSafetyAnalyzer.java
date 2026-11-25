@@ -956,7 +956,29 @@ public class ERDGSafetyAnalyzer {
             AriaDependencyInput.apply(jsonPath, modelHash, idx.instanceTypeName, actionIds, sdiTable);
         }
         retainLocallyConflictingContinuations(g, svi, idx, sdiTable);
+        if (!NullaryQueueCertificate.provesQueueCapacity(rebecaModel, idx.maxMsgId + 1)) {
+            retainQueueSpaceDependencies(g, sdiTable);
+        }
         return new PORSafetyAnalyzer.Result(table, idx.maxMsgId, sdiTable, ampSetOrder);
+    }
+
+    /**
+     * Removing a frame can turn another actor's overflowing send into a
+     * successful enqueue. Keep that send as a blocker unless capacity was
+     * independently proved. Include future senders, as for the SDI fallback.
+     */
+    private static void retainQueueSpaceDependencies(
+            SendGraph graph, List<List<List<List<Boolean>>>> dependencies) {
+        for (var destination : graph.senders.entrySet()) {
+            int receiver = instanceOf(destination.getKey());
+            for (int sender : destination.getValue()) {
+                int senderActor = instanceOf(sender);
+                if (senderActor == receiver) continue;
+                for (var blockers : dependencies.get(receiver)) {
+                    blockers.get(senderActor).set(msgIdOf(sender), true);
+                }
+            }
+        }
     }
 
     /**

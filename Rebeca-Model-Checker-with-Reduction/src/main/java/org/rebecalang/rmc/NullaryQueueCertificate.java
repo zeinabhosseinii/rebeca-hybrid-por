@@ -54,12 +54,26 @@ public final class NullaryQueueCertificate {
  public record Assessment(Result certificate,String reason) {}
  public static Result analyze(RebecaModel model,PropertyModel property,int width){return assess(model,property,width).certificate();}
  public static Assessment assess(RebecaModel model,PropertyModel property,int width){
-  try{return new Assessment(analyzeChecked(model,property,width),null);}
+  try{
+   PropertyObservationMetadata.need(property!=null,"external property required");
+   return new Assessment(analyzeChecked(model,property,width),null);
+  }
   catch(RuntimeException failure){return new Assessment(null,failure.getMessage()==null?failure.getClass().getSimpleName():failure.getMessage());}
  }
+ /** Prove capacity independently of an external observation. */
+ static boolean provesQueueCapacity(RebecaModel model,int width){
+  try{
+   return analyzeChecked(model,null,width)!=null;
+  }catch(PropertyObservationMetadata.Reject failure){
+   return false;
+  }
+ }
  private static Result analyzeChecked(RebecaModel model,PropertyModel property,int width){
-   JsonObject metadata=PropertyObservationMetadata.audit(model,property);
-   PropertyObservationMetadata.need(metadata.get("metadata_supported").getAsBoolean()&&!PropertyObservationMetadata.hasModelAnnotations(model),"unsupported_model_or_property_metadata");
+   PropertyObservationMetadata.need(!PropertyObservationMetadata.hasModelAnnotations(model),"annotated model");
+   if(property!=null){
+    JsonObject metadata=PropertyObservationMetadata.audit(model,property);
+    PropertyObservationMetadata.need(metadata.get("metadata_supported").getAsBoolean(),"unsupported_model_or_property_metadata");
+   }
    var index=new PropertyObservationMetadata.Index(model);List<String> names=new ArrayList<>(index.instances.keySet());int n=names.size();
    Map<List<String>,Integer> ids=new HashMap<>();Map<Integer,PropertyObservationMetadata.Effects> effects=new HashMap<>();Map<Integer,List<List<String>>> outgoing=new HashMap<>();Map<Integer,Integer> seeds=new HashMap<>();Map<Integer,Object> scalarPrograms=new HashMap<>();
    for(int r=0;r<n;r++){int m=1;for(var method:index.instances.get(names.get(r)).getMsgsrvs()){
@@ -90,9 +104,10 @@ public final class NullaryQueueCertificate {
    // Execution dequeues after handler completion, so reserve one extra message per atomic handler.
    long transientBound=tokens+1;
    for(var actor:index.instances.values())PropertyObservationMetadata.need(actor.getQueueSize()!=null&&actor.getQueueSize()>transientBound,"insufficient_queue_margin");
+   Result result=new Result();result.tokenBound=tokens;
+   if(property==null)return result;
    Set<Integer> variableIds=new HashSet<>();
    for(var target:variablePayloads)variableIds.add(ids.get(target));
-   Result result=new Result();result.tokenBound=tokens;
    for(int r=0;r<n;r++){
     List<Boolean> knownRow=new ArrayList<>(), variableRow=new ArrayList<>();List<List<List<Boolean>>> sendRow=new ArrayList<>(), conflictRow=new ArrayList<>();
     for(int m=0;m<width;m++){
