@@ -6,6 +6,10 @@
 
 \#include <iostream>
 \#include <locale>
+#if($cycleBarriersAllowed && !$ariaPropertyFilterEnabled)
+\#include <unordered_map>
+\#include <unordered_set>
+#end
 
 \#define DEADLINE_MISSED 10
 

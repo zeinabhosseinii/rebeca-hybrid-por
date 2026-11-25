@@ -45,11 +45,20 @@ def export_json(model,name):
     OUT.mkdir(parents=True,exist_ok=True)
     command(['java','-jar',ROOT.parent/'ARIA/target/erdg-tool-0.1.0.jar','file',model],ROOT.parent/'ARIA',OUT/(name+'-aria.log'))
 
+def prepare_full_control(online,full):
+    full.mkdir(exist_ok=True)
+    for f in online.iterdir():
+        if f.suffix in ('.cpp','.h'):shutil.copyfile(f,full/f.name)
+    p=full/'Config.h';text,count=re.subn(r'^\s*#\s*define\s+PO\s*$','// full normalized reference',p.read_text(),flags=re.M)
+    if count!=1:raise ValueError('Expected one PO macro')
+    p.write_text(text)
+
+
 if __name__=='__main__':
     os.environ['ARIA_PRUNE']='1';os.environ['ARIA_EXPORT']='1'
     results={}
-    cases=[('LoadBalancerSmall',ROOT.parent/'ARIA/benchmarks/LoadBalancerSmall.rebeca',(27,31),(27,32)),
-           ('QuiescenceResend',ROOT/'tests/fixtures/QuiescenceResend.rebeca',(201,328),(338,720))]
+    cases=[('LoadBalancerSmall',ROOT.parent/'ARIA/benchmarks/LoadBalancerSmall.rebeca',(19,20),(27,32)),
+           ('QuiescenceResend',ROOT/'tests/fixtures/QuiescenceResend.rebeca',(117,139),(338,720))]
     for name,model,new_counts,legacy_counts in cases:
         export_json(model,name);base=OUT/name;results[name]={}
         for mode in ('aria_ast','aria_json'):
@@ -59,12 +68,9 @@ if __name__=='__main__':
             checkpoint(results)
             if not results[name][mode]['matches_reference_counts']:
                 print(f'{name} {mode}: counts differ from reference; running full semantic audit',flush=True)
-        full=base/'full';full.mkdir(exist_ok=True)
-        for f in (base/'aria_ast').iterdir():
-            if f.suffix in ('.cpp','.h'):shutil.copyfile(f,full/f.name)
-        p=full/'Config.h';s,n=re.subn(r'^\s*#\s*define\s+PO\s*$','// full normalized reference',p.read_text(),flags=re.M)
-        if n!=1:raise ValueError('Expected one PO macro');
-        p.write_text(s);results[name]['full']=compile_run(full,['-DEXPORT_STATE_SPACE'])
+        full=base/'full'
+        prepare_full_control(base/'aria_ast',full)
+        results[name]['full']=compile_run(full,['-DEXPORT_STATE_SPACE'])
         for mode in ('aria_ast','aria_json'):
             semantic_audit(full,base/mode,model,base/('semantic-'+mode+'.json'))
             results[name][mode]['semantic_audit']='passed'
@@ -73,6 +79,18 @@ if __name__=='__main__':
         results[name]['legacy']=check_result(legacy,legacy_counts)
         results[name]['legacy']['semantic_audit']='not_run_performance_control'
         checkpoint(results)
+    # Two independent looping actors can otherwise close a genuinely partial cycle.
+    name='PartialLoop';model=ROOT/'tests/fixtures'/ (name+'.rebeca')
+    base=OUT/name;online=base/'aria_ast';full=base/'full'
+    generate(model,name,'aria_ast',online)
+    prepare_full_control(online,full)
+    results[name]={'aria_ast':compile_run(online,['-DPOR_DIAGNOSTICS','-DEXPORT_STATE_SPACE']),
+                   'full':compile_run(full,['-DEXPORT_STATE_SPACE'])}
+    cycle=semantic_audit(full,online,model,base/'semantic-aria_ast.json')
+    if not cycle['verified_proviso_rejections'] or not cycle['outcomes'].get('full'):
+        raise ValueError('No partial cycle rejection and full fallback')
+    results[name]['aria_ast']['semantic_audit']='passed'
+    checkpoint(results)
     # A loop is partial while a different actor can expose an assertion error.
     name='CyclePendingAssertion';model=ROOT/'tests/fixtures'/ (name+'.rebeca');export_json(model,name)
     results[name]={}

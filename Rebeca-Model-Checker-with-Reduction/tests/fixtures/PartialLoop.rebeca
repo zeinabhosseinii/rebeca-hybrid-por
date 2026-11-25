@@ -1,0 +1,9 @@
+reactiveclass Spinner(3) {
+    statevars { int bit; }
+    Spinner() { bit = 0; self.Tick(); }
+    msgsrv Tick() { bit = 1 - bit; self.Tick(); }
+}
+main {
+    Spinner left():();
+    Spinner right():();
+}

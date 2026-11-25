@@ -86,6 +86,31 @@ class OnlineAudit(unittest.TestCase):
                 log.extend([{'event':'POR_FULL','state':sid},{'event':'POR_FULL_BARRIER','state':sid}])
             else:log.append({'event':'POR_TRIAL','state':sid,'actor':actions[0][0],'accepted':'1'})
         self.assertEqual(verify(g,m,edges,log)['outcomes'],{'full':3,'reduced':2})
+    def test_acyclic_witness_after_full_expansion(self):
+        g=Graph();g.initial='1_0'
+        for state, flip_a, flip_b in [('1_0','2_0','4_0'), ('2_0','1_0','3_0'),
+                                      ('3_0','4_0','2_0'), ('4_0','3_0','1_0')]:
+            g.add(state,A,flip_a);g.add(state,B,flip_b)
+        g.observations={state:'' for state in g.edges}
+        mapping={state:state for state in g.edges}
+        edges={'1_0':{A:{'2_0'}},'2_0':g.edges['2_0'],
+               '3_0':{A:{'4_0'}},'4_0':{B:{'1_0'}}}
+        events=[{'event':'POR_STATE','state':'1'},
+                {'event':'POR_TRIAL','state':'1','actor':'A','accepted':'1'},
+                {'event':'POR_STATE','state':'2'},
+                {'event':'POR_FULL','state':'2'}, {'event':'POR_FULL_BARRIER','state':'2'},
+                {'event':'POR_STATE','state':'3'},
+                {'event':'POR_TRIAL','state':'3','actor':'A','accepted':'1'},
+                {'event':'POR_STATE','state':'4'},
+                {'event':'POR_PROVISO_WITNESS','state':'4','actor':'B','target':'1',
+                 'reason':'acyclic_partial_graph'},
+                {'event':'POR_TRIAL','state':'4','actor':'B','accepted':'1'}]
+        self.assertEqual(verify(g,mapping,edges,events)['verified_acyclic_witnesses'],1)
+        events[3]={'event':'POR_PROVISO_WITNESS','state':'2','actor':'A','target':'1',
+                   'reason':'acyclic_partial_graph'}
+        with self.assertRaisesRegex(ValueError,'closes a partial-only cycle'):
+            verify(g,mapping,edges,events)
+
     def test_truncated_trace_rejected(self):
         g,m,e,log=sample()
         with self.assertRaisesRegex(ValueError,'incomplete'):verify(g,m,e,log[:-1])

@@ -24,6 +24,10 @@
 #end
     bool isPorCandidateFull(const PorCandidate& candidate, TIME_TYPE currentTime, int highestPriority);
     bool isPorSuccessorAllowed(bool candidateIsFull);
+#if($cycleBarriersAllowed && !$ariaPropertyFilterEnabled)
+    bool closesPartialCycle(TimedBFSState* successor) const;
+    std::unordered_map<TimedBFSState*, std::vector<TimedBFSState*> > partialSuccessors;
+#end
 	byte _porResult;
 	TimedBFSState* _porResultState;
 	#end
@@ -371,6 +375,25 @@ bool TimedModelChecker::isPorCandidateFull(const PorCandidate& candidate, TIME_T
     return true;
 }
 
+#if($cycleBarriersAllowed && !$ariaPropertyFilterEnabled)
+bool TimedModelChecker::closesPartialCycle(TimedBFSState* successor) const {
+    // Only accepted partial expansions have outgoing edges in this graph.
+    // A completed full expansion breaks any partial-only path through it.
+    std::vector<TimedBFSState*> pending(1, successor);
+    std::unordered_set<TimedBFSState*> visited;
+    while (!pending.empty()) {
+        TimedBFSState* state = pending.back();
+        pending.pop_back();
+        if (state == current.state) return true;
+        if (!visited.insert(state).second) continue;
+        auto edges = partialSuccessors.find(state);
+        if (edges != partialSuccessors.end())
+            pending.insert(pending.end(), edges->second.begin(), edges->second.end());
+    }
+    return false;
+}
+#end
+
 bool TimedModelChecker::isPorSuccessorAllowed(bool candidateIsFull) {
 #if($ariaPropertyFilterEnabled)
     // Every accepted partial edge must discover a fresh state: partial-only cycles are impossible.
@@ -381,7 +404,13 @@ bool TimedModelChecker::isPorSuccessorAllowed(bool candidateIsFull) {
 \#else
     if (candidateIsFull || (_porResult & NEW_STATE) || _porResultState->openCount > 0) return true;
     // Only certified zero-time, single-bundle models may use node-wide barriers.
-    return ${cycleBarriersAllowed} && _porResultState->porFullExpanded;
+#if($cycleBarriersAllowed)
+    if (_porResultState->porFullExpanded) return true;
+    return partialSuccessors.count(_porResultState) != 0 &&
+           !closesPartialCycle(_porResultState);
+#else
+    return false;
+#end
 #endif
 #end
 }
@@ -572,6 +601,11 @@ void TimedModelChecker::doTimedModelChecking(string userSelectedPropertyName, st
 #endif
                 long nonDetTrans;
                 bool provisoSatisfied = true;
+#if($cycleBarriersAllowed && !$ariaPropertyFilterEnabled)
+#ifndef POR_LEGACY_PROVISO
+                std::vector<TimedBFSState*> successors;
+#endif
+#end
                 for (size_t ai = 0; ai < candidate.alternatives.size(); ai++) {
                     int alternativesCounter = candidate.alternatives[ai];
                     if (isEquivalentQueueAlternative(r, alternativesCounter)) continue;
@@ -598,6 +632,11 @@ void TimedModelChecker::doTimedModelChecking(string userSelectedPropertyName, st
                         currentTime = current.currentTime;
                         // All outcomes must satisfy the proviso, unless this is already
                         // the complete enabled set. Closed FULL barriers are explicit.
+#if($cycleBarriersAllowed && !$ariaPropertyFilterEnabled)
+#ifndef POR_LEGACY_PROVISO
+                        if (!candidateIsFull) successors.push_back(_porResultState);
+#endif
+#end
                         if (!isPorSuccessorAllowed(candidateIsFull)) {
                             provisoSatisfied = false;
 #ifdef POR_DIAGNOSTICS
@@ -611,12 +650,25 @@ void TimedModelChecker::doTimedModelChecking(string userSelectedPropertyName, st
                             cerr << "POR_PROVISO_WITNESS state=" << current.state->stateID
                                  << " actor=" << rebecs[r]->getName()
                                  << " target=" << _porResultState->stateID
+#if($cycleBarriersAllowed && !$ariaPropertyFilterEnabled)
+                                 << " reason=" << (candidateIsFull ? "exhaustive"
+                                     : _porResultState->porFullExpanded ? "completed_full_barrier"
+                                     : "acyclic_partial_graph") << endl;
+#else
                                  << " reason=" << (candidateIsFull ? "exhaustive" : "completed_full_barrier") << endl;
+#end
                         }
 #endif
                     } while (nonDetTrans > 0);
                 }
                 reductionApplied = provisoSatisfied;
+#if($cycleBarriersAllowed && !$ariaPropertyFilterEnabled)
+#ifndef POR_LEGACY_PROVISO
+                // Commit all retained outcomes together, after the entire trial passes.
+                if (reductionApplied && !candidateIsFull)
+                    partialSuccessors.emplace(current.state, std::move(successors));
+#endif
+#end
                 if (reductionApplied && candidateIsFull) fullExpansion = true;
 #ifdef POR_DIAGNOSTICS
                 cerr << "POR_TRIAL state=" << current.state->stateID

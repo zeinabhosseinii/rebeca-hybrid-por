@@ -1,5 +1,53 @@
 # Online full-expansion barriers for the BFS cycle proviso
 
+## Current online check
+
+In the same zero-time, single-bundle fragment, the generator now keeps the
+successors of accepted partial expansions. A trial to an already closed
+partial state is accepted only when the target has a recorded partial expansion
+and cannot reach the current state through previously selected partial edges.
+A completed full expansion has no outgoing edges in this relation. All outcomes
+of a trial are checked before its edges are stored. A rejected trial leaves the
+relation unchanged.
+
+The relation stays acyclic by induction. Any cycle introduced by adding the
+current state's outgoing edges must use one new edge and a pre-existing path
+back to the current state. A new or open target has no committed outgoing
+partial edges, completed full vertices break such paths, and a genuine
+partial-only back-edge triggers the existing candidate fallback.
+
+On the reviewed LoadBalancerSmall run, the old and new default generators used
+the same candidate order. The new search retained 19 states and 20 reported
+transitions, versus the old 27 and 31. The static export retained 22 and 26,
+and the same-generated full control had 64 and 128. The old rule rejected
+Hub's transition from its state 19 back to state 2 before trying later choices.
+The new native diagnostics show one accepted acyclic witness for that edge.
+Independent graph auditing verifies complete selected outcomes and that every
+selected cycle meets a fully expanded vertex. The separate PartialLoop fixture
+requires a real cycle rejection and a full fallback.
+
+The 17-model catalog also exposed existing C1 limitations. In case4, the
+immediate-barrier and current versions both accept a worker ENABLE that fails
+a finite commutation check against a later FINISH. For DataAggregation, an
+isolated self-loop removes deadlock without changing the repository's queue
+traffic. Both versions then report satisfied while the full control finds queue
+overflow. These results limit what can be inferred from the cycle check.
+
+Reproduce with the existing cycle-barrier suite. To obtain concrete state and
+path witnesses for both reduced graphs, run:
+
+```bash
+bash tests/compare_representatives.sh
+python3 tests/compare_static_dynamic_states.py \
+  --full tmp/CycleBarriers/LoadBalancerSmall/full \
+  --static tmp/RepresentativeChoices/static \
+  --dynamic tmp/CycleBarriers/LoadBalancerSmall/aria_ast \
+  --output tmp/LoadBalancerStateDifferences
+```
+
+The sections below record earlier checkpoints using the immediate-barrier rule.
+
+
 This is an executable proviso refinement, not a state-count target and not a
 lookup in a saved graph. C1/dependency certificates, parameter alternatives,
 nondeterministic execution and error exceptions are unchanged. Runtime COND

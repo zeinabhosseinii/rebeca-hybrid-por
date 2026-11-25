@@ -955,7 +955,44 @@ public class ERDGSafetyAnalyzer {
             }
             AriaDependencyInput.apply(jsonPath, modelHash, idx.instanceTypeName, actionIds, sdiTable);
         }
+        retainLocallyConflictingContinuations(g, svi, idx, sdiTable);
         return new PORSafetyAnalyzer.Result(table, idx.maxMsgId, sdiTable, ampSetOrder);
+    }
+
+    /**
+     * A selected handler can conflict with a different handler of the same actor
+     * that becomes enabled after other actors run. Preserve paths to such a
+     * handler that can execute without first running the selected handler.
+     * Apply this guard after importing SDI because it is a separate dependency.
+     */
+    private static void retainLocallyConflictingContinuations(
+            SendGraph graph, Map<String, Map<Integer, Set<Integer>>> svi, ModelIndex index,
+            List<List<List<List<Boolean>>>> dependencies) {
+        for (int actor = 0; actor < index.instanceCount; actor++) {
+            String type = index.instanceTypeName.get(index.instanceNames.get(actor));
+            for (var entry : svi.getOrDefault(type, Collections.emptyMap()).entrySet()) {
+                int selectedMessage = entry.getKey();
+                int selected = key(actor, selectedMessage);
+                Set<Integer> visited = new HashSet<>();
+                Deque<Integer> pending = new ArrayDeque<>();
+                visited.add(selected);
+                for (int conflicting : entry.getValue()) {
+                    int action = key(actor, conflicting);
+                    if (visited.add(action)) pending.add(action);
+                }
+                while (!pending.isEmpty()) {
+                    int action = pending.removeFirst();
+                    int senderActor = instanceOf(action);
+                    if (senderActor != actor) {
+                        dependencies.get(actor).get(selectedMessage).get(senderActor)
+                                .set(msgIdOf(action), true);
+                    }
+                    for (int sender : graph.senders.getOrDefault(action, Collections.emptySet())) {
+                        if (visited.add(sender)) pending.add(sender);
+                    }
+                }
+            }
+        }
     }
 
     /** Narrow online certificate: nullary scalar constant assignments only.

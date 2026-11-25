@@ -2,25 +2,33 @@
 """Run the actual candidate trial loop: a rejected first action must not hide the next."""
 from pathlib import Path
 import subprocess,tempfile
-root=Path(__file__).resolve().parents[1]
-s=(root/'src/main/resources/vtl/timedrebeca/analyzer/FTTSPatchTemplate.vm').read_text()
-a=s.index('            for (size_t ci = 0; ci < candidates.size()')
-b=s.index('        }\n        if (!reductionApplied)',a)
-loop=s[a:b]
+from run_cycle_barriers import ROOT, generate
+
+def trial_loop(directory):
+ model=ROOT/'tests/fixtures/PartialLoop.rebeca'
+ generate(model,model.stem,'aria_ast',directory)
+ source=(directory/'TimedModelChecker.cpp').read_text()
+ start=source.index('            for (size_t ci = 0; ci < candidates.size()')
+ end=source.index('        }\n        if (!reductionApplied)',start)
+ return source[start:end]
+
 source=r'''
 #include <vector>
+#include <unordered_map>
 #include <cassert>
 #include <iostream>
 using namespace std;
 using TIME_TYPE=int;const int MAX_TIME=999,NEW_STATE=1;
 struct Actor{unsigned char messageQueue[2]={1,2};int deadline[2]={999,999};const char* getName(){return "A";}const char* activeAction(){return "Run";}} actor;
 struct Shift{int shift=0;};
-struct State{int stateID=1,openCount=0,rebsIndex=0;Shift shiftTimes[1];} state,closed;
+struct State{int stateID=1,openCount=0,rebsIndex=0;bool porFullExpanded=false;Shift shiftTimes[1];} state,closed;
+using TimedBFSState=State;
 struct Current{State* state;int stateActiveBundleNumber=0,currentTime=0;} current;
 struct DeadlineMissedException{DeadlineMissedException(const char*,Actor*){}};
 struct PorCandidate{int actor,messageId;const char* proof;vector<int> alternatives;};
 struct Checker{
  Actor* rebecs[1]={&actor};int calls=0,_porResult=0;bool doubleBranches=false;State* _porResultState=&closed;
+ unordered_map<State*, vector<State*> > partialSuccessors;
  bool isEquivalentQueueAlternative(int,int){return false;}
  bool isPorCandidateFull(const PorCandidate&,int,int){return false;}
  bool isPorSuccessorAllowed(bool full){return full||(_porResult & NEW_STATE)||_porResultState->openCount>0;}
@@ -33,10 +41,10 @@ struct Checker{
   return reductionApplied;
  }
 };
-int main(){current.state=&state;Checker c;assert(c.run());assert(c.calls==2);Checker nd;nd.doubleBranches=true;assert(nd.run());assert(nd.calls==4);}
-'''.replace('LOOP',loop)
+int main(){current.state=&state;Checker c;assert(c.run());assert(c.calls==2);Checker nd;nd.doubleBranches=true;assert(nd.run());assert(nd.calls==4);assert(nd.partialSuccessors.at(&state).size()==2);}
+'''
 with tempfile.TemporaryDirectory() as d:
- d=Path(d);p=d/'test.cpp';p.write_text(source)
+ d=Path(d);p=d/'test.cpp';p.write_text(source.replace('LOOP',trial_loop(d/'generated')))
  for opt in ('-O0','-O2'):
   for flags in ([],['-DPOR_DIAGNOSTICS']):
    subprocess.run(['g++','-std=c++11',opt,*flags,str(p),'-o',str(d/'test')],check=True)
