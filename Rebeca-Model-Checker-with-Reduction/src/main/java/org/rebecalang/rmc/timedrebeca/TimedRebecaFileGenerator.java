@@ -261,6 +261,11 @@ public class TimedRebecaFileGenerator extends CoreRebecaFileGenerator {
                 assertions.isEmpty() && definitions.isEmpty() &&
                 org.rebecalang.rmc.ERDGSafetyAnalyzer.supportsFullExpansionBarriers(rebecaModel));
 
+        if (Boolean.TRUE.equals(context.get("cycleBarriersAllowed"))) {
+            var workers = org.rebecalang.rmc.EpochWorkerCertificate.analyze(rebecaModel);
+            if (!workers.isEmpty()) context.put("epochWorkers", workers);
+        }
+
 		if (porResult.sdiMatrix != null)
 			context.put("sdiMatrix", porResult.sdiMatrix);
 		if (porResult.ampSetOrder != null)
