@@ -63,7 +63,7 @@ def finite_audit(case,model):
     # Restricted to exact generated sources without sender/time/properties.
     # This audit is deliberately sufficient, not complete for every safe POR.
     import re
-    match=re.fullmatch(r'Scale_(independent|shared)_(\d+)\.rebeca',model.name)
+    match=re.fullmatch(r'Scale_(shared)_(\d+)\.rebeca',model.name)
     if not ((match and model.read_text()==make_model(match[1],int(match[2]))) or digest(model)=='e16a4345640ecb055ea1079f970f283277339315fd1a0a2f319c1d9876af0120'):
         raise ValueError('Audit restricted to exact generated family or reviewed invariant-certified assertion fixture')
     from audit_hub_alternatives import signature
@@ -128,14 +128,13 @@ def finite_audit(case,model):
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--output',type=Path,required=True)
-    p.add_argument('--families',nargs='+',choices=['independent','shared'],default=['independent','shared'])
-    p.add_argument('--sizes',nargs='+',type=int,help='Override both family size lists')
-    p.add_argument('--independent-sizes',nargs='+',type=int,default=[4,6,8])
+    p.add_argument('--families',nargs='+',choices=['shared'],default=['shared'])
+    p.add_argument('--sizes',nargs='+',type=int,help='Override the shared model sizes')
     p.add_argument('--shared-sizes',nargs='+',type=int,default=[2,4,6])
     p.add_argument('--repeats',type=int,default=10);p.add_argument('--timeout',type=float,default=30)
     p.add_argument('--seed',type=int,default=1729);p.add_argument('--audit-small',action='store_true')
     a=p.parse_args()
-    sizes={f:a.sizes or (a.independent_sizes if f=='independent' else a.shared_sizes) for f in a.families}
+    sizes={f:a.sizes or a.shared_sizes for f in a.families}
     if a.repeats<1 or a.timeout<=0 or any(n<1 or n>16 for v in sizes.values() for n in v):p.error('Invalid limits')
     if a.audit_small and max(n for v in sizes.values() for n in v)>3:p.error('Finite graph audit restricted to <=3 workers; do not time exports')
     out=a.output.resolve()

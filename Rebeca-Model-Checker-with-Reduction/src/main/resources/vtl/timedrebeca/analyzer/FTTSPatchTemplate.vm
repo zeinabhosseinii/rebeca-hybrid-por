@@ -340,15 +340,6 @@ std::vector<TimedModelChecker::PorCandidate> TimedModelChecker::collectPorCandid
         cursor = k + 1;
     }
     if (!choices.empty()) return choices;
-#if($epochWorkers)
-    static const bool epochWorker[REBEC_COUNT] = {#foreach($worker in $epochWorkers)$worker#if($foreach.hasNext), #end#end};
-    // The certified epoch cannot restart until this pending tick finishes its worker.
-    if (epochWorker[r] && getNumberOfAlternatives(r, execTime) == 1) {
-        PorCandidate candidate = {r, (unsigned char)rebecs[r]->messageQueue[0], "epoch_worker", {0}};
-        choices.push_back(candidate);
-        return choices;
-    }
-#end
     // Global safety alone does NOT justify splitting distinct methods of one actor.
 #if($ariaPropertyFilterEnabled && $tokenQueueCertified)
     if (!isNullaryQueueCandidateSafe(r, execTime)) return choices;

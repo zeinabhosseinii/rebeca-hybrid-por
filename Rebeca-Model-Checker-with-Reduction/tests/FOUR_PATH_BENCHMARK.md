@@ -1,5 +1,8 @@
 # Four-path scaling benchmark extension
 
+The active scaling runner includes the shared family. Independent-family measurements below are historical.
+
+
 The current scaling runner now measures these modes together:
 
 | Mode | Native input | Purpose |
